@@ -1,6 +1,6 @@
 # Icons on the footer
 rss: true         # Make sure you created a feed.xml with feed.xml layout
-email_address:    # Full email address, e.g. "sam@example.com"
+email_address: zekun.wang.us@gmail.com   # Full email address, e.g. "sam@example.com"
 behance:
 bitbucket:
 dribbble:
@@ -10,7 +10,7 @@ gitlab:
 github: "sylhare"
 instagram:
 keybase:
-linkedin:         # Full URL
+linkedin: https://www.linkedin.com/in/zekun-wang/  # Full URL
 pinterest:
 reddit:
 soundcloud:
