@@ -142,9 +142,11 @@ mean_sml_nh
 
 ## 3. What is the absolute and relative error for your simulation in the previous question?
 
-Absolute error = $|p̂−p|$
+Absolute error =
+$$|p̂−p|$$
 
-Relative error = $|p̂−p|/p$.
+Relative error =
+$$|p̂−p|/p$$.
 
 ```{r}
 abs_error_h <- abs(mean(sml_list_h) - p_home)

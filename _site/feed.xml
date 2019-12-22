@@ -5,8 +5,8 @@
     <description>Every failure is leading towards success.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 21 Dec 2019 23:20:21 -0600</pubDate>
-    <lastBuildDate>Sat, 21 Dec 2019 23:20:21 -0600</lastBuildDate>
+    <pubDate>Sat, 21 Dec 2019 23:23:46 -0600</pubDate>
+    <lastBuildDate>Sat, 21 Dec 2019 23:23:46 -0600</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -177,25 +177,11 @@ mean_sml_nh
 
 &lt;h2 id=&quot;3-what-is-the-absolute-and-relative-error-for-your-simulation-in-the-previous-question&quot;&gt;3. What is the absolute and relative error for your simulation in the previous question?&lt;/h2&gt;
 
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Absolute error = $&lt;/td&gt;
-      &lt;td&gt;p̂−p&lt;/td&gt;
-      &lt;td&gt;$&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;p&gt;Absolute error =
+&lt;script type=&quot;math/tex&quot;&gt;|p̂−p|&lt;/script&gt;&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Relative error = $&lt;/td&gt;
-      &lt;td&gt;p̂−p&lt;/td&gt;
-      &lt;td&gt;/p$.&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;p&gt;Relative error =
+&lt;script type=&quot;math/tex&quot;&gt;|p̂−p|/p&lt;/script&gt;.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;abs_error_h &amp;lt;- abs(mean(sml_list_h) - p_home)
 rel_error_h &amp;lt;- abs(mean(sml_list_h) - p_home)/mean(sml_list_h)

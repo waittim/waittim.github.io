@@ -373,25 +373,11 @@ mean_sml_nh
 
 <h2 id="3-what-is-the-absolute-and-relative-error-for-your-simulation-in-the-previous-question">3. What is the absolute and relative error for your simulation in the previous question?</h2>
 
-<table>
-  <tbody>
-    <tr>
-      <td>Absolute error = $</td>
-      <td>p̂−p</td>
-      <td>$</td>
-    </tr>
-  </tbody>
-</table>
+<p>Absolute error =
+<script type="math/tex">|p̂−p|</script></p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>Relative error = $</td>
-      <td>p̂−p</td>
-      <td>/p$.</td>
-    </tr>
-  </tbody>
-</table>
+<p>Relative error =
+<script type="math/tex">|p̂−p|/p</script>.</p>
 
 <pre><code class="language-{r}">abs_error_h &lt;- abs(mean(sml_list_h) - p_home)
 rel_error_h &lt;- abs(mean(sml_list_h) - p_home)/mean(sml_list_h)
