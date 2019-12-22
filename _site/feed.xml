@@ -5,9 +5,95 @@
     <description>Every failure is leading towards success.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 22 Dec 2019 12:38:18 -0600</pubDate>
-    <lastBuildDate>Sun, 22 Dec 2019 12:38:18 -0600</lastBuildDate>
+    <pubDate>Sun, 22 Dec 2019 12:41:45 -0600</pubDate>
+    <lastBuildDate>Sun, 22 Dec 2019 12:41:45 -0600</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
+    
+      <item>
+        <title>Power and sample size calculations correlational studies</title>
+        <description>&lt;p&gt;A common research objective is to demonstrate that two measurements are highly correlated. One measurement, call it A, may reflect the severity of disease but is difficult or costly to collect. Another measurement, call it B, may be easier to collect and potentially related to measurement A. If there is strong association between A and B, a cost effective strategy for diagnosis may be to collect measurement B instead of A.&lt;/p&gt;
+
+&lt;p&gt;The researcher will collect both measurements on N individuals. The analysis will proceed by calculating a one-sided confidence interval. If the confidence interval is completely within the range from 0.8 to 1, then the researcher will consider the study to be a success: A conclusive demonstration that the correlation between A and B is greater than 0.8.&lt;/p&gt;
+
+&lt;p&gt;Power is the probability that the study will end in success when the true underlying correlation is. The code below provides the power calculation for a single combination of N and population correlation.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;set.seed(1122)
+suppressPackageStartupMessages(require(mvtnorm))
+N &amp;lt;- 50
+rho &amp;lt;- .95
+null_correlation &amp;lt;- 0.8
+R &amp;lt;- 5000
+
+sigma &amp;lt;- array(c(1,rho,rho,1), c(2,2))
+mu &amp;lt;- c(0,0)
+
+detect &amp;lt;- rep(NA, R)
+for(i in 1:R){
+  data &amp;lt;- rmvnorm(N, mean = mu, sigma = sigma)
+  results &amp;lt;- cor.test(x = data[,1], y = data[,2], alternative = &quot;greater&quot;)
+  detect[i] &amp;lt;- results$conf.int[1] &amp;gt; null_correlation
+}
+power &amp;lt;- mean(detect)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For the simulation part, we need to use correlations from 0.8 to 0.95 and the sample size from 25 to 100. Now, let’s create a table to save the generated powers.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;corr_list &amp;lt;-  seq(0.8,0.95,0.01)
+N_list &amp;lt;- seq(25,100,25)
+result &amp;lt;- expand.grid(corr=corr_list, N = N_list, power=NA)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And use a for loop to apply all of the correlations and sample size and calculate the powers.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;for (j in 1:nrow(result)){
+  N &amp;lt;- result[j,2]    #50
+  rho &amp;lt;- result[j,1]  #.8
+  null_correlation &amp;lt;- 0.8
+  R &amp;lt;- 5000
+
+  sigma &amp;lt;- array(c(1,rho,rho,1), c(2,2))
+  mu &amp;lt;- c(0,0)
+
+  detect &amp;lt;- rep(NA, R)
+  for(i in 1:R){
+    data &amp;lt;- rmvnorm(N, mean = mu, sigma = sigma)
+    results &amp;lt;- cor.test(x = data[,1], y = data[,2], alternative = &quot;greater&quot;)
+    detect[i] &amp;lt;- results$conf.int[1] &amp;gt; null_correlation
+  }
+  power &amp;lt;- mean(detect)
+  result[j,3] &amp;lt;- power
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Transform the table into data frame type and plot the graph.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;result_df &amp;lt;- as.data.frame(result) %&amp;gt;%
+  mutate(N=factor(N))
+
+result_df %&amp;gt;%
+  ggplot()+
+  geom_line(aes(x=corr,y=power,color=N),size=1)+
+  theme_bw()+
+  labs(x=&quot;Correlation&quot;,y=&quot;Power&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/02c64Qkt/image.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;As we can see, with the N increasing, the power under the certain correlation is growing up. In other words, when we can collect more samples, the probability that the study will end in success will be higher. And definitely, when the real correlation is higher, the probability will be higher.&lt;/p&gt;
+</description>
+        <pubDate>Fri, 22 Nov 2019 00:00:00 -0600</pubDate>
+        <link>http://localhost:4000/2019/11/22/power-correlation/</link>
+        <guid isPermaLink="true">http://localhost:4000/2019/11/22/power-correlation/</guid>
+        
+        <category>Probability</category>
+        
+        <category>Simulation</category>
+        
+        <category>R</category>
+        
+        <category>Correlation</category>
+        
+        
+      </item>
     
       <item>
         <title>Central Limite Theorem - Approximation</title>
