@@ -57,17 +57,17 @@ kramdown:
 
 # 评论系统
 # Disqus（https://disqus.com/）
-disqus_username: waittim
+# disqus_username: waittim
 
 # Gitalk
-# gitalk:
-#   enable: true    #是否开启Gitalk评论
-#   clientID: f2c84e7629bb1446c1a4                            #生成的clientID
-#   clientSecret: ca6d6139d1e1b8c43f8b2e19492ddcac8b322d0d    #生成的clientSecret
-#   repo: qiubaiying.github.io    #仓库名称
-#   owner: qiubaiying    #github用户名
-#   admin: qiubaiying
-#   distractionFreeMode: true #是否启用类似FB的阴影遮罩
+gitalk:
+  enable: true    #是否开启Gitalk评论
+  clientID: 491d9ec79c30f63d6dfb                            #生成的clientID
+  clientSecret: e00b92b47fb3a2f6d0bf024cea6ef6a0fc44e165    #生成的clientSecret
+  repo: waittim.github.io    #仓库名称
+  owner: waittim    #github用户名
+  admin: waittim
+  distractionFreeMode: true #是否启用类似FB的阴影遮罩
 
 
 # 统计

@@ -107,12 +107,12 @@ header-img: "img/post-bg-rwd.jpg"
 <div id="gitalk-container"></div>
     <script type="text/javascript">
     var gitalk = new Gitalk({
-    clientID: '491d9ec79c30f63d6dfb',
-    clientSecret: '952c039b70d0a5046ebff1eac393bd7717cc4f95',
-    repo: 'waittim.github.io',
-    owner: 'waittim',
-    admin: ['waittim'],
-    distractionFreeMode: true,
+    clientID: '{{site.gitalk.clientID}}',
+    clientSecret: '{{site.gitalk.clientSecret}}',
+    repo: '{{site.gitalk.repo}}',
+    owner: '{{site.gitalk.owner}}',
+    admin: ['{{site.gitalk.admin}}'],
+    distractionFreeMode: {{site.gitalk.distractionFreeMode}},
     id: 'about',
     });
     gitalk.render('gitalk-container');
