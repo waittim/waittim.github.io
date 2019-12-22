@@ -5,9 +5,56 @@
     <description>Every failure is leading towards success.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 22 Dec 2019 12:59:38 -0600</pubDate>
-    <lastBuildDate>Sun, 22 Dec 2019 12:59:38 -0600</lastBuildDate>
+    <pubDate>Sun, 22 Dec 2019 16:11:32 -0600</pubDate>
+    <lastBuildDate>Sun, 22 Dec 2019 16:11:32 -0600</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
+    
+      <item>
+        <title>H1B Visa Analysis</title>
+        <description>&lt;h1 id=&quot;h1b&quot;&gt;H1B&lt;/h1&gt;
+&lt;p&gt;The H1B visa is a non-immigrant visa that allows companies in the US to hire graduate-level workers in specialty occupations that require theoretical or technical expertise in specialized fields.&lt;/p&gt;
+
+&lt;h3 id=&quot;requirements&quot;&gt;Requirements&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;A bachelor’s degree.&lt;/li&gt;
+  &lt;li&gt;Job offer from a company within the United States for a specialty position that matches your degree.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;why-is-h1b-popular&quot;&gt;Why is H1B Popular?&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;For a company in the US, applying for H1B is generally quicker than applying for a US Green Card, so it is popular when they want to bring in an employee for a longer period.&lt;/li&gt;
+  &lt;li&gt;H1B is open to nationals and citizens of any country, as opposed to other visa types that are only open to people with certain countries of citizenship.&lt;/li&gt;
+  &lt;li&gt;H1B allows holders to stay for three years initially and can be easily extended to three more years after the first term.&lt;/li&gt;
+  &lt;li&gt;H1B allows holders to move their status from one company to another and also allows its holders to work part-time and work for multiple employers at the same time.&lt;/li&gt;
+  &lt;li&gt;The main benefit of H1B that attracts a large volume of applicants is the fact that it is a dual intent visa. This means that it allows its holders to seek permanent residency while under the H1B nonimmigrant status.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;caveats&quot;&gt;Caveats&lt;/h3&gt;
+&lt;p&gt;Despite having a lot of advantages, applying for the H1B comes with its own set of caveats or disadvantages.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;The biggest drawback of H1B is the fact that there is a limit on the number of petitions that are approved each year. Because of the large number of petitions each year, the USCIS has chosen to have all petitions entered into a lottery. Through this an annual general cap of 65,000 in first, and then run the remaining in the master’s-and-above 20,000 categories.
+This means there is a strong likelihood that for any given year, your petition will not be selected. Once rejected, you will have to wait another year to submit another petition.&lt;/li&gt;
+  &lt;li&gt;Because of its lottery, the deadlines for the H1B applications are very inflexible.&lt;/li&gt;
+  &lt;li&gt;It is difficult to find an employer that would be willing to sponsor an employee for H1B, as the process can get expensive and is unreliable.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;h1b-historic-timeline&quot;&gt;H1B Historic Timeline&lt;/h3&gt;
+
+&lt;p&gt;The timeline of relevant events is listed above. Sources for this information are from the New York times, government official documents from USCIS (U.S. Citizenship and Immigration Services).&lt;/p&gt;
+</description>
+        <pubDate>Thu, 12 Dec 2019 00:00:00 -0600</pubDate>
+        <link>http://localhost:4000/2019/12/12/h1b-analysis/</link>
+        <guid isPermaLink="true">http://localhost:4000/2019/12/12/h1b-analysis/</guid>
+        
+        <category>H1B</category>
+        
+        <category>EDA</category>
+        
+        <category>Project</category>
+        
+        
+      </item>
     
       <item>
         <title>Power and sample size calculations correlational studies</title>
