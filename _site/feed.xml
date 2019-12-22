@@ -5,9 +5,308 @@
     <description>Every failure is leading towards success.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 21 Dec 2019 13:58:09 -0600</pubDate>
-    <lastBuildDate>Sat, 21 Dec 2019 13:58:09 -0600</lastBuildDate>
+    <pubDate>Sat, 21 Dec 2019 20:11:14 -0600</pubDate>
+    <lastBuildDate>Sat, 21 Dec 2019 20:11:14 -0600</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
+    
+      <item>
+        <title>Roulette Simulation</title>
+        <description>&lt;h1 id=&quot;background&quot;&gt;Background&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Roulette is a casino game named after the French word meaning little wheel. In the game, players may choose to place bets on either a single number, various groupings of numbers, the colors red or black, whether the number is odd or even, or if the numbers are high (19–36) or low (1–18).
+&lt;em&gt;From &lt;a href=&quot;https://en.wikipedia.org/wiki/Roulette&quot;&gt;Wikipedia-Roulette&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;This time we will talk about a kind of simplified Roulette, which won’t be influenced by the number on roulette but only be divided into two parts, win or lose.&lt;/p&gt;
+
+&lt;p&gt;To play the game successfully and avoid owing unrealistic debt, we need to set some parameter at first. These parameter will be save in a state list.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Parameter&lt;/th&gt;
+      &lt;th&gt;Type&lt;/th&gt;
+      &lt;th&gt;Explaination&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;B&lt;/td&gt;
+      &lt;td&gt;number&lt;/td&gt;
+      &lt;td&gt;the budget&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;W&lt;/td&gt;
+      &lt;td&gt;number&lt;/td&gt;
+      &lt;td&gt;the budget threshold for successfully stoping&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;L&lt;/td&gt;
+      &lt;td&gt;number&lt;/td&gt;
+      &lt;td&gt;the maximum number of plays&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;M&lt;/td&gt;
+      &lt;td&gt;number&lt;/td&gt;
+      &lt;td&gt;the casino wager limit&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;plays&lt;/td&gt;
+      &lt;td&gt;integer&lt;/td&gt;
+      &lt;td&gt;the number of plays executed&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;previous_wager&lt;/td&gt;
+      &lt;td&gt;number&lt;/td&gt;
+      &lt;td&gt;the wager in the previous play (0 at first play)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;previous_win&lt;/td&gt;
+      &lt;td&gt;TRUE/FALSE&lt;/td&gt;
+      &lt;td&gt;indicator if the previous play was a win (TRUE at first play)&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h1 id=&quot;one-play&quot;&gt;One Play&lt;/h1&gt;
+
+&lt;p&gt;In order to use pipes “%&amp;gt;%” in code, we need to import the package first.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-{r,results='hide'}&quot;&gt;library(dplyr)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then, let’s define the process of one play.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt; one_play &amp;lt;- function(state){
+
+    # Wager
+    proposed_wager &amp;lt;- ifelse(state$previous_win, 1, 2*state$previous_wager)
+    wager &amp;lt;- min(proposed_wager, state$M, state$B)
+
+    # Spin of the wheel
+    red &amp;lt;- rbinom(1,1,18/38)
+
+    # Update state
+    state$plays &amp;lt;- state$plays + 1
+    state$previous_wager &amp;lt;- wager
+    if(red){
+      # WIN
+      state$B &amp;lt;- state$B + wager
+      state$previous_win &amp;lt;- TRUE
+    }else{
+      # LOSE
+      state$B &amp;lt;- state$B - wager
+      state$previous_win &amp;lt;- FALSE
+    }
+  state
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When the player run out of the money or win enough money or play enough times, we need to stop the game by set up an stop function.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;stop_play &amp;lt;- function(state){
+  if(state$B &amp;lt;= 0) return(TRUE)
+  if(state$plays &amp;gt;= state$L) return(TRUE)
+  if(state$B &amp;gt;= state$W) return(TRUE)
+  FALSE
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;multiple-plays&quot;&gt;Multiple Plays&lt;/h1&gt;
+
+&lt;p&gt;Next, we need to play the game under our rules as a series. The function will output a budget list to record the money value after every play.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;one_series &amp;lt;- function(
+    B = 200
+  , W = 300
+  , L = 1000
+  , M = 100
+){
+
+  # initial state
+  state &amp;lt;- list(
+    B = B
+  , W = W
+  , L = L
+  , M = M
+  , plays = 0
+  , previous_wager = 0
+  , previous_win = TRUE
+  )
+
+  # vector to store budget over series of plays
+  budget &amp;lt;- rep(NA, L)
+
+  # For loop of plays
+  for(i in 1:L){
+    new_state &amp;lt;- state %&amp;gt;% one_play
+    budget[i] &amp;lt;- new_state$B
+    if(new_state %&amp;gt;% stop_play){
+      return(budget[1:i])
+    }
+    state &amp;lt;- new_state
+  }
+  budget
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then we can get the final result of this series of play.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;# helper function
+get_last &amp;lt;- function(x) x[length(x)]
+get_series &amp;lt;- function(x) x
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;simulation&quot;&gt;Simulation&lt;/h1&gt;
+
+&lt;p&gt;In order to figure out the generalized result, we need to repeat the process for a huge number of times then try to find out the distribution and other characteristics of results.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;# Simulation
+walk_out_money &amp;lt;- rep(NA, 1000)
+for(j in seq_along(walk_out_money)){
+  walk_out_money[j] &amp;lt;- one_series(B = 200, W = 300, L = 1000, M = 100) %&amp;gt;% get_last
+}
+
+# Walk out money distribution
+hist(walk_out_money, breaks = 100)
+
+# Estimated probability of walking out with extra cash
+mean(walk_out_money &amp;gt; 200)
+
+# Estimated earnings
+mean(walk_out_money - 200)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;compare&quot;&gt;Compare&lt;/h1&gt;
+
+&lt;p&gt;In this graph, we can see how the budget changes during in one series.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;budget_list &amp;lt;- one_series(B = 200, W = 300, L = 1000, M = 100) %&amp;gt;% get_series
+plot(budget_list, type=&quot;l&quot;, xlim=c(0,500), ylim=c(0,300), xlab=&quot;play number&quot;, ylab=&quot;earning money&quot;, main=&quot;budget series&quot;,col=&quot;red&quot;)
+budget_list &amp;lt;- one_series(B = 200, W = 300, L = 1000, M = 100) %&amp;gt;% get_series
+lines(budget_list, col=&quot;orange&quot;)
+budget_list &amp;lt;- one_series(B = 200, W = 300, L = 1000, M = 100) %&amp;gt;% get_series
+lines(budget_list, col=&quot;yellow&quot;)
+budget_list &amp;lt;- one_series(B = 200, W = 300, L = 1000, M = 100) %&amp;gt;% get_series
+lines(budget_list, col=&quot;green&quot;)
+budget_list &amp;lt;- one_series(B = 200, W = 300, L = 1000, M = 100) %&amp;gt;% get_series
+lines(budget_list, col=&quot;gray&quot;)
+budget_list &amp;lt;- one_series(B = 200, W = 300, L = 1000, M = 100) %&amp;gt;% get_series
+lines(budget_list, col=&quot;blue&quot;)
+budget_list &amp;lt;- one_series(B = 200, W = 300, L = 1000, M = 100) %&amp;gt;% get_series
+lines(budget_list, col=&quot;purple&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;./img/prob1/prob1-rainbow.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Parameter&lt;/th&gt;
+      &lt;th&gt;Type&lt;/th&gt;
+      &lt;th&gt;Explaination&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;B&lt;/td&gt;
+      &lt;td&gt;number&lt;/td&gt;
+      &lt;td&gt;the budget&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;W&lt;/td&gt;
+      &lt;td&gt;number&lt;/td&gt;
+      &lt;td&gt;the budget threshold for successfully stoping&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;L&lt;/td&gt;
+      &lt;td&gt;number&lt;/td&gt;
+      &lt;td&gt;the maximum number of plays&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;M&lt;/td&gt;
+      &lt;td&gt;number&lt;/td&gt;
+      &lt;td&gt;the casino wager limit&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;change-the-budget&quot;&gt;Change the budget&lt;/h2&gt;
+
+&lt;p&gt;When B changes, what is the mean earning.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;earning_series &amp;lt;- rep(NA,20)
+for(B in seq(100,1000,by=50)){
+walk_out_money &amp;lt;- rep(NA, 1000)
+for(j in seq_along(walk_out_money)){
+  walk_out_money[j] &amp;lt;- one_series(B, W=B+100, L = 1000, M = 100) %&amp;gt;% get_last
+}
+earning_series[B] &amp;lt;- mean(walk_out_money - B)/B
+}
+plot(earning_series,xlab=&quot;Budget&quot;,ylab=&quot;mean earning rate&quot;, main=&quot;How Budget influence earning?&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;change-the-budget-threshold-for-successfully-stoping&quot;&gt;Change the budget threshold for successfully stoping&lt;/h2&gt;
+
+&lt;p&gt;When W changes, what is the mean earning.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;earning_series &amp;lt;- rep(NA,20)
+for(W in seq(100,1000,by=50)){
+walk_out_money &amp;lt;- rep(NA, 10000)
+for(j in seq_along(walk_out_money)){
+  walk_out_money[j] &amp;lt;- one_series(B=200, W, L = 1000, M = 100) %&amp;gt;% get_last
+}
+earning_series[W] &amp;lt;- mean(walk_out_money - 200)
+}
+plot(earning_series,xlab=&quot;successfully stoping number&quot;,ylab=&quot;mean earning&quot;, main=&quot;How successfully stoping influence earning?&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;change-the-maximum-number-of-plays&quot;&gt;Change the maximum number of plays&lt;/h2&gt;
+
+&lt;p&gt;When L changes, what is the mean earning.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;earning_series &amp;lt;- rep(NA,100)
+for(L in seq(10,1000,by=10)){
+walk_out_money &amp;lt;- rep(NA, 1000)
+for(j in seq_along(walk_out_money)){
+  walk_out_money[j] &amp;lt;- one_series(B=200, W=300, L, M = 100) %&amp;gt;% get_last
+}
+earning_series[L] &amp;lt;- mean(walk_out_money - 200)
+}
+plot(earning_series,xlab=&quot;maximum number of plays&quot;,ylab=&quot;mean earning&quot;, main=&quot;How maximum number of plays influence earning?&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;change-the-casino-wager-limit&quot;&gt;Change the casino wager limit&lt;/h2&gt;
+
+&lt;p&gt;When M changes, what is the mean earning.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;earning_series &amp;lt;- rep(NA,100)
+for(M in seq(10,1000,by=10)){
+walk_out_money &amp;lt;- rep(NA, 1000)
+for(j in seq_along(walk_out_money)){
+  walk_out_money[j] &amp;lt;- one_series(B=200, W=300, L=500, M) %&amp;gt;% get_last
+}
+earning_series[M] &amp;lt;- mean(walk_out_money - 200)
+}
+plot(earning_series,xlab=&quot;casino wager limit&quot;,ylab=&quot;mean earning&quot;, main=&quot;How casino wager limit influence earning?&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Next, we can save the times that the game played before walk out then find out the characteristics.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;get_times &amp;lt;- function(x) length(x)
+walk_out_times &amp;lt;- rep(NA, 10000)
+for(j in seq_along(walk_out_times)){
+  walk_out_times[j] &amp;lt;- one_series(B = 200, W = 300, L = 1000, M = 100) %&amp;gt;% get_times
+}
+
+hist(walk_out_times, breaks = 100)
+
+mean(walk_out_times)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The limitation of simulation is obvious. It is a black box actually. We can not use it as we proof it by mathematical method. We don’t know why it happened and how it happened, so we can only change the parameter to try to understand the process. By the way, it is not a precise result. Everytime we get a answer, it will change a little bit next time.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 04 Sep 2019 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2019/09/04/roulette-simulation/</link>
+        <guid isPermaLink="true">http://localhost:4000/2019/09/04/roulette-simulation/</guid>
+        
+        <category>Probability</category>
+        
+        <category>Simulation</category>
+        
+        <category>R</category>
+        
+        
+      </item>
     
       <item>
         <title>为博客添加 Gitalk 评论插件</title>
