@@ -2,7 +2,7 @@
 layout:     post
 title:      What’s the difference between Absolute Error and Relative Error?
 subtitle:   Probability and Statistical Inference - 02
-date:       2019-09-19
+date:       2019-09-06
 author:     Zekun
 header-img: img/prob2-error.jpeg
 catalog: true

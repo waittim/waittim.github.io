@@ -10,7 +10,7 @@
     <meta name="keywords"  content="ZW, Zekun Blog, 王泽坤的博客, zekunwang, 王泽坤, data science, DS">
     <meta name="theme-color" content="#000000">
     
-    <title>Roulette Simulation - Zekun Wang's Blog | Data Science</title>
+    <title>What’s the difference between Absolute Error and Relative Error? - Zekun Wang's Blog | Data Science</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -22,7 +22,7 @@
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="http://localhost:4000/2019/09/04/roulette-simulation/">
+    <link rel="canonical" href="http://localhost:4000/2019/09/06/absolute&relative-error/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -154,13 +154,13 @@
 
     <!-- Image to hack wechat -->
 <!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="/img/prob1-roulette.jpg" width="0" height="0"> -->
+<!-- <img src="/img/prob2-error.jpeg" width="0" height="0"> -->
 
 <!-- Post Header -->
 <style type="text/css">
     header.intro-header{
         position: relative;
-        background-image: url('/img/prob1-roulette.jpg')
+        background-image: url('/img/prob2-error.jpeg')
     }
 
     
@@ -180,12 +180,12 @@
                         <a class="tag" href="/tags/#R" title="R">R</a>
                         
                     </div>
-                    <h1>Roulette Simulation</h1>
+                    <h1>What’s the difference between Absolute Error and Relative Error?</h1>
                     
                     
-                    <h2 class="subheading">Probability and Statistical Inference - 01</h2>
+                    <h2 class="subheading">Probability and Statistical Inference - 02</h2>
                     
-                    <span class="meta">Posted by Zekun on September 4, 2019</span>
+                    <span class="meta">Posted by Zekun on September 6, 2019</span>
                 </div>
             </div>
         </div>
@@ -203,311 +203,123 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<h1 id="background">Background</h1>
+				<p>Absolute error and relative error have a little bit difference on calculation but the difference really makes an essential change. Absolute error will be influenced by the samples size but relative error can show the real error without huge bias.</p>
 
 <blockquote>
-  <p>Roulette is a casino game named after the French word meaning little wheel. In the game, players may choose to place bets on either a single number, various groupings of numbers, the colors red or black, whether the number is odd or even, or if the numbers are high (19–36) or low (1–18).
-<em>From <a href="https://en.wikipedia.org/wiki/Roulette">Wikipedia-Roulette</a></em></p>
+  <p>when used as a measure of precision—is the ratio of the absolute error of a measurement to the measurement being taken. In other words, this type of error is relative to the size of the item being measured. RE is expressed as a percentage and has no units.</p>
 </blockquote>
 
-<hr />
-<p>This time we will talk about a kind of simplified Roulette, which won’t be influenced by the number on roulette but only be divided into two parts, win or lose.</p>
+<p><em>From <a href="https://www.statisticshowto.datasciencecentral.com/relative-error/">Statistics How To</a></em></p>
 
-<p>To play the game successfully and avoid owing unrealistic debt, we need to set some parameter at first. These parameter will be save in a state list.</p>
+<h2 id="absolute-error">Absolute Error</h2>
+<p>absolute error = |p̂−p|</p>
 
-<table>
-  <thead>
-    <tr>
-      <th>Parameter</th>
-      <th>Type</th>
-      <th>Explaination</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>B</td>
-      <td>number</td>
-      <td>the budget</td>
-    </tr>
-    <tr>
-      <td>W</td>
-      <td>number</td>
-      <td>the budget threshold for successfully stoping</td>
-    </tr>
-    <tr>
-      <td>L</td>
-      <td>number</td>
-      <td>the maximum number of plays</td>
-    </tr>
-    <tr>
-      <td>M</td>
-      <td>number</td>
-      <td>the casino wager limit</td>
-    </tr>
-    <tr>
-      <td>plays</td>
-      <td>integer</td>
-      <td>the number of plays executed</td>
-    </tr>
-    <tr>
-      <td>previous_wager</td>
-      <td>number</td>
-      <td>the wager in the previous play (0 at first play)</td>
-    </tr>
-    <tr>
-      <td>previous_win</td>
-      <td>TRUE/FALSE</td>
-      <td>indicator if the previous play was a win (TRUE at first play)</td>
-    </tr>
-  </tbody>
-</table>
+<blockquote>
+  <p>The difference between the measured or inferred value of a quantity x_0 and its actual value x.</p>
+</blockquote>
 
-<h1 id="function-setup">Function Setup</h1>
-
-<h2 id="one-play">One Play</h2>
-
-<p>In order to use pipes “%&gt;%” in code, we need to import the package first.</p>
-<pre><code class="language-{r,results='hide'}">library(dplyr)
+<p>Let’s create a table to save 14*5 results of our simulation first.</p>
+<pre><code class="language-{r}">n &lt;- rep(NA, 14)
+for(i in 1:14){n[i] &lt;- 2^(i+1)}
+T &lt;- matrix(NA,14,5)
+p &lt;- c(0.01,0.05,0.10,0.25,0.5)
 </code></pre>
 
-<p>Then, let’s define the process of one play.</p>
-<pre><code class="language-{r}"> one_play &lt;- function(state){
-
-    # Wager
-    proposed_wager &lt;- ifelse(state$previous_win, 1, 2*state$previous_wager)
-    wager &lt;- min(proposed_wager, state$M, state$B)
-
-    # Spin of the wheel
-    red &lt;- rbinom(1,1,18/38)
-
-    # Update state
-    state$plays &lt;- state$plays + 1
-    state$previous_wager &lt;- wager
-    if(red){
-      # WIN
-      state$B &lt;- state$B + wager
-      state$previous_win &lt;- TRUE
-    }else{
-      # LOSE
-      state$B &lt;- state$B - wager
-      state$previous_win &lt;- FALSE
+<p>Than generate 1 or 0 randomly for 1000 times for each situation and calculate the absolute error.</p>
+<pre><code class="language-{r}">for(x in 1:length(p)){
+  for(y in 1:length(n)){
+    TS &lt;- rep(NA,10000)
+    for(m in 1:10000){
+      TS[m] &lt;- abs(rbinom(1,n[y],p[x])/n[y]-p[x])
     }
-  state
-}
-</code></pre>
-
-<p>When the player run out of the money or win enough money or play enough times, we need to stop the game by set up an stop function.</p>
-<pre><code class="language-{r}">stop_play &lt;- function(state){
-  if(state$B &lt;= 0) return(TRUE)
-  if(state$plays &gt;= state$L) return(TRUE)
-  if(state$B &gt;= state$W) return(TRUE)
-  FALSE
-}
-</code></pre>
-
-<h2 id="multiple-plays">Multiple Plays</h2>
-
-<p>Next, we need to play the game under our rules as a series. The function will output a budget list to record the money value after every play.</p>
-<pre><code class="language-{r}">one_series &lt;- function(
-    B = 200
-  , W = 300
-  , L = 1000
-  , M = 100
-){
-
-  # initial state
-  state &lt;- list(
-    B = B
-  , W = W
-  , L = L
-  , M = M
-  , plays = 0
-  , previous_wager = 0
-  , previous_win = TRUE
-  )
-
-  # vector to store budget over series of plays
-  budget &lt;- rep(NA, L)
-
-  # For loop of plays
-  for(i in 1:L){
-    new_state &lt;- state %&gt;% one_play
-    budget[i] &lt;- new_state$B
-    if(new_state %&gt;% stop_play){
-      return(budget[1:i])
-    }
-    state &lt;- new_state
+    T[y,x] &lt;- mean(TS)
   }
-  budget
 }
 </code></pre>
 
-<p>Then we can get the final result of this series of play.</p>
-<pre><code class="language-{r}"># helper function
-get_last &lt;- function(x) x[length(x)]
-get_series &lt;- function(x) x
+<p>Change the y-scale to log_10.</p>
+<pre><code class="language-{r}">T &lt;- log10(T)
 </code></pre>
 
-<h1 id="simulation">Simulation</h1>
+<p>In the end, plot the graph to show the relationship between p and absolute error.</p>
+<pre><code class="language-{r}">plot(T[,5],xlim=c(0,14),ylim=range(T),col="red",type="b",xaxt="n",xlab="N(log_2 scale)",ylab="Absolute Error",pch=16, lwd=3)
+lines(T[,2],col="purple",type="b",pch=16, lwd=3)
+lines(T[,3],col="blue",type="b",pch=16, lwd=3)
+lines(T[,4],col="green",type="b",pch=16, lwd=3)
+lines(T[,1],col="gray",type="b",pch=16, lwd=3)
 
-<p>In order to figure out the generalized result, we need to repeat the process for a huge number of times then try to find out the distribution and other characteristics of results.</p>
-<pre><code class="language-{r}"># Simulation
-walk_out_money &lt;- rep(NA, 1000)
-for(j in seq_along(walk_out_money)){
-  walk_out_money[j] &lt;- one_series(B = 200, W = 300, L = 1000, M = 100) %&gt;% get_last
-}
+lname &lt;- c("0.01","0.05","0.10","0.25","0.50")
+lname_p &lt;- paste0("p = ",lname)
+xname &lt;- c("4","8","16","32","64","128","256","512","1024","2048","4096","8192","16384","32768")
 
-# Walk out money distribution
-hist(walk_out_money, breaks = 100)
-
-# Estimated probability of walking out with extra cash
-mean(walk_out_money &gt; 200)
-
-# Estimated earnings
-mean(walk_out_money - 200)
+axis(1, at=1:14,las=2, lab=xname)
+text(1,T[1,],lname_p,pos=2,cex=0.6)
 </code></pre>
+<p><img src="https://i.loli.net/2019/12/22/6yheRBQ3HIMnDcd.png" alt="" /></p>
 
-<h1 id="compare">Compare</h1>
+<p>Absolute error is just the absolute value of the value you have minus expected value. In this simulation, you culculated the absolute error 10000 times and get the mean value of them in every situation.
+When we transfer the y scale to log_10, it is obvious that the x &amp; y have linear connection.
+The p is higher, the absolute error is bigger.</p>
 
-<p>In this graph, we can see how the budget changes during in one series.</p>
-<pre><code class="language-{r}">budget_list &lt;- one_series(B = 200, W = 300, L = 1000, M = 100) %&gt;% get_series
-plot(budget_list, type="l", xlim=c(0,500), ylim=c(0,300), xlab="play number", ylab="earning money", main="budget series",col="red")
-budget_list &lt;- one_series(B = 200, W = 300, L = 1000, M = 100) %&gt;% get_series
-lines(budget_list, col="orange")
-budget_list &lt;- one_series(B = 200, W = 300, L = 1000, M = 100) %&gt;% get_series
-lines(budget_list, col="yellow")
-budget_list &lt;- one_series(B = 200, W = 300, L = 1000, M = 100) %&gt;% get_series
-lines(budget_list, col="green")
-budget_list &lt;- one_series(B = 200, W = 300, L = 1000, M = 100) %&gt;% get_series
-lines(budget_list, col="gray")
-budget_list &lt;- one_series(B = 200, W = 300, L = 1000, M = 100) %&gt;% get_series
-lines(budget_list, col="blue")
-budget_list &lt;- one_series(B = 200, W = 300, L = 1000, M = 100) %&gt;% get_series
-lines(budget_list, col="purple")
+<h1 id="relative-error">Relative Error</h1>
+<p>relative error = |p̂−p|/p.</p>
+
+<p>Then do the same thing as before but when we calculate the error, use absolute error divide by p value.
+Plot the graph too.</p>
+
+<pre><code class="language-{r}">n &lt;- rep(NA, 14)
+for(i in 1:14){n[i] &lt;- 2^(i+1)}
+
+T2 &lt;- matrix(NA,14,5)
+p &lt;- c(0.01,0.05,0.10,0.25,0.5)
+
+for(x in 1:length(p)){
+  for(y in 1:length(n)){
+    T2S &lt;- rep(NA,10000)
+    for(m in 1:10000){
+      T2S[m] &lt;- abs(rbinom(1,n[y],p[x])/n[y]-p[x])/p[x]
+    }
+    # T2[y,x] &lt;- abs(rbinom(1,n[y],p[x])/n[y]-p[x])/p[x]
+    T2[y,x] &lt;- mean(T2S)
+  }
+}
+
+T2 &lt;- log10(T2)
+
+xname &lt;- c("4","8","16","32","64","128","256","512","1024","2048","4096","8192","16384","32768")
+lname &lt;- c("0.01","0.05","0.10","0.25","0.50")
+lname_p &lt;- paste0("p = ",lname)
+
+plot(T2[,1],xlim=c(0,14),ylim=range(T2),col="red",type="b",pch=16,xaxt="n",xlab="N(log_2 scale)",ylab="Relative Error", lwd=3)
+lines(T2[,2],col="purple",type="b",pch=16, lwd=3)
+lines(T2[,3],col="blue",type="b",pch=16, lwd=3)
+lines(T2[,4],col="green",type="b",pch=16, lwd=3)
+lines(T2[,5],col="gray",type="b",pch=16, lwd=3)
+axis(1, at=1:14,las=2, lab=xname)
+text(1,T2[1,],lname_p,pos=2,cex=0.6)
 </code></pre>
-<p><img src="https://i.loli.net/2019/12/22/4kcjYL5KFvSeA9Q.png" alt="" /></p>
+<p><img src="https://i.loli.net/2019/12/22/lryCYGkREIN6dWx.png" alt="" /></p>
 
-<table>
-  <thead>
-    <tr>
-      <th>Parameter</th>
-      <th>Type</th>
-      <th>Explaination</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>B</td>
-      <td>number</td>
-      <td>the budget</td>
-    </tr>
-    <tr>
-      <td>W</td>
-      <td>number</td>
-      <td>the budget threshold for successfully stoping</td>
-    </tr>
-    <tr>
-      <td>L</td>
-      <td>number</td>
-      <td>the maximum number of plays</td>
-    </tr>
-    <tr>
-      <td>M</td>
-      <td>number</td>
-      <td>the casino wager limit</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="change-the-budget">Change the budget</h2>
-
-<p>When B changes, what is the mean earning.</p>
-<pre><code class="language-{r}">earning_series &lt;- rep(NA,20)
-for(B in seq(100,1000,by=50)){
-walk_out_money &lt;- rep(NA, 1000)
-for(j in seq_along(walk_out_money)){
-  walk_out_money[j] &lt;- one_series(B, W=B+100, L = 1000, M = 100) %&gt;% get_last
-}
-earning_series[B] &lt;- mean(walk_out_money - B)/B
-}
-plot(earning_series,xlab="Budget",ylab="mean earning rate", main="How Budget influence earning?")
-</code></pre>
-<p><img src="https://i.loli.net/2019/12/22/YBcaSpgdhf7nmwi.png" alt="" /></p>
-
-<h2 id="change-the-budget-threshold-for-successfully-stoping">Change the budget threshold for successfully stoping</h2>
-
-<p>When W changes, what is the mean earning.</p>
-<pre><code class="language-{r}">earning_series &lt;- rep(NA,20)
-for(W in seq(100,1000,by=50)){
-walk_out_money &lt;- rep(NA, 10000)
-for(j in seq_along(walk_out_money)){
-  walk_out_money[j] &lt;- one_series(B=200, W, L = 1000, M = 100) %&gt;% get_last
-}
-earning_series[W] &lt;- mean(walk_out_money - 200)
-}
-plot(earning_series,xlab="successfully stoping number",ylab="mean earning", main="How successfully stoping influence earning?")
-</code></pre>
-<p><img src="https://i.loli.net/2019/12/22/wn2qDzCjXlxSGIY.png" alt="" /></p>
-
-<h2 id="change-the-maximum-number-of-plays">Change the maximum number of plays</h2>
-
-<p>When L changes, what is the mean earning.</p>
-<pre><code class="language-{r}">earning_series &lt;- rep(NA,100)
-for(L in seq(10,1000,by=10)){
-walk_out_money &lt;- rep(NA, 1000)
-for(j in seq_along(walk_out_money)){
-  walk_out_money[j] &lt;- one_series(B=200, W=300, L, M = 100) %&gt;% get_last
-}
-earning_series[L] &lt;- mean(walk_out_money - 200)
-}
-plot(earning_series,xlab="maximum number of plays",ylab="mean earning", main="How maximum number of plays influence earning?")
-</code></pre>
-<p><img src="https://i.loli.net/2019/12/22/qeWF58lmvsfiLdE.png" alt="" /></p>
-
-<h2 id="change-the-casino-wager-limit">Change the casino wager limit</h2>
-
-<p>When M changes, what is the mean earning.</p>
-<pre><code class="language-{r}">earning_series &lt;- rep(NA,100)
-for(M in seq(10,1000,by=10)){
-walk_out_money &lt;- rep(NA, 1000)
-for(j in seq_along(walk_out_money)){
-  walk_out_money[j] &lt;- one_series(B=200, W=300, L=500, M) %&gt;% get_last
-}
-earning_series[M] &lt;- mean(walk_out_money - 200)
-}
-plot(earning_series,xlab="casino wager limit",ylab="mean earning", main="How casino wager limit influence earning?")
-</code></pre>
-<p><img src="https://i.loli.net/2019/12/22/1rZdWUg4KsAntqj.png" alt="" /></p>
-
-<h2 id="play-times">Play times</h2>
-
-<p>Next, we can save the times that the game played before walk out then find out the characteristics.</p>
-<pre><code class="language-{r}">get_times &lt;- function(x) length(x)
-walk_out_times &lt;- rep(NA, 10000)
-for(j in seq_along(walk_out_times)){
-  walk_out_times[j] &lt;- one_series(B = 200, W = 300, L = 1000, M = 100) %&gt;% get_times
-}
-
-hist(walk_out_times, breaks = 100)
-</code></pre>
-<p><img src="https://i.loli.net/2019/12/22/YqzUKQRmIahSVoE.png" alt="" /></p>
-
-<pre><code class="language-{r}">mean(walk_out_times)
-</code></pre>
-<p>The mean of walk out time is 203.0846.</p>
-
-<p>The limitation of simulation is obvious. It is a black box actually. We can not use it as we proof it by mathematical method. We don’t know why it happened and how it happened, so we can only change the parameter to try to understand the process. By the way, it is not a precise result. Everytime we get a answer, it will change a little bit next time.</p>
+<p>Again, compare with absolute error, if you want to calculate relative error, the only thing you need to do is use the absolute error divide by p, the value you have. This process keep the influence of the value size, and focus on the error itself.
+When we change the y scale into log_10, the xy relationship is also linear. But the bigger p we have, the smaller relative error we get.</p>
 
 
                 <hr style="visibility: hidden;">
 
                 <ul class="pager">
                     
+                    <li class="previous">
+                        <a href="/2019/08/26/roulette-simulation/" data-toggle="tooltip" data-placement="top" title="Roulette Simulation">
+                        Previous<br>
+                        <span>Roulette Simulation</span>
+                        </a>
+                    </li>
+                    
                     
                     <li class="next">
-                        <a href="/2019/09/19/absolute&relative-error/" data-toggle="tooltip" data-placement="top" title="What’s the difference between Absolute Error and Relative Error?">
+                        <a href="/2019/09/09/world-series/" data-toggle="tooltip" data-placement="top" title="How often does the better team win the World Series?">
                         Next<br>
-                        <span>What’s the difference between Absolute Error and Relative Error?</span>
+                        <span>How often does the better team win the World Series?</span>
                         </a>
                     </li>
                     
@@ -573,19 +385,19 @@ hist(walk_out_times, breaks = 100)
                     <div class="tags">
         				
                             
-                				<a href="/tags/#Probability" title="Probability" rel="2">
+                				<a href="/tags/#Probability" title="Probability" rel="3">
                                     Probability
                                 </a>
                             
         				
                             
-                				<a href="/tags/#Simulation" title="Simulation" rel="2">
+                				<a href="/tags/#Simulation" title="Simulation" rel="3">
                                     Simulation
                                 </a>
                             
         				
                             
-                				<a href="/tags/#R" title="R" rel="2">
+                				<a href="/tags/#R" title="R" rel="3">
                                     R
                                 </a>
                             
