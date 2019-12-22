@@ -4,7 +4,7 @@ title:      Coverage probability of MLE
 subtitle:   Probability and Statistical Inference - 07
 date:       2019-10-15
 author:     Zekun
-header-img: img/prob5-quantile.jpeg
+header-img: img/prob7-coverage.jpg
 catalog: true
 tags:
     - Probability
@@ -153,7 +153,7 @@ sum(quantile95_list[1,] > 0)
 
 ```
 
-# Step 5: Simulation
+# Step 5: Simulation visualization
 **Perform the simulation.**
 
 In order to make the results more intuitive, we can use *geom_linerange()* function in *ggplot* to draw the 95% confidence interval. And set the 95% confidence interval which did not capture the real mean of original distribution, "0" as a red line.
