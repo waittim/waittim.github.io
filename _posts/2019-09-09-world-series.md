@@ -13,7 +13,8 @@ tags:
 ---
 
 Import the package at the very first.
-```{r setup}
+
+```{r}
 library(tidyverse)
 ```
 

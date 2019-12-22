@@ -5,40 +5,56 @@
     <description>Every failure is leading towards success.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 21 Dec 2019 22:41:46 -0600</pubDate>
-    <lastBuildDate>Sat, 21 Dec 2019 22:41:46 -0600</lastBuildDate>
+    <pubDate>Sat, 21 Dec 2019 22:42:34 -0600</pubDate>
+    <lastBuildDate>Sat, 21 Dec 2019 22:42:34 -0600</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
         <title>How often does the better team win the World Series?</title>
-        <description>&lt;p&gt;Import the package at the very first.
-```{r setup}
-library(tidyverse)&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-# Introduction
+        <description>&lt;p&gt;Import the package at the very first.&lt;/p&gt;
 
-![WORLD SERIES](https://cdn.technadu.com/wp-content/uploads/2019/05/World-Series-Logo.png)
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;library(tidyverse)
+&lt;/code&gt;&lt;/pre&gt;
 
-&amp;gt; The World Series is the annual championship series of Major League Baseball (MLB) in North America, contested since 1903 between the American League (AL) champion team and the National League (NL) champion team. The winner of the World Series championship is determined through a best-of-seven playoff, and the winning team is awarded the Commissioner's Trophy. As the series is played during the fall season in North America, it is sometimes referred to as the Fall Classic.  
-*From [Wikipedia - World Series](https://en.wikipedia.org/wiki/World_Series)*
+&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
 
-In this blog, we are going to calculate the probability of several questions about the Braves and the Yankees in the World Series.
+&lt;p&gt;&lt;img src=&quot;https://cdn.technadu.com/wp-content/uploads/2019/05/World-Series-Logo.png&quot; alt=&quot;WORLD SERIES&quot; /&gt;&lt;/p&gt;
 
-First, we need to define some parameter.
+&lt;blockquote&gt;
+  &lt;p&gt;The World Series is the annual championship series of Major League Baseball (MLB) in North America, contested since 1903 between the American League (AL) champion team and the National League (NL) champion team. The winner of the World Series championship is determined through a best-of-seven playoff, and the winning team is awarded the Commissioner’s Trophy. As the series is played during the fall season in North America, it is sometimes referred to as the Fall Classic.&lt;br /&gt;
+&lt;em&gt;From &lt;a href=&quot;https://en.wikipedia.org/wiki/World_Series&quot;&gt;Wikipedia - World Series&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 
-Parameter | Explaination
----|---|---
-P&amp;lt;sub&amp;gt;B&amp;lt;/sub&amp;gt; | In any given game, the probability that the Braves win
-P&amp;lt;sub&amp;gt;Y&amp;lt;/sub&amp;gt; = 1 - P&amp;lt;sub&amp;gt;B&amp;lt;/sub&amp;gt; | in any given game, the probability that the Yankees win
+&lt;p&gt;In this blog, we are going to calculate the probability of several questions about the Braves and the Yankees in the World Series.&lt;/p&gt;
 
-# Questions
-### 1. What is the probability that the Braves win the World Series given that P&amp;lt;sub&amp;gt;B&amp;lt;/sub&amp;gt;=0.55?
+&lt;p&gt;First, we need to define some parameter.&lt;/p&gt;
 
-First,we need to set the value of P&amp;lt;sub&amp;gt;B&amp;lt;/sub&amp;gt; and P&amp;lt;sub&amp;gt;Y&amp;lt;/sub&amp;gt;.
-```{r}
-PB &amp;lt;- 0.55
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Parameter&lt;/th&gt;
+      &lt;th&gt;Explaination&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;P&lt;sub&gt;B&lt;/sub&gt;&lt;/td&gt;
+      &lt;td&gt;In any given game, the probability that the Braves win&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;P&lt;sub&gt;Y&lt;/sub&gt; = 1 - P&lt;sub&gt;B&lt;/sub&gt;&lt;/td&gt;
+      &lt;td&gt;in any given game, the probability that the Yankees win&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h1 id=&quot;questions&quot;&gt;Questions&lt;/h1&gt;
+&lt;h3 id=&quot;1-what-is-the-probability-that-the-braves-win-the-world-series-given-that-pb055&quot;&gt;1. What is the probability that the Braves win the World Series given that P&lt;sub&gt;B&lt;/sub&gt;=0.55?&lt;/h3&gt;
+
+&lt;p&gt;First,we need to set the value of P&lt;sub&gt;B&lt;/sub&gt; and P&lt;sub&gt;Y&lt;/sub&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;PB &amp;lt;- 0.55
 PY &amp;lt;- 1- PB
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Create a function to calculate the probability of win. Win is defined as win 4 times in 7 games.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;calc_prob &amp;lt;- function(p){
