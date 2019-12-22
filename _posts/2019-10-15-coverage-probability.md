@@ -174,6 +174,6 @@ ggplot(quantile95_df) +
 ![](https://i.postimg.cc/9MPrGHm9/prob7-1.png)
 
 # Step 6
-**Change the simulation to learn more about the operating characteristics of your chosen method for constructing the 95% confidence interval.**
+**Change the simulation to learn more about the operating characteristics of the chosen method for constructing the 95% confidence interval.**
 
 I think I will choose to use bigger distribution to test the process, likes set the *N* as 5000 or 10000. And I could calculate the other quantile of the distributions to find out is there any different. After that, maybe I will use other distribution but not standard normal distribution, such as gamma or beta distribution.
