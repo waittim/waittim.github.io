@@ -10,7 +10,7 @@
     <meta name="keywords"  content="ZW, Zekun Blog, 王泽坤的博客, zekunwang, 王泽坤, data science, DS">
     <meta name="theme-color" content="#000000">
     
-    <title>Zekun Wang's Blog | Data Science</title>
+    <title>What’s the difference between Absolute Error and Relative Error? - Zekun Wang's Blog | Data Science</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -22,7 +22,7 @@
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="http://localhost:4000/">
+    <link rel="canonical" href="http://localhost:4000/2019/09/19/absolute&relative-error/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -152,107 +152,253 @@
 </script>
 
 
-    <!-- Page Header -->
-<header class="intro-header" style="background-image: url('/img/post-bg-desk.jpg')">
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/prob1-roulette.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/prob1-roulette.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
-                <div class="site-heading">
-                    <h1>Zekun Blog</h1>
-                    <!--<hr class="small">-->
-                    <span class="subheading">Thinking will not overcome fear but action will.</span>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#Probability" title="Probability">Probability</a>
+                        
+                        <a class="tag" href="/tags/#Simulation" title="Simulation">Simulation</a>
+                        
+                        <a class="tag" href="/tags/#R" title="R">R</a>
+                        
+                    </div>
+                    <h1>What’s the difference between Absolute Error and Relative Error?</h1>
+                    
+                    
+                    <h2 class="subheading">Probability and Statistical Inference - 02</h2>
+                    
+                    <span class="meta">Posted by Zekun on September 19, 2019</span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-	<div class="row">
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<p>Absolute error and relative error have a little bit difference on calculation but the difference really makes an essential change. Absolute error will be influenced by the samples size but relative error can show the real error without huge bias.</p>
+
+<blockquote>
+  <p>when used as a measure of precision—is the ratio of the absolute error of a measurement to the measurement being taken. In other words, this type of error is relative to the size of the item being measured. RE is expressed as a percentage and has no units.</p>
+</blockquote>
+
+<p><em>From <a href="https://www.statisticshowto.datasciencecentral.com/relative-error/">Statistics How To</a></em></p>
+
+<h2 id="absolute-error">Absolute Error</h2>
+<p>absolute error = |p̂−p|</p>
+
+<blockquote>
+  <p>The difference between the measured or inferred value of a quantity x_0 and its actual value x.</p>
+</blockquote>
+
+<p>Let’s create a table to save 14*5 results of our simulation first.</p>
+<pre><code class="language-{r}">n &lt;- rep(NA, 14)
+for(i in 1:14){n[i] &lt;- 2^(i+1)}
+T &lt;- matrix(NA,14,5)
+p &lt;- c(0.01,0.05,0.10,0.25,0.5)
+</code></pre>
+
+<p>Than generate 1 or 0 randomly for 1000 times for each situation and calculate the absolute error.</p>
+<pre><code class="language-{r}">for(x in 1:length(p)){
+  for(y in 1:length(n)){
+    TS &lt;- rep(NA,10000)
+    for(m in 1:10000){
+      TS[m] &lt;- abs(rbinom(1,n[y],p[x])/n[y]-p[x])
+    }
+    T[y,x] &lt;- mean(TS)
+  }
+}
+</code></pre>
+
+<p>Change the y-scale to log_10.</p>
+<pre><code class="language-{r}">T &lt;- log10(T)
+</code></pre>
+
+<p>In the end, plot the graph to show the relationship between p and absolute error.</p>
+<pre><code class="language-{r}">plot(T[,5],xlim=c(0,14),ylim=range(T),col="red",type="b",xaxt="n",xlab="N(log_2 scale)",ylab="Absolute Error",pch=16, lwd=3)
+lines(T[,2],col="purple",type="b",pch=16, lwd=3)
+lines(T[,3],col="blue",type="b",pch=16, lwd=3)
+lines(T[,4],col="green",type="b",pch=16, lwd=3)
+lines(T[,1],col="gray",type="b",pch=16, lwd=3)
+
+lname &lt;- c("0.01","0.05","0.10","0.25","0.50")
+lname_p &lt;- paste0("p = ",lname)
+xname &lt;- c("4","8","16","32","64","128","256","512","1024","2048","4096","8192","16384","32768")
+
+axis(1, at=1:14,las=2, lab=xname)
+text(1,T[1,],lname_p,pos=2,cex=0.6)
+</code></pre>
+<p><img src="https://i.loli.net/2019/12/22/6yheRBQ3HIMnDcd.png" alt="" /></p>
+
+<p>Absolute error is just the absolute value of the value you have minus expected value. In this simulation, you culculated the absolute error 10000 times and get the mean value of them in every situation.
+When we transfer the y scale to log_10, it is obvious that the x &amp; y have linear connection.
+The p is higher, the absolute error is bigger.</p>
+
+<h1 id="relative-error">Relative Error</h1>
+<p>relative error = |p̂−p|/p.</p>
+
+<p>Then do the same thing as before but when we calculate the error, use absolute error divide by p value.
+Plot the graph too.</p>
+
+<pre><code class="language-{r}">n &lt;- rep(NA, 14)
+for(i in 1:14){n[i] &lt;- 2^(i+1)}
+
+T2 &lt;- matrix(NA,14,5)
+p &lt;- c(0.01,0.05,0.10,0.25,0.5)
+
+for(x in 1:length(p)){
+  for(y in 1:length(n)){
+    T2S &lt;- rep(NA,10000)
+    for(m in 1:10000){
+      T2S[m] &lt;- abs(rbinom(1,n[y],p[x])/n[y]-p[x])/p[x]
+    }
+    # T2[y,x] &lt;- abs(rbinom(1,n[y],p[x])/n[y]-p[x])/p[x]
+    T2[y,x] &lt;- mean(T2S)
+  }
+}
+
+T2 &lt;- log10(T2)
+
+xname &lt;- c("4","8","16","32","64","128","256","512","1024","2048","4096","8192","16384","32768")
+lname &lt;- c("0.01","0.05","0.10","0.25","0.50")
+lname_p &lt;- paste0("p = ",lname)
+
+plot(T2[,1],xlim=c(0,14),ylim=range(T2),col="red",type="b",pch=16,xaxt="n",xlab="N(log_2 scale)",ylab="Relative Error", lwd=3)
+lines(T2[,2],col="purple",type="b",pch=16, lwd=3)
+lines(T2[,3],col="blue",type="b",pch=16, lwd=3)
+lines(T2[,4],col="green",type="b",pch=16, lwd=3)
+lines(T2[,5],col="gray",type="b",pch=16, lwd=3)
+axis(1, at=1:14,las=2, lab=xname)
+text(1,T2[1,],lname_p,pos=2,cex=0.6)
+</code></pre>
+<p><img src="https://i.loli.net/2019/12/22/lryCYGkREIN6dWx.png" alt="" /></p>
+
+<p>Again, compare with absolute error, if you want to calculate relative error, the only thing you need to do is use the absolute error divide by p, the value you have. This process keep the influence of the value size, and focus on the error itself.
+When we change the y scale into log_10, the xy relationship is also linear. But the bigger p we have, the smaller relative error we get.</p>
+
+
+                <hr style="visibility: hidden;">
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2019/09/04/roulette-simulation/" data-toggle="tooltip" data-placement="top" title="Roulette Simulation">
+                        Previous<br>
+                        <span>Roulette Simulation</span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+
+
+                <!--Gitalk评论start  -->
+                
+                <!-- 引入Gitalk评论插件  -->
+                <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+                <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script>
+                <div id="gitalk-container"></div>
+                <!-- 引入一个生产md5的js，用于对id值进行处理，防止其过长 -->
+                <!-- Thank DF:https://github.com/NSDingFan/NSDingFan.github.io/issues/3#issuecomment-407496538 -->
+                <script src="/js/md5.min.js"></script>
+                <script type="text/javascript">
+                    var gitalk = new Gitalk({
+                    clientID: 'f2c84e7629bb1446c1a4',
+                    clientSecret: 'ca6d6139d1e1b8c43f8b2e19492ddcac8b322d0d',
+                    repo: 'qiubaiying.github.io',
+                    owner: 'qiubaiying',
+                    admin: ['qiubaiying'],
+                    distractionFreeMode: true,
+                    id: md5(location.pathname),
+                    });
+                    gitalk.render('gitalk-container');
+                </script>
+                
+                <!-- Gitalk end -->
+
+                
+
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
         
 
-<!-- USE SIDEBAR -->
-    <!-- PostList Container -->
-    		<div class="
-                col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                postlist-container
-            ">
-    			
-
-<!-- Pager -->
-
-
-    		</div>
     <!-- Sidebar Container -->
             <div class="
-                col-lg-3 col-lg-offset-0
-                col-md-3 col-md-offset-0
-                col-sm-12
-                col-xs-12
-                sidebar-container
-            ">
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
                 <!-- Featured Tags -->
                 
                 <section>
                     <hr class="hidden-sm hidden-xs">
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
-                        
+        				
                             
-                                <a href="/tags/#Probability" title="Probability" rel="2">
+                				<a href="/tags/#Probability" title="Probability" rel="2">
                                     Probability
                                 </a>
                             
-                        
+        				
                             
-                                <a href="/tags/#Simulation" title="Simulation" rel="2">
+                				<a href="/tags/#Simulation" title="Simulation" rel="2">
                                     Simulation
                                 </a>
                             
-                        
+        				
                             
-                                <a href="/tags/#R" title="R" rel="2">
+                				<a href="/tags/#R" title="R" rel="2">
                                     R
                                 </a>
                             
-                        
-                    </div>
+        				
+        			</div>
                 </section>
                 
 
-                <!-- Short About -->
-                <section class="visible-md visible-lg">
-                    <hr><h5><a href="/about/">ABOUT ME</a></h5>
-                    <div class="short-about">
-                        
-                            <a href="/about">
-                                <img src="/img/Zekun_Wang_icon.jpeg"/>
-                            </a>
-                        
-                        
-                            <p>Goals determine what you going to be!</p>
-                        
-                        <!-- SNS Link -->
-                        <ul class="list-inline">
-                            
-                            <!-- add jianshu add target = "_blank" to <a> by BY -->
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                        </ul>
-                        
-                            <p>✉️ zekun.wang.us@gmail.com</p>
-                        
-                    </div>
-                </section>
                 <!-- Friends Blog -->
                 
                 <hr>
@@ -269,10 +415,50 @@
                     
                 </ul>
                 
-    		</div>
-        
-	</div>
-</div>
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        // BY Fix:去除标题前的‘#’ issues:<https://github.com/qiubaiying/qiubaiying.github.io/issues/137>
+        // anchors.options = {
+        //   visible: 'always',
+        //   placement: 'right',
+        //   icon: '#'
+        // };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
 
 
     <!-- Footer -->
@@ -427,6 +613,50 @@
 
 
 <!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
 
 
 
