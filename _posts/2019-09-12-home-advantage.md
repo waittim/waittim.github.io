@@ -34,7 +34,7 @@ Game location |	No advantage | Advantage
 ATL | *P<sub>B</sub>* | *P<sub>B</sub><sup>H</sup> = P<sub>B</sub> $\times$ 1.1*
 NYC |	*P<sub>B</sub>* |	*P<sub>B</sub><sup>A</sup> = 1 - (1 - P<sub>B</sub>)$\times$ 1.1*
 
-```{r Import Libraries, include=FALSE}
+```{r}
 library(dplyr)
 library(data.table)
 ```

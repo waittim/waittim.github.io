@@ -5,8 +5,8 @@
     <description>Every failure is leading towards success.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 21 Dec 2019 23:18:19 -0600</pubDate>
-    <lastBuildDate>Sat, 21 Dec 2019 23:18:19 -0600</lastBuildDate>
+    <pubDate>Sat, 21 Dec 2019 23:20:21 -0600</pubDate>
+    <lastBuildDate>Sat, 21 Dec 2019 23:20:21 -0600</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -83,20 +83,19 @@
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;p&gt;```{r Import Libraries, include=FALSE}
-library(dplyr)
-library(data.table)&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-Now let's look at the questions.
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;library(dplyr)
+library(data.table)
+&lt;/code&gt;&lt;/pre&gt;
 
-# Questions
-## 1. Compute analytically the probability that the Braves win the world series when the sequence of game locations is {NYC, NYC, ATL, ATL, ATL, NYC, NYC}. Calculate the probability with and without home field advantage when *P&amp;lt;sub&amp;gt;B&amp;lt;/sub&amp;gt; = 0.55*. What is the difference in probabilities?
+&lt;p&gt;Now let’s look at the questions.&lt;/p&gt;
 
-First, load the *.csv* file to make sure what's the situations we need to calculate, which represents the data we will generate later.
-```{r}
-# Get all possible outcomes
+&lt;h1 id=&quot;questions&quot;&gt;Questions&lt;/h1&gt;
+&lt;h2 id=&quot;1-compute-analytically-the-probability-that-the-braves-win-the-world-series-when-the-sequence-of-game-locations-is-nyc-nyc-atl-atl-atl-nyc-nyc-calculate-the-probability-with-and-without-home-field-advantage-when-pb--055-what-is-the-difference-in-probabilities&quot;&gt;1. Compute analytically the probability that the Braves win the world series when the sequence of game locations is {NYC, NYC, ATL, ATL, ATL, NYC, NYC}. Calculate the probability with and without home field advantage when &lt;em&gt;P&lt;sub&gt;B&lt;/sub&gt; = 0.55&lt;/em&gt;. What is the difference in probabilities?&lt;/h2&gt;
+
+&lt;p&gt;First, load the &lt;em&gt;.csv&lt;/em&gt; file to make sure what’s the situations we need to calculate, which represents the data we will generate later.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;# Get all possible outcomes
 apo &amp;lt;- fread(&quot;all-possible-world-series-outcomes.csv&quot;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;And we need to define a sequence of game locations. This time, the sequence should be {NYC, NYC, ATL, ATL, ATL, NYC, NYC}. As a result of that the Braves is a Atlanta team, we use 1 to represent Atlanta and use 0 to represent NYC.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;# Home field indicator

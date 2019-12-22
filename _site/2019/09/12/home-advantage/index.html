@@ -279,20 +279,19 @@
   </tbody>
 </table>
 
-<p>```{r Import Libraries, include=FALSE}
-library(dplyr)
-library(data.table)</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-Now let's look at the questions.
+<pre><code class="language-{r}">library(dplyr)
+library(data.table)
+</code></pre>
 
-# Questions
-## 1. Compute analytically the probability that the Braves win the world series when the sequence of game locations is {NYC, NYC, ATL, ATL, ATL, NYC, NYC}. Calculate the probability with and without home field advantage when *P&lt;sub&gt;B&lt;/sub&gt; = 0.55*. What is the difference in probabilities?
+<p>Now let’s look at the questions.</p>
 
-First, load the *.csv* file to make sure what's the situations we need to calculate, which represents the data we will generate later.
-```{r}
-# Get all possible outcomes
+<h1 id="questions">Questions</h1>
+<h2 id="1-compute-analytically-the-probability-that-the-braves-win-the-world-series-when-the-sequence-of-game-locations-is-nyc-nyc-atl-atl-atl-nyc-nyc-calculate-the-probability-with-and-without-home-field-advantage-when-pb--055-what-is-the-difference-in-probabilities">1. Compute analytically the probability that the Braves win the world series when the sequence of game locations is {NYC, NYC, ATL, ATL, ATL, NYC, NYC}. Calculate the probability with and without home field advantage when <em>P<sub>B</sub> = 0.55</em>. What is the difference in probabilities?</h2>
+
+<p>First, load the <em>.csv</em> file to make sure what’s the situations we need to calculate, which represents the data we will generate later.</p>
+<pre><code class="language-{r}"># Get all possible outcomes
 apo &lt;- fread("all-possible-world-series-outcomes.csv")
-</code></pre></div></div>
+</code></pre>
 
 <p>And we need to define a sequence of game locations. This time, the sequence should be {NYC, NYC, ATL, ATL, ATL, NYC, NYC}. As a result of that the Braves is a Atlanta team, we use 1 to represent Atlanta and use 0 to represent NYC.</p>
 <pre><code class="language-{r}"># Home field indicator
