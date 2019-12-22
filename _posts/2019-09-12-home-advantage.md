@@ -1,10 +1,10 @@
 ---
 layout:     post
-title:      How often does the better team win the World Series?
-subtitle:   Probability and Statistical Inference - 03
-date:       2019-09-09
+title:      If home field advantage exists, how much of an impact does it have on winning the world series?
+subtitle:   Probability and Statistical Inference - 04
+date:       2019-09-12
 author:     Zekun
-header-img: img/prob3-worldseries.jpg
+header-img: img/prob4-home-advantage.jpeg
 catalog: true
 tags:
     - Probability
