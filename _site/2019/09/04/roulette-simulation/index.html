@@ -385,7 +385,7 @@ lines(budget_list, col="blue")
 budget_list &lt;- one_series(B = 200, W = 300, L = 1000, M = 100) %&gt;% get_series
 lines(budget_list, col="purple")
 </code></pre>
-<p><img src="prob1-rainbow.png" alt="compare1" /></p>
+<p><img src="https://i.loli.net/2019/12/22/4kcjYL5KFvSeA9Q.png" alt="" /></p>
 
 <table>
   <thead>
@@ -432,7 +432,7 @@ earning_series[B] &lt;- mean(walk_out_money - B)/B
 }
 plot(earning_series,xlab="Budget",ylab="mean earning rate", main="How Budget influence earning?")
 </code></pre>
-<p><img src="prob1-budget.png" alt="budget" /></p>
+<p><img src="https://i.loli.net/2019/12/22/YBcaSpgdhf7nmwi.png" alt="" /></p>
 
 <h2 id="change-the-budget-threshold-for-successfully-stoping">Change the budget threshold for successfully stoping</h2>
 
@@ -447,7 +447,7 @@ earning_series[W] &lt;- mean(walk_out_money - 200)
 }
 plot(earning_series,xlab="successfully stoping number",ylab="mean earning", main="How successfully stoping influence earning?")
 </code></pre>
-<p><img src="prob1-ssn.png" alt="ssn" /></p>
+<p><img src="https://i.loli.net/2019/12/22/wn2qDzCjXlxSGIY.png" alt="" /></p>
 
 <h2 id="change-the-maximum-number-of-plays">Change the maximum number of plays</h2>
 
@@ -462,7 +462,7 @@ earning_series[L] &lt;- mean(walk_out_money - 200)
 }
 plot(earning_series,xlab="maximum number of plays",ylab="mean earning", main="How maximum number of plays influence earning?")
 </code></pre>
-<p><img src="prob1-mnp.png" alt="mnp" /></p>
+<p><img src="https://i.loli.net/2019/12/22/qeWF58lmvsfiLdE.png" alt="" /></p>
 
 <h2 id="change-the-casino-wager-limit">Change the casino wager limit</h2>
 
@@ -477,7 +477,9 @@ earning_series[M] &lt;- mean(walk_out_money - 200)
 }
 plot(earning_series,xlab="casino wager limit",ylab="mean earning", main="How casino wager limit influence earning?")
 </code></pre>
-<p><img src="prob1-cwl.png" alt="cwl" /></p>
+<p><img src="https://i.loli.net/2019/12/22/1rZdWUg4KsAntqj.png" alt="" /></p>
+
+<h2 id="play-times">Play times</h2>
 
 <p>Next, we can save the times that the game played before walk out then find out the characteristics.</p>
 <pre><code class="language-{r}">get_times &lt;- function(x) length(x)
@@ -488,7 +490,7 @@ for(j in seq_along(walk_out_times)){
 
 hist(walk_out_times, breaks = 100)
 </code></pre>
-<p><img src="prob1-hwot.png" alt="hwot" /></p>
+<p><img src="https://i.loli.net/2019/12/22/YqzUKQRmIahSVoE.png" alt="" /></p>
 
 <pre><code class="language-{r}">mean(walk_out_times)
 </code></pre>

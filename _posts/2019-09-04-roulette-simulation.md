@@ -163,7 +163,7 @@ lines(budget_list, col="blue")
 budget_list <- one_series(B = 200, W = 300, L = 1000, M = 100) %>% get_series
 lines(budget_list, col="purple")
 ```
-![compare1](prob1-rainbow.png)
+![](https://i.loli.net/2019/12/22/4kcjYL5KFvSeA9Q.png)
 
 Parameter | Type | Explaination
 ---|---|---
@@ -186,7 +186,7 @@ earning_series[B] <- mean(walk_out_money - B)/B
 }
 plot(earning_series,xlab="Budget",ylab="mean earning rate", main="How Budget influence earning?")
 ```
-![budget](prob1-budget.png)
+![](https://i.loli.net/2019/12/22/YBcaSpgdhf7nmwi.png)
 
 ## Change the budget threshold for successfully stoping
 
@@ -202,7 +202,7 @@ earning_series[W] <- mean(walk_out_money - 200)
 }
 plot(earning_series,xlab="successfully stoping number",ylab="mean earning", main="How successfully stoping influence earning?")
 ```
-![ssn](prob1-ssn.png)
+![](https://i.loli.net/2019/12/22/wn2qDzCjXlxSGIY.png)
 
 ## Change the maximum number of plays
 
@@ -218,7 +218,7 @@ earning_series[L] <- mean(walk_out_money - 200)
 }
 plot(earning_series,xlab="maximum number of plays",ylab="mean earning", main="How maximum number of plays influence earning?")
 ```
-![mnp](prob1-mnp.png)
+![](https://i.loli.net/2019/12/22/qeWF58lmvsfiLdE.png)
 
 ## Change the casino wager limit
 
@@ -234,7 +234,9 @@ earning_series[M] <- mean(walk_out_money - 200)
 }
 plot(earning_series,xlab="casino wager limit",ylab="mean earning", main="How casino wager limit influence earning?")
 ```
-![cwl](prob1-cwl.png)
+![](https://i.loli.net/2019/12/22/1rZdWUg4KsAntqj.png)
+
+## Play times
 
 Next, we can save the times that the game played before walk out then find out the characteristics.
 ```{r}
@@ -246,7 +248,7 @@ for(j in seq_along(walk_out_times)){
 
 hist(walk_out_times, breaks = 100)
 ```
-![hwot](prob1-hwot.png)
+![](https://i.loli.net/2019/12/22/YqzUKQRmIahSVoE.png)
 
 ```{r}
 mean(walk_out_times)

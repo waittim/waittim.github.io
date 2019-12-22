@@ -5,8 +5,8 @@
     <description>Every failure is leading towards success.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 21 Dec 2019 21:29:29 -0600</pubDate>
-    <lastBuildDate>Sat, 21 Dec 2019 21:29:29 -0600</lastBuildDate>
+    <pubDate>Sat, 21 Dec 2019 21:44:57 -0600</pubDate>
+    <lastBuildDate>Sat, 21 Dec 2019 21:44:57 -0600</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -193,7 +193,7 @@ lines(budget_list, col=&quot;blue&quot;)
 budget_list &amp;lt;- one_series(B = 200, W = 300, L = 1000, M = 100) %&amp;gt;% get_series
 lines(budget_list, col=&quot;purple&quot;)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&quot;prob1-rainbow.png&quot; alt=&quot;compare1&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2019/12/22/4kcjYL5KFvSeA9Q.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
@@ -240,7 +240,7 @@ earning_series[B] &amp;lt;- mean(walk_out_money - B)/B
 }
 plot(earning_series,xlab=&quot;Budget&quot;,ylab=&quot;mean earning rate&quot;, main=&quot;How Budget influence earning?&quot;)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&quot;prob1-budget.png&quot; alt=&quot;budget&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2019/12/22/YBcaSpgdhf7nmwi.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;change-the-budget-threshold-for-successfully-stoping&quot;&gt;Change the budget threshold for successfully stoping&lt;/h2&gt;
 
@@ -255,7 +255,7 @@ earning_series[W] &amp;lt;- mean(walk_out_money - 200)
 }
 plot(earning_series,xlab=&quot;successfully stoping number&quot;,ylab=&quot;mean earning&quot;, main=&quot;How successfully stoping influence earning?&quot;)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&quot;prob1-ssn.png&quot; alt=&quot;ssn&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2019/12/22/wn2qDzCjXlxSGIY.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;change-the-maximum-number-of-plays&quot;&gt;Change the maximum number of plays&lt;/h2&gt;
 
@@ -270,7 +270,7 @@ earning_series[L] &amp;lt;- mean(walk_out_money - 200)
 }
 plot(earning_series,xlab=&quot;maximum number of plays&quot;,ylab=&quot;mean earning&quot;, main=&quot;How maximum number of plays influence earning?&quot;)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&quot;prob1-mnp.png&quot; alt=&quot;mnp&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2019/12/22/qeWF58lmvsfiLdE.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;change-the-casino-wager-limit&quot;&gt;Change the casino wager limit&lt;/h2&gt;
 
@@ -285,7 +285,9 @@ earning_series[M] &amp;lt;- mean(walk_out_money - 200)
 }
 plot(earning_series,xlab=&quot;casino wager limit&quot;,ylab=&quot;mean earning&quot;, main=&quot;How casino wager limit influence earning?&quot;)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&quot;prob1-cwl.png&quot; alt=&quot;cwl&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2019/12/22/1rZdWUg4KsAntqj.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;play-times&quot;&gt;Play times&lt;/h2&gt;
 
 &lt;p&gt;Next, we can save the times that the game played before walk out then find out the characteristics.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;get_times &amp;lt;- function(x) length(x)
@@ -296,7 +298,7 @@ for(j in seq_along(walk_out_times)){
 
 hist(walk_out_times, breaks = 100)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&quot;prob1-hwot.png&quot; alt=&quot;hwot&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2019/12/22/YqzUKQRmIahSVoE.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;mean(walk_out_times)
 &lt;/code&gt;&lt;/pre&gt;
