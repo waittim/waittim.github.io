@@ -17,6 +17,9 @@ tags:
 
 # Introduction
 
+>In statistics, maximum likelihood estimation (MLE) is a method of estimating the parameters of a probability distribution by maximizing a likelihood function, so that under the assumed statistical model the observed data is most probable. The point in the parameter space that maximizes the likelihood function is called the maximum likelihood estimate. The logic of maximum likelihood is both intuitive and flexible, and as such the method has become a dominant means of statistical inference.
+*From [Wikipedia - Maximum likelihood estimation](https://en.wikipedia.org/wiki/Maximum_likelihood_estimation)*
+
 Coverage probability is an important operating characteristic of methods for constructing interval estimates, particularly confidence intervals.
 
 The destination of this blog is that performing a simulation to calculate the coverage probability of the 95% confidence interval of the median when computed from F<sub>X</sub><sup>mle</sup>.

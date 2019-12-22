@@ -5,13 +5,18 @@
     <description>Every failure is leading towards success.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 22 Dec 2019 12:05:01 -0600</pubDate>
-    <lastBuildDate>Sun, 22 Dec 2019 12:05:01 -0600</lastBuildDate>
+    <pubDate>Sun, 22 Dec 2019 12:08:11 -0600</pubDate>
+    <lastBuildDate>Sun, 22 Dec 2019 12:08:11 -0600</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
         <title>Coverage probability of MLE</title>
         <description>&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;In statistics, maximum likelihood estimation (MLE) is a method of estimating the parameters of a probability distribution by maximizing a likelihood function, so that under the assumed statistical model the observed data is most probable. The point in the parameter space that maximizes the likelihood function is called the maximum likelihood estimate. The logic of maximum likelihood is both intuitive and flexible, and as such the method has become a dominant means of statistical inference.
+&lt;em&gt;From &lt;a href=&quot;https://en.wikipedia.org/wiki/Maximum_likelihood_estimation&quot;&gt;Wikipedia - Maximum likelihood estimation&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;p&gt;Coverage probability is an important operating characteristic of methods for constructing interval estimates, particularly confidence intervals.&lt;/p&gt;
 
