@@ -184,7 +184,7 @@ P(B|A)=\frac{P(A)P(B)}{P(A)}  \to  P(A)P(B)=P(B|A)P(A)\\
 $$
 
 Now the P(A) = P(P<sub>B</sub>=0.55), P(B) = P(Braves lose 3 games before winning a 4th game).
-As a result, P( P<sub>B</sub>=0.55|Braves lose 3 games before winning a 4th game) = P(Braves lose 3 games before winning a 4th game|P<sub>B</sub>=0.55)$\times$P(P<sub>B</sub>=0.55)$\div$P(Braves lose 3 games before winning a 4th game).
+As a result, P( P<sub>B</sub>=0.55|Braves lose 3 games before winning a 4th game) = P(Braves lose 3 games before winning a 4th game|P<sub>B</sub>=0.55) * P(P<sub>B</sub>=0.55) ÷ P(Braves lose 3 games before winning a 4th game).
 
 P(P<sub>B</sub>=0.55) = 0.5
 
@@ -195,13 +195,13 @@ dnbinom(3,4,0.55)
 ```
 P(Braves lose 3 games before winning a 4th game) = 0.1516092
 
-P(Braves lose 3 games before winning a 4th game|P<sub>B</sub>=0.55) = 0.1667701
+P(Braves lose 3 games before winning a 4th game \| P<sub>B</sub>=0.55) = 0.1667701
 
-P( P<sub>B</sub>=0.55|Braves lose 3 games before winning a 4th game) = P(Braves lose 3 games before winning a 4th game|P<sub>B</sub>=0.55)$\times$P(P<sub>B</sub>=0.55)$\div$P(Braves lose 3 games before winning a 4th game)
+P( P<sub>B</sub>=0.55\|Braves lose 3 games before winning a 4th game) = P(Braves lose 3 games before winning a 4th game\|P<sub>B</sub>=0.55) * P(P<sub>B</sub>=0.55) ÷ P(Braves lose 3 games before winning a 4th game)
 ```{r}
 0.1667701 * 0.5 / 0.1516092
 ```
 
-P( P<sub>B</sub>=0.55|Braves lose 3 games before winning a 4th game) = 0.1667701 $\times$ 0.5 $\div$ 0.1516092 = 0.5499999
+P( P<sub>B</sub>=0.55\|Braves lose 3 games before winning a 4th game) = 0.1667701 * 0.5 ÷ 0.1516092 = 0.5499999
 
-Therefore, P( P<sub>B</sub>=0.55|Braves lose 3 games before winning a 4th game) is 0.5499999, about 0.55.
+Therefore, P( P<sub>B</sub>=0.55\|Braves lose 3 games before winning a 4th game) is 0.5499999, about 0.55.

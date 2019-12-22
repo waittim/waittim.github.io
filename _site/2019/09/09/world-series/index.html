@@ -192,6 +192,10 @@
     </div>
 </header>
 
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
 <!-- Post Content -->
 <article>
     <div class="container">
@@ -365,7 +369,7 @@ P(B|A)=\frac{P(A)P(B)}{P(A)}  \to  P(A)P(B)=P(B|A)P(A)\\
 \to P(A|B)=\frac{P(B|A)P(A)}{P(B)}</script>
 
 <p>Now the P(A) = P(P<sub>B</sub>=0.55), P(B) = P(Braves lose 3 games before winning a 4th game).
-As a result, P( P<sub>B</sub>=0.55|Braves lose 3 games before winning a 4th game) = P(Braves lose 3 games before winning a 4th game|P<sub>B</sub>=0.55)$\times$P(P<sub>B</sub>=0.55)$\div$P(Braves lose 3 games before winning a 4th game).</p>
+As a result, P( P<sub>B</sub>=0.55|Braves lose 3 games before winning a 4th game) = P(Braves lose 3 games before winning a 4th game|P<sub>B</sub>=0.55) * P(P<sub>B</sub>=0.55) ÷ P(Braves lose 3 games before winning a 4th game).</p>
 
 <p>P(P<sub>B</sub>=0.55) = 0.5</p>
 
@@ -375,36 +379,15 @@ dnbinom(3,4,0.55)
 </code></pre>
 <p>P(Braves lose 3 games before winning a 4th game) = 0.1516092</p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>P(Braves lose 3 games before winning a 4th game</td>
-      <td>P<sub>B</sub>=0.55) = 0.1667701</td>
-    </tr>
-  </tbody>
-</table>
+<p>P(Braves lose 3 games before winning a 4th game | P<sub>B</sub>=0.55) = 0.1667701</p>
 
-<p>P( P<sub>B</sub>=0.55|Braves lose 3 games before winning a 4th game) = P(Braves lose 3 games before winning a 4th game|P<sub>B</sub>=0.55)$\times$P(P<sub>B</sub>=0.55)$\div$P(Braves lose 3 games before winning a 4th game)</p>
+<p>P( P<sub>B</sub>=0.55|Braves lose 3 games before winning a 4th game) = P(Braves lose 3 games before winning a 4th game|P<sub>B</sub>=0.55) * P(P<sub>B</sub>=0.55) ÷ P(Braves lose 3 games before winning a 4th game)</p>
 <pre><code class="language-{r}">0.1667701 * 0.5 / 0.1516092
 </code></pre>
 
-<table>
-  <tbody>
-    <tr>
-      <td>P( P<sub>B</sub>=0.55</td>
-      <td>Braves lose 3 games before winning a 4th game) = 0.1667701 $\times$ 0.5 $\div$ 0.1516092 = 0.5499999</td>
-    </tr>
-  </tbody>
-</table>
+<p>P( P<sub>B</sub>=0.55|Braves lose 3 games before winning a 4th game) = 0.1667701 * 0.5 ÷ 0.1516092 = 0.5499999</p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>Therefore, P( P<sub>B</sub>=0.55</td>
-      <td>Braves lose 3 games before winning a 4th game) is 0.5499999, about 0.55.</td>
-    </tr>
-  </tbody>
-</table>
+<p>Therefore, P( P<sub>B</sub>=0.55|Braves lose 3 games before winning a 4th game) is 0.5499999, about 0.55.</p>
 
 
                 <hr style="visibility: hidden;">
@@ -455,7 +438,7 @@ dnbinom(3,4,0.55)
 
                 
 
-            </div>  
+            </div>
 
     <!-- Side Catalog Container -->
         
@@ -569,6 +552,7 @@ dnbinom(3,4,0.55)
         }
     }
 </style>
+
 
 
     <!-- Footer -->

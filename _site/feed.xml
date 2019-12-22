@@ -5,8 +5,8 @@
     <description>Every failure is leading towards success.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 21 Dec 2019 23:04:57 -0600</pubDate>
-    <lastBuildDate>Sat, 21 Dec 2019 23:04:57 -0600</lastBuildDate>
+    <pubDate>Sat, 21 Dec 2019 23:18:19 -0600</pubDate>
+    <lastBuildDate>Sat, 21 Dec 2019 23:18:19 -0600</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -483,7 +483,7 @@ P(B|A)=\frac{P(A)P(B)}{P(A)}  \to  P(A)P(B)=P(B|A)P(A)\\
 \to P(A|B)=\frac{P(B|A)P(A)}{P(B)}&lt;/script&gt;
 
 &lt;p&gt;Now the P(A) = P(P&lt;sub&gt;B&lt;/sub&gt;=0.55), P(B) = P(Braves lose 3 games before winning a 4th game).
-As a result, P( P&lt;sub&gt;B&lt;/sub&gt;=0.55|Braves lose 3 games before winning a 4th game) = P(Braves lose 3 games before winning a 4th game|P&lt;sub&gt;B&lt;/sub&gt;=0.55)$\times$P(P&lt;sub&gt;B&lt;/sub&gt;=0.55)$\div$P(Braves lose 3 games before winning a 4th game).&lt;/p&gt;
+As a result, P( P&lt;sub&gt;B&lt;/sub&gt;=0.55|Braves lose 3 games before winning a 4th game) = P(Braves lose 3 games before winning a 4th game|P&lt;sub&gt;B&lt;/sub&gt;=0.55) * P(P&lt;sub&gt;B&lt;/sub&gt;=0.55) ÷ P(Braves lose 3 games before winning a 4th game).&lt;/p&gt;
 
 &lt;p&gt;P(P&lt;sub&gt;B&lt;/sub&gt;=0.55) = 0.5&lt;/p&gt;
 
@@ -493,36 +493,15 @@ dnbinom(3,4,0.55)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;P(Braves lose 3 games before winning a 4th game) = 0.1516092&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;P(Braves lose 3 games before winning a 4th game&lt;/td&gt;
-      &lt;td&gt;P&lt;sub&gt;B&lt;/sub&gt;=0.55) = 0.1667701&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;p&gt;P(Braves lose 3 games before winning a 4th game | P&lt;sub&gt;B&lt;/sub&gt;=0.55) = 0.1667701&lt;/p&gt;
 
-&lt;p&gt;P( P&lt;sub&gt;B&lt;/sub&gt;=0.55|Braves lose 3 games before winning a 4th game) = P(Braves lose 3 games before winning a 4th game|P&lt;sub&gt;B&lt;/sub&gt;=0.55)$\times$P(P&lt;sub&gt;B&lt;/sub&gt;=0.55)$\div$P(Braves lose 3 games before winning a 4th game)&lt;/p&gt;
+&lt;p&gt;P( P&lt;sub&gt;B&lt;/sub&gt;=0.55|Braves lose 3 games before winning a 4th game) = P(Braves lose 3 games before winning a 4th game|P&lt;sub&gt;B&lt;/sub&gt;=0.55) * P(P&lt;sub&gt;B&lt;/sub&gt;=0.55) ÷ P(Braves lose 3 games before winning a 4th game)&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;0.1667701 * 0.5 / 0.1516092
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;P( P&lt;sub&gt;B&lt;/sub&gt;=0.55&lt;/td&gt;
-      &lt;td&gt;Braves lose 3 games before winning a 4th game) = 0.1667701 $\times$ 0.5 $\div$ 0.1516092 = 0.5499999&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;p&gt;P( P&lt;sub&gt;B&lt;/sub&gt;=0.55|Braves lose 3 games before winning a 4th game) = 0.1667701 * 0.5 ÷ 0.1516092 = 0.5499999&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Therefore, P( P&lt;sub&gt;B&lt;/sub&gt;=0.55&lt;/td&gt;
-      &lt;td&gt;Braves lose 3 games before winning a 4th game) is 0.5499999, about 0.55.&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;p&gt;Therefore, P( P&lt;sub&gt;B&lt;/sub&gt;=0.55|Braves lose 3 games before winning a 4th game) is 0.5499999, about 0.55.&lt;/p&gt;
 </description>
         <pubDate>Mon, 09 Sep 2019 00:00:00 -0500</pubDate>
         <link>http://localhost:4000/2019/09/09/world-series/</link>
