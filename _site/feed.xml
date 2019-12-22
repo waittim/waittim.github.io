@@ -5,8 +5,8 @@
     <description>Every failure is leading towards success.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 21 Dec 2019 23:59:06 -0600</pubDate>
-    <lastBuildDate>Sat, 21 Dec 2019 23:59:06 -0600</lastBuildDate>
+    <pubDate>Sun, 22 Dec 2019 00:10:33 -0600</pubDate>
+    <lastBuildDate>Sun, 22 Dec 2019 00:10:33 -0600</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -580,6 +580,8 @@ for (p in seq_along(pb_list)) {
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;plot(x= pb_list, y=diff_list)
 &lt;/code&gt;&lt;/pre&gt;
 
+&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/65B70gRL/prob4-b1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
 &lt;p&gt;Obviously, the relationship between &lt;em&gt;P&lt;sub&gt;B&lt;/sub&gt;&lt;/em&gt; and differences is a compound function containing trigonometric functions.&lt;/p&gt;
 
 &lt;p&gt;And the format might be a trigonometric function times a function, that when going to the start and the end of one period approximate 0, otherwise approximate 1. By the way, the period should be 1.&lt;/p&gt;
@@ -631,6 +633,7 @@ for (p in seq_along(ha_list)) {
 &lt;p&gt;Let’s look at the graph. Obviously, when the home field advantage factor is increasing, the difference in probabilities between with and without home filed advantage will increase too.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;plot(x= ha_list, y=diff_list2)
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/rmhHPvs0/prob4-b2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Thu, 12 Sep 2019 00:00:00 -0500</pubDate>
         <link>http://localhost:4000/2019/09/12/home-advantage/</link>

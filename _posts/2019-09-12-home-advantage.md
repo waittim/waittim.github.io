@@ -211,6 +211,8 @@ Then, plot a graph to show the relationship between *P<sub>B</sub>* and differen
 plot(x= pb_list, y=diff_list)
 ```
 
+![](https://i.postimg.cc/65B70gRL/prob4-b1.png)
+
 Obviously, the relationship between *P<sub>B</sub>* and differences is a compound function containing trigonometric functions.
 
 And the format might be a trigonometric function times a function, that when going to the start and the end of one period approximate 0, otherwise approximate 1. By the way, the period should be 1.
@@ -268,3 +270,4 @@ Let's look at the graph. Obviously, when the home field advantage factor is incr
 ```{r}
 plot(x= ha_list, y=diff_list2)
 ```
+![](https://i.postimg.cc/rmhHPvs0/prob4-b2.png)
