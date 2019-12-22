@@ -5,8 +5,8 @@
     <description>Every failure is leading towards success.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 21 Dec 2019 20:11:14 -0600</pubDate>
-    <lastBuildDate>Sat, 21 Dec 2019 20:11:14 -0600</lastBuildDate>
+    <pubDate>Sat, 21 Dec 2019 20:39:55 -0600</pubDate>
+    <lastBuildDate>Sat, 21 Dec 2019 20:39:55 -0600</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -70,7 +70,9 @@
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;h1 id=&quot;one-play&quot;&gt;One Play&lt;/h1&gt;
+&lt;h1 id=&quot;function-setup&quot;&gt;Function Setup&lt;/h1&gt;
+
+&lt;h2 id=&quot;one-play&quot;&gt;One Play&lt;/h2&gt;
 
 &lt;p&gt;In order to use pipes “%&amp;gt;%” in code, we need to import the package first.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r,results='hide'}&quot;&gt;library(dplyr)
@@ -111,7 +113,7 @@
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h1 id=&quot;multiple-plays&quot;&gt;Multiple Plays&lt;/h1&gt;
+&lt;h2 id=&quot;multiple-plays&quot;&gt;Multiple Plays&lt;/h2&gt;
 
 &lt;p&gt;Next, we need to play the game under our rules as a series. The function will output a budget list to record the money value after every play.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;one_series &amp;lt;- function(
@@ -191,7 +193,7 @@ lines(budget_list, col=&quot;blue&quot;)
 budget_list &amp;lt;- one_series(B = 200, W = 300, L = 1000, M = 100) %&amp;gt;% get_series
 lines(budget_list, col=&quot;purple&quot;)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&quot;./img/prob1/prob1-rainbow.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;prob1-rainbow.png&quot; alt=&quot;compare1&quot; /&gt;&lt;/p&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
@@ -238,6 +240,7 @@ earning_series[B] &amp;lt;- mean(walk_out_money - B)/B
 }
 plot(earning_series,xlab=&quot;Budget&quot;,ylab=&quot;mean earning rate&quot;, main=&quot;How Budget influence earning?&quot;)
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;prob1-budget.png&quot; alt=&quot;budget&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;change-the-budget-threshold-for-successfully-stoping&quot;&gt;Change the budget threshold for successfully stoping&lt;/h2&gt;
 
@@ -252,6 +255,7 @@ earning_series[W] &amp;lt;- mean(walk_out_money - 200)
 }
 plot(earning_series,xlab=&quot;successfully stoping number&quot;,ylab=&quot;mean earning&quot;, main=&quot;How successfully stoping influence earning?&quot;)
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;prob1-ssn.png&quot; alt=&quot;ssn&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;change-the-maximum-number-of-plays&quot;&gt;Change the maximum number of plays&lt;/h2&gt;
 
@@ -266,6 +270,7 @@ earning_series[L] &amp;lt;- mean(walk_out_money - 200)
 }
 plot(earning_series,xlab=&quot;maximum number of plays&quot;,ylab=&quot;mean earning&quot;, main=&quot;How maximum number of plays influence earning?&quot;)
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;prob1-mnp.png&quot; alt=&quot;mnp&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;change-the-casino-wager-limit&quot;&gt;Change the casino wager limit&lt;/h2&gt;
 
@@ -280,6 +285,7 @@ earning_series[M] &amp;lt;- mean(walk_out_money - 200)
 }
 plot(earning_series,xlab=&quot;casino wager limit&quot;,ylab=&quot;mean earning&quot;, main=&quot;How casino wager limit influence earning?&quot;)
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;prob1-cwl.png&quot; alt=&quot;cwl&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Next, we can save the times that the game played before walk out then find out the characteristics.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;get_times &amp;lt;- function(x) length(x)
@@ -289,9 +295,12 @@ for(j in seq_along(walk_out_times)){
 }
 
 hist(walk_out_times, breaks = 100)
-
-mean(walk_out_times)
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;prob1-hwot.png&quot; alt=&quot;hwot&quot; /&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;mean(walk_out_times)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The mean of walk out time is 203.0846.&lt;/p&gt;
 
 &lt;p&gt;The limitation of simulation is obvious. It is a black box actually. We can not use it as we proof it by mathematical method. We don’t know why it happened and how it happened, so we can only change the parameter to try to understand the process. By the way, it is not a precise result. Everytime we get a answer, it will change a little bit next time.&lt;/p&gt;
 </description>

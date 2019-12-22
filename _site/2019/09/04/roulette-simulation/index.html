@@ -154,13 +154,13 @@
 
     <!-- Image to hack wechat -->
 <!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="/img/prob1/prob1-roulette.jpg" width="0" height="0"> -->
+<!-- <img src="/img/prob1-roulette.jpg" width="0" height="0"> -->
 
 <!-- Post Header -->
 <style type="text/css">
     header.intro-header{
         position: relative;
-        background-image: url('/img/prob1/prob1-roulette.jpg')
+        background-image: url('/img/prob1-roulette.jpg')
     }
 
     
@@ -183,7 +183,7 @@
                     <h1>Roulette Simulation</h1>
                     
                     
-                    <h2 class="subheading">Probability and Statistical Inference</h2>
+                    <h2 class="subheading">Probability and Statistical Inference - 01</h2>
                     
                     <span class="meta">Posted by Zekun on September 4, 2019</span>
                 </div>
@@ -262,7 +262,9 @@
   </tbody>
 </table>
 
-<h1 id="one-play">One Play</h1>
+<h1 id="function-setup">Function Setup</h1>
+
+<h2 id="one-play">One Play</h2>
 
 <p>In order to use pipes “%&gt;%” in code, we need to import the package first.</p>
 <pre><code class="language-{r,results='hide'}">library(dplyr)
@@ -303,7 +305,7 @@
 }
 </code></pre>
 
-<h1 id="multiple-plays">Multiple Plays</h1>
+<h2 id="multiple-plays">Multiple Plays</h2>
 
 <p>Next, we need to play the game under our rules as a series. The function will output a budget list to record the money value after every play.</p>
 <pre><code class="language-{r}">one_series &lt;- function(
@@ -383,7 +385,7 @@ lines(budget_list, col="blue")
 budget_list &lt;- one_series(B = 200, W = 300, L = 1000, M = 100) %&gt;% get_series
 lines(budget_list, col="purple")
 </code></pre>
-<p><img src="./img/prob1/prob1-rainbow.png" alt="" /></p>
+<p><img src="prob1-rainbow.png" alt="compare1" /></p>
 
 <table>
   <thead>
@@ -430,6 +432,7 @@ earning_series[B] &lt;- mean(walk_out_money - B)/B
 }
 plot(earning_series,xlab="Budget",ylab="mean earning rate", main="How Budget influence earning?")
 </code></pre>
+<p><img src="prob1-budget.png" alt="budget" /></p>
 
 <h2 id="change-the-budget-threshold-for-successfully-stoping">Change the budget threshold for successfully stoping</h2>
 
@@ -444,6 +447,7 @@ earning_series[W] &lt;- mean(walk_out_money - 200)
 }
 plot(earning_series,xlab="successfully stoping number",ylab="mean earning", main="How successfully stoping influence earning?")
 </code></pre>
+<p><img src="prob1-ssn.png" alt="ssn" /></p>
 
 <h2 id="change-the-maximum-number-of-plays">Change the maximum number of plays</h2>
 
@@ -458,6 +462,7 @@ earning_series[L] &lt;- mean(walk_out_money - 200)
 }
 plot(earning_series,xlab="maximum number of plays",ylab="mean earning", main="How maximum number of plays influence earning?")
 </code></pre>
+<p><img src="prob1-mnp.png" alt="mnp" /></p>
 
 <h2 id="change-the-casino-wager-limit">Change the casino wager limit</h2>
 
@@ -472,6 +477,7 @@ earning_series[M] &lt;- mean(walk_out_money - 200)
 }
 plot(earning_series,xlab="casino wager limit",ylab="mean earning", main="How casino wager limit influence earning?")
 </code></pre>
+<p><img src="prob1-cwl.png" alt="cwl" /></p>
 
 <p>Next, we can save the times that the game played before walk out then find out the characteristics.</p>
 <pre><code class="language-{r}">get_times &lt;- function(x) length(x)
@@ -481,9 +487,12 @@ for(j in seq_along(walk_out_times)){
 }
 
 hist(walk_out_times, breaks = 100)
-
-mean(walk_out_times)
 </code></pre>
+<p><img src="prob1-hwot.png" alt="hwot" /></p>
+
+<pre><code class="language-{r}">mean(walk_out_times)
+</code></pre>
+<p>The mean of walk out time is 203.0846.</p>
 
 <p>The limitation of simulation is obvious. It is a black box actually. We can not use it as we proof it by mathematical method. We don’t know why it happened and how it happened, so we can only change the parameter to try to understand the process. By the way, it is not a precise result. Everytime we get a answer, it will change a little bit next time.</p>
 

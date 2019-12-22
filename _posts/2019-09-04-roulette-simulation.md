@@ -1,10 +1,10 @@
 ---
 layout:     post
 title:      Roulette Simulation
-subtitle:   Probability and Statistical Inference
+subtitle:   Probability and Statistical Inference - 01
 date:       2019-09-04
 author:     Zekun
-header-img: img/prob1/prob1-roulette.jpg
+header-img: img/prob1-roulette.jpg
 catalog: true
 tags:
     - Probability
@@ -33,7 +33,9 @@ plays | integer | the number of plays executed
 previous_wager | number | the wager in the previous play (0 at first play)
 previous_win | TRUE/FALSE | indicator if the previous play was a win (TRUE at first play)
 
-# One Play
+# Function Setup
+
+## One Play
 
 In order to use pipes "%>%" in code, we need to import the package first.
 ```{r,results='hide'}
@@ -77,7 +79,7 @@ stop_play <- function(state){
 }
 ```
 
-# Multiple Plays
+## Multiple Plays
 
 Next, we need to play the game under our rules as a series. The function will output a budget list to record the money value after every play.
 ```{r}
@@ -161,7 +163,7 @@ lines(budget_list, col="blue")
 budget_list <- one_series(B = 200, W = 300, L = 1000, M = 100) %>% get_series
 lines(budget_list, col="purple")
 ```
-![](./img/prob1/prob1-rainbow.png)
+![compare1](prob1-rainbow.png)
 
 Parameter | Type | Explaination
 ---|---|---
@@ -184,6 +186,7 @@ earning_series[B] <- mean(walk_out_money - B)/B
 }
 plot(earning_series,xlab="Budget",ylab="mean earning rate", main="How Budget influence earning?")
 ```
+![budget](prob1-budget.png)
 
 ## Change the budget threshold for successfully stoping
 
@@ -199,6 +202,7 @@ earning_series[W] <- mean(walk_out_money - 200)
 }
 plot(earning_series,xlab="successfully stoping number",ylab="mean earning", main="How successfully stoping influence earning?")
 ```
+![ssn](prob1-ssn.png)
 
 ## Change the maximum number of plays
 
@@ -214,6 +218,7 @@ earning_series[L] <- mean(walk_out_money - 200)
 }
 plot(earning_series,xlab="maximum number of plays",ylab="mean earning", main="How maximum number of plays influence earning?")
 ```
+![mnp](prob1-mnp.png)
 
 ## Change the casino wager limit
 
@@ -229,6 +234,7 @@ earning_series[M] <- mean(walk_out_money - 200)
 }
 plot(earning_series,xlab="casino wager limit",ylab="mean earning", main="How casino wager limit influence earning?")
 ```
+![cwl](prob1-cwl.png)
 
 Next, we can save the times that the game played before walk out then find out the characteristics.
 ```{r}
@@ -239,8 +245,12 @@ for(j in seq_along(walk_out_times)){
 }
 
 hist(walk_out_times, breaks = 100)
+```
+![hwot](prob1-hwot.png)
 
+```{r}
 mean(walk_out_times)
 ```
+The mean of walk out time is 203.0846.
 
 The limitation of simulation is obvious. It is a black box actually. We can not use it as we proof it by mathematical method. We don't know why it happened and how it happened, so we can only change the parameter to try to understand the process. By the way, it is not a precise result. Everytime we get a answer, it will change a little bit next time.
