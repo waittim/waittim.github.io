@@ -291,7 +291,7 @@ win_prob &lt;- rep(NA, length(PBseries))
 
 <p>As we can see, in this graph, when P<sub>B</sub> is increasing, the probability that the Braves win the World Series is increasing too. In fact, when we change the x scale to 0.0-1.0, we will find the line looks like a logistic curve.</p>
 
-<h3 id="3-suppose-one-could-change-the-world-series-to-be-best-of-9-or-some-other-best-of-x-series-what-is-the-shortest-series-length-so-that-pbraves-win-world-seriespb055-geq-08">3. Suppose one could change the World Series to be best-of-9 or some other best-of-X series. What is the shortest series length so that P(Braves win World Series|P<sub>B</sub>=0.55) $\geq$ 0.8?</h3>
+<h3 id="3-suppose-one-could-change-the-world-series-to-be-best-of-9-or-some-other-best-of-x-series-what-is-the-shortest-series-length-so-that-pbraves-win-world-seriespb055--08">3. Suppose one could change the World Series to be best-of-9 or some other best-of-X series. What is the shortest series length so that P(Braves win World Series|P<sub>B</sub>=0.55) ≥ 0.8?</h3>
 
 <p>As same as the first question, the P<sub>B</sub> needs to be 0.55. And now the game series length is not a certain. Definitely, the series length should be an odd number.</p>
 <pre><code class="language-{r}">PB &lt;- 0.55
@@ -319,7 +319,7 @@ p_shortest
 
 <p>Now we get the the shortest series length. It should be 71. In that situation, the probability that the Braves win World Series is about 0.802.</p>
 
-<h3 id="4-what-is-the-shortest-series-length-so-that-pbraves-win-world-seriespb-x-geq-08-this-will-be-a-figure-see-below-with-pb-on-the-x-axis-and-series-length-is-the-y-axis">4. What is the shortest series length so that P(Braves win World Series|P<sub>B</sub>= x) $\geq$ 0.8? This will be a figure (see below) with P<sub>B</sub> on the x-axis and series length is the y-axis.</h3>
+<h3 id="4-what-is-the-shortest-series-length-so-that-pbraves-win-world-seriespb-x--08-this-will-be-a-figure-see-below-with-pb-on-the-x-axis-and-series-length-is-the-y-axis">4. What is the shortest series length so that P(Braves win World Series|P<sub>B</sub>= x) ≥ 0.8? This will be a figure (see below) with P<sub>B</sub> on the x-axis and series length is the y-axis.</h3>
 <p>Now the P<sub>B</sub> is not defined again, so we should assume the x could be any number between 0.51 to 1.</p>
 
 <p>First, we need to generate the series of P<sub>B</sub> and a series to save the length results given different P<sub>B</sub>. But the way, we also need a series of the possible series length we will test. Now the ceiling is 9999. If it’s not enough, we can set a bigger limitation.</p>
@@ -471,19 +471,19 @@ dnbinom(3,4,0.55)
                     <div class="tags">
         				
                             
-                				<a href="/tags/#Probability" title="Probability" rel="5">
+                				<a href="/tags/#Probability" title="Probability" rel="6">
                                     Probability
                                 </a>
                             
         				
                             
-                				<a href="/tags/#Simulation" title="Simulation" rel="5">
+                				<a href="/tags/#Simulation" title="Simulation" rel="6">
                                     Simulation
                                 </a>
                             
         				
                             
-                				<a href="/tags/#R" title="R" rel="5">
+                				<a href="/tags/#R" title="R" rel="6">
                                     R
                                 </a>
                             

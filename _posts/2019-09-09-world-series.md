@@ -93,7 +93,7 @@ As we can see, in this graph, when P<sub>B</sub> is increasing, the probability 
 
 
 
-### 3. Suppose one could change the World Series to be best-of-9 or some other best-of-X series. What is the shortest series length so that P(Braves win World Series|P<sub>B</sub>=0.55) $\geq$ 0.8?
+### 3. Suppose one could change the World Series to be best-of-9 or some other best-of-X series. What is the shortest series length so that P(Braves win World Series|P<sub>B</sub>=0.55) ≥ 0.8?
 
 As same as the first question, the P<sub>B</sub> needs to be 0.55. And now the game series length is not a certain. Definitely, the series length should be an odd number.
 ```{r}
@@ -125,7 +125,7 @@ p_shortest
 Now we get the the shortest series length. It should be 71. In that situation, the probability that the Braves win World Series is about 0.802.
 
 
-### 4. What is the shortest series length so that P(Braves win World Series|P<sub>B</sub>= x) $\geq$ 0.8? This will be a figure (see below) with P<sub>B</sub> on the x-axis and series length is the y-axis.
+### 4. What is the shortest series length so that P(Braves win World Series|P<sub>B</sub>= x) ≥ 0.8? This will be a figure (see below) with P<sub>B</sub> on the x-axis and series length is the y-axis.
 Now the P<sub>B</sub> is not defined again, so we should assume the x could be any number between 0.51 to 1.
 
 First, we need to generate the series of P<sub>B</sub> and a series to save the length results given different P<sub>B</sub>. But the way, we also need a series of the possible series length we will test. Now the ceiling is 9999. If it's not enough, we can set a bigger limitation.
