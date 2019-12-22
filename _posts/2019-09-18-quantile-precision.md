@@ -81,6 +81,7 @@ ggplot(length_df,aes(x=quantile_position,y=mid95_length))+
   )+
   scale_y_continuous(name = "Length")
 ```
+![](https://i.postimg.cc/J0jRCrkY/prob5-s1.png)
 
 as we can see, when the quantile is approaching 50%, the length is going lower. It means that when the quantile is approaching 50%, simulation error is lower. It means when the quantile is 50%, it has the best precision.
 
@@ -96,6 +97,7 @@ ggplot(length_d_df, aes(x=density,y=mid95_length))+
   geom_point()+geom_line()+
   labs(title = "Length of middle 95% of normal distribution by density", x= "Density",y="Length")
 ```
+![](https://i.postimg.cc/9QLChND2/prob5-s2.png)
 
 In this graph, we can find when density is bigger, the simulation error is lower.
 
@@ -134,6 +136,7 @@ ggplot(length_df,aes(x=quantile_position,y=mid95_length))+
   scale_y_continuous(name = "Length")
 
 ```
+![](https://i.postimg.cc/cCtNMsh4/prob5-e1.png)
 
 For this exponential distribution, when quantile is bigger, the error of simulation is bigger.
 
@@ -150,6 +153,7 @@ ggplot(length_d_df, aes(x=density,y=mid95_length))+
   geom_point()+geom_line()+
   labs(title = "Length of middle 95% of exponential distribution by density", x= "Density",y="Length")
 ```
+![](https://i.postimg.cc/GmdmryzF/prob5-e2.png)
 
 
 # Mixture Distribution 3
@@ -198,6 +202,7 @@ ggplot(length_df,aes(x=quantile_position,y=mid95_length))+
   )+
   scale_y_continuous(name = "Length")
 ```
+![](https://i.postimg.cc/rwjFpwYv/prob5-m31.png)
 
 Definitely, when the quantile is 40%, the median have the tightest sampling distribution.
 
@@ -223,6 +228,7 @@ ggplot(length_d_df, aes(x=density,y=mid95_length))+
   geom_point()+geom_line()+
   labs(title = "Length of middle 95% of given mixture distribution 3 by density", x= "Density",y="Length")
 ```
+![](https://i.postimg.cc/N00G2v3L/prob5-m32.png)
 
 # Mixture Distribution 4
 
@@ -262,8 +268,8 @@ ggplot(length_df,aes(x=quantile_position,y=mid95_length))+
     breaks = seq(0.05, 0.95, 0.05)
   )+
   scale_y_continuous(name = "Length")
-
 ```
+![](https://i.postimg.cc/YSyr1y7R/prob5-m41.png)
 
 Definitely, when the quantile is 5% or 95%, the median have the tightest sampling distribution.
 
@@ -290,7 +296,6 @@ qf4_seq[i] <- uniroot(function(x){pf4(x)-quantile_seq[i]}, c(-100,100))[[1]]
 }
 
 
-
 length_d_df <- length_df %>%
   mutate(density=df4(qf4_seq))
 
@@ -298,7 +303,7 @@ ggplot(length_d_df, aes(x=density,y=mid95_length))+
   geom_point()+geom_line()+
   labs(title = "Length of middle 95% of given mixture distribution 4 by density", x= "Density",y="Length")
 ```
-
+![](https://i.postimg.cc/hjzSMbPB/prob5-m42.png)
 
 
 
@@ -347,6 +352,7 @@ length_df %>%
     breaks = seq(0.05, 0.95, 0.05)
   )
 ```
+![](https://i.postimg.cc/Vkfm2cL4/prob5-o1.png)
 
 ```{r}
 length_df %>%
@@ -360,8 +366,8 @@ length_df %>%
     name = "pth quantile",
     breaks = seq(0.05, 0.95, 0.05)
   )
-
 ```
+![](https://i.postimg.cc/J4cRThmG/prob5-o2.png)
 
 Definitely, when the sample size is bigger, the error of simulation will be smaller.
 

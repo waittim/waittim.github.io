@@ -5,8 +5,8 @@
     <description>Every failure is leading towards success.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 22 Dec 2019 00:10:33 -0600</pubDate>
-    <lastBuildDate>Sun, 22 Dec 2019 00:10:33 -0600</lastBuildDate>
+    <pubDate>Sun, 22 Dec 2019 00:25:39 -0600</pubDate>
+    <lastBuildDate>Sun, 22 Dec 2019 00:25:39 -0600</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -73,6 +73,7 @@ ggplot(length_df,aes(x=quantile_position,y=mid95_length))+
   )+
   scale_y_continuous(name = &quot;Length&quot;)
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/J0jRCrkY/prob5-s1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;as we can see, when the quantile is approaching 50%, the length is going lower. It means that when the quantile is approaching 50%, simulation error is lower. It means when the quantile is 50%, it has the best precision.&lt;/p&gt;
 
@@ -86,6 +87,7 @@ ggplot(length_d_df, aes(x=density,y=mid95_length))+
   geom_point()+geom_line()+
   labs(title = &quot;Length of middle 95% of normal distribution by density&quot;, x= &quot;Density&quot;,y=&quot;Length&quot;)
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/9QLChND2/prob5-s2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;In this graph, we can find when density is bigger, the simulation error is lower.&lt;/p&gt;
 
@@ -122,6 +124,7 @@ ggplot(length_df,aes(x=quantile_position,y=mid95_length))+
   scale_y_continuous(name = &quot;Length&quot;)
 
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/cCtNMsh4/prob5-e1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;For this exponential distribution, when quantile is bigger, the error of simulation is bigger.&lt;/p&gt;
 
@@ -136,6 +139,7 @@ ggplot(length_d_df, aes(x=density,y=mid95_length))+
   geom_point()+geom_line()+
   labs(title = &quot;Length of middle 95% of exponential distribution by density&quot;, x= &quot;Density&quot;,y=&quot;Length&quot;)
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/GmdmryzF/prob5-e2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;mixture-distribution-3&quot;&gt;Mixture Distribution 3&lt;/h1&gt;
 
@@ -181,6 +185,7 @@ ggplot(length_df,aes(x=quantile_position,y=mid95_length))+
   )+
   scale_y_continuous(name = &quot;Length&quot;)
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/rwjFpwYv/prob5-m31.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Definitely, when the quantile is 40%, the median have the tightest sampling distribution.&lt;/p&gt;
 
@@ -203,6 +208,7 @@ ggplot(length_d_df, aes(x=density,y=mid95_length))+
   geom_point()+geom_line()+
   labs(title = &quot;Length of middle 95% of given mixture distribution 3 by density&quot;, x= &quot;Density&quot;,y=&quot;Length&quot;)
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/N00G2v3L/prob5-m32.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;mixture-distribution-4&quot;&gt;Mixture Distribution 4&lt;/h1&gt;
 
@@ -240,8 +246,8 @@ ggplot(length_df,aes(x=quantile_position,y=mid95_length))+
     breaks = seq(0.05, 0.95, 0.05)
   )+
   scale_y_continuous(name = &quot;Length&quot;)
-
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/YSyr1y7R/prob5-m41.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Definitely, when the quantile is 5% or 95%, the median have the tightest sampling distribution.&lt;/p&gt;
 
@@ -266,7 +272,6 @@ qf4_seq[i] &amp;lt;- uniroot(function(x){pf4(x)-quantile_seq[i]}, c(-100,100))[[
 }
 
 
-
 length_d_df &amp;lt;- length_df %&amp;gt;%
   mutate(density=df4(qf4_seq))
 
@@ -274,6 +279,7 @@ ggplot(length_d_df, aes(x=density,y=mid95_length))+
   geom_point()+geom_line()+
   labs(title = &quot;Length of middle 95% of given mixture distribution 4 by density&quot;, x= &quot;Density&quot;,y=&quot;Length&quot;)
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/hjzSMbPB/prob5-m42.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;other-tests&quot;&gt;Other Tests&lt;/h1&gt;
 
@@ -318,6 +324,7 @@ for(n in seq_along(sample_size)){
     breaks = seq(0.05, 0.95, 0.05)
   )
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/Vkfm2cL4/prob5-o1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;length_df %&amp;gt;%
   mutate(density=dnorm(qnorm(quantile_position))) %&amp;gt;%
@@ -330,8 +337,8 @@ for(n in seq_along(sample_size)){
     name = &quot;pth quantile&quot;,
     breaks = seq(0.05, 0.95, 0.05)
   )
-
 &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/J4cRThmG/prob5-o2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Definitely, when the sample size is bigger, the error of simulation will be smaller.&lt;/p&gt;
 
