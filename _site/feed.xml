@@ -5,12 +5,12 @@
     <description>Every failure is leading towards success.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 22 Dec 2019 01:56:49 -0600</pubDate>
-    <lastBuildDate>Sun, 22 Dec 2019 01:56:49 -0600</lastBuildDate>
+    <pubDate>Sun, 22 Dec 2019 11:47:49 -0600</pubDate>
+    <lastBuildDate>Sun, 22 Dec 2019 11:47:49 -0600</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
-        <title>Coverage probability</title>
+        <title>Coverage probability of MLE</title>
         <description>&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
 
 &lt;p&gt;Coverage probability is an important operating characteristic of methods for constructing interval estimates, particularly confidence intervals.&lt;/p&gt;
@@ -21,7 +21,7 @@
 library(tidyverse)
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h1 id=&quot;step-1&quot;&gt;Step 1&lt;/h1&gt;
+&lt;h1 id=&quot;step-1-single-sample&quot;&gt;Step 1: Single sample&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Generate a single sample from a standard normal distribution of size N = 201.&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;Fisrt, let’s set the size of distribution (N) as 201, and create a standard normal distribution as sample.&lt;/p&gt;
@@ -54,11 +54,12 @@ sample1_sd &amp;lt;- coef(fit)[[2]]
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The estimated mean is &lt;code class=&quot;highlighter-rouge&quot;&gt;r sample1_mean&lt;/code&gt; and the estimated standard deviation is &lt;code class=&quot;highlighter-rouge&quot;&gt;r sample1_sd&lt;/code&gt;.&lt;/p&gt;
 
-&lt;h1 id=&quot;step-2&quot;&gt;Step 2&lt;/h1&gt;
+&lt;h1 id=&quot;step-2-approximate-median-distribution&quot;&gt;Step 2: Approximate median distribution&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Approximate the sampling distribution of the median, conditional on the estimate of the distribution in the previous step.&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;In the previous step, we get a pair of estimated mean and standard deviation. Based on the parameter, we can generate new distributions to simulate the original distribution.
-Now we need to get the median of the new distribution, and if repeat the process for lots of time, we can get the distribution of median of the estimated distribution.&lt;/p&gt;
+&lt;p&gt;In the previous step, we get a pair of estimated mean and standard deviation. Based on the parameter, we can generate new distributions to simulate the original distribution.&lt;/p&gt;
+
+&lt;p&gt;Now we need to get the median of the new distribution, and if repeat the process for lots of time, we can get the distribution of median of the estimated distribution.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;median_list &amp;lt;- rep(NA, 500)
 for (i in seq_along(median_list)) {
   median_list[i] &amp;lt;-
@@ -67,7 +68,7 @@ for (i in seq_along(median_list)) {
 #hist(median_list,breaks = 100)
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h1 id=&quot;step-3&quot;&gt;Step 3&lt;/h1&gt;
+&lt;h1 id=&quot;step-3-calculate-95-ci&quot;&gt;Step 3: Calculate 95% CI&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Calculate a 95% confidence interval from the approximated sampling distribution.&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;For the median distribution we got in the previous step, we can use &lt;em&gt;quantile()&lt;/em&gt; function to get the 95% confidence interval.&lt;/p&gt;
@@ -75,8 +76,8 @@ for (i in seq_along(median_list)) {
 sample1_quantile95
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h1 id=&quot;step-4&quot;&gt;Step 4&lt;/h1&gt;
-&lt;p&gt;&lt;strong&gt;The concept of coverage probability. And calculating the coverage probability.&lt;/strong&gt;&lt;/p&gt;
+&lt;h1 id=&quot;step-4-calculate-coverage-probability&quot;&gt;Step 4: Calculate coverage probability&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;Now we will explain the concept of coverage probability. And calculating the coverage probability.&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;First, create a matrix to save the distributions we are going to generate. Every column is one distribution. Than use the method in the previous steps, generate all of the distributions.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;samples &amp;lt;- matrix(nrow = N, ncol = 1000)
@@ -134,7 +135,7 @@ sum(quantile95_list[1,] &amp;gt; 0)
 
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h1 id=&quot;step-5&quot;&gt;Step 5&lt;/h1&gt;
+&lt;h1 id=&quot;step-5-simulation&quot;&gt;Step 5: Simulation&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Perform the simulation.&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;In order to make the results more intuitive, we can use &lt;em&gt;geom_linerange()&lt;/em&gt; function in &lt;em&gt;ggplot&lt;/em&gt; to draw the 95% confidence interval. And set the 95% confidence interval which did not capture the real mean of original distribution, “0” as a red line.&lt;/p&gt;
@@ -155,8 +156,8 @@ ggplot(quantile95_df) +
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/9MPrGHm9/prob7-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;h1 id=&quot;step-6&quot;&gt;Step 6&lt;/h1&gt;
-&lt;p&gt;&lt;strong&gt;Change the simulation to learn more about the operating characteristics of the chosen method for constructing the 95% confidence interval.&lt;/strong&gt;&lt;/p&gt;
+&lt;h1 id=&quot;step-6-future-works&quot;&gt;Step 6: Future works&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;How to change the simulation to learn more about the operating characteristics of the chosen method for constructing the 95% confidence interval.&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;I think I will choose to use bigger distribution to test the process, likes set the &lt;em&gt;N&lt;/em&gt; as 5000 or 10000. And I could calculate the other quantile of the distributions to find out is there any different. After that, maybe I will use other distribution but not standard normal distribution, such as gamma or beta distribution.&lt;/p&gt;
 </description>
@@ -169,6 +170,8 @@ ggplot(quantile95_df) +
         <category>Simulation</category>
         
         <category>R</category>
+        
+        <category>MLE</category>
         
         
       </item>

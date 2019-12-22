@@ -10,7 +10,7 @@
     <meta name="keywords"  content="ZW, Zekun Blog, 王泽坤的博客, zekunwang, 王泽坤, data science, DS">
     <meta name="theme-color" content="#000000">
     
-    <title>Coverage probability - Zekun Wang's Blog | Data Science</title>
+    <title>Coverage probability of MLE - Zekun Wang's Blog | Data Science</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -179,8 +179,10 @@
                         
                         <a class="tag" href="/tags/#R" title="R">R</a>
                         
+                        <a class="tag" href="/tags/#MLE" title="MLE">MLE</a>
+                        
                     </div>
-                    <h1>Coverage probability</h1>
+                    <h1>Coverage probability of MLE</h1>
                     
                     
                     <h2 class="subheading">Probability and Statistical Inference - 07</h2>
@@ -217,7 +219,7 @@
 library(tidyverse)
 </code></pre>
 
-<h1 id="step-1">Step 1</h1>
+<h1 id="step-1-single-sample">Step 1: Single sample</h1>
 <p><strong>Generate a single sample from a standard normal distribution of size N = 201.</strong></p>
 
 <p>Fisrt, let’s set the size of distribution (N) as 201, and create a standard normal distribution as sample.</p>
@@ -250,11 +252,12 @@ sample1_sd &lt;- coef(fit)[[2]]
 </code></pre>
 <p>The estimated mean is <code class="highlighter-rouge">r sample1_mean</code> and the estimated standard deviation is <code class="highlighter-rouge">r sample1_sd</code>.</p>
 
-<h1 id="step-2">Step 2</h1>
+<h1 id="step-2-approximate-median-distribution">Step 2: Approximate median distribution</h1>
 <p><strong>Approximate the sampling distribution of the median, conditional on the estimate of the distribution in the previous step.</strong></p>
 
-<p>In the previous step, we get a pair of estimated mean and standard deviation. Based on the parameter, we can generate new distributions to simulate the original distribution.
-Now we need to get the median of the new distribution, and if repeat the process for lots of time, we can get the distribution of median of the estimated distribution.</p>
+<p>In the previous step, we get a pair of estimated mean and standard deviation. Based on the parameter, we can generate new distributions to simulate the original distribution.</p>
+
+<p>Now we need to get the median of the new distribution, and if repeat the process for lots of time, we can get the distribution of median of the estimated distribution.</p>
 <pre><code class="language-{r}">median_list &lt;- rep(NA, 500)
 for (i in seq_along(median_list)) {
   median_list[i] &lt;-
@@ -263,7 +266,7 @@ for (i in seq_along(median_list)) {
 #hist(median_list,breaks = 100)
 </code></pre>
 
-<h1 id="step-3">Step 3</h1>
+<h1 id="step-3-calculate-95-ci">Step 3: Calculate 95% CI</h1>
 <p><strong>Calculate a 95% confidence interval from the approximated sampling distribution.</strong></p>
 
 <p>For the median distribution we got in the previous step, we can use <em>quantile()</em> function to get the 95% confidence interval.</p>
@@ -271,8 +274,8 @@ for (i in seq_along(median_list)) {
 sample1_quantile95
 </code></pre>
 
-<h1 id="step-4">Step 4</h1>
-<p><strong>The concept of coverage probability. And calculating the coverage probability.</strong></p>
+<h1 id="step-4-calculate-coverage-probability">Step 4: Calculate coverage probability</h1>
+<p><strong>Now we will explain the concept of coverage probability. And calculating the coverage probability.</strong></p>
 
 <p>First, create a matrix to save the distributions we are going to generate. Every column is one distribution. Than use the method in the previous steps, generate all of the distributions.</p>
 <pre><code class="language-{r}">samples &lt;- matrix(nrow = N, ncol = 1000)
@@ -330,7 +333,7 @@ sum(quantile95_list[1,] &gt; 0)
 
 </code></pre>
 
-<h1 id="step-5">Step 5</h1>
+<h1 id="step-5-simulation">Step 5: Simulation</h1>
 <p><strong>Perform the simulation.</strong></p>
 
 <p>In order to make the results more intuitive, we can use <em>geom_linerange()</em> function in <em>ggplot</em> to draw the 95% confidence interval. And set the 95% confidence interval which did not capture the real mean of original distribution, “0” as a red line.</p>
@@ -351,8 +354,8 @@ ggplot(quantile95_df) +
 </code></pre>
 <p><img src="https://i.postimg.cc/9MPrGHm9/prob7-1.png" alt="" /></p>
 
-<h1 id="step-6">Step 6</h1>
-<p><strong>Change the simulation to learn more about the operating characteristics of the chosen method for constructing the 95% confidence interval.</strong></p>
+<h1 id="step-6-future-works">Step 6: Future works</h1>
+<p><strong>How to change the simulation to learn more about the operating characteristics of the chosen method for constructing the 95% confidence interval.</strong></p>
 
 <p>I think I will choose to use bigger distribution to test the process, likes set the <em>N</em> as 5000 or 10000. And I could calculate the other quantile of the distributions to find out is there any different. After that, maybe I will use other distribution but not standard normal distribution, such as gamma or beta distribution.</p>
 
@@ -446,6 +449,8 @@ ggplot(quantile95_df) +
                 				<a href="/tags/#R" title="R" rel="6">
                                     R
                                 </a>
+                            
+        				
                             
         				
         			</div>
