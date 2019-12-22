@@ -5,9 +5,264 @@
     <description>Every failure is leading towards success.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 22 Dec 2019 12:08:11 -0600</pubDate>
-    <lastBuildDate>Sun, 22 Dec 2019 12:08:11 -0600</lastBuildDate>
+    <pubDate>Sun, 22 Dec 2019 12:23:33 -0600</pubDate>
+    <lastBuildDate>Sun, 22 Dec 2019 12:23:33 -0600</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
+    
+      <item>
+        <title>Simulation method comparison</title>
+        <description>&lt;h1 id=&quot;situation-description&quot;&gt;Situation description&lt;/h1&gt;
+
+&lt;p&gt;This time, I will perform a 2 × 4 × 2 factorial simulation study to compare the coverage probability of various methods of calculating &lt;strong&gt;90%&lt;/strong&gt; confidence intervals. The three factors in the experiment are:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;True, underlying distribution
+    &lt;ul&gt;
+      &lt;li&gt;standard normal&lt;/li&gt;
+      &lt;li&gt;gamma(shape = 1.4, scale = 3)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Model
+    &lt;ul&gt;
+      &lt;li&gt;method of moments with normal&lt;/li&gt;
+      &lt;li&gt;method of moments with gamma&lt;/li&gt;
+      &lt;li&gt;kernel density estimation&lt;/li&gt;
+      &lt;li&gt;bootstrap&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Parameter of interest
+    &lt;ul&gt;
+      &lt;li&gt;sample min (1st order statistic)&lt;/li&gt;
+      &lt;li&gt;median
+Other settings in the experiment that will not change are:
+    -   Sample size, &lt;em&gt;N&lt;/em&gt; = 201
+    -   &lt;em&gt;Outside the loop&lt;/em&gt; estimation&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;define-functions&quot;&gt;Define functions&lt;/h1&gt;
+
+&lt;h2 id=&quot;data-generation-function&quot;&gt;Data generation function&lt;/h2&gt;
+
+&lt;p&gt;Set up data generate function what can generate data base on normal distribution or gamma distribution. The distribution will be defined by the parameter “dist”. The default parameter of gamma distribution are shape=1.4 and scale=3.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;generate_data &amp;lt;- function(N, dist, sh=1.4, sc=3){
+  if(dist==&quot;norm&quot;){
+    rnorm(N)
+  }else if(dist==&quot;gamma&quot;){
+    rgamma(N, shape=sh, scale=sc)
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;confidence-interval-estimation-function&quot;&gt;Confidence interval estimation function&lt;/h2&gt;
+
+&lt;p&gt;Then define the function for calculate the confidence interval, which can estimate the distribution by method of moment with normal distribution, method of moment with gamma distribution, kernal density distribution and bootstrap. At the same time, the function can use the function defined by “par.int” to calculate the parameter we want. The details will be introduced in the chunk.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;estimate.ci &amp;lt;- function(data, mod, par.int, R=10, smoo=0.3){
+  # data: input data
+  # mod: define the estimation method and the distribution.
+  #      (MMnorm: method of moment with normal distribution,
+  #       MMgamma: method of moment with gamma distribution,
+  #       KDE: kernal density distribution,
+  #       Boot: bootstrap)
+  # par.int: the function what can get the parameter we want for the estimated distribution
+
+  N &amp;lt;- length(data) # save N as the number of the inputted data
+  sum.measure &amp;lt;- get(par.int) # make charactor can be used as function
+
+
+  if(mod==&quot;MMnorm&quot;){
+    # use method of moment with normal distribution to estimate
+
+    mm.mean &amp;lt;- mean(data) # get the original mean of data
+    mm.sd &amp;lt;- sd(data) # get the original standard deviation of data
+
+    samp.dist &amp;lt;- NA #
+    for(i in 1:R){
+      sim.data &amp;lt;-rnorm(length(data), mm.mean, mm.sd)
+      # use the mean &amp;amp; sd of data to generate a new normal distribution
+      if(par.int==&quot;median&quot;){
+        samp.dist[i] &amp;lt;- median(sim.data)
+        # save the median of generated distribution
+      }else if(par.int==&quot;min&quot;){
+        samp.dist[i] &amp;lt;- min(sim.data)
+        # save the min of generated distribution
+      }
+    }
+    return(quantile(samp.dist, c(0.05, 0.95)))
+    # the output will be the 95% confidence interval of needed distribution
+
+  }else if(mod==&quot;MMgamma&quot;){
+    # use method of moment with gamma distribution to estimate
+
+    mm.shape &amp;lt;- mean(data)^2/var(data)
+    # get the original shape parameter of data
+    mm.scale &amp;lt;- var(data)/mean(data)
+    # get the original scale parameter of data
+
+    #create a N*R array to reserve the gamma distributions
+    sim.data &amp;lt;- array(rgamma(length(data)*R, shape=mm.shape, scale=mm.scale), dim=c(N, R))
+    # use the function called by par.int for each column and reserve the results as a distribution
+    samp.dist &amp;lt;- apply(sim.data, 2, FUN=sum.measure)
+    return(quantile(samp.dist, c(0.05, 0.95)))
+    # the output will be the 95% confidence interval of needed distribution
+
+  }else if(mod==&quot;KDE&quot;){
+    # use kernal density estimation
+
+    ecdfstar &amp;lt;- function(t, data, smooth=smoo){
+        # use pnorm function which has sd=smoo on the outer product of t and data.
+        # t[i] is the quantile, data[j] is the mean for pnorm.
+        # in other words, calculate the persentage under quantile &quot;t&quot; of distribution &quot;data&quot;
+        outer(t, data, function(a,b){ pnorm(a, b, smooth)}) %&amp;gt;%
+        rowMeans
+        # then count the mean of each row, AKA, the mean persentage under quantile &quot;t&quot;
+    }
+
+    # create a 1 column data frame with a sequence from min-sd to max+sd of the data with break=0.01
+    tbl &amp;lt;- data.frame(
+        x = seq(min(data)-sd(data), max(data)+sd(data),
+                by = 0.01)
+    )
+
+    tbl$p &amp;lt;- ecdfstar(tbl$x, data, smoo)
+    # add a new column called p reserve the result of ecdfstar function
+    tbl &amp;lt;- tbl[!duplicated(tbl$p),]
+    # remove all of rows which contain the duplicated value in column &quot;p&quot;.
+
+    qkde &amp;lt;- function(ps, tbl){
+      # convert &quot;ps&quot; to a factor with the break as column &quot;p&quot; in &quot;tbl&quot; data frame
+      rows &amp;lt;- cut(ps, tbl$p, labels = FALSE)
+      tbl[rows, &quot;x&quot;]
+      # return the part of column &quot;x&quot; which match the rows number factor
+    }
+
+    U &amp;lt;- runif(N*R) # create a uniform distribution with the size=N*R
+
+    # reserve the result of qkde as a N*R matrix
+    sim.data &amp;lt;- array(qkde(U,tbl), dim=c(N, R))
+    # use the function called by par.int for each column and reserve the results as a distribution
+    samp.dist &amp;lt;- apply(sim.data, 2, sum.measure)
+
+    return(quantile(samp.dist, c(0.05, 0.95), na.rm=TRUE))
+    # the output will be the 95% confidence interval
+
+  }else if(mod==&quot;Boot&quot;){
+    # use bootstrap
+
+    # get random sample with size=N from the data R times, reserve the result as a N*R matrix
+    sim.data &amp;lt;- array(sample(data, N*R, replace=TRUE), dim=c(N,R))
+    # use the function called by par.int for each column and reserve the results as a distribution
+    samp.dist &amp;lt;- apply(sim.data, 2, sum.measure)
+
+    return(quantile(samp.dist, c(0.05, 0.95), na.rm=TRUE))
+    # the output will be the 95% confidence interval
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;destination-capture-function&quot;&gt;Destination capture function&lt;/h2&gt;
+
+&lt;p&gt;Create a function to justify that is the confidence interval match the requirement. When the result is TRUE, return 1.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;capture_par &amp;lt;- function(ci, true.par){
+  1*(ci[1] &amp;lt; true.par &amp;amp; true.par &amp;lt; ci[2])
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;simulation&quot;&gt;Simulation&lt;/h1&gt;
+
+&lt;h2 id=&quot;calculation-prepare&quot;&gt;Calculation prepare&lt;/h2&gt;
+
+&lt;p&gt;Now we can set the size of distribution N is 201. When use gamma distribution, we will use the shape 1.4 and scale 3.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;N &amp;lt;- 201
+shape.set &amp;lt;- 1.4
+scale.set &amp;lt;- 3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Define the capture destinations.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;true.norm.med &amp;lt;- qnorm(0.5)
+true.norm.min &amp;lt;- mean(apply(array(rnorm(N*10000), dim=c(N, 10000)),2,min))
+true.gamma.med &amp;lt;- qgamma(0.5, shape = shape.set, scale=scale.set)
+true.gamma.min &amp;lt;- mean(apply(array(rgamma(N*10000, shape=shape.set, scale=scale.set), dim=c(N, 10000)),2,min))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;For the standard min of distribution part, we expand the data size for 10000 times and get the mean min value as the standard min.&lt;/p&gt;
+
+&lt;p&gt;Create a table called “simsettings” to reserve the results of each estimation method and the target parameter.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;simsettings &amp;lt;- expand.grid(dist=c(&quot;norm&quot;, &quot;gamma&quot;), model=c(&quot;MMnorm&quot;, &quot;MMgamma&quot;, &quot;KDE&quot;, &quot;Boot&quot;), par.int=c(&quot;median&quot;, &quot;min&quot;), cov.prob=NA,  stringsAsFactors = FALSE, KEEP.OUT.ATTRS = FALSE)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Add a new column to rserve the capture destinations.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;simsettings$truth &amp;lt;- c(true.norm.med, true.gamma.med, true.norm.med, true.gamma.med, true.norm.med, true.gamma.med, true.norm.med, true.gamma.med, true.norm.min, true.gamma.min, true.norm.min, true.gamma.min, true.norm.min, true.gamma.min, true.norm.min, true.gamma.min)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;calculation&quot;&gt;Calculation&lt;/h2&gt;
+
+&lt;p&gt;Base on the “simsettings” table, calculate the capture probabilities and reserve them in the table.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;for(k in c(1:2,4:10,12:16)){
+  dist1 &amp;lt;- simsettings[k,1]
+  model1 &amp;lt;- simsettings[k,2]
+  par.int1 &amp;lt;- simsettings[k,3]
+  true.par1 &amp;lt;- simsettings[k,5]
+
+  cover &amp;lt;- NA
+  for(sims in 1:100){
+    cover[sims] &amp;lt;- generate_data(N, dist1) %&amp;gt;%
+    estimate.ci(mod=model1, par.int=par.int1, R=1000) %&amp;gt;%
+    capture_par(true.par = true.par1)
+  }
+  simsettings[k,4] &amp;lt;- mean(cover)
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;Show the result table.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;simsettings
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;##     dist   model par.int cov.prob       truth
+## 1   norm  MMnorm  median     0.99  0.00000000
+## 2  gamma  MMnorm  median     0.01  3.25311453
+## 3   norm MMgamma  median       NA  0.00000000
+## 4  gamma MMgamma  median     0.97  3.25311453
+## 5   norm     KDE  median     0.94  0.00000000
+## 6  gamma     KDE  median     0.93  3.25311453
+## 7   norm    Boot  median     0.94  0.00000000
+## 8  gamma    Boot  median     0.90  3.25311453
+## 9   norm  MMnorm     min     1.00 -2.74462674
+## 10 gamma  MMnorm     min     0.00  0.07277036
+## 11  norm MMgamma     min       NA -2.74462674
+## 12 gamma MMgamma     min     0.99  0.07277036
+## 13  norm     KDE     min     0.94 -2.74462674
+## 14 gamma     KDE     min     0.35  0.07277036
+## 15  norm    Boot     min     0.40 -2.74462674
+## 16 gamma    Boot     min     0.57  0.07277036
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Definitely, for the method of moment part, when the data distribution matches the model distribution (e.g. norm - MMnorm, gamma - MMgamma), the capture probabilities are more than 90%. When the distributions do not match with each other, the results will be close to 0% or NA.&lt;/p&gt;
+
+&lt;p&gt;And for kernal density estimation, when we need to get the median of the distributions, the results are pretty good as close to 100%. But when we need to get the min of the distributions, the capture probabilities of normal and gamma are really different. For the normal distribution it works well, but for gamma distribution it is about 37%. The reason might be that gamma distribution is a skewed distribution.&lt;/p&gt;
+
+&lt;p&gt;For bootstrap part, the results are not as good as others. When we want to get the median of the distributions, the capture probabilities are just about 90%. And when it comes to min of the distributions, the probabilities become 50%. Obviously, it is because selecting a sample randomly is too difficult to get the min point every time.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 27 Oct 2019 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2019/10/27/simulation-compare/</link>
+        <guid isPermaLink="true">http://localhost:4000/2019/10/27/simulation-compare/</guid>
+        
+        <category>Probability</category>
+        
+        <category>Simulation</category>
+        
+        <category>R</category>
+        
+        <category>Method of Moments</category>
+        
+        <category>KDE</category>
+        
+        <category>Bootstrap</category>
+        
+        
+      </item>
     
       <item>
         <title>Coverage probability of MLE</title>
