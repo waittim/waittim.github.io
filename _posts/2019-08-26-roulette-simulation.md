@@ -21,7 +21,7 @@ tags:
 ---
 This time we will talk about a kind of simplified Roulette, which won't be influenced by the number on roulette but only be divided into two parts, win or lose.
 
-To play the game successfully and avoid owing unrealistic debt, we need to set some parameter at first. These parameter will be save in a state list.
+To play the game successfully and avoid owing an unrealistic debt, we need to set some parameters at first. These parameters will be saved in a state list.
 
 Parameter | Type | Explaination
 ---|---|---
@@ -69,7 +69,7 @@ Then, let's define the process of one play.
 }
 ```
 
-When the player run out of the money or win enough money or play enough times, we need to stop the game by set up an stop function.
+When the player runs out of the money or win enough money or play enough times, we need to stop the game by setting up a stop function.
 ```{r}
 stop_play <- function(state){
   if(state$B <= 0) return(TRUE)
@@ -146,7 +146,7 @@ mean(walk_out_money - 200)
 
 # Compare
 
-In this graph, we can see how the budget changes during in one series.
+In this graph, we can see how the budget changes during one series.
 ```{r}
 budget_list <- one_series(B = 200, W = 300, L = 1000, M = 100) %>% get_series
 plot(budget_list, type="l", xlim=c(0,500), ylim=c(0,300), xlab="play number", ylab="earning money", main="budget series",col="red")
@@ -174,7 +174,7 @@ M | number | the casino wager limit
 
 ## Change the budget
 
-When B changes, what is the mean earning.
+When B changes, what is the mean earning?
 ```{r}
 earning_series <- rep(NA,20)
 for(B in seq(100,1000,by=50)){
@@ -190,7 +190,7 @@ plot(earning_series,xlab="Budget",ylab="mean earning rate", main="How Budget inf
 
 ## Change the budget threshold for successfully stoping
 
-When W changes, what is the mean earning.
+When W changes, what is the mean earning?
 ```{r}
 earning_series <- rep(NA,20)
 for(W in seq(100,1000,by=50)){
@@ -206,7 +206,7 @@ plot(earning_series,xlab="successfully stoping number",ylab="mean earning", main
 
 ## Change the maximum number of plays
 
-When L changes, what is the mean earning.
+When L changes, what is the mean earning?
 ```{r}
 earning_series <- rep(NA,100)
 for(L in seq(10,1000,by=10)){
@@ -222,7 +222,7 @@ plot(earning_series,xlab="maximum number of plays",ylab="mean earning", main="Ho
 
 ## Change the casino wager limit
 
-When M changes, what is the mean earning.
+When M changes, what is the mean earning?
 ```{r}
 earning_series <- rep(NA,100)
 for(M in seq(10,1000,by=10)){
@@ -238,7 +238,7 @@ plot(earning_series,xlab="casino wager limit",ylab="mean earning", main="How cas
 
 ## Play times
 
-Next, we can save the times that the game played before walk out then find out the characteristics.
+Next, we can save the times that the game played before walkout then find out the characteristics.
 ```{r}
 get_times <- function(x) length(x)
 walk_out_times <- rep(NA, 10000)
@@ -255,4 +255,4 @@ mean(walk_out_times)
 ```
 The mean of walk out time is 203.0846.
 
-The limitation of simulation is obvious. It is a black box actually. We can not use it as we proof it by mathematical method. We don't know why it happened and how it happened, so we can only change the parameter to try to understand the process. By the way, it is not a precise result. Everytime we get a answer, it will change a little bit next time.
+The limitation of simulation is obvious. It is a black box actually. We can not use it as we proof it by mathematical method. We don’t know why it happened and how it happened, so we can only change the parameter to try to understand the process. By the way, it is not a precise result. Every time we get an answer, it will change a little bit next time.

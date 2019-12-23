@@ -217,7 +217,7 @@
 <hr />
 <p>This time we will talk about a kind of simplified Roulette, which won’t be influenced by the number on roulette but only be divided into two parts, win or lose.</p>
 
-<p>To play the game successfully and avoid owing unrealistic debt, we need to set some parameter at first. These parameter will be save in a state list.</p>
+<p>To play the game successfully and avoid owing an unrealistic debt, we need to set some parameters at first. These parameters will be saved in a state list.</p>
 
 <table>
   <thead>
@@ -300,7 +300,7 @@
 }
 </code></pre>
 
-<p>When the player run out of the money or win enough money or play enough times, we need to stop the game by set up an stop function.</p>
+<p>When the player runs out of the money or win enough money or play enough times, we need to stop the game by setting up a stop function.</p>
 <pre><code class="language-{r}">stop_play &lt;- function(state){
   if(state$B &lt;= 0) return(TRUE)
   if(state$plays &gt;= state$L) return(TRUE)
@@ -373,7 +373,7 @@ mean(walk_out_money - 200)
 
 <h1 id="compare">Compare</h1>
 
-<p>In this graph, we can see how the budget changes during in one series.</p>
+<p>In this graph, we can see how the budget changes during one series.</p>
 <pre><code class="language-{r}">budget_list &lt;- one_series(B = 200, W = 300, L = 1000, M = 100) %&gt;% get_series
 plot(budget_list, type="l", xlim=c(0,500), ylim=c(0,300), xlab="play number", ylab="earning money", main="budget series",col="red")
 budget_list &lt;- one_series(B = 200, W = 300, L = 1000, M = 100) %&gt;% get_series
@@ -425,7 +425,7 @@ lines(budget_list, col="purple")
 
 <h2 id="change-the-budget">Change the budget</h2>
 
-<p>When B changes, what is the mean earning.</p>
+<p>When B changes, what is the mean earning?</p>
 <pre><code class="language-{r}">earning_series &lt;- rep(NA,20)
 for(B in seq(100,1000,by=50)){
 walk_out_money &lt;- rep(NA, 1000)
@@ -440,7 +440,7 @@ plot(earning_series,xlab="Budget",ylab="mean earning rate", main="How Budget inf
 
 <h2 id="change-the-budget-threshold-for-successfully-stoping">Change the budget threshold for successfully stoping</h2>
 
-<p>When W changes, what is the mean earning.</p>
+<p>When W changes, what is the mean earning?</p>
 <pre><code class="language-{r}">earning_series &lt;- rep(NA,20)
 for(W in seq(100,1000,by=50)){
 walk_out_money &lt;- rep(NA, 10000)
@@ -455,7 +455,7 @@ plot(earning_series,xlab="successfully stoping number",ylab="mean earning", main
 
 <h2 id="change-the-maximum-number-of-plays">Change the maximum number of plays</h2>
 
-<p>When L changes, what is the mean earning.</p>
+<p>When L changes, what is the mean earning?</p>
 <pre><code class="language-{r}">earning_series &lt;- rep(NA,100)
 for(L in seq(10,1000,by=10)){
 walk_out_money &lt;- rep(NA, 1000)
@@ -470,7 +470,7 @@ plot(earning_series,xlab="maximum number of plays",ylab="mean earning", main="Ho
 
 <h2 id="change-the-casino-wager-limit">Change the casino wager limit</h2>
 
-<p>When M changes, what is the mean earning.</p>
+<p>When M changes, what is the mean earning?</p>
 <pre><code class="language-{r}">earning_series &lt;- rep(NA,100)
 for(M in seq(10,1000,by=10)){
 walk_out_money &lt;- rep(NA, 1000)
@@ -485,7 +485,7 @@ plot(earning_series,xlab="casino wager limit",ylab="mean earning", main="How cas
 
 <h2 id="play-times">Play times</h2>
 
-<p>Next, we can save the times that the game played before walk out then find out the characteristics.</p>
+<p>Next, we can save the times that the game played before walkout then find out the characteristics.</p>
 <pre><code class="language-{r}">get_times &lt;- function(x) length(x)
 walk_out_times &lt;- rep(NA, 10000)
 for(j in seq_along(walk_out_times)){
@@ -500,7 +500,7 @@ hist(walk_out_times, breaks = 100)
 </code></pre>
 <p>The mean of walk out time is 203.0846.</p>
 
-<p>The limitation of simulation is obvious. It is a black box actually. We can not use it as we proof it by mathematical method. We don’t know why it happened and how it happened, so we can only change the parameter to try to understand the process. By the way, it is not a precise result. Everytime we get a answer, it will change a little bit next time.</p>
+<p>The limitation of simulation is obvious. It is a black box actually. We can not use it as we proof it by mathematical method. We don’t know why it happened and how it happened, so we can only change the parameter to try to understand the process. By the way, it is not a precise result. Every time we get an answer, it will change a little bit next time.</p>
 
 
                 <hr style="visibility: hidden;">
