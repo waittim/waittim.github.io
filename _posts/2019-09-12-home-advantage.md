@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      If home field advantage exists, how much of an impact does it have on winning the world series?
+title:      If home-field advantage exists, how much of an impact does it have on winning the world series?
 subtitle:   Probability and Statistical Inference - 04
 date:       2019-09-12
 author:     Zekun
@@ -27,7 +27,7 @@ Overall advantage	| Game 1 | Game 2 | Game 3 | Game 4	| Game 5 | Game 6 | Game 7
 Braves | ATL | ATL | NYC | NYC | NYC | ATL | ATL
 Yankees	| NYC	| NYC	| ATL	| ATL	| ATL	| NYC	| NYC
 
-Let *P<sub>B</sub>* be the probability that the Braves win a single head-to-head match-up with the Yankees, under the assumption that home field advantage doesn’t exist. Let *P<sub>B</sub><sup>H</sup>* denote the probability that the Braves win a single head-to-head match-up with the Yankees as the home team (H for home). Let *P<sub>B</sub><sup>A</sup>* denote the probability that the Braves win a single head-to-head match-up with the away team (A for away).
+Let *P<sub>B</sub>* be the probability that the Braves win a single head-to-head match-up with the Yankees, under the assumption that home-field advantage doesn’t exist. Let *P<sub>B</sub><sup>H</sup>* denote the probability that the Braves win a single head-to-head match-up with the Yankees as the home team (H for home). Let *P<sub>B</sub><sup>A</sup>* denote the probability that the Braves win a single head-to-head match-up with the away team (A for away).
 
 Game location |	No advantage | Advantage
 ---|---|---
@@ -51,7 +51,7 @@ apo <- fread("all-possible-world-series-outcomes.csv")
 ```
 
 
-And we need to define a sequence of game locations. This time, the sequence should be {NYC, NYC, ATL, ATL, ATL, NYC, NYC}. As a result of that the Braves is a Atlanta team, we use 1 to represent Atlanta and use 0 to represent NYC.
+And we need to define a sequence of game locations. This time, the sequence should be {NYC, NYC, ATL, ATL, ATL, NYC, NYC}. As a result of that the Braves is an Atlanta team, we use 1 to represent Atlanta and use 0 to represent NYC.
 ```{r}
 # Home field indicator
 hfi <- c(0,0,1,1,1,0,0) #{NYC, NYC, ATL, ATL, ATL, NYC, NYC}
@@ -66,7 +66,7 @@ pbh <- pb * advantage_multiplier
 pba <- 1 - (1 - pb) * advantage_multiplier
 ```
 
-In this part, we will use the parameters we defined before. In every row of data.table, we use the different probabilities which influenced by home field advantage to calculate the overall probabilties of each situation.
+In this part, we will use the parameters we defined before. In every row of data.table, we use the different probabilities which influenced by home-field advantage to calculate the overall probabilities of each situation.
 ```{r}
 # Calculate the probability of each possible outcome
 apo[, p := NA_real_] # Initialize new column in apo to store prob
@@ -84,7 +84,7 @@ for(i in 1:nrow(apo)){
 }
 ```
 
-Then we output the probability of that the Braves wins the World Series under the influence of home field advantage.  
+Then we output the probability that the Braves wins the World Series under the influence of home field advantage.  
 ```{r}
 # Probability of overall World Series outcomes
 p_home <- purrr::flatten_dbl(apo[, sum(p), overall_outcome][1,2])
@@ -97,7 +97,7 @@ Then we can calculate the probability when there is no home field advantage.
 p_nohome <- 1 - pbinom(3, 7, 0.55)
 p_nohome
 ```
-The probabilty is `r p_nohome`. Definitely, when home field advantage exists, the probabity that the Braves win the World Series is lower, `r p_home`, than the probabity without home field advantage. Given *P<sub>B</sub>=0.55*, the probability of the Braves winning the World Series with a home field advantage `r (p_home-p_nohome)*100 `a less likely than the probability of the Braves winning the world Series without a home field advantage.
+The probability is `r p_nohome`. Definitely, when home-field advantage exists, the probability that the Braves win the World Series is lower, `r p_home`, than the probability without home-field advantage. Given *P<sub>B</sub>=0.55*, the probability of the Braves winning the World Series with a home field advantage `r (p_home-p_nohome)*100 `a less likely than the probability of the Braves winning the World Series without a home-field advantage.
 
 
 
@@ -105,7 +105,7 @@ The probabilty is `r p_nohome`. Definitely, when home field advantage exists, th
 
 In this part, we will use simulation to test the probability.
 
-Given the location sequence, we use different winning probabilities of head to head games and random generate the result of each game. Repeat the process 100000 times, we can get the approximate solution of the probabilty with home field advantage influence.
+Given the location sequence, we use different winning probabilities of the head to head games and randomly generate the result of each game. Repeat the process 100000 times, we can get the approximate solution of the probability with home field advantage influence.
 ```{r}
 set.seed(314)
 sml_list_h <- rep(NA, 100000)
@@ -122,7 +122,7 @@ mean_sml_h
 ```
 Now we can get the approximate solution, `r mean_sml_h`, which is a little different from `r p_home`.
 
-Now, let's simulate the situation without home field advantage influence. It's easy because we only need to make p_win as a constant value.
+Now, let's simulate the situation without home-field advantage influence. It's easy because we only need to make p_win as a constant value.
 ```{r}
 set.seed(314)
 sml_list_nh <- rep(NA, 100000)
@@ -154,7 +154,7 @@ rel_error_h <- abs(mean(sml_list_h) - p_home)/mean(sml_list_h)
 abs_error_h
 rel_error_h
 ```
-Therefore, given home field advantage the absolute error is `r abs_error_h`. The relative error is `r rel_error_h`.
+Therefore, given home-field advantage the absolute error is `r abs_error_h`. The relative error is `r rel_error_h`.
 
 ```{r}
 abs_error_nh <- abs(mean(sml_list_nh) - p_nohome)
@@ -162,16 +162,16 @@ rel_error_nh <- abs(mean(sml_list_nh) - p_nohome)/mean(sml_list_nh)
 abs_error_nh
 rel_error_nh
 ```
-Therefore, given no home field advantage the absolute error is `r abs_error_nh`. The relative error is `r rel_error_nh`.
+Therefore, given no home-field advantage the absolute error is `r abs_error_nh`. The relative error is `r rel_error_nh`.
 
 
 
 
 ## Bonus 1. Does the difference in probabilites (with vs without home field advantage) depend on *P<sub>B</sub>*?
 
-The process is similar with the answer of question 1.
+The process is similar to the answer of question 1.
 
-We can create some lists to save the different *P<sub>B</sub>*s, the probabilities of win the World Series with or without home field advantage, and the difference between these two situations given different *P<sub>B</sub>*.
+We can create some lists to save the different *P<sub>B</sub>*s, the probabilities of win the World Series with or without home-field advantage, and the difference between these two situations given different *P<sub>B</sub>*.
 
 Then given every *P<sub>B</sub>*, calculate these values every time.
 ```{r}
@@ -233,7 +233,7 @@ Unfortunately, after these functions I listed cannot regress to the graph we got
 
 ## Bonus 2. Does the difference in probabilites (with vs without home field advantage) depend on the advantage factor? (The advantage factor in PBH and PBA is the 1.1 multiplier that results in a 10% increase for the home team.)
 
-In this question, the process is similar to Bonus1. We only need to change the sequence content from *P<sub>B</sub>* to home field advantage factor and make *P<sub>B</sub>* be a constant(0.55). Therefore, we will use *ha_list* to save the sequence.
+In this question, the process is similar to Bonus1. We only need to change the sequence content from *P<sub>B</sub>* to the home-field advantage factor and make *P<sub>B</sub>* be a constant(0.55). Therefore, we will use *ha_list* to save the sequence.
 ```{r}
 ha_list <- seq(1,2,0.01)
 ph_win_list <- seq_along(ha_list)
@@ -266,7 +266,7 @@ for (p in seq_along(ha_list)) {
 }
 ```
 
-Let's look at the graph. Obviously, when the home field advantage factor is increasing, the difference in probabilities between with and without home filed advantage will increase too.
+Let's look at the graph. Obviously, when the home-field advantage factor is increasing, the difference in probabilities between with and without home filed advantage will increase too.
 ```{r}
 plot(x= ha_list, y=diff_list2)
 ```

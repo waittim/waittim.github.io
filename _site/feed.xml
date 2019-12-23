@@ -5,8 +5,8 @@
     <description>Every failure is leading towards success.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 23 Dec 2019 00:01:12 -0600</pubDate>
-    <lastBuildDate>Mon, 23 Dec 2019 00:01:12 -0600</lastBuildDate>
+    <pubDate>Mon, 23 Dec 2019 00:07:44 -0600</pubDate>
+    <lastBuildDate>Mon, 23 Dec 2019 00:07:44 -0600</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -1666,7 +1666,7 @@ for(n in seq_along(sample_size)){
       </item>
     
       <item>
-        <title>If home field advantage exists, how much of an impact does it have on winning the world series?</title>
+        <title>If home-field advantage exists, how much of an impact does it have on winning the world series?</title>
         <description>&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://cdn.technadu.com/wp-content/uploads/2019/05/World-Series-Logo.png&quot; alt=&quot;WORLD SERIES&quot; /&gt;&lt;/p&gt;
@@ -1715,7 +1715,7 @@ for(n in seq_along(sample_size)){
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;p&gt;Let &lt;em&gt;P&lt;sub&gt;B&lt;/sub&gt;&lt;/em&gt; be the probability that the Braves win a single head-to-head match-up with the Yankees, under the assumption that home field advantage doesn’t exist. Let &lt;em&gt;P&lt;sub&gt;B&lt;/sub&gt;&lt;sup&gt;H&lt;/sup&gt;&lt;/em&gt; denote the probability that the Braves win a single head-to-head match-up with the Yankees as the home team (H for home). Let &lt;em&gt;P&lt;sub&gt;B&lt;/sub&gt;&lt;sup&gt;A&lt;/sup&gt;&lt;/em&gt; denote the probability that the Braves win a single head-to-head match-up with the away team (A for away).&lt;/p&gt;
+&lt;p&gt;Let &lt;em&gt;P&lt;sub&gt;B&lt;/sub&gt;&lt;/em&gt; be the probability that the Braves win a single head-to-head match-up with the Yankees, under the assumption that home-field advantage doesn’t exist. Let &lt;em&gt;P&lt;sub&gt;B&lt;/sub&gt;&lt;sup&gt;H&lt;/sup&gt;&lt;/em&gt; denote the probability that the Braves win a single head-to-head match-up with the Yankees as the home team (H for home). Let &lt;em&gt;P&lt;sub&gt;B&lt;/sub&gt;&lt;sup&gt;A&lt;/sup&gt;&lt;/em&gt; denote the probability that the Braves win a single head-to-head match-up with the away team (A for away).&lt;/p&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
@@ -1753,7 +1753,7 @@ library(data.table)
 apo &amp;lt;- fread(&quot;all-possible-world-series-outcomes.csv&quot;)
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;And we need to define a sequence of game locations. This time, the sequence should be {NYC, NYC, ATL, ATL, ATL, NYC, NYC}. As a result of that the Braves is a Atlanta team, we use 1 to represent Atlanta and use 0 to represent NYC.&lt;/p&gt;
+&lt;p&gt;And we need to define a sequence of game locations. This time, the sequence should be {NYC, NYC, ATL, ATL, ATL, NYC, NYC}. As a result of that the Braves is an Atlanta team, we use 1 to represent Atlanta and use 0 to represent NYC.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;# Home field indicator
 hfi &amp;lt;- c(0,0,1,1,1,0,0) #{NYC, NYC, ATL, ATL, ATL, NYC, NYC}
 &lt;/code&gt;&lt;/pre&gt;
@@ -1766,7 +1766,7 @@ pbh &amp;lt;- pb * advantage_multiplier
 pba &amp;lt;- 1 - (1 - pb) * advantage_multiplier
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;In this part, we will use the parameters we defined before. In every row of data.table, we use the different probabilities which influenced by home field advantage to calculate the overall probabilties of each situation.&lt;/p&gt;
+&lt;p&gt;In this part, we will use the parameters we defined before. In every row of data.table, we use the different probabilities which influenced by home-field advantage to calculate the overall probabilities of each situation.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;# Calculate the probability of each possible outcome
 apo[, p := NA_real_] # Initialize new column in apo to store prob
 for(i in 1:nrow(apo)){
@@ -1783,7 +1783,7 @@ for(i in 1:nrow(apo)){
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Then we output the probability of that the Braves wins the World Series under the influence of home field advantage.&lt;/p&gt;
+&lt;p&gt;Then we output the probability that the Braves wins the World Series under the influence of home field advantage.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;# Probability of overall World Series outcomes
 p_home &amp;lt;- purrr::flatten_dbl(apo[, sum(p), overall_outcome][1,2])
 p_home
@@ -1794,13 +1794,13 @@ p_home
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;p_nohome &amp;lt;- 1 - pbinom(3, 7, 0.55)
 p_nohome
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The probabilty is &lt;code class=&quot;highlighter-rouge&quot;&gt;r p_nohome&lt;/code&gt;. Definitely, when home field advantage exists, the probabity that the Braves win the World Series is lower, &lt;code class=&quot;highlighter-rouge&quot;&gt;r p_home&lt;/code&gt;, than the probabity without home field advantage. Given &lt;em&gt;P&lt;sub&gt;B&lt;/sub&gt;=0.55&lt;/em&gt;, the probability of the Braves winning the World Series with a home field advantage &lt;code class=&quot;highlighter-rouge&quot;&gt;r (p_home-p_nohome)*100 &lt;/code&gt;a less likely than the probability of the Braves winning the world Series without a home field advantage.&lt;/p&gt;
+&lt;p&gt;The probability is &lt;code class=&quot;highlighter-rouge&quot;&gt;r p_nohome&lt;/code&gt;. Definitely, when home-field advantage exists, the probability that the Braves win the World Series is lower, &lt;code class=&quot;highlighter-rouge&quot;&gt;r p_home&lt;/code&gt;, than the probability without home-field advantage. Given &lt;em&gt;P&lt;sub&gt;B&lt;/sub&gt;=0.55&lt;/em&gt;, the probability of the Braves winning the World Series with a home field advantage &lt;code class=&quot;highlighter-rouge&quot;&gt;r (p_home-p_nohome)*100 &lt;/code&gt;a less likely than the probability of the Braves winning the World Series without a home-field advantage.&lt;/p&gt;
 
 &lt;h2 id=&quot;2-calculate-the-same-probabilities-as-the-previous-question-by-simulation&quot;&gt;2. Calculate the same probabilities as the previous question by simulation.&lt;/h2&gt;
 
 &lt;p&gt;In this part, we will use simulation to test the probability.&lt;/p&gt;
 
-&lt;p&gt;Given the location sequence, we use different winning probabilities of head to head games and random generate the result of each game. Repeat the process 100000 times, we can get the approximate solution of the probabilty with home field advantage influence.&lt;/p&gt;
+&lt;p&gt;Given the location sequence, we use different winning probabilities of the head to head games and randomly generate the result of each game. Repeat the process 100000 times, we can get the approximate solution of the probability with home field advantage influence.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;set.seed(314)
 sml_list_h &amp;lt;- rep(NA, 100000)
 for (i in seq_along(sml_list_h)){
@@ -1816,7 +1816,7 @@ mean_sml_h
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now we can get the approximate solution, &lt;code class=&quot;highlighter-rouge&quot;&gt;r mean_sml_h&lt;/code&gt;, which is a little different from &lt;code class=&quot;highlighter-rouge&quot;&gt;r p_home&lt;/code&gt;.&lt;/p&gt;
 
-&lt;p&gt;Now, let’s simulate the situation without home field advantage influence. It’s easy because we only need to make p_win as a constant value.&lt;/p&gt;
+&lt;p&gt;Now, let’s simulate the situation without home-field advantage influence. It’s easy because we only need to make p_win as a constant value.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;set.seed(314)
 sml_list_nh &amp;lt;- rep(NA, 100000)
 for (i in seq_along(sml_list_nh)){
@@ -1844,20 +1844,20 @@ rel_error_h &amp;lt;- abs(mean(sml_list_h) - p_home)/mean(sml_list_h)
 abs_error_h
 rel_error_h
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Therefore, given home field advantage the absolute error is &lt;code class=&quot;highlighter-rouge&quot;&gt;r abs_error_h&lt;/code&gt;. The relative error is &lt;code class=&quot;highlighter-rouge&quot;&gt;r rel_error_h&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Therefore, given home-field advantage the absolute error is &lt;code class=&quot;highlighter-rouge&quot;&gt;r abs_error_h&lt;/code&gt;. The relative error is &lt;code class=&quot;highlighter-rouge&quot;&gt;r rel_error_h&lt;/code&gt;.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;abs_error_nh &amp;lt;- abs(mean(sml_list_nh) - p_nohome)
 rel_error_nh &amp;lt;- abs(mean(sml_list_nh) - p_nohome)/mean(sml_list_nh)
 abs_error_nh
 rel_error_nh
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Therefore, given no home field advantage the absolute error is &lt;code class=&quot;highlighter-rouge&quot;&gt;r abs_error_nh&lt;/code&gt;. The relative error is &lt;code class=&quot;highlighter-rouge&quot;&gt;r rel_error_nh&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Therefore, given no home-field advantage the absolute error is &lt;code class=&quot;highlighter-rouge&quot;&gt;r abs_error_nh&lt;/code&gt;. The relative error is &lt;code class=&quot;highlighter-rouge&quot;&gt;r rel_error_nh&lt;/code&gt;.&lt;/p&gt;
 
 &lt;h2 id=&quot;bonus-1-does-the-difference-in-probabilites-with-vs-without-home-field-advantage-depend-on-pb&quot;&gt;Bonus 1. Does the difference in probabilites (with vs without home field advantage) depend on &lt;em&gt;P&lt;sub&gt;B&lt;/sub&gt;&lt;/em&gt;?&lt;/h2&gt;
 
-&lt;p&gt;The process is similar with the answer of question 1.&lt;/p&gt;
+&lt;p&gt;The process is similar to the answer of question 1.&lt;/p&gt;
 
-&lt;p&gt;We can create some lists to save the different &lt;em&gt;P&lt;sub&gt;B&lt;/sub&gt;&lt;/em&gt;s, the probabilities of win the World Series with or without home field advantage, and the difference between these two situations given different &lt;em&gt;P&lt;sub&gt;B&lt;/sub&gt;&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;We can create some lists to save the different &lt;em&gt;P&lt;sub&gt;B&lt;/sub&gt;&lt;/em&gt;s, the probabilities of win the World Series with or without home-field advantage, and the difference between these two situations given different &lt;em&gt;P&lt;sub&gt;B&lt;/sub&gt;&lt;/em&gt;.&lt;/p&gt;
 
 &lt;p&gt;Then given every &lt;em&gt;P&lt;sub&gt;B&lt;/sub&gt;&lt;/em&gt;, calculate these values every time.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;pb_list &amp;lt;- seq(0,1,0.01)
@@ -1913,7 +1913,7 @@ Unfortunately, after these functions I listed cannot regress to the graph we got
 
 &lt;h2 id=&quot;bonus-2-does-the-difference-in-probabilites-with-vs-without-home-field-advantage-depend-on-the-advantage-factor-the-advantage-factor-in-pbh-and-pba-is-the-11-multiplier-that-results-in-a-10-increase-for-the-home-team&quot;&gt;Bonus 2. Does the difference in probabilites (with vs without home field advantage) depend on the advantage factor? (The advantage factor in PBH and PBA is the 1.1 multiplier that results in a 10% increase for the home team.)&lt;/h2&gt;
 
-&lt;p&gt;In this question, the process is similar to Bonus1. We only need to change the sequence content from &lt;em&gt;P&lt;sub&gt;B&lt;/sub&gt;&lt;/em&gt; to home field advantage factor and make &lt;em&gt;P&lt;sub&gt;B&lt;/sub&gt;&lt;/em&gt; be a constant(0.55). Therefore, we will use &lt;em&gt;ha_list&lt;/em&gt; to save the sequence.&lt;/p&gt;
+&lt;p&gt;In this question, the process is similar to Bonus1. We only need to change the sequence content from &lt;em&gt;P&lt;sub&gt;B&lt;/sub&gt;&lt;/em&gt; to the home-field advantage factor and make &lt;em&gt;P&lt;sub&gt;B&lt;/sub&gt;&lt;/em&gt; be a constant(0.55). Therefore, we will use &lt;em&gt;ha_list&lt;/em&gt; to save the sequence.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;ha_list &amp;lt;- seq(1,2,0.01)
 ph_win_list &amp;lt;- seq_along(ha_list)
 pnh_win_list &amp;lt;- ph_win_list
@@ -1945,7 +1945,7 @@ for (p in seq_along(ha_list)) {
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Let’s look at the graph. Obviously, when the home field advantage factor is increasing, the difference in probabilities between with and without home filed advantage will increase too.&lt;/p&gt;
+&lt;p&gt;Let’s look at the graph. Obviously, when the home-field advantage factor is increasing, the difference in probabilities between with and without home filed advantage will increase too.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;plot(x= ha_list, y=diff_list2)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/rmhHPvs0/prob4-b2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
