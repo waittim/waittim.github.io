@@ -4,7 +4,7 @@ title:      H1B Visa Analysis
 subtitle:   Helping the international data science students strategize job search
 date:       2019-12-12
 author:     Zekun, Yasi, Yilin, Ali
-header-img: img/prob10-power&sample.jpg
+header-img: img/post-h1b.jpeg
 catalog: true
 tags:
     - H1B
