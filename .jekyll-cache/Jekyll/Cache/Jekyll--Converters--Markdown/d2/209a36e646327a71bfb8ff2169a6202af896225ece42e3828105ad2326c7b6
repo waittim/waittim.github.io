@@ -1,0 +1,125 @@
+I"�<h1 id="h1b">H1B</h1>
+<p>The H1B visa is a non-immigrant visa that allows companies in the US to hire graduate-level workers in specialty occupations that require theoretical or technical expertise in specialized fields.</p>
+
+<h3 id="requirements">Requirements</h3>
+<ol>
+  <li>A bachelor’s degree.</li>
+  <li>Job offer from a company within the United States for a specialty position that matches your degree.</li>
+</ol>
+
+<h3 id="why-is-h1b-popular">Why is H1B Popular?</h3>
+<ol>
+  <li>For a company in the US, applying for H1B is generally quicker than applying for a US Green Card, so it is popular when they want to bring in an employee for a longer period.</li>
+  <li>H1B is open to nationals and citizens of any country, as opposed to other visa types that are only open to people with certain countries of citizenship.</li>
+  <li>H1B allows holders to stay for three years initially and can be easily extended to three more years after the first term.</li>
+  <li>H1B allows holders to move their status from one company to another and also allows its holders to work part-time and work for multiple employers at the same time.</li>
+  <li>The main benefit of H1B that attracts a large volume of applicants is the fact that it is a dual intent visa. This means that it allows its holders to seek permanent residency while under the H1B nonimmigrant status.</li>
+</ol>
+
+<h3 id="caveats">Caveats</h3>
+<p>Despite having a lot of advantages, applying for the H1B comes with its own set of caveats or disadvantages.</p>
+
+<ol>
+  <li>The biggest drawback of H1B is the fact that there is a limit on the number of petitions that are approved each year. Because of the large number of petitions each year, the USCIS has chosen to have all petitions entered into a lottery. Through this an annual general cap of 65,000 in first, and then run the remaining in the master’s-and-above 20,000 categories.
+This means there is a strong likelihood that for any given year, your petition will not be selected. Once rejected, you will have to wait another year to submit another petition.</li>
+  <li>Because of its lottery, the deadlines for the H1B applications are very inflexible.</li>
+  <li>It is difficult to find an employer that would be willing to sponsor an employee for H1B, as the process can get expensive and is unreliable.</li>
+</ol>
+
+<h3 id="h1b-historic-timeline">H1B Historic Timeline</h3>
+<p><img src="https://i.loli.net/2019/12/23/uB49UpgOJeoR6Yh.png" alt="Timeline" />
+The timeline of relevant events is listed above. Sources for this information are from the New York times, government official documents from USCIS (U.S. Citizenship and Immigration Services).</p>
+
+<h1 id="exploration">Exploration</h1>
+
+<h3 id="purpose">Purpose</h3>
+<p>The main purpose of our exploration was to examine and recognize the trends in H1B Visa and see how data-related jobs in the United States have changed over the past 5 years.</p>
+
+<h3 id="dataset">Dataset</h3>
+<p>To perform this analysis, we combined data sets of 5 different years from 2014 to 2018.
+<img src="https://i.loli.net/2019/12/23/HhcSbvMuTYt9mDf.png" alt="df1" />
+<img src="https://i.loli.net/2019/12/23/wjlLDzWR3EZJ8am.png" alt="df2" /></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Column Name</th>
+      <th>Column Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>job_title	Job</td>
+      <td>title of the particular H1B application.</td>
+    </tr>
+    <tr>
+      <td>case_status</td>
+      <td>Certified-withdrawn; Certified; Denied; Withdrawn; Rejected; Invalidated- we filter this data by certified as we only wish to keep the applications that were approved to be submitted.</td>
+    </tr>
+    <tr>
+      <td>employer_name</td>
+      <td>Employer through which the H1B application was submitted.</td>
+    </tr>
+    <tr>
+      <td>prevailing_wage</td>
+      <td>The annual salary of the job in a particular observation.</td>
+    </tr>
+    <tr>
+      <td>year</td>
+      <td>Year the particular H1B application was submitted.</td>
+    </tr>
+    <tr>
+      <td>worksite</td>
+      <td>Location of the worksite.</td>
+    </tr>
+    <tr>
+      <td>lon</td>
+      <td>Longitudinal location of the worksite.</td>
+    </tr>
+    <tr>
+      <td>lat</td>
+      <td>Latitudinal location of the worksite.</td>
+    </tr>
+    <tr>
+      <td>data_relation</td>
+      <td>If the job title is data-related, then this will have “data-related” else “undefined.</td>
+    </tr>
+    <tr>
+      <td>data_job_title</td>
+      <td>This will be used to classify the data-related job titles into 4 different categories of business analysts, data analysts, data engineers, and data scientists.</td>
+    </tr>
+    <tr>
+      <td>stem</td>
+      <td>This is supposed to classify the h1b application into STEM or non-STEM based on another dataset to recognize its classification.</td>
+    </tr>
+    <tr>
+      <td>soc_code</td>
+      <td>SOC is a federal statistical standard used by federal agencies to classify workers into occupational categories to collect, calculate, or disseminate data.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="number-of-applications-per-state">Number of Applications Per State</h3>
+
+<p>We wanted to look at how the number of applications differed per state over the course of the last 5 years.
+Here we can see that the states of California, Texas, New York, Michigan, Georgia, Pennsylvania, Florida, and Illinois are the states with the highest number of applications. The number of applicants is seen to increase over time (from 2015 to 2017) for Washington, Virginia and North Carolina. States that have the lowest number of applicants are Montana, Wyoming and South Dakota.</p>
+
+<p><a href="">Interactive Map</a></p>
+
+<h1 id="stem">STEM</h1>
+
+<p>Instead of doing an overview of the actual data, we thought it to be better to first filter by STEM (Science, Technology, Engineering, and Management) related jobs. It was expected that the majority of the applications would be coming from STEM, but a confirmation was needed.</p>
+
+<p>The following analysis was done to see the proportion of applicants for H1B that were in STEM fields vs non-STEM fields. This was done using the SOC (Standard Occupational Classification)  code associated with educational background. This was then cross-referenced (left-join) with a list of SOC codes that were considered to be STEM . We combined this with our analysis of the number of applicants per year as a sum just to see if some trends had changed.</p>
+
+<p><img src="https://i.postimg.cc/x1tpYPZV/image010.png" alt="stem-nonstem" title="Figure 2: Number of applications per year. Proportion of STEM and non-STEM H1B Applicants." /></p>
+
+<p>We observed (from Figure. 2) that the number of applications stays high as compared to the yearly cap of 85,000 applications that get approved. The number of applications also keeps increasing each year with only a slight dip in 2017. The changes in the total number of applications don’t seem to affect the proportion of STEM to non-STEM applications each year. This is also very interesting to note as the number of non-STEM jobs available in the United States is much higher than the number of STEM jobs.</p>
+
+<p>This disproportionately high number might be attributed to the fact that foreign students with STEM degrees are more likely to pursue STEM fields. The reason for this is that USCIS allows foreign students who pursue a STEM degree during their academic career to stay within the United States for up to three years after they have graduated as opposed to a single year for those of non-STEM backgrounds. This means that during those 3 years, you will have three chances to apply for an H1B and would potentially be eligible to apply for permanent residency.</p>
+
+<p>Another reason why international students might want to pursue STEM would be the prevailing wages for STEM and non-STEM jobs.</p>
+
+<p><img src="https://i.postimg.cc/j20Zv3DP/image012.png" alt="" title="Figure 3: Modified box plot to show only the spread and the median of the
+wage distribution between STEM and non-STEM." /></p>
+:ET
