@@ -5,8 +5,8 @@
     <description>Every failure is leading towards success.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 22 Dec 2019 23:10:05 -0600</pubDate>
-    <lastBuildDate>Sun, 22 Dec 2019 23:10:05 -0600</lastBuildDate>
+    <pubDate>Sun, 22 Dec 2019 23:21:57 -0600</pubDate>
+    <lastBuildDate>Sun, 22 Dec 2019 23:21:57 -0600</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -462,7 +462,7 @@ result_df %&amp;gt;%
       </item>
     
       <item>
-        <title>Central Limite Theorem - Approximation</title>
+        <title>Central limite theorem - Approximation</title>
         <description>&lt;p&gt;Import the packages first.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;library(magrittr)
 library(sn)
