@@ -79,7 +79,7 @@ The significance of inference is to get new information from what is already kno
 >
 > Use pathological data to distinguish normal samples from abnormal samples in order to extract control groups for analysis.
 >
-> -- Paul Harris (Professor of Biomedical Informatics, Vanderbilt University | REDCap)
+> -- Paul Harris (Professor of Biomedical Informatics, Vanderbilt University REDCap)
 
 > Find out the most accurate and efficient indicators that can determine whether a patient has hypertension among a large number of indicators such as genetic data.
 >
