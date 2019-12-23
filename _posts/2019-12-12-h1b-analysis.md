@@ -262,3 +262,6 @@ The location analysis will help international students pursuing a data-related d
 The best location to find a job as a data analyst or in data analytics in the Northeast or the Midwest, as seen from the clusters in the maps that we explored. However, since a large number of job applications come from California, almost all of these roles are plentiful in the state of California. California is also where a large number of specific data scientists and data engineering roles are available, specifically in the bay area where a large number of tech companies are located. The state of Washington (Seattle and Redmond area) is good to find data engineering and data science jobs as well because of the existence of Microsoft and Amazon.
 
 Finally, although Tennessee is not the best for international students pursuing data-related roles, there does seem to be a potential for growth since tech giants such as Amazon and Microsoft are creating more opportunities for jobs in the Nashville area in the future.
+
+
+*Hint: Project GitHub page: [H1B-visas-analysis](https://github.com/waittim/H1B-visas-analysis)*

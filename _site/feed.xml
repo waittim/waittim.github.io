@@ -5,8 +5,8 @@
     <description>Every failure is leading towards success.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 22 Dec 2019 21:27:53 -0600</pubDate>
-    <lastBuildDate>Sun, 22 Dec 2019 21:27:53 -0600</lastBuildDate>
+    <pubDate>Sun, 22 Dec 2019 21:42:20 -0600</pubDate>
+    <lastBuildDate>Sun, 22 Dec 2019 21:42:20 -0600</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -357,6 +357,8 @@ wage distribution between STEM and non-STEM.&quot; /&gt;&lt;/p&gt;
 &lt;p&gt;The best location to find a job as a data analyst or in data analytics in the Northeast or the Midwest, as seen from the clusters in the maps that we explored. However, since a large number of job applications come from California, almost all of these roles are plentiful in the state of California. California is also where a large number of specific data scientists and data engineering roles are available, specifically in the bay area where a large number of tech companies are located. The state of Washington (Seattle and Redmond area) is good to find data engineering and data science jobs as well because of the existence of Microsoft and Amazon.&lt;/p&gt;
 
 &lt;p&gt;Finally, although Tennessee is not the best for international students pursuing data-related roles, there does seem to be a potential for growth since tech giants such as Amazon and Microsoft are creating more opportunities for jobs in the Nashville area in the future.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Hint: Project GitHub page: &lt;a href=&quot;https://github.com/waittim/H1B-visas-analysis&quot;&gt;H1B-visas-analysis&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
 </description>
         <pubDate>Thu, 12 Dec 2019 00:00:00 -0600</pubDate>
         <link>http://localhost:4000/2019/12/12/h1b-analysis/</link>
