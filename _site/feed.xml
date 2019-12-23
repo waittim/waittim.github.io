@@ -5,8 +5,8 @@
     <description>Every failure is leading towards success.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 23 Dec 2019 00:47:04 -0600</pubDate>
-    <lastBuildDate>Mon, 23 Dec 2019 00:47:04 -0600</lastBuildDate>
+    <pubDate>Mon, 23 Dec 2019 14:12:27 -0600</pubDate>
+    <lastBuildDate>Mon, 23 Dec 2019 14:12:27 -0600</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -371,6 +371,171 @@ wage distribution between STEM and non-STEM.&quot; /&gt;&lt;/p&gt;
         <category>Project</category>
         
         <category>R</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>For data scientist, what should we do?</title>
+        <description>&lt;h1 id=&quot;summary&quot;&gt;Summary&lt;/h1&gt;
+
+&lt;p&gt;3 big parts in Data Science jobs:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Use &lt;strong&gt;EXPLORATION&lt;/strong&gt; to turn the unknown into the known.&lt;/li&gt;
+  &lt;li&gt;Use &lt;strong&gt;INFERENCE&lt;/strong&gt; to help find new old.&lt;/li&gt;
+  &lt;li&gt;Use &lt;strong&gt;PREDICTION&lt;/strong&gt; to make better decisions.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;scene-setting&quot;&gt;Scene Setting&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Imagine a scenario in which our superior asked us to make suggestions for the launch of a new product, and all we have is a data set that contains the past relevant situation of this type of product.&lt;/p&gt;
+
+  &lt;p&gt;What can we do now? What should we do?&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This is a common scenario for the industry. Maybe different backgrounds, different fields, but the same purpose: we need to start with pure data and go on to obtain a product that can be implemented.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;So what are the key steps in this process?&lt;/strong&gt;
+Overall, we can divide it into three parts:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;EXPLORATION&lt;/li&gt;
+  &lt;li&gt;INFERENCE&lt;/li&gt;
+  &lt;li&gt;PREDICTION&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;concepts--connections&quot;&gt;Concepts &amp;amp; Connections&lt;/h1&gt;
+
+&lt;h4 id=&quot;01-exploration&quot;&gt;01 Exploration&lt;/h4&gt;
+
+&lt;p&gt;It is also called &lt;strong&gt;visualization&lt;/strong&gt;. Use visual exploration to understand what is in a dataset and the characteristics of the data.&lt;/p&gt;
+
+&lt;p&gt;Identify potential relationships or insights that may be hidden in the data which will help &lt;strong&gt;inference&lt;/strong&gt; and &lt;strong&gt;prediction&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;02-inference&quot;&gt;02 Inference&lt;/h4&gt;
+
+&lt;p&gt;Use data analysis to deduce the properties of a dataset. The properties will give the analyst a more accurate perception of the data and provide a theoretical basis for &lt;strong&gt;prediction&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;03-prediction&quot;&gt;03 Prediction&lt;/h4&gt;
+
+&lt;p&gt;Reference &lt;strong&gt;exploration&lt;/strong&gt; and &lt;strong&gt;inference&lt;/strong&gt; results encompass a variety of techniques from data mining, predictive modeling, and machine learning, that analyze current and historical facts to make predictions about unknown events.&lt;/p&gt;
+
+&lt;h1 id=&quot;01-exploration-visualization&quot;&gt;01 Exploration (Visualization)&lt;/h1&gt;
+
+&lt;p&gt;It is difficult for humans to process large numbers quickly, especially if the numbers are not specifically ordered. Not to mention the quick calculation of the proportional relationship between the numbers, the information within the group under certain conditions.&lt;/p&gt;
+
+&lt;p&gt;But the &lt;strong&gt;human eye can quickly process image information&lt;/strong&gt; and extract key content from it. Therefore, facing a new data set, visualizing the data is one of the best ways to understand it.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;For product data, we can explore the sales of this type of product under different channels, delivery costs, and changes over time. We can also compare the differences between different sub-categories under this large category of products to help differentiate the positioning of products.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The process of exploration and visualization can help us &lt;strong&gt;turn the unknown into the known&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Based on fMRI images of the brain of insomnia patients, explore whether there is any difference between them and the images of ordinary people.&lt;/p&gt;
+
+  &lt;p&gt;Explore whether physical pain and social pain behave differently in the brain.&lt;/p&gt;
+
+  &lt;p&gt;– Catie Chang (Assistant Professor of Computer Science, Vanderbilt University)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Visualizing personal stories that are closer to real life enables viewers to have a more immersive experience.&lt;/p&gt;
+
+  &lt;p&gt;– Yorgos Askilidis (Senior Data Scientist, Instagram)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;02-inference-1&quot;&gt;02 Inference&lt;/h1&gt;
+&lt;p&gt;Due to collection costs, storage costs, or historical reasons, we cannot have a data set that contains everything that may be needed. In actual data analysis, we may need to display information that is not included in the data set directly. &lt;strong&gt;Visualization can only show information directly represented&lt;/strong&gt; in the data, but for the data that is not directly displayed, we need to use inference related theory to make inferences based on the existing information.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;For product data example, we can only see the values of variables of each product in the past, but the values do not directly tell us what products are successful. We need to infer and judge the success of a product based on sales volume, cost, profit margin, capital turnover cycle and the stability of the production process of the product itself.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The significance of inference is to get new information from what is already known. In other words, the inference can help &lt;strong&gt;find something new from the old&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Use billing codes, drug names, and more to mark Parkinson’s patients.&lt;/p&gt;
+
+  &lt;p&gt;Use pathological data to distinguish normal samples from abnormal samples in order to extract control groups for analysis.&lt;/p&gt;
+
+  &lt;table&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;– Paul Harris (Professor of Biomedical Informatics, Vanderbilt University&lt;/td&gt;
+        &lt;td&gt;REDCap)&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Find out the most accurate and efficient indicators that can determine whether a patient has hypertension among a large number of indicators such as genetic data.&lt;/p&gt;
+
+  &lt;p&gt;– Josh Denny (Professor of Biomedical Informatics and Medicine, Vanderbilt University)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;03-prediction-1&quot;&gt;03 Prediction&lt;/h1&gt;
+
+&lt;p&gt;The information obtained by the visualization and inference process is based on the existing data, and the existing data must be a description of what happened before.&lt;/p&gt;
+
+&lt;p&gt;In actual work, it is not enough to focus on the past. We often need to &lt;strong&gt;make decisions about the future&lt;/strong&gt;. At this point, data-based forecasting will become a vital part.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;In the example of the product launch, we may need to predict the possible sales and profitability of the planned product before the actual product launch. According to the forecast results, we can change the resource allocation methods such as product line and pre-production volume to reduce risks and obtain higher returns.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The value of prediction lies in reducing the cost of trial and error and &lt;strong&gt;making better decisions&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Prediction finds target markets that are “likely to buy” and “definitely buy”, and launches products when the predicted value exceeds a certain threshold.&lt;/p&gt;
+
+  &lt;p&gt;– Kelly Goldsmith (Associate Professor of Marketing, Vanderbilt University)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Predict the number of viewers to help determine the number of ad views that can be sold, and adjust the number of ads sale based on the forecast to complete the expected playback with minimal cost.&lt;/p&gt;
+
+  &lt;p&gt;– Minchun Zhou (Senior Data Scientist, Comcast)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;For Wal-Mart in-home delivery, predict what and how often specific consumers might buy, and related products that they might want to try.&lt;/p&gt;
+
+  &lt;p&gt;– Betsy Barton (Director of Data Science, Walmart In-Home Delivery)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;epicycle&quot;&gt;Epicycle&lt;/h1&gt;
+
+&lt;p&gt;Of course, &lt;strong&gt;this process may be performed more than once&lt;/strong&gt;. We may need to perform multiple processing on the same data set, and re-reflect and summarize after each processing, considering what can be implemented next.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;For example, after visualization, think about whether there are still questions that not clear enough and need to be explored. After using inference to investigate, consider again how to visualize the results. And based on the results obtained in previous steps, we can also think about whether we can use them to make predictions and what are the suitable prediction methods.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;In a broad sense, this process also belongs to some kind of epicycle. These parts do not appear in a purely linear sequence, but exist in a &lt;strong&gt;repeatable and mutually affecting relationship&lt;/strong&gt;. They constantly promote each other and ultimately form a successful project.&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusions&quot;&gt;Conclusions&lt;/h1&gt;
+
+&lt;p&gt;In order to achieve the goal more efficiently and successfully, in the actual operation process, we should first &lt;strong&gt;determine what type of things we need to do&lt;/strong&gt;. Do we want to understand the data, or dig deeper based on the existing information, or predict what has not happened based on the existing data.&lt;/p&gt;
+
+&lt;p&gt;After confirming the purpose, it is clear from the definition whether what we need to do is exploration, inference or prediction.&lt;/p&gt;
+
+&lt;p&gt;Finally, the best solution will be found according to the category.&lt;/p&gt;
+
+&lt;p&gt;At the same time, we need to carry out this process &lt;strong&gt;multiple times&lt;/strong&gt; in the same project, and constantly improve and expand until a satisfactory result is achieved.&lt;/p&gt;
+
+&lt;h1 id=&quot;slides&quot;&gt;Slides&lt;/h1&gt;
+&lt;iframe src=&quot;https://docs.google.com/presentation/d/e/2PACX-1vTr02Z5Zn7lGTvEo2Jz5P0ADkz76YFfvNOnQUXeQiHwZ5CrpOJhR2fL8avHvWIIcQtWGTb6wOTmLNRS/embed?start=false&amp;amp;loop=true&amp;amp;delayms=15000&quot; frameborder=&quot;0&quot; width=&quot;700&quot; height=&quot;423&quot; allowfullscreen=&quot;true&quot; mozallowfullscreen=&quot;true&quot; webkitallowfullscreen=&quot;true&quot;&gt;&lt;/iframe&gt;
+</description>
+        <pubDate>Wed, 11 Dec 2019 00:00:00 -0600</pubDate>
+        <link>http://localhost:4000/2019/12/11/ds-applications/</link>
+        <guid isPermaLink="true">http://localhost:4000/2019/12/11/ds-applications/</guid>
+        
+        <category>Career</category>
+        
+        <category>Talk</category>
         
         
       </item>
@@ -2156,118 +2321,6 @@ dnbinom(3,4,0.55)
         <pubDate>Mon, 09 Sep 2019 00:00:00 -0500</pubDate>
         <link>http://localhost:4000/2019/09/09/world-series/</link>
         <guid isPermaLink="true">http://localhost:4000/2019/09/09/world-series/</guid>
-        
-        <category>Probability</category>
-        
-        <category>Simulation</category>
-        
-        <category>R</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>What’s the difference between Absolute Error and Relative Error?</title>
-        <description>&lt;p&gt;Absolute error and relative error have a little bit different on calculation but the difference really makes an essential change. The absolute error will be influenced by the sample size but relative error can show the real error without huge bias.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;when used as a measure of precision—is the ratio of the absolute error of a measurement to the measurement being taken. In other words, this type of error is relative to the size of the item being measured. RE is expressed as a percentage and has no units.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;em&gt;From &lt;a href=&quot;https://www.statisticshowto.datasciencecentral.com/relative-error/&quot;&gt;Statistics How To&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;absolute-error&quot;&gt;Absolute Error&lt;/h2&gt;
-&lt;p&gt;absolute error = |p̂−p|&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;The difference between the measured or inferred value of a quantity x_0 and its actual value x.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Let’s create a table to save 14*5 results of our simulation first.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;n &amp;lt;- rep(NA, 14)
-for(i in 1:14){n[i] &amp;lt;- 2^(i+1)}
-T &amp;lt;- matrix(NA,14,5)
-p &amp;lt;- c(0.01,0.05,0.10,0.25,0.5)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Then generate 1 or 0 randomly for 1000 times for each situation and calculate the absolute error.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;for(x in 1:length(p)){
-  for(y in 1:length(n)){
-    TS &amp;lt;- rep(NA,10000)
-    for(m in 1:10000){
-      TS[m] &amp;lt;- abs(rbinom(1,n[y],p[x])/n[y]-p[x])
-    }
-    T[y,x] &amp;lt;- mean(TS)
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Change the y-scale to log_10.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;T &amp;lt;- log10(T)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;In the end, plot the graph to show the relationship between p and absolute error.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;plot(T[,5],xlim=c(0,14),ylim=range(T),col=&quot;red&quot;,type=&quot;b&quot;,xaxt=&quot;n&quot;,xlab=&quot;N(log_2 scale)&quot;,ylab=&quot;Absolute Error&quot;,pch=16, lwd=3)
-lines(T[,2],col=&quot;purple&quot;,type=&quot;b&quot;,pch=16, lwd=3)
-lines(T[,3],col=&quot;blue&quot;,type=&quot;b&quot;,pch=16, lwd=3)
-lines(T[,4],col=&quot;green&quot;,type=&quot;b&quot;,pch=16, lwd=3)
-lines(T[,1],col=&quot;gray&quot;,type=&quot;b&quot;,pch=16, lwd=3)
-
-lname &amp;lt;- c(&quot;0.01&quot;,&quot;0.05&quot;,&quot;0.10&quot;,&quot;0.25&quot;,&quot;0.50&quot;)
-lname_p &amp;lt;- paste0(&quot;p = &quot;,lname)
-xname &amp;lt;- c(&quot;4&quot;,&quot;8&quot;,&quot;16&quot;,&quot;32&quot;,&quot;64&quot;,&quot;128&quot;,&quot;256&quot;,&quot;512&quot;,&quot;1024&quot;,&quot;2048&quot;,&quot;4096&quot;,&quot;8192&quot;,&quot;16384&quot;,&quot;32768&quot;)
-
-axis(1, at=1:14,las=2, lab=xname)
-text(1,T[1,],lname_p,pos=2,cex=0.6)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2019/12/22/6yheRBQ3HIMnDcd.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Absolute error is just the absolute value of the value you have the minus expected value. In this simulation, you calculated the absolute error 10000 times and get the mean value of them in every situation. When we transfer the y scale to log_10, it is obvious that the x &amp;amp; y have a linear connection. The p is higher, the absolute error is bigger.&lt;/p&gt;
-
-&lt;h1 id=&quot;relative-error&quot;&gt;Relative Error&lt;/h1&gt;
-&lt;p&gt;Relative error = |p̂−p|/p.&lt;/p&gt;
-
-&lt;p&gt;Then do the same thing as before but when we calculate the error, use absolute error divide by p-value.
-Plot the graph too.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;n &amp;lt;- rep(NA, 14)
-for(i in 1:14){n[i] &amp;lt;- 2^(i+1)}
-
-T2 &amp;lt;- matrix(NA,14,5)
-p &amp;lt;- c(0.01,0.05,0.10,0.25,0.5)
-
-for(x in 1:length(p)){
-  for(y in 1:length(n)){
-    T2S &amp;lt;- rep(NA,10000)
-    for(m in 1:10000){
-      T2S[m] &amp;lt;- abs(rbinom(1,n[y],p[x])/n[y]-p[x])/p[x]
-    }
-    # T2[y,x] &amp;lt;- abs(rbinom(1,n[y],p[x])/n[y]-p[x])/p[x]
-    T2[y,x] &amp;lt;- mean(T2S)
-  }
-}
-
-T2 &amp;lt;- log10(T2)
-
-xname &amp;lt;- c(&quot;4&quot;,&quot;8&quot;,&quot;16&quot;,&quot;32&quot;,&quot;64&quot;,&quot;128&quot;,&quot;256&quot;,&quot;512&quot;,&quot;1024&quot;,&quot;2048&quot;,&quot;4096&quot;,&quot;8192&quot;,&quot;16384&quot;,&quot;32768&quot;)
-lname &amp;lt;- c(&quot;0.01&quot;,&quot;0.05&quot;,&quot;0.10&quot;,&quot;0.25&quot;,&quot;0.50&quot;)
-lname_p &amp;lt;- paste0(&quot;p = &quot;,lname)
-
-plot(T2[,1],xlim=c(0,14),ylim=range(T2),col=&quot;red&quot;,type=&quot;b&quot;,pch=16,xaxt=&quot;n&quot;,xlab=&quot;N(log_2 scale)&quot;,ylab=&quot;Relative Error&quot;, lwd=3)
-lines(T2[,2],col=&quot;purple&quot;,type=&quot;b&quot;,pch=16, lwd=3)
-lines(T2[,3],col=&quot;blue&quot;,type=&quot;b&quot;,pch=16, lwd=3)
-lines(T2[,4],col=&quot;green&quot;,type=&quot;b&quot;,pch=16, lwd=3)
-lines(T2[,5],col=&quot;gray&quot;,type=&quot;b&quot;,pch=16, lwd=3)
-axis(1, at=1:14,las=2, lab=xname)
-text(1,T2[1,],lname_p,pos=2,cex=0.6)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2019/12/22/lryCYGkREIN6dWx.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Again, compare with absolute error, if you want to calculate relative error, the only thing you need to do is use the absolute error divided by p, the value you have. This process keeps the influence of the value size and focuses on the error itself. When we change the y scale into log_10, the xy relationship is also linear. But the bigger p we have, the smaller relative error we get.&lt;/p&gt;
-</description>
-        <pubDate>Fri, 06 Sep 2019 00:00:00 -0500</pubDate>
-        <link>http://localhost:4000/2019/09/06/absolute&relative-error/</link>
-        <guid isPermaLink="true">http://localhost:4000/2019/09/06/absolute&relative-error/</guid>
         
         <category>Probability</category>
         

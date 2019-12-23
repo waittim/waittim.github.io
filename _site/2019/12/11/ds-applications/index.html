@@ -10,7 +10,7 @@
     <meta name="keywords"  content="ZW, Zekun Blog, 王泽坤的博客, zekunwang, 王泽坤, data science, DS">
     <meta name="theme-color" content="#000000">
     
-    <title>What’s the difference between Absolute Error and Relative Error? - Zekun Wang's Blog | Data Science</title>
+    <title>For data scientist, what should we do? - Zekun Wang's Blog | Data Science</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -22,7 +22,7 @@
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="http://localhost:4000/2019/09/06/absolute&relative-error/">
+    <link rel="canonical" href="http://localhost:4000/2019/12/11/ds-applications/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -154,13 +154,13 @@
 
     <!-- Image to hack wechat -->
 <!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="/img/prob2-error.jpeg" width="0" height="0"> -->
+<!-- <img src="/img/post-ds-application.jpg" width="0" height="0"> -->
 
 <!-- Post Header -->
 <style type="text/css">
     header.intro-header{
         position: relative;
-        background-image: url('/img/prob2-error.jpeg')
+        background-image: url('/img/post-ds-application.jpg')
     }
 
     
@@ -173,19 +173,17 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#Probability" title="Probability">Probability</a>
+                        <a class="tag" href="/tags/#Career" title="Career">Career</a>
                         
-                        <a class="tag" href="/tags/#Simulation" title="Simulation">Simulation</a>
-                        
-                        <a class="tag" href="/tags/#R" title="R">R</a>
+                        <a class="tag" href="/tags/#Talk" title="Talk">Talk</a>
                         
                     </div>
-                    <h1>What’s the difference between Absolute Error and Relative Error?</h1>
+                    <h1>For data scientist, what should we do?</h1>
                     
                     
-                    <h2 class="subheading">Probability and Statistical Inference - 02</h2>
+                    <h2 class="subheading">Data science application analysis, taking product launching processes as an example</h2>
                     
-                    <span class="meta">Posted by Zekun on September 6, 2019</span>
+                    <span class="meta">Posted by Zekun on December 11, 2019</span>
                 </div>
             </div>
         </div>
@@ -207,102 +205,157 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<p>Absolute error and relative error have a little bit different on calculation but the difference really makes an essential change. The absolute error will be influenced by the sample size but relative error can show the real error without huge bias.</p>
+				<h1 id="summary">Summary</h1>
+
+<p>3 big parts in Data Science jobs:</p>
+<ul>
+  <li>Use <strong>EXPLORATION</strong> to turn the unknown into the known.</li>
+  <li>Use <strong>INFERENCE</strong> to help find new old.</li>
+  <li>Use <strong>PREDICTION</strong> to make better decisions.</li>
+</ul>
+
+<h1 id="scene-setting">Scene Setting</h1>
 
 <blockquote>
-  <p>when used as a measure of precision—is the ratio of the absolute error of a measurement to the measurement being taken. In other words, this type of error is relative to the size of the item being measured. RE is expressed as a percentage and has no units.</p>
+  <p>Imagine a scenario in which our superior asked us to make suggestions for the launch of a new product, and all we have is a data set that contains the past relevant situation of this type of product.</p>
+
+  <p>What can we do now? What should we do?</p>
 </blockquote>
 
-<p><em>From <a href="https://www.statisticshowto.datasciencecentral.com/relative-error/">Statistics How To</a></em></p>
+<p>This is a common scenario for the industry. Maybe different backgrounds, different fields, but the same purpose: we need to start with pure data and go on to obtain a product that can be implemented.</p>
 
-<h2 id="absolute-error">Absolute Error</h2>
-<p>absolute error = |p̂−p|</p>
+<p><strong>So what are the key steps in this process?</strong>
+Overall, we can divide it into three parts:</p>
+<ol>
+  <li>EXPLORATION</li>
+  <li>INFERENCE</li>
+  <li>PREDICTION</li>
+</ol>
+
+<h1 id="concepts--connections">Concepts &amp; Connections</h1>
+
+<h4 id="01-exploration">01 Exploration</h4>
+
+<p>It is also called <strong>visualization</strong>. Use visual exploration to understand what is in a dataset and the characteristics of the data.</p>
+
+<p>Identify potential relationships or insights that may be hidden in the data which will help <strong>inference</strong> and <strong>prediction</strong>.</p>
+
+<h4 id="02-inference">02 Inference</h4>
+
+<p>Use data analysis to deduce the properties of a dataset. The properties will give the analyst a more accurate perception of the data and provide a theoretical basis for <strong>prediction</strong>.</p>
+
+<h4 id="03-prediction">03 Prediction</h4>
+
+<p>Reference <strong>exploration</strong> and <strong>inference</strong> results encompass a variety of techniques from data mining, predictive modeling, and machine learning, that analyze current and historical facts to make predictions about unknown events.</p>
+
+<h1 id="01-exploration-visualization">01 Exploration (Visualization)</h1>
+
+<p>It is difficult for humans to process large numbers quickly, especially if the numbers are not specifically ordered. Not to mention the quick calculation of the proportional relationship between the numbers, the information within the group under certain conditions.</p>
+
+<p>But the <strong>human eye can quickly process image information</strong> and extract key content from it. Therefore, facing a new data set, visualizing the data is one of the best ways to understand it.</p>
 
 <blockquote>
-  <p>The difference between the measured or inferred value of a quantity x_0 and its actual value x.</p>
+  <p>For product data, we can explore the sales of this type of product under different channels, delivery costs, and changes over time. We can also compare the differences between different sub-categories under this large category of products to help differentiate the positioning of products.</p>
 </blockquote>
 
-<p>Let’s create a table to save 14*5 results of our simulation first.</p>
-<pre><code class="language-{r}">n &lt;- rep(NA, 14)
-for(i in 1:14){n[i] &lt;- 2^(i+1)}
-T &lt;- matrix(NA,14,5)
-p &lt;- c(0.01,0.05,0.10,0.25,0.5)
-</code></pre>
+<p>The process of exploration and visualization can help us <strong>turn the unknown into the known</strong>.</p>
 
-<p>Then generate 1 or 0 randomly for 1000 times for each situation and calculate the absolute error.</p>
-<pre><code class="language-{r}">for(x in 1:length(p)){
-  for(y in 1:length(n)){
-    TS &lt;- rep(NA,10000)
-    for(m in 1:10000){
-      TS[m] &lt;- abs(rbinom(1,n[y],p[x])/n[y]-p[x])
-    }
-    T[y,x] &lt;- mean(TS)
-  }
-}
-</code></pre>
+<blockquote>
+  <p>Based on fMRI images of the brain of insomnia patients, explore whether there is any difference between them and the images of ordinary people.</p>
 
-<p>Change the y-scale to log_10.</p>
-<pre><code class="language-{r}">T &lt;- log10(T)
-</code></pre>
+  <p>Explore whether physical pain and social pain behave differently in the brain.</p>
 
-<p>In the end, plot the graph to show the relationship between p and absolute error.</p>
-<pre><code class="language-{r}">plot(T[,5],xlim=c(0,14),ylim=range(T),col="red",type="b",xaxt="n",xlab="N(log_2 scale)",ylab="Absolute Error",pch=16, lwd=3)
-lines(T[,2],col="purple",type="b",pch=16, lwd=3)
-lines(T[,3],col="blue",type="b",pch=16, lwd=3)
-lines(T[,4],col="green",type="b",pch=16, lwd=3)
-lines(T[,1],col="gray",type="b",pch=16, lwd=3)
+  <p>– Catie Chang (Assistant Professor of Computer Science, Vanderbilt University)</p>
+</blockquote>
 
-lname &lt;- c("0.01","0.05","0.10","0.25","0.50")
-lname_p &lt;- paste0("p = ",lname)
-xname &lt;- c("4","8","16","32","64","128","256","512","1024","2048","4096","8192","16384","32768")
+<blockquote>
+  <p>Visualizing personal stories that are closer to real life enables viewers to have a more immersive experience.</p>
 
-axis(1, at=1:14,las=2, lab=xname)
-text(1,T[1,],lname_p,pos=2,cex=0.6)
-</code></pre>
-<p><img src="https://i.loli.net/2019/12/22/6yheRBQ3HIMnDcd.png" alt="" /></p>
+  <p>– Yorgos Askilidis (Senior Data Scientist, Instagram)</p>
+</blockquote>
 
-<p>Absolute error is just the absolute value of the value you have the minus expected value. In this simulation, you calculated the absolute error 10000 times and get the mean value of them in every situation. When we transfer the y scale to log_10, it is obvious that the x &amp; y have a linear connection. The p is higher, the absolute error is bigger.</p>
+<h1 id="02-inference-1">02 Inference</h1>
+<p>Due to collection costs, storage costs, or historical reasons, we cannot have a data set that contains everything that may be needed. In actual data analysis, we may need to display information that is not included in the data set directly. <strong>Visualization can only show information directly represented</strong> in the data, but for the data that is not directly displayed, we need to use inference related theory to make inferences based on the existing information.</p>
 
-<h1 id="relative-error">Relative Error</h1>
-<p>Relative error = |p̂−p|/p.</p>
+<blockquote>
+  <p>For product data example, we can only see the values of variables of each product in the past, but the values do not directly tell us what products are successful. We need to infer and judge the success of a product based on sales volume, cost, profit margin, capital turnover cycle and the stability of the production process of the product itself.</p>
+</blockquote>
 
-<p>Then do the same thing as before but when we calculate the error, use absolute error divide by p-value.
-Plot the graph too.</p>
+<p>The significance of inference is to get new information from what is already known. In other words, the inference can help <strong>find something new from the old</strong>.</p>
 
-<pre><code class="language-{r}">n &lt;- rep(NA, 14)
-for(i in 1:14){n[i] &lt;- 2^(i+1)}
+<blockquote>
+  <p>Use billing codes, drug names, and more to mark Parkinson’s patients.</p>
 
-T2 &lt;- matrix(NA,14,5)
-p &lt;- c(0.01,0.05,0.10,0.25,0.5)
+  <p>Use pathological data to distinguish normal samples from abnormal samples in order to extract control groups for analysis.</p>
 
-for(x in 1:length(p)){
-  for(y in 1:length(n)){
-    T2S &lt;- rep(NA,10000)
-    for(m in 1:10000){
-      T2S[m] &lt;- abs(rbinom(1,n[y],p[x])/n[y]-p[x])/p[x]
-    }
-    # T2[y,x] &lt;- abs(rbinom(1,n[y],p[x])/n[y]-p[x])/p[x]
-    T2[y,x] &lt;- mean(T2S)
-  }
-}
+  <table>
+    <tbody>
+      <tr>
+        <td>– Paul Harris (Professor of Biomedical Informatics, Vanderbilt University</td>
+        <td>REDCap)</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
 
-T2 &lt;- log10(T2)
+<blockquote>
+  <p>Find out the most accurate and efficient indicators that can determine whether a patient has hypertension among a large number of indicators such as genetic data.</p>
 
-xname &lt;- c("4","8","16","32","64","128","256","512","1024","2048","4096","8192","16384","32768")
-lname &lt;- c("0.01","0.05","0.10","0.25","0.50")
-lname_p &lt;- paste0("p = ",lname)
+  <p>– Josh Denny (Professor of Biomedical Informatics and Medicine, Vanderbilt University)</p>
+</blockquote>
 
-plot(T2[,1],xlim=c(0,14),ylim=range(T2),col="red",type="b",pch=16,xaxt="n",xlab="N(log_2 scale)",ylab="Relative Error", lwd=3)
-lines(T2[,2],col="purple",type="b",pch=16, lwd=3)
-lines(T2[,3],col="blue",type="b",pch=16, lwd=3)
-lines(T2[,4],col="green",type="b",pch=16, lwd=3)
-lines(T2[,5],col="gray",type="b",pch=16, lwd=3)
-axis(1, at=1:14,las=2, lab=xname)
-text(1,T2[1,],lname_p,pos=2,cex=0.6)
-</code></pre>
-<p><img src="https://i.loli.net/2019/12/22/lryCYGkREIN6dWx.png" alt="" /></p>
+<h1 id="03-prediction-1">03 Prediction</h1>
 
-<p>Again, compare with absolute error, if you want to calculate relative error, the only thing you need to do is use the absolute error divided by p, the value you have. This process keeps the influence of the value size and focuses on the error itself. When we change the y scale into log_10, the xy relationship is also linear. But the bigger p we have, the smaller relative error we get.</p>
+<p>The information obtained by the visualization and inference process is based on the existing data, and the existing data must be a description of what happened before.</p>
+
+<p>In actual work, it is not enough to focus on the past. We often need to <strong>make decisions about the future</strong>. At this point, data-based forecasting will become a vital part.</p>
+
+<blockquote>
+  <p>In the example of the product launch, we may need to predict the possible sales and profitability of the planned product before the actual product launch. According to the forecast results, we can change the resource allocation methods such as product line and pre-production volume to reduce risks and obtain higher returns.</p>
+</blockquote>
+
+<p>The value of prediction lies in reducing the cost of trial and error and <strong>making better decisions</strong>.</p>
+
+<blockquote>
+  <p>Prediction finds target markets that are “likely to buy” and “definitely buy”, and launches products when the predicted value exceeds a certain threshold.</p>
+
+  <p>– Kelly Goldsmith (Associate Professor of Marketing, Vanderbilt University)</p>
+</blockquote>
+
+<blockquote>
+  <p>Predict the number of viewers to help determine the number of ad views that can be sold, and adjust the number of ads sale based on the forecast to complete the expected playback with minimal cost.</p>
+
+  <p>– Minchun Zhou (Senior Data Scientist, Comcast)</p>
+</blockquote>
+
+<blockquote>
+  <p>For Wal-Mart in-home delivery, predict what and how often specific consumers might buy, and related products that they might want to try.</p>
+
+  <p>– Betsy Barton (Director of Data Science, Walmart In-Home Delivery)</p>
+</blockquote>
+
+<h1 id="epicycle">Epicycle</h1>
+
+<p>Of course, <strong>this process may be performed more than once</strong>. We may need to perform multiple processing on the same data set, and re-reflect and summarize after each processing, considering what can be implemented next.</p>
+
+<blockquote>
+  <p>For example, after visualization, think about whether there are still questions that not clear enough and need to be explored. After using inference to investigate, consider again how to visualize the results. And based on the results obtained in previous steps, we can also think about whether we can use them to make predictions and what are the suitable prediction methods.</p>
+</blockquote>
+
+<p>In a broad sense, this process also belongs to some kind of epicycle. These parts do not appear in a purely linear sequence, but exist in a <strong>repeatable and mutually affecting relationship</strong>. They constantly promote each other and ultimately form a successful project.</p>
+
+<h1 id="conclusions">Conclusions</h1>
+
+<p>In order to achieve the goal more efficiently and successfully, in the actual operation process, we should first <strong>determine what type of things we need to do</strong>. Do we want to understand the data, or dig deeper based on the existing information, or predict what has not happened based on the existing data.</p>
+
+<p>After confirming the purpose, it is clear from the definition whether what we need to do is exploration, inference or prediction.</p>
+
+<p>Finally, the best solution will be found according to the category.</p>
+
+<p>At the same time, we need to carry out this process <strong>multiple times</strong> in the same project, and constantly improve and expand until a satisfactory result is achieved.</p>
+
+<h1 id="slides">Slides</h1>
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vTr02Z5Zn7lGTvEo2Jz5P0ADkz76YFfvNOnQUXeQiHwZ5CrpOJhR2fL8avHvWIIcQtWGTb6wOTmLNRS/embed?start=false&amp;loop=true&amp;delayms=15000" frameborder="0" width="700" height="423" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 
 
                 <hr style="visibility: hidden;">
@@ -310,17 +363,17 @@ text(1,T2[1,],lname_p,pos=2,cex=0.6)
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2019/08/26/roulette-simulation/" data-toggle="tooltip" data-placement="top" title="Roulette Simulation">
+                        <a href="/2019/11/22/power-correlation/" data-toggle="tooltip" data-placement="top" title="Power and sample size calculations correlational studies">
                         Previous<br>
-                        <span>Roulette Simulation</span>
+                        <span>Power and sample size calculations correlational studies</span>
                         </a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2019/09/09/world-series/" data-toggle="tooltip" data-placement="top" title="How often does the better team win the World Series?">
+                        <a href="/2019/12/12/h1b-analysis/" data-toggle="tooltip" data-placement="top" title="Think and Get Jobs - H1B Visa Analysis">
                         Next<br>
-                        <span>How often does the better team win the World Series?</span>
+                        <span>Think and Get Jobs - H1B Visa Analysis</span>
                         </a>
                     </li>
                     

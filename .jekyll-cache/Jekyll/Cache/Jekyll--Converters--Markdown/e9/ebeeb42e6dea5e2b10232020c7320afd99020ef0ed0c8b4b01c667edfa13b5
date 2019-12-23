@@ -1,0 +1,69 @@
+I"<h1 id="summary">Summary</h1>
+
+<p>3 big parts in Data Science jobs:</p>
+<ul>
+  <li>Use <strong>EXPLORATION</strong> to turn the unknown into the known.</li>
+  <li>Use <strong>INFERENCE</strong> to help find new old.</li>
+  <li>Use <strong>PREDICTION</strong> to make better decisions.</li>
+</ul>
+
+<h1 id="scene-setting">Scene Setting</h1>
+
+<blockquote>
+  <p>Imagine a scenario in which our superior asked us to make suggestions for the launch of a new product, and all we have is a data set that contains the past relevant situation of this type of product.</p>
+
+  <p>What can we do now? What should we do?</p>
+</blockquote>
+
+<p>This is a common scenario for the industry. Maybe different backgrounds, different fields, but the same purpose: we need to start with pure data and go on to obtain a product that can be implemented.</p>
+
+<p><strong>So what are the key steps in this process?</strong>
+Overall, we can divide it into three parts:</p>
+<ol>
+  <li>EXPLORATION</li>
+  <li>INFERENCE</li>
+  <li>PREDICTION</li>
+</ol>
+
+<h1 id="concepts--connections">Concepts &amp; Connections</h1>
+
+<h3 id="01-exploration">01 EXPLORATION</h3>
+
+<p>It is also called <strong>visualization</strong>. Use visual exploration to understand what is in a dataset and the characteristics of the data.</p>
+
+<p>Identify potential relationships or insights that may be hidden in the data which will help <strong>inference</strong> and <strong>prediction</strong>.</p>
+
+<h3 id="02-inference">02 INFERENCE</h3>
+
+<p>Use data analysis to deduce the properties of a dataset. The properties will give the analyst a more accurate perception of the data and provide a theoretical basis for <strong>prediction</strong>.</p>
+
+<h3 id="03-prediction">03 PREDICTION</h3>
+
+<p>Reference <strong>exploration</strong> and <strong>inference</strong> results encompass a variety of techniques from data mining, predictive modeling, and machine learning, that analyze current and historical facts to make predictions about unknown events.</p>
+
+<h1 id="01-exploration-visualization">01 Exploration (Visualization)</h1>
+
+<p>It is difficult for humans to process large numbers quickly, especially if the numbers are not specifically ordered. Not to mention the quick calculation of the proportional relationship between the numbers, the information within the group under certain conditions.</p>
+
+<p>But the <strong>human eye can quickly process image information</strong> and extract key content from it. Therefore, facing a new data set, visualizing the data is one of the best ways to understand it.</p>
+
+<blockquote>
+  <p>For product data, we can explore the sales of this type of product under different channels, delivery costs, and changes over time. We can also compare the differences between different sub-categories under this large category of products to help differentiate the positioning of products.</p>
+</blockquote>
+
+<p>The process of exploration and visualization can help us <strong>turn the unknown into the known</strong>.</p>
+
+<blockquote>
+  <p>Based on fMRI images of the brain of insomnia patients, explore whether there is any difference between them and the images of ordinary people.</p>
+
+  <p>Explore whether physical pain and social pain behave differently in the brain.</p>
+
+  <p><em>– Catie Chang (Assistant Professor of Computer Science, Vanderbilt University)</em></p>
+</blockquote>
+
+<blockquote>
+  <p>Visualizing personal stories that are closer to real life enables viewers to have a more immersive experience.</p>
+
+  <p><em>– Yorgos Askilidis (Senior Data Scientist, Instagram)</em></p>
+</blockquote>
+:ET
