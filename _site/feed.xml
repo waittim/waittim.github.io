@@ -5,8 +5,8 @@
     <description>Every failure is leading towards success.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 23 Dec 2019 14:12:27 -0600</pubDate>
-    <lastBuildDate>Mon, 23 Dec 2019 14:12:27 -0600</lastBuildDate>
+    <pubDate>Mon, 23 Dec 2019 14:23:55 -0600</pubDate>
+    <lastBuildDate>Mon, 23 Dec 2019 14:23:55 -0600</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -1837,6 +1837,24 @@ for(n in seq_along(sample_size)){
       </item>
     
       <item>
+        <title>Visualization Cheat Sheet</title>
+        <description>&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/VkNRNRdQ/image.png&quot; alt=&quot;Visualization cheat sheet&quot; title=&quot;Visualization cheat sheet&quot; /&gt;
+Created by &lt;strong&gt;Zekun Wang&lt;/strong&gt;
+Base on &lt;strong&gt;Storytelling With Data&lt;/strong&gt;
+Download: &lt;a href=&quot;&quot;&gt;PDF version&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Fri, 13 Sep 2019 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2019/09/13/visualization-cheatsheet/</link>
+        <guid isPermaLink="true">http://localhost:4000/2019/09/13/visualization-cheatsheet/</guid>
+        
+        <category>Visualization</category>
+        
+        <category>Cheat sheet</category>
+        
+        
+      </item>
+    
+      <item>
         <title>If home-field advantage exists, how much of an impact does it have on winning the world series?</title>
         <description>&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
 
@@ -2124,203 +2142,6 @@ for (p in seq_along(ha_list)) {
         <pubDate>Thu, 12 Sep 2019 00:00:00 -0500</pubDate>
         <link>http://localhost:4000/2019/09/12/home-advantage/</link>
         <guid isPermaLink="true">http://localhost:4000/2019/09/12/home-advantage/</guid>
-        
-        <category>Probability</category>
-        
-        <category>Simulation</category>
-        
-        <category>R</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>How often does the better team win the World Series?</title>
-        <description>&lt;p&gt;Import the package at the very first.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;library(tidyverse)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.technadu.com/wp-content/uploads/2019/05/World-Series-Logo.png&quot; alt=&quot;WORLD SERIES&quot; /&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;The World Series is the annual championship series of Major League Baseball (MLB) in North America, contested since 1903 between the American League (AL) champion team and the National League (NL) champion team. The winner of the World Series championship is determined through a best-of-seven playoff, and the winning team is awarded the Commissioner’s Trophy. As the series is played during the fall season in North America, it is sometimes referred to as the Fall Classic.&lt;br /&gt;
-&lt;em&gt;From &lt;a href=&quot;https://en.wikipedia.org/wiki/World_Series&quot;&gt;Wikipedia - World Series&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;In this blog, we are going to calculate the probability of several questions about the Braves and the Yankees in the World Series.&lt;/p&gt;
-
-&lt;p&gt;First, we need to define some parameters.&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Parameter&lt;/th&gt;
-      &lt;th&gt;Explaination&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;P&lt;sub&gt;B&lt;/sub&gt;&lt;/td&gt;
-      &lt;td&gt;In any given game, the probability that the Braves win&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;P&lt;sub&gt;Y&lt;/sub&gt; = 1 - P&lt;sub&gt;B&lt;/sub&gt;&lt;/td&gt;
-      &lt;td&gt;in any given game, the probability that the Yankees win&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h1 id=&quot;questions&quot;&gt;Questions&lt;/h1&gt;
-&lt;h3 id=&quot;1-what-is-the-probability-that-the-braves-win-the-world-series-given-that-pb055&quot;&gt;1. What is the probability that the Braves win the World Series given that P&lt;sub&gt;B&lt;/sub&gt;=0.55?&lt;/h3&gt;
-
-&lt;p&gt;First,we need to set the value of P&lt;sub&gt;B&lt;/sub&gt; and P&lt;sub&gt;Y&lt;/sub&gt;.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;PB &amp;lt;- 0.55
-PY &amp;lt;- 1- PB
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Create a function to calculate the probability of a win. The win is defined as win 4 times in 7 games.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;calc_prob &amp;lt;- function(p){
-  pnbinom(3, 4, p)
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now calculate the probability given that P&lt;sub&gt;B&lt;/sub&gt;=0.55.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;calc_prob(PB)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Obviously, when the P&lt;sub&gt;B&lt;/sub&gt; is 0.55, the probability that Braves win the World Series is 0.608.&lt;/p&gt;
-
-&lt;h3 id=&quot;2-what-is-the-probability-that-the-braves-win-the-world-series-given-that-pbx&quot;&gt;2. What is the probability that the Braves win the World Series given that P&lt;sub&gt;B&lt;/sub&gt;=x?&lt;/h3&gt;
-&lt;p&gt;Now the P&lt;sub&gt;B&lt;/sub&gt; is not defined yet, so we should assume the x could be any number between 0.5 to 1.&lt;/p&gt;
-
-&lt;p&gt;First, we need to generate a series of P&lt;sub&gt;B&lt;/sub&gt; and the probability results.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;PBseries &amp;lt;- seq(0.5, 1, 0.01)
-win_prob &amp;lt;- rep(NA, length(PBseries))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now use the function we used before to calculate the probability given every P&lt;sub&gt;B&lt;/sub&gt;.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;for(i in 1:length(win_prob)){
-  win_prob[i] &amp;lt;- calc_prob(PBseries[i])
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;In order to interpret the relationship between P&lt;sub&gt;B&lt;/sub&gt; and the probability that the Braves win, we can draw a graph for them.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;plot(x = PBseries,
-     y = win_prob,
-     xlim = c(0.5,1),
-     ylim = 0:1,
-     xlab = &quot;Probability of the Braves winning a head-to-head matchup&quot;,
-     ylab = &quot;P(Braves win World Series)&quot;,
-     main = &quot;Probability of winning the World Series&quot;)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2019/12/22/Bh7NjCIcKU2Myab.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;As we can see, in this graph, when P&lt;sub&gt;B&lt;/sub&gt; is increasing, the probability that the Braves win the World Series is increasing too. In fact, when we change the x scale to 0.0-1.0, we will find the line looks like a logistic curve.&lt;/p&gt;
-
-&lt;h3 id=&quot;3-suppose-one-could-change-the-world-series-to-be-best-of-9-or-some-other-best-of-x-series-what-is-the-shortest-series-length-so-that-pbraves-win-world-seriespb055--08&quot;&gt;3. Suppose one could change the World Series to be best-of-9 or some other best-of-X series. What is the shortest series length so that P(Braves win World Series|P&lt;sub&gt;B&lt;/sub&gt;=0.55) ≥ 0.8?&lt;/h3&gt;
-
-&lt;p&gt;As same as the first question, the P&lt;sub&gt;B&lt;/sub&gt; needs to be 0.55. And now the game series length is not certain. Definitely, the series length should be an odd number.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;PB &amp;lt;- 0.55
-series_length &amp;lt;- seq(1, 999, 2)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now we need to create a function to calculate the probability when the series length is a parameter.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;calc_prob_sl &amp;lt;- function(sl){
-  win_threshhold &amp;lt;- ceiling(sl/2)
-  pnbinom(win_threshhold - 1, win_threshhold, 0.55)
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;In the end, given every series length, calculate the probability that the Braves win World Series. When the probability is equal to or more than 0.8, stop running and give the series length value and the probability.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;for(i in 1:length(series_length)){
-  pb_win &amp;lt;- calc_prob_sl(series_length[i])
-  if(pb_win &amp;gt;= 0.8){
-    shortest &amp;lt;- series_length[i]
-    p_shortest &amp;lt;- pb_win
-    break}
-}
-shortest
-p_shortest
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now we get the shortest series length. It should be 71. In that situation, the probability that the Braves win World Series is about 0.802.&lt;/p&gt;
-
-&lt;h3 id=&quot;4-what-is-the-shortest-series-length-so-that-pbraves-win-world-seriespb-x--08-this-will-be-a-figure-see-below-with-pb-on-the-x-axis-and-series-length-is-the-y-axis&quot;&gt;4. What is the shortest series length so that P(Braves win World Series|P&lt;sub&gt;B&lt;/sub&gt;= x) ≥ 0.8? This will be a figure (see below) with P&lt;sub&gt;B&lt;/sub&gt; on the x-axis and series length is the y-axis.&lt;/h3&gt;
-&lt;p&gt;Now the P&lt;sub&gt;B&lt;/sub&gt; has not defined again, so we should assume the x could be any number between 0.51 to 1.&lt;/p&gt;
-
-&lt;p&gt;First, we need to generate a series of P&lt;sub&gt;B&lt;/sub&gt; and a series to save the length results given different P&lt;sub&gt;B&lt;/sub&gt;. But the way, we also need a series of the possible series length we will test. Now the ceiling is 9999. If it’s not enough, we can set a bigger limitation.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;PBseries &amp;lt;- seq(0.51, 1, 0.01)
-length_record &amp;lt;- rep(NA, length(PBseries))
-series_length &amp;lt;- seq(1, 9999, 2)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;In order to calculate the probability that the Braves win the WS, we need a new function with 2 input, because both of the series length and P&lt;sub&gt;B&lt;/sub&gt; are variables.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;calc_prob_sl_p &amp;lt;- function(sl,pb){
-  win_threshhold &amp;lt;- ceiling(sl/2)
-  pnbinom(win_threshhold - 1, win_threshhold, pb)
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now, calculate the shortest series length when P&lt;sub&gt;B&lt;/sub&gt; is changing. Save the values in &lt;em&gt;length_record&lt;/em&gt;.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;for(j in 1:length(PBseries)){
-  for(i in 1:length(series_length)){
-  pb_win &amp;lt;- calc_prob_sl_p(series_length[i],PBseries[j])
-  if(pb_win &amp;gt;= 0.8){
-    shortest &amp;lt;- series_length[i]
-    break}
-  }
-  length_record[j] &amp;lt;- shortest
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;We have already got the shortest series length given different P&lt;sub&gt;B&lt;/sub&gt;. Let’s draw the figure to show the relationship between them.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;plot(x = PBseries,
-     y = length_record,
-     xlim = c(0.5,1),
-     xlab = &quot;Probability of the Braves winning a head-to-head matchup&quot;,
-     ylab = &quot;Series length&quot;,
-     main = &quot;Shortest series so that P(Win WS given p)&amp;gt;=0.8&quot;)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2019/12/22/jA2LkzaNK5tF6OB.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;in this graph, when P&lt;sub&gt;B&lt;/sub&gt; is increasing, the shortest series length, when the probability that the Braves win the World Series is more than 0.8, is approaching 1. When the P&lt;sub&gt;B&lt;/sub&gt; is bigger than 0.8, the shortest series length is 1.&lt;/p&gt;
-
-&lt;h3 id=&quot;5-calculate-p-pb055braves-lose-3-games-before-winning-a-4th-game-under-the-assumption-that-either--pb055-or--pb045-explain-your-solution&quot;&gt;5. Calculate P( P&lt;sub&gt;B&lt;/sub&gt;=0.55|Braves lose 3 games before winning a 4th game) under the assumption that either  P&lt;sub&gt;B&lt;/sub&gt;=0.55 or  P&lt;sub&gt;B&lt;/sub&gt;=0.45. Explain your solution.&lt;/h3&gt;
-
-&lt;p&gt;According to Conditional probability formula, we can get:&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;P(A|B)=\frac{P(A)P(B)}{P(B)}  \to  P(A)P(B)=P(A|B)P(B)\\
-P(B|A)=\frac{P(A)P(B)}{P(A)}  \to  P(A)P(B)=P(B|A)P(A)\\
-\to P(A|B)P(B)=P(A)P(B)=P(B|A)P(A)\\
-\to P(A|B)=\frac{P(B|A)P(A)}{P(B)}&lt;/script&gt;
-
-&lt;p&gt;Now the P(A) = P(P&lt;sub&gt;B&lt;/sub&gt;=0.55), P(B) = P(Braves lose 3 games before winning a 4th game).
-As a result, P( P&lt;sub&gt;B&lt;/sub&gt;=0.55|Braves lose 3 games before winning a 4th game) = P(Braves lose 3 games before winning a 4th game|P&lt;sub&gt;B&lt;/sub&gt;=0.55) * P(P&lt;sub&gt;B&lt;/sub&gt;=0.55) ÷ P(Braves lose 3 games before winning a 4th game).&lt;/p&gt;
-
-&lt;p&gt;P(P&lt;sub&gt;B&lt;/sub&gt;=0.55) = 0.5&lt;/p&gt;
-
-&lt;p&gt;Then use &lt;em&gt;dnbinom()&lt;/em&gt; calculate P(Braves lose 3 games before winning a 4th game) and P(Braves lose 3 games before winning a 4th game|P&lt;sub&gt;B&lt;/sub&gt;=0.55):&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;(dnbinom(3,4,0.45)+dnbinom(3,4,0.55))/2
-dnbinom(3,4,0.55)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;P(Braves lose 3 games before winning a 4th game) = 0.1516092&lt;/p&gt;
-
-&lt;p&gt;P(Braves lose 3 games before winning a 4th game | P&lt;sub&gt;B&lt;/sub&gt;=0.55) = 0.1667701&lt;/p&gt;
-
-&lt;p&gt;P( P&lt;sub&gt;B&lt;/sub&gt;=0.55|Braves lose 3 games before winning a 4th game) = P(Braves lose 3 games before winning a 4th game|P&lt;sub&gt;B&lt;/sub&gt;=0.55) * P(P&lt;sub&gt;B&lt;/sub&gt;=0.55) ÷ P(Braves lose 3 games before winning a 4th game)&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;0.1667701 * 0.5 / 0.1516092
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;P( P&lt;sub&gt;B&lt;/sub&gt;=0.55|Braves lose 3 games before winning a 4th game) = 0.1667701 * 0.5 ÷ 0.1516092 = 0.5499999&lt;/p&gt;
-
-&lt;p&gt;Therefore, P( P&lt;sub&gt;B&lt;/sub&gt;=0.55|Braves lose 3 games before winning a 4th game) is 0.5499999, about 0.55.&lt;/p&gt;
-</description>
-        <pubDate>Mon, 09 Sep 2019 00:00:00 -0500</pubDate>
-        <link>http://localhost:4000/2019/09/09/world-series/</link>
-        <guid isPermaLink="true">http://localhost:4000/2019/09/09/world-series/</guid>
         
         <category>Probability</category>
         
