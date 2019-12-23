@@ -12,6 +12,9 @@ tags:
 ---
 
 ![Visualization cheat sheet](https://i.postimg.cc/VkNRNRdQ/image.png "Visualization cheat sheet")
+
 Created by **Zekun Wang**
+
 Base on **Storytelling With Data**
+
 Download: [PDF version]()
