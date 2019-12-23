@@ -17,4 +17,4 @@ Created by **Zekun Wang**
 
 Base on **Storytelling With Data**
 
-Download: [PDF version]()
+Download: [PDF version](https://github.com/waittim/waittim.github.io/raw/master/gallery/Visualizations%20cheatsheet.pdf)

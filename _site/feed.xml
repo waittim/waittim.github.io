@@ -5,8 +5,8 @@
     <description>Every failure is leading towards success.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 23 Dec 2019 14:24:34 -0600</pubDate>
-    <lastBuildDate>Mon, 23 Dec 2019 14:24:34 -0600</lastBuildDate>
+    <pubDate>Mon, 23 Dec 2019 14:25:49 -0600</pubDate>
+    <lastBuildDate>Mon, 23 Dec 2019 14:25:49 -0600</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -1844,7 +1844,7 @@ for(n in seq_along(sample_size)){
 
 &lt;p&gt;Base on &lt;strong&gt;Storytelling With Data&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;Download: &lt;a href=&quot;&quot;&gt;PDF version&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Download: &lt;a href=&quot;https://github.com/waittim/waittim.github.io/raw/master/gallery/Visualizations%20cheatsheet.pdf&quot;&gt;PDF version&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Fri, 13 Sep 2019 00:00:00 -0500</pubDate>
         <link>http://localhost:4000/2019/09/13/visualization-cheatsheet/</link>
