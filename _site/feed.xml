@@ -5,8 +5,8 @@
     <description>Every failure is leading towards success.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 22 Dec 2019 23:53:52 -0600</pubDate>
-    <lastBuildDate>Sun, 22 Dec 2019 23:53:52 -0600</lastBuildDate>
+    <pubDate>Sun, 22 Dec 2019 23:59:50 -0600</pubDate>
+    <lastBuildDate>Sun, 22 Dec 2019 23:59:50 -0600</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -1981,7 +1981,7 @@ for (p in seq_along(ha_list)) {
 
 &lt;p&gt;In this blog, we are going to calculate the probability of several questions about the Braves and the Yankees in the World Series.&lt;/p&gt;
 
-&lt;p&gt;First, we need to define some parameter.&lt;/p&gt;
+&lt;p&gt;First, we need to define some parameters.&lt;/p&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
@@ -2010,7 +2010,7 @@ for (p in seq_along(ha_list)) {
 PY &amp;lt;- 1- PB
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Create a function to calculate the probability of win. Win is defined as win 4 times in 7 games.&lt;/p&gt;
+&lt;p&gt;Create a function to calculate the probability of a win. The win is defined as win 4 times in 7 games.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;calc_prob &amp;lt;- function(p){
   pnbinom(3, 4, p)
 }
@@ -2025,7 +2025,7 @@ PY &amp;lt;- 1- PB
 &lt;h3 id=&quot;2-what-is-the-probability-that-the-braves-win-the-world-series-given-that-pbx&quot;&gt;2. What is the probability that the Braves win the World Series given that P&lt;sub&gt;B&lt;/sub&gt;=x?&lt;/h3&gt;
 &lt;p&gt;Now the P&lt;sub&gt;B&lt;/sub&gt; is not defined yet, so we should assume the x could be any number between 0.5 to 1.&lt;/p&gt;
 
-&lt;p&gt;First, we need to generate the series of P&lt;sub&gt;B&lt;/sub&gt; and the probability results.&lt;/p&gt;
+&lt;p&gt;First, we need to generate a series of P&lt;sub&gt;B&lt;/sub&gt; and the probability results.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;PBseries &amp;lt;- seq(0.5, 1, 0.01)
 win_prob &amp;lt;- rep(NA, length(PBseries))
 &lt;/code&gt;&lt;/pre&gt;
@@ -2036,7 +2036,7 @@ win_prob &amp;lt;- rep(NA, length(PBseries))
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;In order to intepret the relationship between P&lt;sub&gt;B&lt;/sub&gt; and the probability that the Braves win, we can draw a graph for them.&lt;/p&gt;
+&lt;p&gt;In order to interpret the relationship between P&lt;sub&gt;B&lt;/sub&gt; and the probability that the Braves win, we can draw a graph for them.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;plot(x = PBseries,
      y = win_prob,
      xlim = c(0.5,1),
@@ -2051,12 +2051,12 @@ win_prob &amp;lt;- rep(NA, length(PBseries))
 
 &lt;h3 id=&quot;3-suppose-one-could-change-the-world-series-to-be-best-of-9-or-some-other-best-of-x-series-what-is-the-shortest-series-length-so-that-pbraves-win-world-seriespb055--08&quot;&gt;3. Suppose one could change the World Series to be best-of-9 or some other best-of-X series. What is the shortest series length so that P(Braves win World Series|P&lt;sub&gt;B&lt;/sub&gt;=0.55) ≥ 0.8?&lt;/h3&gt;
 
-&lt;p&gt;As same as the first question, the P&lt;sub&gt;B&lt;/sub&gt; needs to be 0.55. And now the game series length is not a certain. Definitely, the series length should be an odd number.&lt;/p&gt;
+&lt;p&gt;As same as the first question, the P&lt;sub&gt;B&lt;/sub&gt; needs to be 0.55. And now the game series length is not certain. Definitely, the series length should be an odd number.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;PB &amp;lt;- 0.55
 series_length &amp;lt;- seq(1, 999, 2)
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Now we need to create a function to calculate the probability when the series length is parameter.&lt;/p&gt;
+&lt;p&gt;Now we need to create a function to calculate the probability when the series length is a parameter.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;calc_prob_sl &amp;lt;- function(sl){
   win_threshhold &amp;lt;- ceiling(sl/2)
   pnbinom(win_threshhold - 1, win_threshhold, 0.55)
@@ -2075,18 +2075,18 @@ shortest
 p_shortest
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Now we get the the shortest series length. It should be 71. In that situation, the probability that the Braves win World Series is about 0.802.&lt;/p&gt;
+&lt;p&gt;Now we get the shortest series length. It should be 71. In that situation, the probability that the Braves win World Series is about 0.802.&lt;/p&gt;
 
 &lt;h3 id=&quot;4-what-is-the-shortest-series-length-so-that-pbraves-win-world-seriespb-x--08-this-will-be-a-figure-see-below-with-pb-on-the-x-axis-and-series-length-is-the-y-axis&quot;&gt;4. What is the shortest series length so that P(Braves win World Series|P&lt;sub&gt;B&lt;/sub&gt;= x) ≥ 0.8? This will be a figure (see below) with P&lt;sub&gt;B&lt;/sub&gt; on the x-axis and series length is the y-axis.&lt;/h3&gt;
-&lt;p&gt;Now the P&lt;sub&gt;B&lt;/sub&gt; is not defined again, so we should assume the x could be any number between 0.51 to 1.&lt;/p&gt;
+&lt;p&gt;Now the P&lt;sub&gt;B&lt;/sub&gt; has not defined again, so we should assume the x could be any number between 0.51 to 1.&lt;/p&gt;
 
-&lt;p&gt;First, we need to generate the series of P&lt;sub&gt;B&lt;/sub&gt; and a series to save the length results given different P&lt;sub&gt;B&lt;/sub&gt;. But the way, we also need a series of the possible series length we will test. Now the ceiling is 9999. If it’s not enough, we can set a bigger limitation.&lt;/p&gt;
+&lt;p&gt;First, we need to generate a series of P&lt;sub&gt;B&lt;/sub&gt; and a series to save the length results given different P&lt;sub&gt;B&lt;/sub&gt;. But the way, we also need a series of the possible series length we will test. Now the ceiling is 9999. If it’s not enough, we can set a bigger limitation.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;PBseries &amp;lt;- seq(0.51, 1, 0.01)
 length_record &amp;lt;- rep(NA, length(PBseries))
 series_length &amp;lt;- seq(1, 9999, 2)
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;In order to calculate the probabilty that the Braves win the WS, we need a new function with 2 input, because both of the series length and P&lt;sub&gt;B&lt;/sub&gt; are variables.&lt;/p&gt;
+&lt;p&gt;In order to calculate the probability that the Braves win the WS, we need a new function with 2 input, because both of the series length and P&lt;sub&gt;B&lt;/sub&gt; are variables.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;calc_prob_sl_p &amp;lt;- function(sl,pb){
   win_threshhold &amp;lt;- ceiling(sl/2)
   pnbinom(win_threshhold - 1, win_threshhold, pb)
@@ -2105,7 +2105,7 @@ series_length &amp;lt;- seq(1, 9999, 2)
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;We have already get the shortest series length given different P&lt;sub&gt;B&lt;/sub&gt;. Let’s draw the figure to show the relationship between them.&lt;/p&gt;
+&lt;p&gt;We have already got the shortest series length given different P&lt;sub&gt;B&lt;/sub&gt;. Let’s draw the figure to show the relationship between them.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;plot(x = PBseries,
      y = length_record,
      xlim = c(0.5,1),
@@ -2115,11 +2115,11 @@ series_length &amp;lt;- seq(1, 9999, 2)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&quot;https://i.loli.net/2019/12/22/jA2LkzaNK5tF6OB.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;in this graph, when P&lt;sub&gt;B&lt;/sub&gt; is increasing, the shortest series length, when the probability that the Braves win the World Series is more than 0.8, is approching 1. When the P&lt;sub&gt;B&lt;/sub&gt; is bigger than 0.8, the shortest series length is 1.&lt;/p&gt;
+&lt;p&gt;in this graph, when P&lt;sub&gt;B&lt;/sub&gt; is increasing, the shortest series length, when the probability that the Braves win the World Series is more than 0.8, is approaching 1. When the P&lt;sub&gt;B&lt;/sub&gt; is bigger than 0.8, the shortest series length is 1.&lt;/p&gt;
 
 &lt;h3 id=&quot;5-calculate-p-pb055braves-lose-3-games-before-winning-a-4th-game-under-the-assumption-that-either--pb055-or--pb045-explain-your-solution&quot;&gt;5. Calculate P( P&lt;sub&gt;B&lt;/sub&gt;=0.55|Braves lose 3 games before winning a 4th game) under the assumption that either  P&lt;sub&gt;B&lt;/sub&gt;=0.55 or  P&lt;sub&gt;B&lt;/sub&gt;=0.45. Explain your solution.&lt;/h3&gt;
 
-&lt;p&gt;According to Conditional probability formula，we can get:&lt;/p&gt;
+&lt;p&gt;According to Conditional probability formula, we can get:&lt;/p&gt;
 
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;P(A|B)=\frac{P(A)P(B)}{P(B)}  \to  P(A)P(B)=P(A|B)P(B)\\
 P(B|A)=\frac{P(A)P(B)}{P(A)}  \to  P(A)P(B)=P(B|A)P(A)\\

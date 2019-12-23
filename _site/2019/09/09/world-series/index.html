@@ -223,7 +223,7 @@
 
 <p>In this blog, we are going to calculate the probability of several questions about the Braves and the Yankees in the World Series.</p>
 
-<p>First, we need to define some parameter.</p>
+<p>First, we need to define some parameters.</p>
 
 <table>
   <thead>
@@ -252,7 +252,7 @@
 PY &lt;- 1- PB
 </code></pre>
 
-<p>Create a function to calculate the probability of win. Win is defined as win 4 times in 7 games.</p>
+<p>Create a function to calculate the probability of a win. The win is defined as win 4 times in 7 games.</p>
 <pre><code class="language-{r}">calc_prob &lt;- function(p){
   pnbinom(3, 4, p)
 }
@@ -267,7 +267,7 @@ PY &lt;- 1- PB
 <h3 id="2-what-is-the-probability-that-the-braves-win-the-world-series-given-that-pbx">2. What is the probability that the Braves win the World Series given that P<sub>B</sub>=x?</h3>
 <p>Now the P<sub>B</sub> is not defined yet, so we should assume the x could be any number between 0.5 to 1.</p>
 
-<p>First, we need to generate the series of P<sub>B</sub> and the probability results.</p>
+<p>First, we need to generate a series of P<sub>B</sub> and the probability results.</p>
 <pre><code class="language-{r}">PBseries &lt;- seq(0.5, 1, 0.01)
 win_prob &lt;- rep(NA, length(PBseries))
 </code></pre>
@@ -278,7 +278,7 @@ win_prob &lt;- rep(NA, length(PBseries))
 }
 </code></pre>
 
-<p>In order to intepret the relationship between P<sub>B</sub> and the probability that the Braves win, we can draw a graph for them.</p>
+<p>In order to interpret the relationship between P<sub>B</sub> and the probability that the Braves win, we can draw a graph for them.</p>
 <pre><code class="language-{r}">plot(x = PBseries,
      y = win_prob,
      xlim = c(0.5,1),
@@ -293,12 +293,12 @@ win_prob &lt;- rep(NA, length(PBseries))
 
 <h3 id="3-suppose-one-could-change-the-world-series-to-be-best-of-9-or-some-other-best-of-x-series-what-is-the-shortest-series-length-so-that-pbraves-win-world-seriespb055--08">3. Suppose one could change the World Series to be best-of-9 or some other best-of-X series. What is the shortest series length so that P(Braves win World Series|P<sub>B</sub>=0.55) ≥ 0.8?</h3>
 
-<p>As same as the first question, the P<sub>B</sub> needs to be 0.55. And now the game series length is not a certain. Definitely, the series length should be an odd number.</p>
+<p>As same as the first question, the P<sub>B</sub> needs to be 0.55. And now the game series length is not certain. Definitely, the series length should be an odd number.</p>
 <pre><code class="language-{r}">PB &lt;- 0.55
 series_length &lt;- seq(1, 999, 2)
 </code></pre>
 
-<p>Now we need to create a function to calculate the probability when the series length is parameter.</p>
+<p>Now we need to create a function to calculate the probability when the series length is a parameter.</p>
 <pre><code class="language-{r}">calc_prob_sl &lt;- function(sl){
   win_threshhold &lt;- ceiling(sl/2)
   pnbinom(win_threshhold - 1, win_threshhold, 0.55)
@@ -317,18 +317,18 @@ shortest
 p_shortest
 </code></pre>
 
-<p>Now we get the the shortest series length. It should be 71. In that situation, the probability that the Braves win World Series is about 0.802.</p>
+<p>Now we get the shortest series length. It should be 71. In that situation, the probability that the Braves win World Series is about 0.802.</p>
 
 <h3 id="4-what-is-the-shortest-series-length-so-that-pbraves-win-world-seriespb-x--08-this-will-be-a-figure-see-below-with-pb-on-the-x-axis-and-series-length-is-the-y-axis">4. What is the shortest series length so that P(Braves win World Series|P<sub>B</sub>= x) ≥ 0.8? This will be a figure (see below) with P<sub>B</sub> on the x-axis and series length is the y-axis.</h3>
-<p>Now the P<sub>B</sub> is not defined again, so we should assume the x could be any number between 0.51 to 1.</p>
+<p>Now the P<sub>B</sub> has not defined again, so we should assume the x could be any number between 0.51 to 1.</p>
 
-<p>First, we need to generate the series of P<sub>B</sub> and a series to save the length results given different P<sub>B</sub>. But the way, we also need a series of the possible series length we will test. Now the ceiling is 9999. If it’s not enough, we can set a bigger limitation.</p>
+<p>First, we need to generate a series of P<sub>B</sub> and a series to save the length results given different P<sub>B</sub>. But the way, we also need a series of the possible series length we will test. Now the ceiling is 9999. If it’s not enough, we can set a bigger limitation.</p>
 <pre><code class="language-{r}">PBseries &lt;- seq(0.51, 1, 0.01)
 length_record &lt;- rep(NA, length(PBseries))
 series_length &lt;- seq(1, 9999, 2)
 </code></pre>
 
-<p>In order to calculate the probabilty that the Braves win the WS, we need a new function with 2 input, because both of the series length and P<sub>B</sub> are variables.</p>
+<p>In order to calculate the probability that the Braves win the WS, we need a new function with 2 input, because both of the series length and P<sub>B</sub> are variables.</p>
 <pre><code class="language-{r}">calc_prob_sl_p &lt;- function(sl,pb){
   win_threshhold &lt;- ceiling(sl/2)
   pnbinom(win_threshhold - 1, win_threshhold, pb)
@@ -347,7 +347,7 @@ series_length &lt;- seq(1, 9999, 2)
 }
 </code></pre>
 
-<p>We have already get the shortest series length given different P<sub>B</sub>. Let’s draw the figure to show the relationship between them.</p>
+<p>We have already got the shortest series length given different P<sub>B</sub>. Let’s draw the figure to show the relationship between them.</p>
 <pre><code class="language-{r}">plot(x = PBseries,
      y = length_record,
      xlim = c(0.5,1),
@@ -357,11 +357,11 @@ series_length &lt;- seq(1, 9999, 2)
 </code></pre>
 <p><img src="https://i.loli.net/2019/12/22/jA2LkzaNK5tF6OB.png" alt="" /></p>
 
-<p>in this graph, when P<sub>B</sub> is increasing, the shortest series length, when the probability that the Braves win the World Series is more than 0.8, is approching 1. When the P<sub>B</sub> is bigger than 0.8, the shortest series length is 1.</p>
+<p>in this graph, when P<sub>B</sub> is increasing, the shortest series length, when the probability that the Braves win the World Series is more than 0.8, is approaching 1. When the P<sub>B</sub> is bigger than 0.8, the shortest series length is 1.</p>
 
 <h3 id="5-calculate-p-pb055braves-lose-3-games-before-winning-a-4th-game-under-the-assumption-that-either--pb055-or--pb045-explain-your-solution">5. Calculate P( P<sub>B</sub>=0.55|Braves lose 3 games before winning a 4th game) under the assumption that either  P<sub>B</sub>=0.55 or  P<sub>B</sub>=0.45. Explain your solution.</h3>
 
-<p>According to Conditional probability formula，we can get:</p>
+<p>According to Conditional probability formula, we can get:</p>
 
 <script type="math/tex; mode=display">P(A|B)=\frac{P(A)P(B)}{P(B)}  \to  P(A)P(B)=P(A|B)P(B)\\
 P(B|A)=\frac{P(A)P(B)}{P(A)}  \to  P(A)P(B)=P(B|A)P(A)\\
