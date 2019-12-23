@@ -32,7 +32,7 @@ library(tidyverse)
 # Step 1: Single sample
 **Generate a single sample from a standard normal distribution of size N = 201.**
 
-Fisrt, let's set the size of distribution (N) as 201, and create a standard normal distribution as sample.
+First, let’s set the size of distribution (N) as 201, and create a standard normal distribution as sample.
 ```{r}
 N <- 201
 sample1 <- rnorm(201)
@@ -70,7 +70,7 @@ The estimated mean is `r sample1_mean` and the estimated standard deviation is `
 
 In the previous step, we get a pair of estimated mean and standard deviation. Based on the parameter, we can generate new distributions to simulate the original distribution.
 
-Now we need to get the median of the new distribution, and if repeat the process for lots of time, we can get the distribution of median of the estimated distribution.
+Now we need to get the median of the new distribution, and if repeat the process for lots of time, we can get the distribution of the median of the estimated distribution.
 ```{r}
 median_list <- rep(NA, 500)
 for (i in seq_along(median_list)) {
@@ -94,7 +94,7 @@ sample1_quantile95
 # Step 4: Calculate coverage probability
 **Now we will explain the concept of coverage probability. And calculating the coverage probability.**
 
-First, create a matrix to save the distributions we are going to generate. Every column is one distribution. Than use the method in the previous steps, generate all of the distributions.
+First, create a matrix to save the distributions we are going to generate. Every column is one distribution. Then use the method in the previous steps, generate all of the distributions.
 ```{r}
 samples <- matrix(nrow = N, ncol = 1000)
 for (i in 1:ncol(samples)) {
@@ -118,7 +118,7 @@ Now create a matrix to save 95% confidence interval.
 quantile95_list <- matrix(nrow = 2, ncol = ncol(samples))
 ```
 
-For each pair of estimated parameters, create a eatimated distribution, than get the median number. Than also do the process for `r N` times, get the 95% confidence interval and save them in the matrix.
+For each pair of estimated parameters, create an estimated distribution, then get the median number. Then also do the process for `r N` times, get the 95% confidence interval and save them in the matrix.
 ```{r}
 for (j in 1:ncol(samples)) {
   median_list <- rep(NA, N)
@@ -133,7 +133,7 @@ for (j in 1:ncol(samples)) {
 }
 ```
 
-For calculating the coverage probability, we can save all of the results of judgement in a vector. Definitely, the coverage probability is the number of successful capture divede by the number of distribution.
+For calculating the coverage probability, we can save all of the results of judgment in a vector. Definitely, the coverage probability is the number of successful capture divide by the number of distribution.
 ```{r}
 interest <- rep(NA, ncol(samples))
 for (i in seq_along(interest)) {
@@ -159,7 +159,7 @@ sum(quantile95_list[1,] > 0)
 # Step 5: Simulation visualization
 **Perform the simulation.**
 
-In order to make the results more intuitive, we can use *geom_linerange()* function in *ggplot* to draw the 95% confidence interval. And set the 95% confidence interval which did not capture the real mean of original distribution, "0" as a red line.
+In order to make the results more intuitive, we can use *geom_linerange()* function in *ggplot* to draw the 95% confidence interval. And set the 95% confidence interval which did not capture the real mean of the original distribution, "0" as a red line.
 ```{r}
 quantile95_df <- as.data.frame(t(quantile95_list))
 quantile95_df["sample_num"] <- seq(1:ncol(samples))
@@ -181,4 +181,4 @@ ggplot(quantile95_df) +
 # Step 6: Future works
 **How to change the simulation to learn more about the operating characteristics of the chosen method for constructing the 95% confidence interval.**
 
-I think I will choose to use bigger distribution to test the process, likes set the *N* as 5000 or 10000. And I could calculate the other quantile of the distributions to find out is there any different. After that, maybe I will use other distribution but not standard normal distribution, such as gamma or beta distribution.
+I think I will choose to use bigger distribution to test the process, likes set the N as 5000 or 10000. And I could calculate the other quantile of the distributions to find out is there any difference. After that, maybe I will use other distribution but not a standard normal distribution, such as gamma or beta distribution.

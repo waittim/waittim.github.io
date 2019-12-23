@@ -231,19 +231,24 @@ number of conditions, specifically:</p>
 <p>This will be a 4 × 4 factorial experiment. The first factor will be the sample size, with N = 5, 10, 20, and 40. The second factor will be the degree of skewness in the underlying distribution. The underlying distribution will be the Skew-Normal distribution. The Skew-Normal distribution has three parameters: location
 <script type="math/tex">\xi</script>, scale
 <script type="math/tex">\omega</script>, and slant
-<script type="math/tex">\alpha</script>. When the slant parameter is 0, the distribution reverts to the normal distribution. As the slant parameter increases, the distribution becomes increasingly skewed. In this simulation, slant will be set to 0, 2, 10, 100. Set location and scale to 0 and 1, respectively, for all simulation settings.</p>
+<script type="math/tex">\alpha</script>. When the slant parameter is 0, the distribution reverts to the normal distribution. As the slant parameter increases, the distribution becomes increasingly skewed. In this simulation, the slant will be set to 0, 2, 10, 100. Set location and scale to 0 and 1, respectively, for all simulation settings.</p>
 
 <h1 id="plot-preparation">Plot preparation</h1>
 
-<p>In the very beginning, we need to set up the parameters that do not change in the following steps. The slant of Skew-Normal distribution will change later, therefore, only the location $\xi$ and scale $\omega$ will be set in this part.</p>
+<p>In the very beginning, we need to set up the parameters that do not change in the following steps. The slant of Skew-Normal distribution will change later, therefore, only the location
+<script type="math/tex">\xi</script> and scale
+<script type="math/tex">\omega</script> will be set in this part.</p>
 <pre><code class="language-{r}">R &lt;- 5000
 location &lt;- 0
 scale &lt;- 1
 </code></pre>
 
-<p>location:$\xi$, scale:$\omega$, slant:$\alpha$</p>
+<p>location:
+<script type="math/tex">\xi</script>, scale:
+<script type="math/tex">\omega</script>, slant:
+<script type="math/tex">\alpha</script></p>
 
-<p>Before creating the function, let’s clarify the functions for calculate the delta, mean and standard deviation for central limit theorem (CLT).</p>
+<p>Before creating the function, let’s clarify the functions for calculating the delta, mean and standard deviation for the central limit theorem (CLT).</p>
 
 <ol>
   <li>
@@ -260,7 +265,7 @@ scale &lt;- 1
   </li>
 </ol>
 
-<p>Then define the function for CLT process and generating the QQplots by using the functions before.</p>
+<p>Then define the function for the CLT process and generating the QQplots by using the functions before.</p>
 <pre><code class="language-{r}">qqplot_creator &lt;- function(slant, N) {
   delta &lt;- slant / (sqrt(1 + slant ^ 2))
 
@@ -320,7 +325,7 @@ mtext(text="slant = 100   slant = 10       slant = 2      slant = 0",
 
 <h1 id="conclusion">Conclusion</h1>
 
-<p>Definitely, when the N is bigger, the QQplot will fit the y=x line better, which means the CLT works better when it wants to simulate the distribution. And when the slant is bigger, in other words, the Skew-Normal distribution has higher skewerness, it will be more difficult to simulate the distribution.</p>
+<p>Definitely, when the N is bigger, the QQplot will fit the y=x line better, which means the CLT works better when it wants to simulate the distribution. And when the slant is bigger, in other words, the Skew-Normal distribution has higher skewness, it will be more difficult to simulate the distribution.</p>
 
 
                 <hr style="visibility: hidden;">

@@ -209,7 +209,7 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<p>A common research objective is to demonstrate that two measurements are highly correlated. One measurement, call it A, may reflect the severity of disease but is difficult or costly to collect. Another measurement, call it B, may be easier to collect and potentially related to measurement A. If there is strong association between A and B, a cost effective strategy for diagnosis may be to collect measurement B instead of A.</p>
+				<p>A common research objective is to demonstrate that the two measurements are highly correlated. One measurement, call it A, may reflect the severity of disease but is difficult or costly to collect. Another measurement, call it B, may be easier to collect and potentially related to measurement A. If there is a strong association between A and B, a cost-effective strategy for diagnosis may be to collect measurement B instead of A.</p>
 
 <p>The researcher will collect both measurements on N individuals. The analysis will proceed by calculating a one-sided confidence interval. If the confidence interval is completely within the range from 0.8 to 1, then the researcher will consider the study to be a success: A conclusive demonstration that the correlation between A and B is greater than 0.8.</p>
 
@@ -263,7 +263,7 @@ result &lt;- expand.grid(corr=corr_list, N = N_list, power=NA)
 }
 </code></pre>
 
-<p>Transform the table into data frame type and plot the graph.</p>
+<p>Transform the table into the data frame type and plot the graph.</p>
 
 <pre><code class="language-{r}">result_df &lt;- as.data.frame(result) %&gt;%
   mutate(N=factor(N))
@@ -276,7 +276,7 @@ result_df %&gt;%
 </code></pre>
 <p><img src="https://i.postimg.cc/02c64Qkt/image.png" alt="" /></p>
 
-<p>As we can see, with the N increasing, the power under the certain correlation is growing up. In other words, when we can collect more samples, the probability that the study will end in success will be higher. And definitely, when the real correlation is higher, the probability will be higher.</p>
+<p>As we can see, with the N increasing, the power under a certain correlation is growing up. In other words, when we can collect more samples, the probability that the study will end in success will be higher. And definitely, when the real correlation is higher, the probability will be higher.</p>
 
 
                 <hr style="visibility: hidden;">

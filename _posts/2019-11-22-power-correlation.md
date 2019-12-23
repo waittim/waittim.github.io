@@ -14,7 +14,7 @@ tags:
 ---
 
 
-A common research objective is to demonstrate that two measurements are highly correlated. One measurement, call it A, may reflect the severity of disease but is difficult or costly to collect. Another measurement, call it B, may be easier to collect and potentially related to measurement A. If there is strong association between A and B, a cost effective strategy for diagnosis may be to collect measurement B instead of A.
+A common research objective is to demonstrate that the two measurements are highly correlated. One measurement, call it A, may reflect the severity of disease but is difficult or costly to collect. Another measurement, call it B, may be easier to collect and potentially related to measurement A. If there is a strong association between A and B, a cost-effective strategy for diagnosis may be to collect measurement B instead of A.
 
 The researcher will collect both measurements on N individuals. The analysis will proceed by calculating a one-sided confidence interval. If the confidence interval is completely within the range from 0.8 to 1, then the researcher will consider the study to be a success: A conclusive demonstration that the correlation between A and B is greater than 0.8.
 
@@ -71,7 +71,7 @@ for (j in 1:nrow(result)){
 }
 ```
 
-Transform the table into data frame type and plot the graph.
+Transform the table into the data frame type and plot the graph.
 
 ```{r}
 result_df <- as.data.frame(result) %>%
@@ -85,4 +85,4 @@ result_df %>%
 ```
 ![](https://i.postimg.cc/02c64Qkt/image.png)
 
-As we can see, with the N increasing, the power under the certain correlation is growing up. In other words, when we can collect more samples, the probability that the study will end in success will be higher. And definitely, when the real correlation is higher, the probability will be higher.
+As we can see, with the N increasing, the power under a certain correlation is growing up. In other words, when we can collect more samples, the probability that the study will end in success will be higher. And definitely, when the real correlation is higher, the probability will be higher.

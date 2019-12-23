@@ -40,7 +40,8 @@ Other settings in the experiment that will not change are:
 
 ## Data generation function
 
-Set up data generate function what can generate data base on normal distribution or gamma distribution. The distribution will be defined by the parameter "dist". The default parameter of gamma distribution are shape=1.4 and scale=3.
+Set up data generate a function that can generate the data based on normal distribution or gamma distribution. The distribution will be defined by the parameter “dist”. The default parameter of the gamma distribution is shape=1.4 and scale=3.
+
 ```{r}
 generate_data <- function(N, dist, sh=1.4, sc=3){
   if(dist=="norm"){
@@ -54,7 +55,7 @@ generate_data <- function(N, dist, sh=1.4, sc=3){
 
 ## Confidence interval estimation function
 
-Then define the function for calculate the confidence interval, which can estimate the distribution by method of moment with normal distribution, method of moment with gamma distribution, kernal density distribution and bootstrap. At the same time, the function can use the function defined by "par.int" to calculate the parameter we want. The details will be introduced in the chunk.
+Then define the function for calculating the confidence interval, which can estimate the distribution by method of moment with normal distribution, method of moment with gamma distribution, kernel density distribution, and bootstrap. At the same time, the function can use the function defined by “par.int” to calculate the parameter we want. The details will be introduced in the chunk.
 ```{r}
 estimate.ci <- function(data, mod, par.int, R=10, smoo=0.3){
   # data: input data
@@ -161,7 +162,7 @@ estimate.ci <- function(data, mod, par.int, R=10, smoo=0.3){
 
 ## Destination capture function
 
-Create a function to justify that is the confidence interval match the requirement. When the result is TRUE, return 1.
+Create a function to justify that is the confidence interval matches the requirement. When the result is TRUE, return 1.
 ```{r}
 capture_par <- function(ci, true.par){
   1*(ci[1] < true.par & true.par < ci[2])
@@ -194,7 +195,7 @@ Create a table called "simsettings" to reserve the results of each estimation me
 simsettings <- expand.grid(dist=c("norm", "gamma"), model=c("MMnorm", "MMgamma", "KDE", "Boot"), par.int=c("median", "min"), cov.prob=NA,  stringsAsFactors = FALSE, KEEP.OUT.ATTRS = FALSE)
 ```
 
-Add a new column to rserve the capture destinations.
+Add a new column to reserve the capture destinations.
 ```{r}
 simsettings$truth <- c(true.norm.med, true.gamma.med, true.norm.med, true.gamma.med, true.norm.med, true.gamma.med, true.norm.med, true.gamma.med, true.norm.min, true.gamma.min, true.norm.min, true.gamma.min, true.norm.min, true.gamma.min, true.norm.min, true.gamma.min)
 ```
@@ -249,6 +250,6 @@ simsettings
 
 Definitely, for the method of moment part, when the data distribution matches the model distribution (e.g. norm - MMnorm, gamma - MMgamma), the capture probabilities are more than 90%. When the distributions do not match with each other, the results will be close to 0% or NA.
 
-And for kernal density estimation, when we need to get the median of the distributions, the results are pretty good as close to 100%. But when we need to get the min of the distributions, the capture probabilities of normal and gamma are really different. For the normal distribution it works well, but for gamma distribution it is about 37%. The reason might be that gamma distribution is a skewed distribution.
+And for kernel density estimation, when we need to get the median of the distributions, the results are pretty good as close to 100%. But when we need to get the min of the distributions, the capture probabilities of normal and gamma are really different. For the normal distribution, it works well, but for gamma distribution, it is about 37%. The reason might be that gamma distribution is a skewed distribution.
 
-For bootstrap part, the results are not as good as others. When we want to get the median of the distributions, the capture probabilities are just about 90%. And when it comes to min of the distributions, the probabilities become 50%. Obviously, it is because selecting a sample randomly is too difficult to get the min point every time.
+For the bootstrap part, the results are not as good as others. When we want to get the median of the distributions, the capture probabilities are just about 90%. And when it comes to min of the distributions, the probabilities become 50%. Obviously, it is because selecting a sample randomly is too difficult to get the min point every time.

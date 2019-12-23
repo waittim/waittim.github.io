@@ -5,8 +5,8 @@
     <description>Every failure is leading towards success.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 23 Dec 2019 00:20:04 -0600</pubDate>
-    <lastBuildDate>Mon, 23 Dec 2019 00:20:04 -0600</lastBuildDate>
+    <pubDate>Mon, 23 Dec 2019 00:32:14 -0600</pubDate>
+    <lastBuildDate>Mon, 23 Dec 2019 00:32:14 -0600</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -377,7 +377,7 @@ wage distribution between STEM and non-STEM.&quot; /&gt;&lt;/p&gt;
     
       <item>
         <title>Power and sample size calculations correlational studies</title>
-        <description>&lt;p&gt;A common research objective is to demonstrate that two measurements are highly correlated. One measurement, call it A, may reflect the severity of disease but is difficult or costly to collect. Another measurement, call it B, may be easier to collect and potentially related to measurement A. If there is strong association between A and B, a cost effective strategy for diagnosis may be to collect measurement B instead of A.&lt;/p&gt;
+        <description>&lt;p&gt;A common research objective is to demonstrate that the two measurements are highly correlated. One measurement, call it A, may reflect the severity of disease but is difficult or costly to collect. Another measurement, call it B, may be easier to collect and potentially related to measurement A. If there is a strong association between A and B, a cost-effective strategy for diagnosis may be to collect measurement B instead of A.&lt;/p&gt;
 
 &lt;p&gt;The researcher will collect both measurements on N individuals. The analysis will proceed by calculating a one-sided confidence interval. If the confidence interval is completely within the range from 0.8 to 1, then the researcher will consider the study to be a success: A conclusive demonstration that the correlation between A and B is greater than 0.8.&lt;/p&gt;
 
@@ -431,7 +431,7 @@ result &amp;lt;- expand.grid(corr=corr_list, N = N_list, power=NA)
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Transform the table into data frame type and plot the graph.&lt;/p&gt;
+&lt;p&gt;Transform the table into the data frame type and plot the graph.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;result_df &amp;lt;- as.data.frame(result) %&amp;gt;%
   mutate(N=factor(N))
@@ -444,7 +444,7 @@ result_df %&amp;gt;%
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/02c64Qkt/image.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;As we can see, with the N increasing, the power under the certain correlation is growing up. In other words, when we can collect more samples, the probability that the study will end in success will be higher. And definitely, when the real correlation is higher, the probability will be higher.&lt;/p&gt;
+&lt;p&gt;As we can see, with the N increasing, the power under a certain correlation is growing up. In other words, when we can collect more samples, the probability that the study will end in success will be higher. And definitely, when the real correlation is higher, the probability will be higher.&lt;/p&gt;
 </description>
         <pubDate>Fri, 22 Nov 2019 00:00:00 -0600</pubDate>
         <link>http://localhost:4000/2019/11/22/power-correlation/</link>
@@ -485,19 +485,24 @@ number of conditions, specifically:&lt;/p&gt;
 &lt;p&gt;This will be a 4 × 4 factorial experiment. The first factor will be the sample size, with N = 5, 10, 20, and 40. The second factor will be the degree of skewness in the underlying distribution. The underlying distribution will be the Skew-Normal distribution. The Skew-Normal distribution has three parameters: location
 &lt;script type=&quot;math/tex&quot;&gt;\xi&lt;/script&gt;, scale
 &lt;script type=&quot;math/tex&quot;&gt;\omega&lt;/script&gt;, and slant
-&lt;script type=&quot;math/tex&quot;&gt;\alpha&lt;/script&gt;. When the slant parameter is 0, the distribution reverts to the normal distribution. As the slant parameter increases, the distribution becomes increasingly skewed. In this simulation, slant will be set to 0, 2, 10, 100. Set location and scale to 0 and 1, respectively, for all simulation settings.&lt;/p&gt;
+&lt;script type=&quot;math/tex&quot;&gt;\alpha&lt;/script&gt;. When the slant parameter is 0, the distribution reverts to the normal distribution. As the slant parameter increases, the distribution becomes increasingly skewed. In this simulation, the slant will be set to 0, 2, 10, 100. Set location and scale to 0 and 1, respectively, for all simulation settings.&lt;/p&gt;
 
 &lt;h1 id=&quot;plot-preparation&quot;&gt;Plot preparation&lt;/h1&gt;
 
-&lt;p&gt;In the very beginning, we need to set up the parameters that do not change in the following steps. The slant of Skew-Normal distribution will change later, therefore, only the location $\xi$ and scale $\omega$ will be set in this part.&lt;/p&gt;
+&lt;p&gt;In the very beginning, we need to set up the parameters that do not change in the following steps. The slant of Skew-Normal distribution will change later, therefore, only the location
+&lt;script type=&quot;math/tex&quot;&gt;\xi&lt;/script&gt; and scale
+&lt;script type=&quot;math/tex&quot;&gt;\omega&lt;/script&gt; will be set in this part.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;R &amp;lt;- 5000
 location &amp;lt;- 0
 scale &amp;lt;- 1
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;location:$\xi$, scale:$\omega$, slant:$\alpha$&lt;/p&gt;
+&lt;p&gt;location:
+&lt;script type=&quot;math/tex&quot;&gt;\xi&lt;/script&gt;, scale:
+&lt;script type=&quot;math/tex&quot;&gt;\omega&lt;/script&gt;, slant:
+&lt;script type=&quot;math/tex&quot;&gt;\alpha&lt;/script&gt;&lt;/p&gt;
 
-&lt;p&gt;Before creating the function, let’s clarify the functions for calculate the delta, mean and standard deviation for central limit theorem (CLT).&lt;/p&gt;
+&lt;p&gt;Before creating the function, let’s clarify the functions for calculating the delta, mean and standard deviation for the central limit theorem (CLT).&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;
@@ -514,7 +519,7 @@ scale &amp;lt;- 1
   &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;Then define the function for CLT process and generating the QQplots by using the functions before.&lt;/p&gt;
+&lt;p&gt;Then define the function for the CLT process and generating the QQplots by using the functions before.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;qqplot_creator &amp;lt;- function(slant, N) {
   delta &amp;lt;- slant / (sqrt(1 + slant ^ 2))
 
@@ -574,7 +579,7 @@ mtext(text=&quot;slant = 100   slant = 10       slant = 2      slant = 0&quot;,
 
 &lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
 
-&lt;p&gt;Definitely, when the N is bigger, the QQplot will fit the y=x line better, which means the CLT works better when it wants to simulate the distribution. And when the slant is bigger, in other words, the Skew-Normal distribution has higher skewerness, it will be more difficult to simulate the distribution.&lt;/p&gt;
+&lt;p&gt;Definitely, when the N is bigger, the QQplot will fit the y=x line better, which means the CLT works better when it wants to simulate the distribution. And when the slant is bigger, in other words, the Skew-Normal distribution has higher skewness, it will be more difficult to simulate the distribution.&lt;/p&gt;
 </description>
         <pubDate>Tue, 12 Nov 2019 00:00:00 -0600</pubDate>
         <link>http://localhost:4000/2019/11/12/clt/</link>
@@ -926,7 +931,8 @@ Other settings in the experiment that will not change are:
 
 &lt;h2 id=&quot;data-generation-function&quot;&gt;Data generation function&lt;/h2&gt;
 
-&lt;p&gt;Set up data generate function what can generate data base on normal distribution or gamma distribution. The distribution will be defined by the parameter “dist”. The default parameter of gamma distribution are shape=1.4 and scale=3.&lt;/p&gt;
+&lt;p&gt;Set up data generate a function that can generate the data based on normal distribution or gamma distribution. The distribution will be defined by the parameter “dist”. The default parameter of the gamma distribution is shape=1.4 and scale=3.&lt;/p&gt;
+
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;generate_data &amp;lt;- function(N, dist, sh=1.4, sc=3){
   if(dist==&quot;norm&quot;){
     rnorm(N)
@@ -938,7 +944,7 @@ Other settings in the experiment that will not change are:
 
 &lt;h2 id=&quot;confidence-interval-estimation-function&quot;&gt;Confidence interval estimation function&lt;/h2&gt;
 
-&lt;p&gt;Then define the function for calculate the confidence interval, which can estimate the distribution by method of moment with normal distribution, method of moment with gamma distribution, kernal density distribution and bootstrap. At the same time, the function can use the function defined by “par.int” to calculate the parameter we want. The details will be introduced in the chunk.&lt;/p&gt;
+&lt;p&gt;Then define the function for calculating the confidence interval, which can estimate the distribution by method of moment with normal distribution, method of moment with gamma distribution, kernel density distribution, and bootstrap. At the same time, the function can use the function defined by “par.int” to calculate the parameter we want. The details will be introduced in the chunk.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;estimate.ci &amp;lt;- function(data, mod, par.int, R=10, smoo=0.3){
   # data: input data
   # mod: define the estimation method and the distribution.
@@ -1044,7 +1050,7 @@ Other settings in the experiment that will not change are:
 
 &lt;h2 id=&quot;destination-capture-function&quot;&gt;Destination capture function&lt;/h2&gt;
 
-&lt;p&gt;Create a function to justify that is the confidence interval match the requirement. When the result is TRUE, return 1.&lt;/p&gt;
+&lt;p&gt;Create a function to justify that is the confidence interval matches the requirement. When the result is TRUE, return 1.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;capture_par &amp;lt;- function(ci, true.par){
   1*(ci[1] &amp;lt; true.par &amp;amp; true.par &amp;lt; ci[2])
 }
@@ -1072,7 +1078,7 @@ true.gamma.min &amp;lt;- mean(apply(array(rgamma(N*10000, shape=shape.set, scale
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;simsettings &amp;lt;- expand.grid(dist=c(&quot;norm&quot;, &quot;gamma&quot;), model=c(&quot;MMnorm&quot;, &quot;MMgamma&quot;, &quot;KDE&quot;, &quot;Boot&quot;), par.int=c(&quot;median&quot;, &quot;min&quot;), cov.prob=NA,  stringsAsFactors = FALSE, KEEP.OUT.ATTRS = FALSE)
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Add a new column to rserve the capture destinations.&lt;/p&gt;
+&lt;p&gt;Add a new column to reserve the capture destinations.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;simsettings$truth &amp;lt;- c(true.norm.med, true.gamma.med, true.norm.med, true.gamma.med, true.norm.med, true.gamma.med, true.norm.med, true.gamma.med, true.norm.min, true.gamma.min, true.norm.min, true.gamma.min, true.norm.min, true.gamma.min, true.norm.min, true.gamma.min)
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -1122,9 +1128,9 @@ true.gamma.min &amp;lt;- mean(apply(array(rgamma(N*10000, shape=shape.set, scale
 
 &lt;p&gt;Definitely, for the method of moment part, when the data distribution matches the model distribution (e.g. norm - MMnorm, gamma - MMgamma), the capture probabilities are more than 90%. When the distributions do not match with each other, the results will be close to 0% or NA.&lt;/p&gt;
 
-&lt;p&gt;And for kernal density estimation, when we need to get the median of the distributions, the results are pretty good as close to 100%. But when we need to get the min of the distributions, the capture probabilities of normal and gamma are really different. For the normal distribution it works well, but for gamma distribution it is about 37%. The reason might be that gamma distribution is a skewed distribution.&lt;/p&gt;
+&lt;p&gt;And for kernel density estimation, when we need to get the median of the distributions, the results are pretty good as close to 100%. But when we need to get the min of the distributions, the capture probabilities of normal and gamma are really different. For the normal distribution, it works well, but for gamma distribution, it is about 37%. The reason might be that gamma distribution is a skewed distribution.&lt;/p&gt;
 
-&lt;p&gt;For bootstrap part, the results are not as good as others. When we want to get the median of the distributions, the capture probabilities are just about 90%. And when it comes to min of the distributions, the probabilities become 50%. Obviously, it is because selecting a sample randomly is too difficult to get the min point every time.&lt;/p&gt;
+&lt;p&gt;For the bootstrap part, the results are not as good as others. When we want to get the median of the distributions, the capture probabilities are just about 90%. And when it comes to min of the distributions, the probabilities become 50%. Obviously, it is because selecting a sample randomly is too difficult to get the min point every time.&lt;/p&gt;
 </description>
         <pubDate>Sun, 27 Oct 2019 00:00:00 -0500</pubDate>
         <link>http://localhost:4000/2019/10/27/simulation-compare/</link>
@@ -1165,7 +1171,7 @@ library(tidyverse)
 &lt;h1 id=&quot;step-1-single-sample&quot;&gt;Step 1: Single sample&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Generate a single sample from a standard normal distribution of size N = 201.&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;Fisrt, let’s set the size of distribution (N) as 201, and create a standard normal distribution as sample.&lt;/p&gt;
+&lt;p&gt;First, let’s set the size of distribution (N) as 201, and create a standard normal distribution as sample.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;N &amp;lt;- 201
 sample1 &amp;lt;- rnorm(201)
 median(sample1)
@@ -1200,7 +1206,7 @@ sample1_sd &amp;lt;- coef(fit)[[2]]
 
 &lt;p&gt;In the previous step, we get a pair of estimated mean and standard deviation. Based on the parameter, we can generate new distributions to simulate the original distribution.&lt;/p&gt;
 
-&lt;p&gt;Now we need to get the median of the new distribution, and if repeat the process for lots of time, we can get the distribution of median of the estimated distribution.&lt;/p&gt;
+&lt;p&gt;Now we need to get the median of the new distribution, and if repeat the process for lots of time, we can get the distribution of the median of the estimated distribution.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;median_list &amp;lt;- rep(NA, 500)
 for (i in seq_along(median_list)) {
   median_list[i] &amp;lt;-
@@ -1220,7 +1226,7 @@ sample1_quantile95
 &lt;h1 id=&quot;step-4-calculate-coverage-probability&quot;&gt;Step 4: Calculate coverage probability&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Now we will explain the concept of coverage probability. And calculating the coverage probability.&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;First, create a matrix to save the distributions we are going to generate. Every column is one distribution. Than use the method in the previous steps, generate all of the distributions.&lt;/p&gt;
+&lt;p&gt;First, create a matrix to save the distributions we are going to generate. Every column is one distribution. Then use the method in the previous steps, generate all of the distributions.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;samples &amp;lt;- matrix(nrow = N, ncol = 1000)
 for (i in 1:ncol(samples)) {
   samples[, i] &amp;lt;- rnorm(N)
@@ -1241,7 +1247,7 @@ for (i in 1:ncol(samples)) {
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;quantile95_list &amp;lt;- matrix(nrow = 2, ncol = ncol(samples))
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;For each pair of estimated parameters, create a eatimated distribution, than get the median number. Than also do the process for &lt;code class=&quot;highlighter-rouge&quot;&gt;r N&lt;/code&gt; times, get the 95% confidence interval and save them in the matrix.&lt;/p&gt;
+&lt;p&gt;For each pair of estimated parameters, create an estimated distribution, then get the median number. Then also do the process for &lt;code class=&quot;highlighter-rouge&quot;&gt;r N&lt;/code&gt; times, get the 95% confidence interval and save them in the matrix.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;for (j in 1:ncol(samples)) {
   median_list &amp;lt;- rep(NA, N)
   for (i in seq_along(median_list)) {
@@ -1255,7 +1261,7 @@ for (i in 1:ncol(samples)) {
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;For calculating the coverage probability, we can save all of the results of judgement in a vector. Definitely, the coverage probability is the number of successful capture divede by the number of distribution.&lt;/p&gt;
+&lt;p&gt;For calculating the coverage probability, we can save all of the results of judgment in a vector. Definitely, the coverage probability is the number of successful capture divide by the number of distribution.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;interest &amp;lt;- rep(NA, ncol(samples))
 for (i in seq_along(interest)) {
   interest[i] &amp;lt;-
@@ -1279,7 +1285,7 @@ sum(quantile95_list[1,] &amp;gt; 0)
 &lt;h1 id=&quot;step-5-simulation-visualization&quot;&gt;Step 5: Simulation visualization&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Perform the simulation.&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;In order to make the results more intuitive, we can use &lt;em&gt;geom_linerange()&lt;/em&gt; function in &lt;em&gt;ggplot&lt;/em&gt; to draw the 95% confidence interval. And set the 95% confidence interval which did not capture the real mean of original distribution, “0” as a red line.&lt;/p&gt;
+&lt;p&gt;In order to make the results more intuitive, we can use &lt;em&gt;geom_linerange()&lt;/em&gt; function in &lt;em&gt;ggplot&lt;/em&gt; to draw the 95% confidence interval. And set the 95% confidence interval which did not capture the real mean of the original distribution, “0” as a red line.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;quantile95_df &amp;lt;- as.data.frame(t(quantile95_list))
 quantile95_df[&quot;sample_num&quot;] &amp;lt;- seq(1:ncol(samples))
 quantile95_df[&quot;interest&quot;] &amp;lt;- interest
@@ -1300,7 +1306,7 @@ ggplot(quantile95_df) +
 &lt;h1 id=&quot;step-6-future-works&quot;&gt;Step 6: Future works&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;How to change the simulation to learn more about the operating characteristics of the chosen method for constructing the 95% confidence interval.&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;I think I will choose to use bigger distribution to test the process, likes set the &lt;em&gt;N&lt;/em&gt; as 5000 or 10000. And I could calculate the other quantile of the distributions to find out is there any different. After that, maybe I will use other distribution but not standard normal distribution, such as gamma or beta distribution.&lt;/p&gt;
+&lt;p&gt;I think I will choose to use bigger distribution to test the process, likes set the N as 5000 or 10000. And I could calculate the other quantile of the distributions to find out is there any difference. After that, maybe I will use other distribution but not a standard normal distribution, such as gamma or beta distribution.&lt;/p&gt;
 </description>
         <pubDate>Tue, 15 Oct 2019 00:00:00 -0500</pubDate>
         <link>http://localhost:4000/2019/10/15/coverage-probability/</link>
