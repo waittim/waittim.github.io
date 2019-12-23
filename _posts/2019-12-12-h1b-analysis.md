@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      H1B Visa Analysis
+title:      Think and Get Jobs - H1B Visa Analysis
 subtitle:   Helping the international data science students strategize job search
 date:       2019-12-12
 author:     Zekun, Yasi, Yilin, Ali
