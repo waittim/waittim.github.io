@@ -4,7 +4,7 @@ title:      What makes a trending video?
 subtitle:   An analysis of trending YouTube videos
 date:       2019-10-29
 author:     Zekun, Ali, Mingli
-header-img: img/post-h1b.jpeg
+header-img: img/post-youtube.jpg
 catalog: true
 tags:
     - YouTube
@@ -12,8 +12,6 @@ tags:
     - Project
 ---
 
-# Slides
-<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vTN6OHLfZ70A3x6X97oe68aBpaGtQUUmvcnJ-n9QSCdz99m_S4hYXZYY__sMhHhwB0hapDY1y2HuHuo/embed?start=false&loop=true&delayms=30000" frameborder="0" width="700" height="423" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 
 
 # Introduction
@@ -204,6 +202,8 @@ We labeled our dataset into four categories as before:
 The model has 0.73 weighted average precision, which is a solid result. It further proves the importance of  the four features: **title, channel_title, tags, description**.
 
 
+# Slides
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vTN6OHLfZ70A3x6X97oe68aBpaGtQUUmvcnJ-n9QSCdz99m_S4hYXZYY__sMhHhwB0hapDY1y2HuHuo/embed?start=false&loop=true&delayms=30000" frameborder="0" width="700" height="423" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 
 *Hint 1: Project GitHub page: [Youtube-trending-videos-analysis](https://github.com/waittim/Youtube-trending-videos-analysis)*
 

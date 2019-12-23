@@ -5,16 +5,13 @@
     <description>Every failure is leading towards success.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 22 Dec 2019 23:02:06 -0600</pubDate>
-    <lastBuildDate>Sun, 22 Dec 2019 23:02:06 -0600</lastBuildDate>
+    <pubDate>Sun, 22 Dec 2019 23:06:43 -0600</pubDate>
+    <lastBuildDate>Sun, 22 Dec 2019 23:06:43 -0600</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
         <title>H1B Visa Analysis</title>
-        <description>&lt;h1 id=&quot;slides&quot;&gt;Slides&lt;/h1&gt;
-&lt;iframe src=&quot;https://docs.google.com/presentation/d/e/2PACX-1vQR_hrMRbhVNpoudmrkJRcPi3lTcSG0g1lYYnMOElPjTcrC_y1Bxk16DdwxUCLruMuoQEPX0n04Zc8k/embed?start=false&amp;amp;loop=false&amp;amp;delayms=3000&quot; frameborder=&quot;0&quot; width=&quot;700&quot; height=&quot;423&quot; allowfullscreen=&quot;true&quot; mozallowfullscreen=&quot;true&quot; webkitallowfullscreen=&quot;true&quot;&gt;&lt;/iframe&gt;
-
-&lt;h1 id=&quot;h1b&quot;&gt;H1B&lt;/h1&gt;
+        <description>&lt;h1 id=&quot;h1b&quot;&gt;H1B&lt;/h1&gt;
 &lt;p&gt;The H1B visa is a non-immigrant visa that allows companies in the US to hire graduate-level workers in specialty occupations that require theoretical or technical expertise in specialized fields.&lt;/p&gt;
 
 &lt;h3 id=&quot;requirements&quot;&gt;Requirements&lt;/h3&gt;
@@ -358,6 +355,9 @@ wage distribution between STEM and non-STEM.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Finally, although Tennessee is not the best for international students pursuing data-related roles, there does seem to be a potential for growth since tech giants such as Amazon and Microsoft are creating more opportunities for jobs in the Nashville area in the future.&lt;/p&gt;
 
+&lt;h1 id=&quot;slides&quot;&gt;Slides&lt;/h1&gt;
+&lt;iframe src=&quot;https://docs.google.com/presentation/d/e/2PACX-1vQR_hrMRbhVNpoudmrkJRcPi3lTcSG0g1lYYnMOElPjTcrC_y1Bxk16DdwxUCLruMuoQEPX0n04Zc8k/embed?start=false&amp;amp;loop=false&amp;amp;delayms=3000&quot; frameborder=&quot;0&quot; width=&quot;700&quot; height=&quot;423&quot; allowfullscreen=&quot;true&quot; mozallowfullscreen=&quot;true&quot; webkitallowfullscreen=&quot;true&quot;&gt;&lt;/iframe&gt;
+
 &lt;p&gt;&lt;em&gt;Hint: Project GitHub page: &lt;a href=&quot;https://github.com/waittim/H1B-visas-analysis&quot;&gt;H1B-visas-analysis&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
 </description>
         <pubDate>Thu, 12 Dec 2019 00:00:00 -0600</pubDate>
@@ -591,10 +591,7 @@ mtext(text=&quot;slant = 100   slant = 10       slant = 2      slant = 0&quot;,
     
       <item>
         <title>What makes a trending video?</title>
-        <description>&lt;h1 id=&quot;slides&quot;&gt;Slides&lt;/h1&gt;
-&lt;iframe src=&quot;https://docs.google.com/presentation/d/e/2PACX-1vTN6OHLfZ70A3x6X97oe68aBpaGtQUUmvcnJ-n9QSCdz99m_S4hYXZYY__sMhHhwB0hapDY1y2HuHuo/embed?start=false&amp;amp;loop=true&amp;amp;delayms=30000&quot; frameborder=&quot;0&quot; width=&quot;700&quot; height=&quot;423&quot; allowfullscreen=&quot;true&quot; mozallowfullscreen=&quot;true&quot; webkitallowfullscreen=&quot;true&quot;&gt;&lt;/iframe&gt;
-
-&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+        <description>&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
 
 &lt;p&gt;YouTube is one of the biggest media platforms of the 21st century.&lt;/p&gt;
 
@@ -868,6 +865,9 @@ As a content creator, you will have to make sure to keep that in mind while tryi
 &lt;/table&gt;
 
 &lt;p&gt;The model has 0.73 weighted average precision, which is a solid result. It further proves the importance of  the four features: &lt;strong&gt;title, channel_title, tags, description&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h1 id=&quot;slides&quot;&gt;Slides&lt;/h1&gt;
+&lt;iframe src=&quot;https://docs.google.com/presentation/d/e/2PACX-1vTN6OHLfZ70A3x6X97oe68aBpaGtQUUmvcnJ-n9QSCdz99m_S4hYXZYY__sMhHhwB0hapDY1y2HuHuo/embed?start=false&amp;amp;loop=true&amp;amp;delayms=30000&quot; frameborder=&quot;0&quot; width=&quot;700&quot; height=&quot;423&quot; allowfullscreen=&quot;true&quot; mozallowfullscreen=&quot;true&quot; webkitallowfullscreen=&quot;true&quot;&gt;&lt;/iframe&gt;
 
 &lt;p&gt;&lt;em&gt;Hint 1: Project GitHub page: &lt;a href=&quot;https://github.com/waittim/Youtube-trending-videos-analysis&quot;&gt;Youtube-trending-videos-analysis&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
 
