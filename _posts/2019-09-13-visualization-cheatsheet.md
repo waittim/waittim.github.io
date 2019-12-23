@@ -4,7 +4,7 @@ title:      Visualization Cheat Sheet
 subtitle:   Helps efficiently complete data visualization
 date:       2019-09-13
 author:     Zekun
-header-img: img/prob5-quantile.jpeg
+header-img: img/post-visualizations-cheatsheet.png
 catalog: true
 tags:
     - Visualization
