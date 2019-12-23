@@ -1,0 +1,275 @@
+I"3<h1 id="introduction">Introduction</h1>
+
+<p>YouTube is one of the biggest media platforms of the 21st century.</p>
+
+<p><strong>5 Billion</strong> videos are watched daily.</p>
+
+<p><strong>500 Hours</strong> of videos are uploaded every minute.</p>
+
+<p><strong>51%</strong> of users say that they visit the website daily.</p>
+
+<p>This makes YouTube a powerful tool for advertising, business, research and content creators.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>Being able to predict if a YouTube video is likely to be trending or not is highly useful if you are:</p>
+<ul>
+  <li><strong>A content creator</strong> who wants to make trending videos.</li>
+  <li><strong>An advertiser</strong> who wants to know the best videos to put advertisements on before they become trending videos.</li>
+  <li><strong>A researcher</strong> trying to derive insight about behavior from YouTube trends.</li>
+</ul>
+
+<p>To do this, you will need to know :</p>
+<ol>
+  <li><strong>When</strong> to upload/look for, a potentially trending YouTube video</li>
+  <li><strong>How</strong> to upload/look for, a potentially trending YouTube video</li>
+  <li><strong>What</strong> to upload/look for, in a potentially trending YouTube video</li>
+</ol>
+
+<h2 id="a-look-at-the-trending-videos">A look at the trending videos</h2>
+
+<p>A trending video can be identified by three major measures:</p>
+<ol>
+  <li>Number of <strong>Likes</strong></li>
+  <li>Number of <strong>Views</strong></li>
+  <li>Number of <strong>Comments</strong></li>
+</ol>
+
+<table>
+  <thead>
+    <tr>
+      <th>Likes</th>
+      <th>Views</th>
+      <th>Comments</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><img src="https://i.postimg.cc/MZQhgDcr/image.png" alt="" title="dislikes &amp; likes" /></td>
+      <td><img src="https://i.postimg.cc/2ytyqxDt/image.png" alt="" title="views" /></td>
+      <td><img src="https://i.postimg.cc/XqtNN7KS/image.png" alt="" title="comments" /></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Upon looking at the distribution of likes, dislikes , views and comments of the trending YouTube videos, we can see that, “most of” the trending YouTube videos have a total of:</p>
+<ol>
+  <li><strong>1,000,000</strong> views</li>
+  <li>About <strong>1,000</strong> dislikes or <strong>10,000</strong> likes</li>
+  <li>About <strong>2,000</strong> comments</li>
+</ol>
+
+<p>We will be looking at the number of videos being posted and the number of views being received.</p>
+
+<h1 id="when-to-post-a-trending-video">When to post a trending video</h1>
+
+<h2 id="best-month">Best month</h2>
+
+<p><img src="https://i.postimg.cc/Dy2mZ8KF/image.png" alt="" title="best month" /></p>
+
+<p><strong>Lowest</strong> number of trending videos are being posted in the months of <strong>June</strong> to <strong>October</strong>.</p>
+
+<p>It also shows that the <strong>highest</strong> number of trending videos are posted in the month of <strong>May</strong> with highest number of views.</p>
+
+<p>The best time to post a video would be <strong>April</strong> and <strong>May</strong> as they show the <strong>highest</strong> number of views in comparison to the number of videos posted.  Months December, March and February also see a high number of trending videos being posted but not as many views.</p>
+
+<h2 id="best-day-of-the-week">Best day of the week</h2>
+
+<p><img src="https://i.postimg.cc/nL7nTJt0/image.png" alt="" title="Best day of the week" /></p>
+
+<p>Most trending videos are being posted on <strong>Tuesdays</strong> through <strong>Friday</strong>. Thursday and Friday see the highest number of trending videos with Friday showing the highest number of views.</p>
+
+<p>Interestingly,  <strong>Saturday</strong> and <strong>Sunday</strong> are the worst to post videos as there are fewer videos being posted on these and these days see <strong>lowest number of views</strong> as compared to other days.</p>
+
+<p>However, there might be an extremely small chance that a video that you post on Sunday reaches <strong>200 million views</strong>!</p>
+
+<h2 id="best-time-of-day">Best time of day</h2>
+
+<p><img src="https://i.postimg.cc/tCYQ2j3W/image.png “Best time of day 1”" alt="" />
+<img src="https://i.postimg.cc/YCKnYKbp/image.png" alt="" title="Best time of day 2" /></p>
+
+<p>We see the highest number of trending videos being posted around <strong>8AM to 5PM</strong> with the peak time from <strong>9AM to 1PM</strong>. (CST)</p>
+
+<p>Surprisingly, around <strong>11PM</strong>, where few of the the lowest amount of videos are being posted, we see the <strong>highest variation</strong> in the number of views!</p>
+
+<p>The best time to post a video would be around <strong>8AM to 11AM</strong>. However, there is small chance if you post at <strong>11PM</strong>, that your video will get the highest number of views, though it might be risky as this is also.</p>
+
+<h1 id="how-to-post-a-trending-video">How to post a trending video</h1>
+
+<h2 id="rows-of-description">Rows of description</h2>
+
+<p>“Rows of description” are defined by the number of rows it takes to give the description of the video.</p>
+
+<p><img src="https://i.postimg.cc/SRcZtgK0/image.png" alt="" title="Rows of description" /></p>
+
+<p>Most trending YouTube videos have <strong>1 - 3 rows</strong> of description only and videos with <strong>1 row of description</strong> see the highest number of views. Keeping a simple description of the video may be what attracts or loses a viewer.</p>
+
+<p>However, we see a spike in number of views at around 20 rows of description. These might be videos which required further explanation.</p>
+
+<h2 id="number-of-tags">Number of tags</h2>
+
+<p><img src="https://i.postimg.cc/dVgyLwBB/image.png" alt="" title="Number of tagshttps://i.postimg.cc/dVgyLwBB/image.png" /></p>
+
+<p>There are a large number of trending videos with no tags but they see a lower number of views. Anywhere between <strong>3 to 20</strong> tags see a higher number of views. Most people uploading videos chose to add tags within this range.</p>
+
+<p>We can also see that adding more tags outside of this range resulted in a decline in the number of views. Furthermore, the number of people choosing to add tags greater than this range also declined.</p>
+
+<h2 id="title-of-a-trending-video">Title of a trending video</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Number of Uppercase Letters</th>
+      <th>Length of Title</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><img src="https://i.postimg.cc/cHL0W8n5/10.png" alt="" title="Number of Uppercase Letters" /></td>
+      <td><img src="https://i.postimg.cc/0QXxy2G5/11.png" alt="" title="Length of Title" /></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>the greatest number of views appeared on videos where the title had between <strong>1 to 15</strong> uppercase letters. Most uploaders chose to stay within this range.</p>
+
+<p>the highest number of views appeared on videos where the title was less than <strong>50</strong> characters long. Uploaders mostly chose titles between <strong>25-50</strong> characters long.</p>
+
+<h1 id="what-is-in-a-trending-video">What is in a trending video</h1>
+
+<h2 id="categorical-analysis">Categorical analysis</h2>
+
+<p><img src="https://i.postimg.cc/TPFMzHTh/image.png" alt="" title="Categorical analysis" />
+Categories of <strong>Entertainment</strong> and <strong>Music</strong> have the highest number of trending videos. However, Music has a higher number of views as compared to Entertainment.</p>
+
+<p>Film and animation has a lower number of trending videos as compared to Entertainment but has comparable views.</p>
+
+<p>If you are a <strong>musician</strong> or an <strong>entertainer</strong>, your videos are more likely to be trending as compared to any other type of video.</p>
+
+<h2 id="likesdislikes-ratio">Likes/Dislikes ratio</h2>
+
+<p>If the L/D ratio is less than 1, more people disliked the video. If greater than 1, more people liked the video. If equal to 1, an equal number of people liked and disliked the video. A video is <strong>controversial</strong> when the L/D ratio is less than 1 or equal to 1.</p>
+
+<p><img src="https://i.postimg.cc/6qzHXyCz/image.png" alt="" title="Likes/Dislikes ratio" /></p>
+
+<p>If L/D = <strong>10-100</strong> we see <strong>the highest views</strong>.</p>
+
+<p>If L/D ratio is <strong>less than 10</strong>, the number of views <strong>decline</strong>. <strong>The more controversial</strong> a video is, <strong>the less number</strong> of views it has.</p>
+
+<p>However, videos with higher <strong>L/D ratios (&gt;100)</strong> coincided with <strong>fewer views</strong>. It seems that videos which are slightly controversial may be viewed more than videos which are not controversial at all.</p>
+
+<h2 id="sentiment-analysis">Sentiment Analysis</h2>
+
+<p>Understanding how sentiment plays a role in the making of a trending of YouTube video is an interesting area to look at.</p>
+
+<p>To do this sort of analysis we look at the channel title, title tags, and description to see how positive or negative a typical trending video is.</p>
+
+<p><strong>Classification</strong>
+For this problem we can classify our videos into four distinct categories:</p>
+<ol>
+  <li><strong>Popular :</strong> views &lt; 10,000</li>
+  <li><strong>Very Popular :</strong> 10,000 &lt; views &lt; 100,000</li>
+  <li><strong>Highly Popular :</strong> 100,000 &lt; views &lt; 1 Million</li>
+  <li><strong>Hyper Popular :</strong> views &gt; 1 Million</li>
+</ol>
+
+<p><img src="https://i.postimg.cc/ryb0h86L/image.png" alt="" title="Sentiment Analysis 1" /></p>
+
+<p>From this we can see that the very popular to hyper popular trending videos have positive sentiments in their descriptions, tags and channel title of around <strong>70%</strong></p>
+
+<p>The <strong>least</strong> popular videos of these four categories had a positive sentiment of about <strong>57%</strong>.</p>
+
+<p>This is consistent with our analysis of Likes/Dislikes ratio. It shows that a video needs to be <strong>controversial</strong>; however <strong>the more negative</strong> it tends to be, <strong>the less likely</strong> it is to be the most trending video.</p>
+
+<h1 id="conclusions">Conclusions</h1>
+
+<p><img src="https://i.postimg.cc/HsdxvjSR/image.png" alt="" title="breakdown" /></p>
+
+<p>Knowing the components of a Trending YouTube video might be able to provide some insight about what a trending video looks like and how to recognize it but <strong>human behavior is unpredictable</strong> and there will always be outliers.</p>
+
+<p>In general, your video is much more likely to be trending if you are a <strong>musician</strong> or an <strong>entertainer</strong>. This might have to do with the demographic and the reasons why people visit YouTube.</p>
+
+<p>While creating video content, it’s important to keep the idea of <strong>controversy</strong> in mind. This is based on human psyche: people are attracted to anything that grabs attention, and controversy does just that.</p>
+
+<p>However, it’s important to <strong>strike a balance</strong>. You will see the most amount of views and have the highest likelihood of a trending video when you hit the sweet spot between challenging a thought and inciting emotion.
+As a content creator, you will have to make sure to keep that in mind while trying to enter an online media market that is highly saturated.</p>
+
+<h1 id="appendix">Appendix</h1>
+
+<p>Motivated by the results from this research, we build a <strong>classification model</strong> using <strong>naive bayes</strong>.</p>
+
+<p>The inputs features are title, channel_title, tags, description.</p>
+
+<p>We labeled our dataset into four categories as before:</p>
+<ol>
+  <li>Popular : 10,000 &gt; views</li>
+  <li>Very Popular : 10,000 &lt; views &lt; 100,000</li>
+  <li>Highly Popular : 100,000 &lt; views &lt; 1 Million</li>
+  <li>Hyper Popular : views &gt; 1 Million</li>
+</ol>
+
+<table>
+  <thead>
+    <tr>
+      <th>precision</th>
+      <th>recall</th>
+      <th>fl-score</th>
+      <th>support</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>0.14</td>
+      <td>0.89</td>
+      <td>0.25</td>
+      <td>162</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>0.20</td>
+      <td>0.68</td>
+      <td>0.31</td>
+      <td>878</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>0.80</td>
+      <td>0.39</td>
+      <td>0.53</td>
+      <td>3873</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>0.81</td>
+      <td>0.58</td>
+      <td>0.68</td>
+      <td>3277</td>
+    </tr>
+    <tr>
+      <td>accuracy</td>
+      <td> </td>
+      <td> </td>
+      <td>0.51</td>
+      <td>8190</td>
+    </tr>
+    <tr>
+      <td>macro avg</td>
+      <td>0.49</td>
+      <td>0.64</td>
+      <td>0.44</td>
+      <td>8190</td>
+    </tr>
+    <tr>
+      <td>weighted avg</td>
+      <td>0.73</td>
+      <td>0.51</td>
+      <td>0.56</td>
+      <td>8190</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The model has 0.73 weighted average precision, which is a solid result. It further proves the importance of  the four features: <strong>title, channel_title, tags, description</strong>.</p>
+:ET
