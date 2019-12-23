@@ -5,8 +5,8 @@
     <description>Every failure is leading towards success.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 23 Dec 2019 00:07:44 -0600</pubDate>
-    <lastBuildDate>Mon, 23 Dec 2019 00:07:44 -0600</lastBuildDate>
+    <pubDate>Mon, 23 Dec 2019 00:20:04 -0600</pubDate>
+    <lastBuildDate>Mon, 23 Dec 2019 00:20:04 -0600</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -1321,7 +1321,7 @@ ggplot(quantile95_df) +
         <title>Which quantiles of a continuous distribution can one estimate with more precision?</title>
         <description>&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
 
-&lt;p&gt;The median is an important quantity in data analysis. It represents the middle value of the data distribution. Estimates of the median, however, have a degree of uncertainty because (a) the estimates are calculated from a finite sample and (b) the data distribution of the underlying data is generally unknown. One important roles of a data scientist is to quantify and to communicate the degree of uncertainty in his or her data analysis.&lt;/p&gt;
+&lt;p&gt;The median is an important quantity in data analysis. It represents the middle value of the data distribution. Estimates of the median, however, have a degree of uncertainty because (a) the estimates are calculated from a finite sample and (b) the data distribution of the underlying data is generally unknown. One important role of a data scientist is to quantify and to communicate the degree of uncertainty in his or her data analysis.&lt;/p&gt;
 
 &lt;p&gt;This time, we are going to find out what can make our sample distribution more precise during the simulation.&lt;/p&gt;
 
@@ -1333,13 +1333,13 @@ library(reshape2)
 
 &lt;p&gt;First, we need to set up the initial parameters. For every simulation process, we will generate 200 values base on the standard normal distribution, and we will generate them for 5000 times.&lt;/p&gt;
 
-&lt;p&gt;Therefore, set the sample size as 200, test number is 5000.&lt;/p&gt;
+&lt;p&gt;Therefore, set the sample size as 200, the test number is 5000.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;sample_size &amp;lt;- 200
 test_num &amp;lt;- 5000
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Then let’s create a function for find out the quantile values of each test and output them as sequences.&lt;/p&gt;
+&lt;p&gt;Then let’s create a function to find out the quantile values of each test and output them as sequences.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;find_quantile_value &amp;lt;- function(fn,sample_size, quantile_position){
   sample &amp;lt;- fn(sample_size)
   qtseq &amp;lt;- quantile(sample, seq(0.05,0.95,0.05))
@@ -1348,7 +1348,7 @@ test_num &amp;lt;- 5000
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;In order to store the values of each quantile, we can create a data frame. For there are 19 quantiles and 5000 tests, the data frame should be a 5000*19 table.
-Then use for loop traverse each test and each quantile.&lt;/p&gt;
+Then use for-loop traverse each test and each quantile.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;sml_results &amp;lt;- as.data.frame(matrix(NA, nrow = test_num, ncol = 19))
 
 for(i in 1:nrow(sml_results)){
@@ -1358,7 +1358,7 @@ for(i in 1:nrow(sml_results)){
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Now we need to find the middle 95% length of the distributions of each qutaile value.&lt;/p&gt;
+&lt;p&gt;Now we need to find the middle 95% length of the distributions of each quantile value.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;length_list &amp;lt;- rep(NA,ncol(sml_results))
 for(q in 1:ncol(sml_results)){
   quantile_2.5_97.5&amp;lt;- quantile(sml_results[,q], c(0.025, 0.975))
@@ -1385,9 +1385,9 @@ ggplot(length_df,aes(x=quantile_position,y=mid95_length))+
 
 &lt;p&gt;as we can see, when the quantile is approaching 50%, the length is going lower. It means that when the quantile is approaching 50%, simulation error is lower. It means when the quantile is 50%, it has the best precision.&lt;/p&gt;
 
-&lt;p&gt;In other words, when the quantile is 50%, the median have the tightest sampling distribution.&lt;/p&gt;
+&lt;p&gt;In other words, when the quantile is 50%, the median has the tightest sampling distribution.&lt;/p&gt;
 
-&lt;p&gt;Then, we need to transfer the x-axis from quantile to the density values of the original distribution. In this part, it should be standard normal distribution.&lt;/p&gt;
+&lt;p&gt;Then, we need to transfer the x-axis from quantile to the density values of the original distribution. In this part, it should be a standard normal distribution.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;length_d_df &amp;lt;- length_df %&amp;gt;%
   mutate(density=dnorm(qnorm(quantile_position)))
 
@@ -1436,7 +1436,7 @@ ggplot(length_df,aes(x=quantile_position,y=mid95_length))+
 
 &lt;p&gt;For this exponential distribution, when quantile is bigger, the error of simulation is bigger.&lt;/p&gt;
 
-&lt;p&gt;In other words, when the quantile is 5%, the median have the tightest sampling distribution.&lt;/p&gt;
+&lt;p&gt;In other words, when the quantile is 5%, the median has the tightest sampling distribution.&lt;/p&gt;
 
 &lt;p&gt;And when the Density is higher, the error is smaller.&lt;/p&gt;
 
@@ -1495,9 +1495,9 @@ ggplot(length_df,aes(x=quantile_position,y=mid95_length))+
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/rwjFpwYv/prob5-m31.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Definitely, when the quantile is 40%, the median have the tightest sampling distribution.&lt;/p&gt;
+&lt;p&gt;Definitely, when the quantile is 40%, the median has the tightest sampling distribution.&lt;/p&gt;
 
-&lt;p&gt;We don’t have the qf3 function, therefore we need to use pf3 function calculate the values when their counterpart quantile is setted. And the other part is same as previous chunks.&lt;/p&gt;
+&lt;p&gt;We don’t have the qf3 function, therefore we need to use the pf3 function to calculate the values when their counterpart quantile is set. And the other part is the same as previous chunks.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;pf3 &amp;lt;- function(x){
   .5*pnorm(x) + .3*pnorm(x,4) + .2*pnorm(x,-4,2)
@@ -1557,9 +1557,9 @@ ggplot(length_df,aes(x=quantile_position,y=mid95_length))+
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/YSyr1y7R/prob5-m41.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Definitely, when the quantile is 5% or 95%, the median have the tightest sampling distribution.&lt;/p&gt;
+&lt;p&gt;Definitely, when the quantile is 5% or 95%, the median has the tightest sampling distribution.&lt;/p&gt;
 
-&lt;p&gt;Base on the rf4 function we had, we can write the pf4 and df4 functions. After that, use the method we used plot the graph.&lt;/p&gt;
+&lt;p&gt;Base on the rf4 function we had, we can write the pf4 and df4 functions. After that, use the method we used to plot the graph.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;rf4 &amp;lt;- function(N){
   G &amp;lt;- sample(0:1, N, replace = TRUE)
   (G==0)*rbeta(N,5,1) + (G==1)*rbeta(N,1,5)
@@ -1591,7 +1591,7 @@ ggplot(length_d_df, aes(x=density,y=mid95_length))+
 
 &lt;h1 id=&quot;other-tests&quot;&gt;Other Tests&lt;/h1&gt;
 
-&lt;p&gt;In this part, we will focus on the situations that when sample size become 400, 800 and 1600.&lt;/p&gt;
+&lt;p&gt;In this part, we will focus on the situations that when sample size becomes 400, 800 and 1600.&lt;/p&gt;
 
 &lt;p&gt;Now use a for loop to generate all of the data given different sample sizes.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;sample_size &amp;lt;- c(400,800,1600)
@@ -1621,7 +1621,7 @@ for(n in seq_along(sample_size)){
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Than plot the graph of different sample size and compare them.&lt;/p&gt;
+&lt;p&gt;Then plot the graph of different sample sizes and compare them.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;length_df %&amp;gt;%
   melt(id = &quot;quantile_position&quot;) %&amp;gt;%
   ggplot()+
@@ -1650,7 +1650,7 @@ for(n in seq_along(sample_size)){
 
 &lt;p&gt;Definitely, when the sample size is bigger, the error of simulation will be smaller.&lt;/p&gt;
 
-&lt;p&gt;In a word, when you have more simulation test, when the test number is increasing, the length will be smaller, what means the error of simulation is less than before.&lt;/p&gt;
+&lt;p&gt;In a word, when you have more simulation test, when the test number is increasing, the length will be smaller, which means the error of simulation is less than before.&lt;/p&gt;
 </description>
         <pubDate>Wed, 18 Sep 2019 00:00:00 -0500</pubDate>
         <link>http://localhost:4000/2019/09/18/quantile-precision/</link>
