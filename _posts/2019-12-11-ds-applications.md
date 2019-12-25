@@ -15,7 +15,7 @@ tags:
 
 3 big parts in Data Science jobs:
 - Use **EXPLORATION** to turn the unknown into the known.
-- Use **INFERENCE** to help find new old.
+- Use **INFERENCE** to help find something new from the old.
 - Use **PREDICTION** to make better decisions.
 
 # Scene Setting

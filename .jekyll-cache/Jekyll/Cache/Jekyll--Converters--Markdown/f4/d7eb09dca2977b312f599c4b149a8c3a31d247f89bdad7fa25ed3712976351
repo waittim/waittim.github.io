@@ -1,0 +1,145 @@
+I"�#<h1 id="summary">Summary</h1>
+
+<p>3 big parts in Data Science jobs:</p>
+<ul>
+  <li>Use <strong>EXPLORATION</strong> to turn the unknown into the known.</li>
+  <li>Use <strong>INFERENCE</strong> to help find something new from the old.</li>
+  <li>Use <strong>PREDICTION</strong> to make better decisions.</li>
+</ul>
+
+<h1 id="scene-setting">Scene Setting</h1>
+
+<blockquote>
+  <p>Imagine a scenario in which our superior asked us to make suggestions for the launch of a new product, and all we have is a data set that contains the past relevant situation of this type of product.</p>
+
+  <p>What can we do now? What should we do?</p>
+</blockquote>
+
+<p>This is a common scenario for the industry. Maybe different backgrounds, different fields, but the same purpose: we need to start with pure data and go on to obtain a product that can be implemented.</p>
+
+<p><strong>So what are the key steps in this process?</strong>
+Overall, we can divide it into three parts:</p>
+<ol>
+  <li>EXPLORATION</li>
+  <li>INFERENCE</li>
+  <li>PREDICTION</li>
+</ol>
+
+<h1 id="concepts--connections">Concepts &amp; Connections</h1>
+
+<h4 id="01-exploration">01 Exploration</h4>
+
+<p>It is also called <strong>visualization</strong>. Use visual exploration to understand what is in a dataset and the characteristics of the data.</p>
+
+<p>Identify potential relationships or insights that may be hidden in the data which will help <strong>inference</strong> and <strong>prediction</strong>.</p>
+
+<h4 id="02-inference">02 Inference</h4>
+
+<p>Use data analysis to deduce the properties of a dataset. The properties will give the analyst a more accurate perception of the data and provide a theoretical basis for <strong>prediction</strong>.</p>
+
+<h4 id="03-prediction">03 Prediction</h4>
+
+<p>Reference <strong>exploration</strong> and <strong>inference</strong> results encompass a variety of techniques from data mining, predictive modeling, and machine learning, that analyze current and historical facts to make predictions about unknown events.</p>
+
+<h1 id="01-exploration-visualization">01 Exploration (Visualization)</h1>
+
+<p>It is difficult for humans to process large numbers quickly, especially if the numbers are not specifically ordered. Not to mention the quick calculation of the proportional relationship between the numbers, the information within the group under certain conditions.</p>
+
+<p>But the <strong>human eye can quickly process image information</strong> and extract key content from it. Therefore, facing a new data set, visualizing the data is one of the best ways to understand it.</p>
+
+<blockquote>
+  <p>For product data, we can explore the sales of this type of product under different channels, delivery costs, and changes over time. We can also compare the differences between different sub-categories under this large category of products to help differentiate the positioning of products.</p>
+</blockquote>
+
+<p>The process of exploration and visualization can help us <strong>turn the unknown into the known</strong>.</p>
+
+<blockquote>
+  <p>Based on fMRI images of the brain of insomnia patients, explore whether there is any difference between them and the images of ordinary people.</p>
+
+  <p>Explore whether physical pain and social pain behave differently in the brain.</p>
+
+  <p>– Catie Chang (Assistant Professor of Computer Science, Vanderbilt University)</p>
+</blockquote>
+
+<blockquote>
+  <p>Visualizing personal stories that are closer to real life enables viewers to have a more immersive experience.</p>
+
+  <p>– Yorgos Askilidis (Senior Data Scientist, Instagram)</p>
+</blockquote>
+
+<h1 id="02-inference-1">02 Inference</h1>
+<p>Due to collection costs, storage costs, or historical reasons, we cannot have a data set that contains everything that may be needed. In actual data analysis, we may need to display information that is not included in the data set directly. <strong>Visualization can only show information directly represented</strong> in the data, but for the data that is not directly displayed, we need to use inference related theory to make inferences based on the existing information.</p>
+
+<blockquote>
+  <p>For product data example, we can only see the values of variables of each product in the past, but the values do not directly tell us what products are successful. We need to infer and judge the success of a product based on sales volume, cost, profit margin, capital turnover cycle and the stability of the production process of the product itself.</p>
+</blockquote>
+
+<p>The significance of inference is to get new information from what is already known. In other words, the inference can help <strong>find something new from the old</strong>.</p>
+
+<blockquote>
+  <p>Use billing codes, drug names, and more to mark Parkinson’s patients.</p>
+
+  <p>Use pathological data to distinguish normal samples from abnormal samples in order to extract control groups for analysis.</p>
+
+  <p>– Paul Harris (Professor of Biomedical Informatics, Vanderbilt University REDCap)</p>
+</blockquote>
+
+<blockquote>
+  <p>Find out the most accurate and efficient indicators that can determine whether a patient has hypertension among a large number of indicators such as genetic data.</p>
+
+  <p>– Josh Denny (Professor of Biomedical Informatics and Medicine, Vanderbilt University)</p>
+</blockquote>
+
+<h1 id="03-prediction-1">03 Prediction</h1>
+
+<p>The information obtained by the visualization and inference process is based on the existing data, and the existing data must be a description of what happened before.</p>
+
+<p>In actual work, it is not enough to focus on the past. We often need to <strong>make decisions about the future</strong>. At this point, data-based forecasting will become a vital part.</p>
+
+<blockquote>
+  <p>In the example of the product launch, we may need to predict the possible sales and profitability of the planned product before the actual product launch. According to the forecast results, we can change the resource allocation methods such as product line and pre-production volume to reduce risks and obtain higher returns.</p>
+</blockquote>
+
+<p>The value of prediction lies in reducing the cost of trial and error and <strong>making better decisions</strong>.</p>
+
+<blockquote>
+  <p>Prediction finds target markets that are “likely to buy” and “definitely buy”, and launches products when the predicted value exceeds a certain threshold.</p>
+
+  <p>– Kelly Goldsmith (Associate Professor of Marketing, Vanderbilt University)</p>
+</blockquote>
+
+<blockquote>
+  <p>Predict the number of viewers to help determine the number of ad views that can be sold, and adjust the number of ads sale based on the forecast to complete the expected playback with minimal cost.</p>
+
+  <p>– Minchun Zhou (Senior Data Scientist, Comcast)</p>
+</blockquote>
+
+<blockquote>
+  <p>For Wal-Mart in-home delivery, predict what and how often specific consumers might buy, and related products that they might want to try.</p>
+
+  <p>– Betsy Barton (Director of Data Science, Walmart In-Home Delivery)</p>
+</blockquote>
+
+<h1 id="epicycle">Epicycle</h1>
+
+<p>Of course, <strong>this process may be performed more than once</strong>. We may need to perform multiple processing on the same data set, and re-reflect and summarize after each processing, considering what can be implemented next.</p>
+
+<blockquote>
+  <p>For example, after visualization, think about whether there are still questions that not clear enough and need to be explored. After using inference to investigate, consider again how to visualize the results. And based on the results obtained in previous steps, we can also think about whether we can use them to make predictions and what are the suitable prediction methods.</p>
+</blockquote>
+
+<p>In a broad sense, this process also belongs to some kind of epicycle. These parts do not appear in a purely linear sequence, but exist in a <strong>repeatable and mutually affecting relationship</strong>. They constantly promote each other and ultimately form a successful project.</p>
+
+<h1 id="conclusions">Conclusions</h1>
+
+<p>In order to achieve the goal more efficiently and successfully, in the actual operation process, we should first <strong>determine what type of things we need to do</strong>. Do we want to understand the data, or dig deeper based on the existing information, or predict what has not happened based on the existing data.</p>
+
+<p>After confirming the purpose, it is clear from the definition whether what we need to do is exploration, inference or prediction.</p>
+
+<p>Finally, the best solution will be found according to the category.</p>
+
+<p>At the same time, we need to carry out this process <strong>multiple times</strong> in the same project, and constantly improve and expand until a satisfactory result is achieved.</p>
+
+<h1 id="slides">Slides</h1>
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vTr02Z5Zn7lGTvEo2Jz5P0ADkz76YFfvNOnQUXeQiHwZ5CrpOJhR2fL8avHvWIIcQtWGTb6wOTmLNRS/embed?start=false&amp;loop=true&amp;delayms=15000" frameborder="0" width="700" height="423" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+:ET
