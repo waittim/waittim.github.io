@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      For data scientist, what should we do?
+title:      As data scientists, what should we do?
 subtitle:   Data science application analysis, taking product launching processes as an example
 date:       2019-12-11
 author:     Zekun
