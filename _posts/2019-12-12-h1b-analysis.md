@@ -72,8 +72,7 @@ soc_code | SOC is a federal statistical standard used by federal agencies to cla
 We wanted to look at how the number of applications differed per state over the course of the last 5 years.
 Here we can see that the states of California, Texas, New York, Michigan, Georgia, Pennsylvania, Florida, and Illinois are the states with the highest number of applications. The number of applicants is seen to increase over time (from 2015 to 2017) for Washington, Virginia and North Carolina. States that have the lowest number of applicants are Montana, Wyoming and South Dakota.
 
-[Interactive Map](https://raw.githubusercontent.com/waittim/waittim.github.io/master/gallery/h1b-map.html)
-
+[Interactive Map](https://waittim.github.io/gallery/h1b-map.html)
 
 # STEM
 
