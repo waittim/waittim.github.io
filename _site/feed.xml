@@ -2,11 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Zekun Blog</title>
-    <description>Every failure is leading towards success.</description>
+    <description>Across the Great Wall, we can reach every corner in the world</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 24 Dec 2019 22:27:09 -0600</pubDate>
-    <lastBuildDate>Tue, 24 Dec 2019 22:27:09 -0600</lastBuildDate>
+    <pubDate>Tue, 07 Jan 2020 15:20:24 -0600</pubDate>
+    <lastBuildDate>Tue, 07 Jan 2020 15:20:24 -0600</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -117,7 +117,7 @@ The timeline of relevant events is listed above. Sources for this information ar
 &lt;p&gt;We wanted to look at how the number of applications differed per state over the course of the last 5 years.
 Here we can see that the states of California, Texas, New York, Michigan, Georgia, Pennsylvania, Florida, and Illinois are the states with the highest number of applications. The number of applicants is seen to increase over time (from 2015 to 2017) for Washington, Virginia and North Carolina. States that have the lowest number of applicants are Montana, Wyoming and South Dakota.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://raw.githubusercontent.com/waittim/waittim.github.io/master/gallery/h1b-map.html&quot;&gt;Interactive Map&lt;/a&gt;&lt;/p&gt;
+&lt;iframe src=&quot;https://waittim.github.io/gallery/h1b-map.html&quot; frameborder=&quot;0&quot; width=&quot;700&quot; height=&quot;423&quot; allowfullscreen=&quot;true&quot; mozallowfullscreen=&quot;true&quot; webkitallowfullscreen=&quot;true&quot;&gt;&lt;/iframe&gt;
 
 &lt;h1 id=&quot;stem&quot;&gt;STEM&lt;/h1&gt;
 
@@ -376,7 +376,7 @@ wage distribution between STEM and non-STEM.&quot; /&gt;&lt;/p&gt;
       </item>
     
       <item>
-        <title>For data scientist, what should we do?</title>
+        <title>As data scientists, what should we do?</title>
         <description>&lt;h1 id=&quot;summary&quot;&gt;Summary&lt;/h1&gt;
 
 &lt;p&gt;3 big parts in Data Science jobs:&lt;/p&gt;
