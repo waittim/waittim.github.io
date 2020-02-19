@@ -373,25 +373,8 @@ wordcloud2(head(word_count,100),
            color = "#125FA0")
 ```
 
-<html>
-<head>
-<meta charset="utf-8"/>
-<style>body{background-color:white;}</style>
-<script src="wordcloud_files/htmlwidgets-1.5.1/htmlwidgets.js"></script>
-<link href="wordcloud_files/wordcloud2-0.0.1/wordcloud.css" rel="stylesheet" />
-<script src="wordcloud_files/wordcloud2-0.0.1/wordcloud2-all.js"></script>
-<script src="wordcloud_files/wordcloud2-0.0.1/hover.js"></script>
-<script src="wordcloud_files/wordcloud2-binding-0.2.1/wordcloud2.js"></script>
-  <title>wordcloud2</title>
-</head>
-<body>
-<div id="htmlwidget_container">
-  <div id="htmlwidget-3065f94a98b94b94d7a3" style="width:960px;height:500px;" class="wordcloud2 html-widget"></div>
-</div>
-<script type="application/json" data-for="htmlwidget-3065f94a98b94b94d7a3">{"x":{"word":["LOVE","GIRL","TIME","LIFE","DAY","WORLD","BABY","DANCE","ROCK","SONG","CA","CALL","WANNA","BOY","HEART","NIGHT","ANGEL","BREATHE","LIGHT","CRAZY","PARTY","WOMAN","YA","AMERICAN","BAD","BEAUTIFUL","BODY","FLY","GOD","HEY","LONELY","MUSIC","STOP","WAIT","BLACK","CRY","EYES","GONNA","GOODBYE","HEAVEN","HOME","HOT","MISS","TONIGHT","WALK","AI","BREAK","DROP","FALL","FOREVER","HATE","HOLD","LA","LIVE","SHAKE","SLOW","ALIVE","BELONG","BURN","BYE","CHANGE","FEEL","GOTTA","HEAD","MATTER","MORNING","MOVE","PLAY","REAL","REMEMBER","SHAWTY","SHUT","STAND","SUMMER","SUN","SWEET","WIT","CAMP","DA","ESCAPE","FAMILY","FEELS","GIMME","GIRLFRIEND","INDEPENDENT","KISS","LADY","LEFT","LIE","LOSE","LOW","MAMA","MOMENT","OOH","POP","RAIN","SEXY","SICK","SIN","STARS"],"freq":[87,43,29,21,20,15,14,14,14,14,13,13,13,12,11,11,10,10,10,9,9,9,9,8,8,8,8,8,8,8,8,8,8,8,7,7,7,7,7,7,7,7,7,7,7,6,6,6,6,6,6,6,6,6,6,6,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],"fontFamily":"Montserrat","fontWeight":"Bold","color":"#125FA0","minSize":0,"weightFactor":2.06896551724138,"backgroundColor":"white","gridSize":0,"minRotation":-0.523598775598299,"maxRotation":-0.523598775598299,"shuffle":true,"rotateRatio":1,"shape":"circle","ellipticity":0.65,"figBase64":null,"hover":null},"evals":[],"jsHooks":{"render":[{"code":"function(el,x){\n                        console.log(123);\n                        if(!iii){\n                          window.location.reload();\n                          iii = False;\n\n                        }\n  }","data":null}]}}</script>
-<script type="application/htmlwidget-sizing" data-for="htmlwidget-3065f94a98b94b94d7a3">{"viewer":{"width":450,"height":350,"padding":0,"fill":true},"browser":{"width":960,"height":500,"padding":0,"fill":true}}</script>
-</body>
-</html>
+<iframe src="https://waittim.github.io/gallery/song-wordcloud.html" frameborder="0" width="700" height="423" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+
 
 ## Sentiment analysis of titles
 
