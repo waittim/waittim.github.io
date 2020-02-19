@@ -368,6 +368,7 @@ wordcloud2(head(word_count,100),
            rotateRatio = 1,
            color = "#125FA0")
 ```
+<iframe src="https://waittim.github.io/gallery/song-wordcloud.html" frameborder="0" width="700" height="423" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 
 ## Sentiment analysis of titles
 
