@@ -15,6 +15,10 @@ tags:
 
 <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vT8PsgoYD97P7ZvBxpVM3aCGnxX7A5_3o_ep7CqbsbGbuq7-MWdeCIRbNUvqfyJYuRliseB9j0DuqeE/embed?start=false&loop=true&delayms=3000" frameborder="0" width="700" height="423" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 
+This article mainly introduces the full picture of a data analysis pipeline by showing the simple data import, feature engineering, and exploratory data analysis processes. The data used this time is relatively clean, so basically no data cleaning has been performed except for the analysis part of this article.
+
+The entire working process is divided into three parts: 10-read-in, 20-feature-engineering, 30-exploratory-data-analysis.
+
 # 10-read-in
 
 ## Import libraries.
