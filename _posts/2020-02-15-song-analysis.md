@@ -13,6 +13,8 @@ tags:
     - Text Analysis
 ---
 
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vT8PsgoYD97P7ZvBxpVM3aCGnxX7A5_3o_ep7CqbsbGbuq7-MWdeCIRbNUvqfyJYuRliseB9j0DuqeE/embed?start=false&loop=true&delayms=3000" frameborder="0" width="700" height="423" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+
 # 10-read-in
 
 ## Import libraries.
@@ -144,7 +146,7 @@ never_top10_year %>%
   labs(x="\nYear", y="Ratio of Never-Top10\n")
 ```
 
-![](md_generator_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](https://i.postimg.cc/0j7gsVWT/unnamed-chunk-7-1.png)
 
 ## What were the top 10 songs of the decade 2000-2009?
 
@@ -400,7 +402,7 @@ df_sentiments_filtered %>%
   labs(x = "\nSentiments", y="number\n")
 ```
 
-![](md_generator_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+![](https://i.postimg.cc/hPqWrqhc/unnamed-chunk-19-1.png)
 
 And we can also count what is the percentage of positive words in the
 words that have sentiments.
@@ -548,7 +550,7 @@ df %>%
   scale_fill_brewer(palette = "Paired")
 ```
 
-![](md_generator_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
+![](https://i.postimg.cc/fWdQmbz8/unnamed-chunk-27-1.png)
 
 ## Solo men, solo women, groups for the decade 2000-2009 - design a graphic that shows the distribution of songs hitting the Top 10
 
@@ -587,7 +589,7 @@ df %>%
   scale_fill_brewer(palette = "Paired")
 ```
 
-![](md_generator_files/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
+![](https://i.postimg.cc/ncY8SwQ7/unnamed-chunk-29-1.png)
 
 ## What song spent the most time on the charts in the decade 2000-2009)
 
@@ -626,4 +628,7 @@ df %>%
   labs(x="\nWeeks at Top 1", y="Weeks at Top 50\n")
 ```
 
-![](md_generator_files/figure-gfm/unnamed-chunk-32-1.png)<!-- -->
+![](https://i.postimg.cc/7ZxFFMgR/unnamed-chunk-32-1.png)
+
+
+*Hint: Project GitHub page: [Cashbox-Magazine-song-records-Analysis](https://github.com/waittim/Cashbox-Magazine-song-records-Analysis)*
