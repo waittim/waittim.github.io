@@ -22,8 +22,8 @@ Due to copyright issues and confidentiality agreements, the dashboard shown uses
 2. Select the topics and questions you want to analyze in detail, and obtain key numerical and visualization results and time series visualization images for a single problem.
 3. Select topics and questions for cross-analysis to get visual results of cross-analysis.
 
-![lapop-dashboard-home.png](https://postimg.cc/3487M0vq)
+![lapop-dashboard-home.png](https://i.postimg.cc/TwmPDrYT/lapop-dashboard-home.png)
 
-[Click here to open dashboard](https://zekun.shinyapps.io/LAPOP-shiny-dashboard/)
+**[Click here to open dashboard](https://zekun.shinyapps.io/LAPOP-shiny-dashboard/)**
 
 Project GitHub page: [LAPOP-shiny-dashboard](https://github.com/waittim/LAPOP-shiny-dashboard)
