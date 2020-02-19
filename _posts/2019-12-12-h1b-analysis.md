@@ -185,7 +185,7 @@ The worksite regulations implemented in 2015 can cause problems for consulting c
 
 ### Nationwide Overview
 
-![](https://i.postimg.cc/bvvyN3Nx/image049.png "Figure 14: Number of data jobs per state in 2018")
+<iframe src="https://waittim.github.io/gallery/h1b-map-data.html" frameborder="0" width="700" height="423" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 
 This is an incomplete but interesting cartographic analysis (Fig. 14). The first thing we can see from here, however, is that the most number of applications in data-related roles are coming from (starting from the west coast to east) Washington, California, Texas, Illinois, Atlanta, Florida, New York, New Jersey, and Massachusetts.
 
