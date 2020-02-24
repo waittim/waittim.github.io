@@ -22,7 +22,7 @@ Due to copyright issues and confidentiality agreements, the dashboard shown uses
 2. Select the topics and questions you want to analyze in detail, and obtain key numerical and visualization results and time series visualization images for a single problem.
 3. Select topics and questions for cross-analysis to get visual results of cross-analysis.
 
-![demo-home.png](https://i.postimg.cc/rFj18Gs3/demo-home.png)
+![demo-home.png](https://i.postimg.cc/y8T2Rk9W/demo-home.png)
 
 **[Click here to open dashboard](https://zekun.shinyapps.io/LAPOP-shiny-dashboard/)**
 
