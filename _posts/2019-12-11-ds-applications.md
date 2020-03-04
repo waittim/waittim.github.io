@@ -10,6 +10,9 @@ tags:
     - Career
     - Talk
 ---
+# Slides
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vTr02Z5Zn7lGTvEo2Jz5P0ADkz76YFfvNOnQUXeQiHwZ5CrpOJhR2fL8avHvWIIcQtWGTb6wOTmLNRS/embed?start=false&loop=true&delayms=15000" frameborder="0" width="700" height="423" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+
 
 # Summary
 
@@ -124,6 +127,3 @@ After confirming the purpose, it is clear from the definition whether what we ne
 Finally, the best solution will be found according to the category.
 
 At the same time, we need to carry out this process **multiple times** in the same project, and constantly improve and expand until a satisfactory result is achieved.
-
-# Slides
-<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vTr02Z5Zn7lGTvEo2Jz5P0ADkz76YFfvNOnQUXeQiHwZ5CrpOJhR2fL8avHvWIIcQtWGTb6wOTmLNRS/embed?start=false&loop=true&delayms=15000" frameborder="0" width="700" height="423" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
