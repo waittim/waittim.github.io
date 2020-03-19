@@ -106,7 +106,7 @@ What naturally followed after this was an analysis of what these STEM jobs were,
 
 Following right after are business analyst and programmer analyst positions. It is important to note that approximately 10 out of these 20 jobs could be associated with data-related jobs. Even if they were not explicitly mentioned as a data-related job, they have, in their job description, data-related roles.
 
-![](https://i.postimg.cc/gkMt85Hy/Wechat-IMG211.png "Figure 5: Top 20 jobs in STEM with the highest number of applications in 2018. All jobs are colored blue, data-related jobs are colored red.")
+![](https://i.postimg.cc/76nN1xRL/WX20200319-015802-2x.png "Figure 5: Top 20 jobs in STEM with the highest number of applications in 2018. All jobs are colored blue, data-related jobs are colored red.")
 
 After recognizing the number of data-related jobs within the top 20 job titles in the last year, the next step was to break down what these data-related roles were and if we could combine them and/or break them down based on how complex we wanted our analysis to be.
 

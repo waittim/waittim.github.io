@@ -9,6 +9,7 @@ catalog: true
 tags:
     - Visualization
     - Cheat sheet
+    - Keynote
 ---
 
 ![Visualization cheat sheet](https://i.postimg.cc/VkNRNRdQ/image.png "Visualization cheat sheet")

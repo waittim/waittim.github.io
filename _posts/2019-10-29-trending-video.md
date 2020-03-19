@@ -11,6 +11,7 @@ tags:
     - EDA
     - Project
     - R
+    - Python
 ---
 
 
