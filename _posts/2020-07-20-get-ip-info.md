@@ -26,6 +26,7 @@ For complete information, see [MaxMind - GeoIP2 Downloadable Databases](https://
 !pip install geoip2
 
 # For Chinese user, you can choose tsinghua mirrors
+
 #!pip install -i https://pypi.tuna.tsinghua.edu.cn/simple geoip2
 ```
 
@@ -66,39 +67,39 @@ Let me re-format it to make it understandable.
 
 
 > {'city': 
->     {'geoname_id': 4644585, 
->      'names': {'de': 'Nashville', 'en': 'Nashville', 'es': 'Nashville', 'fr': 'Nashville', 'ja': 'ナッシュビル', 'pt-BR': 'Nashville', 'ru': 'Нашвилл', 'zh-CN': '纳什维尔'}
->      }, 
->  'continent': 
->     {'code': 'NA', 
->      'geoname_id': 6255149, 
->      'names': {'de': 'Nordamerika', 'en': 'North America', 'es': 'Norteamérica', 'fr': 'Amérique du Nord', 'ja': '北アメリカ', 'pt-BR': 'América do Norte', 'ru': 'Северная Америка', 'zh-CN': '北美洲'}
->      }, 
->  'country': 
->     {'geoname_id': 6252001, 
->      'iso_code': 'US', 
->      'names': {'de': 'USA', 'en': 'United States', 'es': 'Estados Unidos', 'fr': 'États-Unis', 'ja': 'アメリカ合衆国', 'pt-BR': 'Estados Unidos', 'ru': 'США', 'zh-CN': '美国'}
->      }, 
->  'location': 
->     {'accuracy_radius': 20, 
->      'latitude': 36.066, 
->      'longitude': -86.9659, 
->      'metro_code': 659, 
->      'time_zone': 'America/Chicago'
->      }, 
->  'postal': 
->     {'code': '37221'}, 
->  'registered_country': 
->     {'geoname_id': 6252001, 
->      'iso_code': 'US', 
->      'names': {'de': 'USA', 'en': 'United States', 'es': 'Estados Unidos', 'fr': 'États-Unis', 'ja': 'アメリカ合衆国', 'pt-BR': 'Estados Unidos', 'ru': 'США', 'zh-CN': '美国'}
->      }, 
->  'subdivisions': 
->     [{'geoname_id': 4662168, 
->       'iso_code': 'TN', 
->       'names': {'en': 'Tennessee', 'es': 'Tennessee', 'fr': 'Tennessee', 'ja': 'テネシー州', 'pt-BR': 'Tenessi', 'ru': 'Теннесси', 'zh-CN': '田纳西州'}
->       }],
->  'traits': {'ip_address': '129.59.93.0', 'prefix_len': 20}
+> > {'geoname_id': 4644585, 
+> > 'names': {'de': 'Nashville', 'en': 'Nashville', 'es': 'Nashville', 'fr': 'Nashville', 'ja': 'ナッシュビル', 'pt-BR': 'Nashville', 'ru': 'Нашвилл', 'zh-CN': '纳什维尔'}
+> >  }, 
+> 'continent': 
+> > {'code': 'NA', 
+> >  'geoname_id': 6255149, 
+> >  'names': {'de': 'Nordamerika', 'en': 'North America', 'es': 'Norteamérica', 'fr': 'Amérique du Nord', 'ja': '北アメリカ', 'pt-BR': 'América do Norte', 'ru': 'Северная Америка', 'zh-CN': '北美洲'}
+> >  }, 
+> 'country': 
+> > {'geoname_id': 6252001, 
+> >  'iso_code': 'US', 
+> >  'names': {'de': 'USA', 'en': 'United States', 'es': 'Estados Unidos', 'fr': 'États-Unis', 'ja': 'アメリカ合衆国', 'pt-BR': 'Estados Unidos', 'ru': 'США', 'zh-CN': '美国'}
+> >  }, 
+> 'location': 
+> > {'accuracy_radius': 20, 
+> >  'latitude': 36.066, 
+> >  'longitude': -86.9659, 
+> >  'metro_code': 659, 
+> >  'time_zone': 'America/Chicago'
+> >  }, 
+> 'postal': 
+> > {'code': '37221'}, 
+> 'registered_country': 
+> > {'geoname_id': 6252001, 
+> >  'iso_code': 'US', 
+> >  'names': {'de': 'USA', 'en': 'United States', 'es': 'Estados Unidos', 'fr': 'États-Unis', 'ja': 'アメリカ合衆国', 'pt-BR': 'Estados Unidos', 'ru': 'США', 'zh-CN': '美国'}
+> >  }, 
+> 'subdivisions': 
+> > [{'geoname_id': 4662168, 
+> >  'iso_code': 'TN', 
+> >  'names': {'en': 'Tennessee', 'es': 'Tennessee', 'fr': 'Tennessee', 'ja': 'テネシー州', 'pt-BR': 'Tenessi', 'ru': 'Теннесси', 'zh-CN': '田纳西州'}
+> >  }],
+> 'traits': {'ip_address': '129.59.93.0', 'prefix_len': 20}
 > }, 
 > ['en']
 
@@ -109,119 +110,89 @@ There are some example to use the *response*:
 ```python
 response.country.iso_code
 ```
-
-
-
-
-    #'US'
-
+```
+#'US'
+```
 
 
 
 ```python
 response.country.name
 ```
-
-
-
-
-    #'United States'
-
+```
+#'United States'
+```
 
 
 
 ```python
 response.country.names['zh-CN']
 ```
-
-
-
-
-    #'美国'
-
+```
+#'美国'
+```
 
 
 
 ```python
 response.subdivisions.most_specific.name
 ```
-
-
-
-
-    #'Tennessee'
-
+```
+#'Tennessee'
+```
 
 
 
 ```python
 response.subdivisions.most_specific.iso_code
 ```
-
-
-
-
-    #'TN'
-
+```
+#'TN'
+```
 
 
 
 ```python
 response.city.name
 ```
-
-
-
-
-    #'Nashville'
-
+```
+#'Nashville'
+```
 
 
 
 ```python
 response.postal.code
 ```
-
-
-
-
-    #'37221'
-
+```
+#'37221'
+```
 
 
 
 ```python
 response.location.latitude
 ```
-
-
-
-
-    #36.066
-
+```
+#36.066
+```
 
 
 
 ```python
 response.location.longitude
 ```
-
-
-
-
-    #-86.9659
-
+```
+#-86.9659
+```
 
 
 
 ```python
 response.traits.network
 ```
-
-
-
-
-    #IPv4Network('129.59.80.0/20')
-
+```
+#IPv4Network('129.59.80.0/20')
+```
 
 
