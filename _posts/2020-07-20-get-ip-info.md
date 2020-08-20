@@ -65,6 +65,7 @@ response
 
 Let me re-format it to make it understandable.
 
+```python
 {'city': 
     {'geoname_id': 4644585, 
      'names': {'de': 'Nashville', 'en': 'Nashville', 'es': 'Nashville', 'fr': 'Nashville', 'ja': 'ナッシュビル', 'pt-BR': 'Nashville', 'ru': 'Нашвилл', 'zh-CN': '纳什维尔'}
@@ -101,6 +102,8 @@ Let me re-format it to make it understandable.
  'traits': {'ip_address': '129.59.93.0', 'prefix_len': 20}
 }, 
 ['en']
+```
+
 
 There are some example to use the *response*:
 
