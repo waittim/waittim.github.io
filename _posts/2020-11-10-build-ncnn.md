@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      Tutorial for compiling NCNN library
-subtitle:   geoip2 module introduction
+subtitle:   The first step to deploy a deep learning model.
 date:       2020-11-10
 author:     Zekun
 header-img: img/post-deep-brain.jpg
@@ -167,6 +167,7 @@ mkdir -p build
 cd build
 cmake -DCMAKE_BUILD_TYPE=Release -DNCNN_VULKAN=ON -DNCNN_SYSTEM_GLSLANG=ON -DNCNN_BUILD_EXAMPLES=ON ..
 make
+make install
 ```
 
 So far, the compilation process of NCNN has been completed. It is recommended to carefully read the official documents and issues in Github when compiling, you can find many solutions to errors.
@@ -179,5 +180,5 @@ For example, you can copy the **.cfg** and .**weights** files of your darknet mo
 ./darknet2ncnn yolo-fastest.cfg best.weights yolo-fastest.param yolo-fastest.bin 1
 ```
 
-After getting **.param** and **.bin**, we can deploy the model to the mobile devices or even the browser.
+After getting **.param** and **.bin**, we can deploy the model to the mobile devices or even the browser. And the files in `ncnn/build/install` would be used when you need to run your own model.
 
