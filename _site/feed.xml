@@ -5,8 +5,8 @@
     <description>Across the Great Wall, we can reach every corner in the world</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 27 Nov 2020 01:43:14 -0500</pubDate>
-    <lastBuildDate>Fri, 27 Nov 2020 01:43:14 -0500</lastBuildDate>
+    <pubDate>Fri, 27 Nov 2020 16:54:46 -0500</pubDate>
+    <lastBuildDate>Fri, 27 Nov 2020 16:54:46 -0500</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -435,7 +435,7 @@ anim_save(&quot;output.gif&quot;)
   &lt;li&gt;Select topics and questions for cross-analysis to get visual results of cross-analysis.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/y8T2Rk9W/demo-home.png&quot; alt=&quot;demo-home.png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/waittim/waittim.github.io/raw/master/img/lapop-dashboard.png&quot; alt=&quot;demo-home.png&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://zekun.shinyapps.io/LAPOP-shiny-dashboard/&quot;&gt;Click here to open the dashboard&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
 
