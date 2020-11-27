@@ -1,0 +1,77 @@
+I"�<p><strong>Note:</strong> The content of this article is based on the data what was collected by the project team of Professor <a href="http://math.csu.edu.cn/info/1316/1554.htm">Ziqi Qi</a>, School of Mathematics and Statistics, Central South University (China). The data used for this analysis are not complete.</p>
+
+<h1 id="10-import">10-import</h1>
+
+<p>Load the necessary packages.</p>
+
+<pre><code class="language-{r}">library(tidyverse)
+library(ggplot2)
+library(gganimate)
+library(plotly)
+library(readxl)
+library(lubridate)
+library(gifski)
+</code></pre>
+<p>Read data from Excel.</p>
+
+<pre><code class="language-{r}">abroad_raw &lt;- read_excel("data/【海外】疫情数据.xlsx")
+</code></pre>
+
+<p>Convert wide tables to long tables and process date data into a usable form.</p>
+
+<pre><code class="language-{r}">data &lt;- abroad_raw %&gt;%
+  select(-name) %&gt;%
+  pivot_longer(
+    -country,
+    names_to = "date",
+    values_to = "number",
+    values_drop_na = TRUE
+  ) %&gt;%
+  mutate(date = as.integer(date)) %&gt;%
+  mutate(date = as.Date(date, origin = "1899-12-30"))
+
+</code></pre>
+
+<h1 id="20-exploratory-data-analysis">20-exploratory-data-analysis</h1>
+
+<pre><code class="language-{r}">line &lt;- data %&gt;%
+  ggplot(aes(x = date, y = number, group = country)) +
+  geom_line(aes(color = country), size = 2, alpha = 0.5) +
+  geom_point(aes(color = country), size = 3) +
+  geom_text(
+    aes(label = country),
+    #color = "black",
+    check_overlap = TRUE,
+    hjust = 0,
+    nudge_x = 0.3
+  ) +
+  ggdark::dark_theme_bw() +
+  theme(plot.title = element_text(face = "bold", size = 20)) +
+  guides(color = FALSE) +
+  labs(
+    title = paste0('COVID-19 non-China cases at ', '{frame_along}'),
+    y = "Case number",
+    x = "Date"
+  ) +
+  transition_reveal(date) +
+  view_follow() +
+  ease_aes(default = 'linear')
+
+</code></pre>
+
+<pre><code class="language-{r}">animate(
+  line,
+  width = 1000,
+  height = 500,
+  renderer = gifski_renderer(),
+  duration = 20,
+  rewind = FALSE,
+  end_pause = 1
+)
+anim_save("output.gif")
+</code></pre>
+
+<p><img src="https://i.postimg.cc/ZYPryMhf/output.gif" alt="" /></p>
+
+<p>Project GitHub page: <a href="https://github.com/waittim/COVID-19-EDA">COVID-19-EDA</a></p>
+:ET

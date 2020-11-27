@@ -12,7 +12,7 @@ tags:
     - Keynote
 ---
 
-![Visualization cheat sheet](https://i.postimg.cc/VkNRNRdQ/image.png "Visualization cheat sheet")
+![Visualization cheat sheet](https://github.com/waittim/waittim.github.io/raw/master/gallery/visual-cheetsheet.png "Visualization cheat sheet")
 
 Created by **Zekun Wang**
 

@@ -182,3 +182,7 @@ For example, you can copy the **.cfg** and .**weights** files of your darknet mo
 
 After getting **.param** and **.bin**, we can deploy the model to the mobile devices or even the browser. And the files in `ncnn/build/install` would be used when you need to run your own model.
 
+
+
+--- 
+*Note: Thanks to the articles "[pytorch模型的部署（系列一）--ncnn的编译和使用](https://zhuanlan.zhihu.com/p/137458205)" and "[ubuntu16.04安装opencv3.4.1教程](https://blog.csdn.net/cocoaqin/article/details/78163171)" for their help in the compilation process.*

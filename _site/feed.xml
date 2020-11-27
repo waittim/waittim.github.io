@@ -5,13 +5,1088 @@
     <description>Across the Great Wall, we can reach every corner in the world</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 07 Jan 2020 15:20:24 -0600</pubDate>
-    <lastBuildDate>Tue, 07 Jan 2020 15:20:24 -0600</lastBuildDate>
+    <pubDate>Fri, 27 Nov 2020 01:43:14 -0500</pubDate>
+    <lastBuildDate>Fri, 27 Nov 2020 01:43:14 -0500</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
+        <title>Tutorial for compiling NCNN library</title>
+        <description>&lt;p&gt;This is a tutorial to helping compile NCNN library. The content comes from my attempts to complete the Mask-Detection project, so the operation is based on the Yolo-Fastest model. I hope it will help readers deploy the model, and also for the convenience of myself to quickly rebuild the environment in the future.&lt;/p&gt;
+
+&lt;p&gt;According to the author nihui, the name of NCNN comes from (New/Next or Naive or Neon or Nihui) + CNN. This is the introduction on &lt;a href=&quot;https://github.com/Tencent/ncnn&quot;&gt;its Github repository&lt;/a&gt;:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;ncnn is a high-performance neural network inference computing framework optimized for mobile platforms. ncnn is deeply considerate about deployment and uses on mobile phones from the beginning of design. ncnn does not have third party dependencies. it is cross-platform, and runs faster than all known open source frameworks on mobile phone cpu.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;In addition to the excellent optimization of the mobile devices, its no third library dependency also means that there are many fewer restrictions on the deployment of models. However, the process of compiling NCNN still requires several third-party libraries.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;g++ &amp;amp; gcc&lt;/li&gt;
+  &lt;li&gt;camke&lt;/li&gt;
+  &lt;li&gt;protobuf&lt;/li&gt;
+  &lt;li&gt;opencv&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The following content is based on Ubuntu 18.04.5. In fact, I have tried MacOS, but after encountering various problems caused by clang instead of g++, I chose to change it. . .&lt;/p&gt;
+
+&lt;h2 id=&quot;g--gcc&quot;&gt;g++ &amp;amp; gcc&lt;/h2&gt;
+
+&lt;p&gt;Usually, Ubuntu has built-in this library, you can use the following code in the Terminal to check the installed version:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;g++ -v
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Or you can install it via &lt;code class=&quot;highlighter-rouge&quot;&gt;apt&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt install gcc
+sudo apt install g++
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;cmake&quot;&gt;cmake&lt;/h2&gt;
+
+&lt;p&gt;Similar to the previous one, we can still use &lt;code class=&quot;highlighter-rouge&quot;&gt;apt&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt install cmake
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;protobuf&quot;&gt;Protobuf&lt;/h2&gt;
+
+&lt;p&gt;The installation of protobuf can be implemented in accordance with the instructions of its &lt;a href=&quot;&quot;&gt;github repository&lt;/a&gt;. The key is the following steps.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt-get install autoconf automake libtool curl make g++ unzip
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then download the package from its release page:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/protocolbuffers/protobuf/releases/latest&quot;&gt;https://github.com/protocolbuffers/protobuf/releases/latest&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The one I downloaded is &lt;a href=&quot;https://github.com/protocolbuffers/protobuf/releases/download/v3.14.0/protobuf-all-3.14.0.tar.gz&quot;&gt;protobuf-all-3.14.0.tar.gz&lt;/a&gt;. Then unzip the package and enter the folder in Terminal. Then run the following code.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./configure
+ make
+ make check
+ sudo make install
+ sudo ldconfig # refresh shared library cache.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Hint:&lt;/strong&gt; If protobuf is installed successfully, and some errors are reported when compiling NCNN, you can try to restart Ubuntu. If you still can’t compile NCNN normally, you can recompile and install protobuf before restarting.&lt;/p&gt;
+
+&lt;h2 id=&quot;opencv&quot;&gt;OpenCV&lt;/h2&gt;
+
+&lt;p&gt;Open &lt;a href=&quot;https://opencv.org/releases/&quot;&gt;https://opencv.org/releases/&lt;/a&gt; and select an appropriate version. What I installed is OpenCV-3.4.12. Click &lt;strong&gt;Sources&lt;/strong&gt; to download the package.&lt;/p&gt;
+
+&lt;p&gt;Then unzip the package and enter the folder in Terminal. Then run the following code to install the dependencies.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt-get install build-essential libgtk2.0-dev libavcodec-dev libavformat-dev libjpeg.dev libtiff4.dev libswscale-dev libjasper-dev
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Create a compilation folder under this folder, then cmake.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mkdir build
+cd build
+cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/usr/local ..
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then start to compile it.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo make
+sudo make install
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Add the OpenCV library to the path so that the system can find it.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo gedit /etc/ld.so.conf.d/opencv.conf
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This command opened a file. Add &lt;code class=&quot;highlighter-rouge&quot;&gt;/usr/local/lib&lt;/code&gt; at the end of the file and save it. Executing this command makes the configuration path effective.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo ldconfig
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The following command will open a file.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo gedit /etc/bash.bashrc
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Add these at the end of the file and save it:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/lib/pkgconfig  
+export PKG_CONFIG_PATH
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Executing this command makes the configuration path effective.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;source /etc/bash.bashrc
+sudo updatedb
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The configuration process of OpenCV has been completed, let’s test it with its own tools.&lt;/p&gt;
+
+&lt;p&gt;Enter &lt;code class=&quot;highlighter-rouge&quot;&gt;opencv-3.4.12/samples/cpp/example_cmake&lt;/code&gt; in Terminal.
+Execute the following code:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cmake .
+make
+./opencv_example
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If the camera is automatically turned on, and a &lt;code class=&quot;highlighter-rouge&quot;&gt;hello opencv&lt;/code&gt; appears in the upper left corner of the image captured by the camera, it means that the configuration is successful.&lt;/p&gt;
+
+&lt;h2 id=&quot;ncnn&quot;&gt;NCNN&lt;/h2&gt;
+
+&lt;p&gt;Now that the dependent libraries have been installed, we will start to compile NCNN. You can find the official tutorial &lt;a href=&quot;https://github.com/Tencent/ncnn/wiki/how-to-build#build-for-linux&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;If you want to use GPU, please install Vulkan as a dependency with the following code.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;wget https://sdk.lunarg.com/sdk/download/1.2.154.0/linux/vulkansdk-linux-x86_64-1.2.154.0.tar.gz?Human=true -O vulkansdk-linux-x86_64-1.2.154.0.tar.gz
+tar -xf vulkansdk-linux-x86_64-1.2.154.0.tar.gz
+export VULKAN_SDK=$(pwd)/1.2.154.0/x86_64
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;However, cause I’m using a virtual machine running on Macbook pro, I choose to forget Vulkan. If you choose to do so, please remember to set the Vulkan option to be OFF.&lt;/p&gt;
+
+&lt;p&gt;Then we need to clone the repository of NCNN and start to compile it.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/Tencent/ncnn.git
+cd ncnn
+mkdir -p build
+cd build
+cmake -DCMAKE_BUILD_TYPE=Release -DNCNN_VULKAN=ON -DNCNN_SYSTEM_GLSLANG=ON -DNCNN_BUILD_EXAMPLES=ON ..
+make
+make install
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;So far, the compilation process of NCNN has been completed. It is recommended to carefully read the official documents and issues in Github when compiling, you can find many solutions to errors.&lt;/p&gt;
+
+&lt;p&gt;After this, we can start to use various tools in the &lt;code class=&quot;highlighter-rouge&quot;&gt;ncnn/build/tools&lt;/code&gt; folder to help us convert the model.&lt;/p&gt;
+
+&lt;p&gt;For example, you can copy the &lt;strong&gt;.cfg&lt;/strong&gt; and .&lt;strong&gt;weights&lt;/strong&gt; files of your darknet model to the &lt;strong&gt;darknet&lt;/strong&gt; folder, and use the code to convert to the NCNN model. The details could be found &lt;a href=&quot;https://github.com/Tencent/ncnn/tree/master/tools/darknet&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./darknet2ncnn yolo-fastest.cfg best.weights yolo-fastest.param yolo-fastest.bin 1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;After getting &lt;strong&gt;.param&lt;/strong&gt; and &lt;strong&gt;.bin&lt;/strong&gt;, we can deploy the model to the mobile devices or even the browser. And the files in &lt;code class=&quot;highlighter-rouge&quot;&gt;ncnn/build/install&lt;/code&gt; would be used when you need to run your own model.&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;&lt;em&gt;Note: Thanks to the articles “&lt;a href=&quot;https://zhuanlan.zhihu.com/p/137458205&quot;&gt;pytorch模型的部署（系列一）–ncnn的编译和使用&lt;/a&gt;” and “&lt;a href=&quot;https://blog.csdn.net/cocoaqin/article/details/78163171&quot;&gt;ubuntu16.04安装opencv3.4.1教程&lt;/a&gt;” for their help in the compilation process.&lt;/em&gt;&lt;/p&gt;
+</description>
+        <pubDate>Tue, 10 Nov 2020 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2020/11/10/build-ncnn/</link>
+        <guid isPermaLink="true">http://localhost:4000/2020/11/10/build-ncnn/</guid>
+        
+        <category>NCNN</category>
+        
+        <category>Deep Learning</category>
+        
+        <category>C++</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Note - How to get information from IP?</title>
+        <description>&lt;p&gt;The process of getting IP information is done based on &lt;a href=&quot;https://www.maxmind.com/en/geoip2-databases&quot;&gt;GeoIP2 Databases&lt;/a&gt;. I Used the &lt;a href=&quot;https://geoip2.readthedocs.io/en/latest/&quot;&gt;MaxMind GeoIP2 Python API&lt;/a&gt; for IP information queries. The Github page for the API is &lt;a href=&quot;https://github.com/maxmind/GeoIP2-python&quot;&gt;GeoIP2-python&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;You need to download &lt;a href=&quot;https://github.com/waittim/waittim.github.io/raw/master/gallery/GeoLite2-City.mmdb&quot;&gt;GeoLite2-City.mmdb&lt;/a&gt; as data source and install &lt;strong&gt;geoip2&lt;/strong&gt; module before you can use it.&lt;/p&gt;
+
+&lt;p&gt;For complete information, see &lt;a href=&quot;https://dev.maxmind.com/geoip/geoip2/downloadable/&quot;&gt;MaxMind - GeoIP2 Downloadable Databases&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;installation&quot;&gt;Installation&lt;/h3&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pip&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;geoip2&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# For Chinese user, you can choose tsinghua mirrors
+&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#!pip install -i https://pypi.tuna.tsinghua.edu.cn/simple geoip2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;usage&quot;&gt;Usage&lt;/h3&gt;
+
+&lt;p&gt;First, we should import the geoip2 module.
+We are using the free downloaded data, therefore, please import &lt;em&gt;geoip2.database&lt;/em&gt; .&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;geoip2.database&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;ip&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'129.59.93.0'&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# The IP of Vanderbilt Univeristy
+&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;reader&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;geoip2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;database&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Reader&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'GeoLite2-City.mmdb'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reader&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;city&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;reader&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;all of the results were reserved in the &lt;em&gt;response&lt;/em&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;geoip2.models.City({'city': {'geoname_id': 4644585, 'names': {'de': 'Nashville', 'en': 'Nashville', 'es': 'Nashville', 'fr': 'Nashville', 'ja': 'ナッシュビル', 'pt-BR': 'Nashville', 'ru': 'Нашвилл', 'zh-CN': '纳什维尔'}}, 'continent': {'code': 'NA', 'geoname_id': 6255149, 'names': {'de': 'Nordamerika', 'en': 'North America', 'es': 'Norteamérica', 'fr': 'Amérique du Nord', 'ja': '北アメリカ', 'pt-BR': 'América do Norte', 'ru': 'Северная Америка', 'zh-CN': '北美洲'}}, 'country': {'geoname_id': 6252001, 'iso_code': 'US', 'names': {'de': 'USA', 'en': 'United States', 'es': 'Estados Unidos', 'fr': 'États-Unis', 'ja': 'アメリカ合衆国', 'pt-BR': 'Estados Unidos', 'ru': 'США', 'zh-CN': '美国'}}, 'location': {'accuracy_radius': 20, 'latitude': 36.066, 'longitude': -86.9659, 'metro_code': 659, 'time_zone': 'America/Chicago'}, 'postal': {'code': '37221'}, 'registered_country': {'geoname_id': 6252001, 'iso_code': 'US', 'names': {'de': 'USA', 'en': 'United States', 'es': 'Estados Unidos', 'fr': 'États-Unis', 'ja': 'アメリカ合衆国', 'pt-BR': 'Estados Unidos', 'ru': 'США', 'zh-CN': '美国'}}, 'subdivisions': [{'geoname_id': 4662168, 'iso_code': 'TN', 'names': {'en': 'Tennessee', 'es': 'Tennessee', 'fr': 'Tennessee', 'ja': 'テネシー州', 'pt-BR': 'Tenessi', 'ru': 'Теннесси', 'zh-CN': '田纳西州'}}], 'traits': {'ip_address': '129.59.93.0', 'prefix_len': 20}}, ['en'])
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Let me re-format it to make it understandable.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'city'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'geoname_id'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4644585&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;     &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'names'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'de'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Nashville'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'en'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Nashville'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'es'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Nashville'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'fr'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Nashville'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'ja'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'ナッシュビル'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'pt-BR'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Nashville'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'ru'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Нашвилл'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'zh-CN'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'纳什维尔'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;     &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'continent'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'code'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'NA'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;     &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'geoname_id'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6255149&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;     &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'names'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'de'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Nordamerika'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'en'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'North America'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'es'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Norteamérica'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'fr'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Amérique du Nord'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'ja'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'北アメリカ'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'pt-BR'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'América do Norte'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'ru'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Северная Америка'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'zh-CN'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'北美洲'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;     &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'country'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'geoname_id'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6252001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;     &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'iso_code'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'US'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;     &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'names'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'de'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'USA'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'en'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'United States'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'es'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Estados Unidos'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'fr'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'États-Unis'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'ja'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'アメリカ合衆国'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'pt-BR'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Estados Unidos'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'ru'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'США'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'zh-CN'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'美国'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;     &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'location'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'accuracy_radius'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;     &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'latitude'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;36.066&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;     &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'longitude'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;86.9659&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;     &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'metro_code'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;659&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;     &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'time_zone'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'America/Chicago'&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;     &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'postal'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'code'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'37221'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'registered_country'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'geoname_id'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6252001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;     &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'iso_code'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'US'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;     &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'names'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'de'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'USA'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'en'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'United States'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'es'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Estados Unidos'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'fr'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'États-Unis'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'ja'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'アメリカ合衆国'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'pt-BR'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Estados Unidos'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'ru'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'США'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'zh-CN'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'美国'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;     &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'subdivisions'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'geoname_id'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4662168&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;      &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'iso_code'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'TN'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;      &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'names'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'en'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Tennessee'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'es'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Tennessee'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'fr'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Tennessee'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'ja'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'テネシー州'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'pt-BR'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Tenessi'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'ru'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Теннесси'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'zh-CN'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'田纳西州'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}],&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'traits'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'ip_address'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'129.59.93.0'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'prefix_len'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; &lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'en'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;There are some example to use the &lt;em&gt;response&lt;/em&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;country&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iso_code&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;#'US'
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;country&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;#'United States'
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;country&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'zh-CN'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;#'美国'
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subdivisions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;most_specific&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;#'Tennessee'
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subdivisions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;most_specific&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iso_code&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;#'TN'
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;city&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;#'Nashville'
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;postal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;code&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;#'37221'
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;location&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;latitude&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;#36.066
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;location&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;longitude&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;#-86.9659
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;traits&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;network&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;#IPv4Network('129.59.80.0/20')
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Mon, 20 Jul 2020 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/2020/07/20/get-ip-info/</link>
+        <guid isPermaLink="true">http://localhost:4000/2020/07/20/get-ip-info/</guid>
+        
+        <category>Feature Engineering</category>
+        
+        <category>Python</category>
+        
+        <category>IP</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>COVID-19 Data Exploration (Unfinished)</title>
+        <description>&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; The content of this article is based on the data what was collected by the project team of Professor &lt;a href=&quot;http://math.csu.edu.cn/info/1316/1554.htm&quot;&gt;Ziqi Qi&lt;/a&gt;, School of Mathematics and Statistics, Central South University (China). The data used for this analysis are not complete.&lt;/p&gt;
+
+&lt;h1 id=&quot;10-import&quot;&gt;10-import&lt;/h1&gt;
+
+&lt;p&gt;Load the necessary packages.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;library(tidyverse)
+library(ggplot2)
+library(gganimate)
+library(plotly)
+library(readxl)
+library(lubridate)
+library(gifski)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Read data from Excel.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;abroad_raw &amp;lt;- read_excel(&quot;data/【海外】疫情数据.xlsx&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Convert wide tables to long tables and process date data into a usable form.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;data &amp;lt;- abroad_raw %&amp;gt;%
+  select(-name) %&amp;gt;%
+  pivot_longer(
+    -country,
+    names_to = &quot;date&quot;,
+    values_to = &quot;number&quot;,
+    values_drop_na = TRUE
+  ) %&amp;gt;%
+  mutate(date = as.integer(date)) %&amp;gt;%
+  mutate(date = as.Date(date, origin = &quot;1899-12-30&quot;))
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;20-exploratory-data-analysis&quot;&gt;20-exploratory-data-analysis&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;line &amp;lt;- data %&amp;gt;%
+  ggplot(aes(x = date, y = number, group = country)) +
+  geom_line(aes(color = country), size = 2, alpha = 0.5) +
+  geom_point(aes(color = country), size = 3) +
+  geom_text(
+    aes(label = country),
+    #color = &quot;black&quot;,
+    check_overlap = TRUE,
+    hjust = 0,
+    nudge_x = 0.3
+  ) +
+  ggdark::dark_theme_bw() +
+  theme(plot.title = element_text(face = &quot;bold&quot;, size = 20)) +
+  guides(color = FALSE) +
+  labs(
+    title = paste0('COVID-19 non-China cases at ', '{frame_along}'),
+    y = &quot;Case number&quot;,
+    x = &quot;Date&quot;
+  ) +
+  transition_reveal(date) +
+  view_follow() +
+  ease_aes(default = 'linear')
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;animate(
+  line,
+  width = 1000,
+  height = 500,
+  renderer = gifski_renderer(),
+  duration = 20,
+  rewind = FALSE,
+  end_pause = 1
+)
+anim_save(&quot;output.gif&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/ZYPryMhf/output.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Project GitHub page: &lt;a href=&quot;https://github.com/waittim/COVID-19-EDA&quot;&gt;COVID-19-EDA&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Thu, 19 Mar 2020 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/2020/03/19/COVID-19-EDA/</link>
+        <guid isPermaLink="true">http://localhost:4000/2020/03/19/COVID-19-EDA/</guid>
+        
+        <category>Visualization</category>
+        
+        <category>R</category>
+        
+        <category>EDA</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>LAPOP Data Dashboard</title>
+        <description>&lt;p&gt;This project is designed a data visualization dashboard to help non-professional users for Latin American Public Opinion Project (LAPOP).&lt;/p&gt;
+
+&lt;p&gt;Due to copyright issues and confidentiality agreements, the dashboard shown with randomly generated data based on real data formats.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;How to use it?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Select the country and year you want to analyze (multiple choices) to obtain key figures and visualizations of the overall situation of the interviewee.&lt;/li&gt;
+  &lt;li&gt;Select the topics and questions you want to analyze in detail, and obtain key figures and visualization results and time series visualization images for a single problem.&lt;/li&gt;
+  &lt;li&gt;Select topics and questions for cross-analysis to get visual results of cross-analysis.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/y8T2Rk9W/demo-home.png&quot; alt=&quot;demo-home.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://zekun.shinyapps.io/LAPOP-shiny-dashboard/&quot;&gt;Click here to open the dashboard&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Project GitHub page: &lt;a href=&quot;https://github.com/waittim/LAPOP-shiny-dashboard&quot;&gt;LAPOP-shiny-dashboard&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Wed, 19 Feb 2020 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2020/02/19/LAPOP-dashboard/</link>
+        <guid isPermaLink="true">http://localhost:4000/2020/02/19/LAPOP-dashboard/</guid>
+        
+        <category>Dashboard</category>
+        
+        <category>R</category>
+        
+        <category>Shiny</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Cashbox Magazine Song Chart Analysis</title>
+        <description>&lt;iframe src=&quot;https://docs.google.com/presentation/d/e/2PACX-1vT8PsgoYD97P7ZvBxpVM3aCGnxX7A5_3o_ep7CqbsbGbuq7-MWdeCIRbNUvqfyJYuRliseB9j0DuqeE/embed?start=false&amp;amp;loop=true&amp;amp;delayms=3000&quot; frameborder=&quot;0&quot; width=&quot;700&quot; height=&quot;423&quot; allowfullscreen=&quot;true&quot; mozallowfullscreen=&quot;true&quot; webkitallowfullscreen=&quot;true&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;This article mainly introduces the full picture of a data analysis pipeline by showing the simple data import, feature engineering, and exploratory data analysis processes. The data used this time is relatively clean, so basically no data cleaning has been performed except for the analysis part of this article.&lt;/p&gt;
+
+&lt;p&gt;The entire working process is divided into three parts: 10-read-in, 20-feature-engineering, 30-exploratory-data-analysis.&lt;/p&gt;
+
+&lt;h1 id=&quot;10-read-in&quot;&gt;10-read-in&lt;/h1&gt;
+
+&lt;h2 id=&quot;import-libraries&quot;&gt;Import libraries.&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;library(readxl)
+library(tidyverse)
+library(janitor)
+library(ggplot2)
+library(tidytext)
+library(wordcloud2)
+library(RColorBrewer)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Library introduction (The parts used in this pipeline):&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;readxl&lt;/strong&gt;: read in data in Excel file.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;tidyverse&lt;/strong&gt;: help manage the data frame in tidy sentences.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;janitor&lt;/strong&gt;: clean the column names.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;ggplot2&lt;/strong&gt;: create plots.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;tidytext&lt;/strong&gt;: import stop words data for text analysis and get word
+sentiment dictionary.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;wordcloud2&lt;/strong&gt;: create word cloud graph.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;RColorBrewer&lt;/strong&gt;: set color palette for graphes.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;read-in-raw-data-and-make-the-column-names&quot;&gt;Read in raw data and make the column names.&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;for(i in seq(2000,2009,1)){
+  df &amp;lt;- read_excel(&quot;Analysis Exercise.xls&quot;, sheet = as.character(i))
+  names(df) &amp;lt;- df[1,]
+  df &amp;lt;- df[-1,] %&amp;gt;%
+    clean_names() %&amp;gt;%
+    mutate(year = i)
+  assign(paste0(&quot;df_&quot;, i), df)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this Excel file, the data of different years was divided into sub-tables, therefore, I need to read in them one by one.&lt;/p&gt;
+
+&lt;p&gt;And the column names in each table were not in the first row but in the second row. So I removed the first row and transferred the second row to be the column names. Then, I used the &lt;code class=&quot;highlighter-rouge&quot;&gt;clean_names()&lt;/code&gt; function to make the names lowercase without blank space.&lt;/p&gt;
+
+&lt;p&gt;The function &lt;code class=&quot;highlighter-rouge&quot;&gt;assign&lt;/code&gt; can help me use different names to reserve the data.&lt;/p&gt;
+
+&lt;p&gt;After that, I merged all of the data.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;df &amp;lt;-
+  bind_rows(df_2000, df_2001, df_2002, df_2003, df_2004, df_2005, df_2006, df_2007, df_2008, df_2009)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Import the stop words for text analysis in the EDA part.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;data(&quot;stop_words&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;20-feature-engineering&quot;&gt;20-feature-engineering&lt;/h1&gt;
+
+&lt;p&gt;This data set is clean enough and I don’t need to clean the data as normal.&lt;/p&gt;
+
+&lt;p&gt;Basic feature engineering on raw merged data:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;df &amp;lt;- df %&amp;gt;%
+  mutate(weeks_at_number_1 = as.integer(weeks_at_number_1),
+         weeks_top_10 = as.integer(weeks_top_10),
+         weeks_top_25 = as.integer(weeks_top_25),
+         weeks_top_50 = as.integer(weeks_top_50),
+         peak_position = as.integer(peak_position),
+         bonus_weeks = as.integer(bonus_weeks),
+         sub_points = as.integer(sub_points),
+         peak_points = as.integer(peak_points),
+         total_points = as.integer(total_points),
+         peak_year = as.integer(peak_year),
+         debut_date = as.integer(debut_date),
+         debut_date = as.Date(debut_date, origin=&quot;1899-12-30&quot;),
+         peak_date = as.integer(peak_date),
+         peak_date = as.Date(peak_date, origin=&quot;1899-12-30&quot;),
+         weeks_to_reach_peak = as.integer(weeks_to_reach_peak),
+         year=as.factor(year)
+         )
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this chunk, I only need to make all of the columns have the right data
+type.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Hint:&lt;/strong&gt; In the date part, because Excel save the date by count the
+distance between the date and 1900-01-01, the date columns in the raw
+data are the days. I need to transfer them to be the real date. The
+&lt;code class=&quot;highlighter-rouge&quot;&gt;origin&lt;/code&gt; attribute should be 1900-01-01, but due to 1900-leap-year-bug
+of Excel, use 1899-12-30 can get the right answer.&lt;/p&gt;
+
+&lt;h1 id=&quot;30-exploratory-data-analysis&quot;&gt;30-exploratory-data-analysis&lt;/h1&gt;
+
+&lt;p&gt;In this part, I will answer the following questions to finish the
+exploratory data analysis(EDA) part.&lt;/p&gt;
+
+&lt;h2 id=&quot;what-percent-of-songs-that-chart-never-make-the-top-10&quot;&gt;What percent of songs that chart never make the Top 10?&lt;/h2&gt;
+
+&lt;p&gt;For all years:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;never_top10 &amp;lt;- df %&amp;gt;%
+  filter(weeks_top_10 == 0)
+nrow(never_top10)/nrow(df)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;## [1] 0.6802455
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Time series:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;never_top10_year &amp;lt;- df %&amp;gt;%
+  filter(weeks_top_10 == 0) %&amp;gt;%
+  group_by(year) %&amp;gt;%
+  summarise(never_top10_number = n())
+
+all_year &amp;lt;- df %&amp;gt;%
+  group_by(year) %&amp;gt;%
+  summarise(whole_number = n())
+
+never_top10_year[&quot;whole_number&quot;] &amp;lt;- all_year[&quot;whole_number&quot;]
+never_top10_year %&amp;gt;%
+  mutate(never_top10_ratio = never_top10_number/whole_number) %&amp;gt;%
+  ggplot() +
+  geom_col(aes(x=year, y=never_top10_ratio),fill=&quot;#125FA0&quot;, width = 0.7)+
+  theme_classic()+
+  labs(x=&quot;\nYear&quot;, y=&quot;Ratio of Never-Top10\n&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/0j7gsVWT/unnamed-chunk-7-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;what-were-the-top-10-songs-of-the-decade-2000-2009&quot;&gt;What were the top 10 songs of the decade 2000-2009?&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;df %&amp;gt;%
+  arrange(desc(total_points)) %&amp;gt;%
+  select(song_title, artist, year, total_points) %&amp;gt;%
+  head(10)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;## # A tibble: 10 x 4
+##    song_title               artist                       year  total_points
+##    &amp;lt;chr&amp;gt;                    &amp;lt;chr&amp;gt;                        &amp;lt;fct&amp;gt;        &amp;lt;int&amp;gt;
+##  1 GLAMOROUS                FERGIE featuring LUDACRIS    2007          1335
+##  2 BEFORE HE CHEATS         UNDERWOOD, CARRIE            2007          1192
+##  3 NO SUCH THING            MAYER, JOHN                  2002          1167
+##  4 CITY LOVE                MAYER, JOHN                  2003          1167
+##  5 VIDEO                    INDIA.ARIE                   2002          1129
+##  6 WHERE IS THE LOVE?       BLACK EYED PEAS featuring J… 2003          1111
+##  7 TWO WEEKS FROM TWENTY    YELLOWCARD                   2005          1111
+##  8 AMERICAN BOY             ESTELLE featuring KANYE WEST 2008          1072
+##  9 TIME OF YOUR LIFE (GOOD… GREEN DAY                    2006          1040
+## 10 SOMEONE TO CALL MY LOVER JACKSON, JANET               2001          1012
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;who-was-the-top-artist-of-the-decade-2000-2009&quot;&gt;Who was the top artist of the decade 2000-2009?&lt;/h2&gt;
+
+&lt;p&gt;(Who were the top 10 artists of the decade 2000-2009?)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;df %&amp;gt;%
+  group_by(artist) %&amp;gt;%
+  summarise(sum_total_points = sum(total_points, na.rm = TRUE)) %&amp;gt;%
+  arrange(desc(sum_total_points)) %&amp;gt;%
+  head(10)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;## # A tibble: 10 x 2
+##    artist             sum_total_points
+##    &amp;lt;chr&amp;gt;                         &amp;lt;int&amp;gt;
+##  1 MAYER, JOHN                    6861
+##  2 JACKSON, JANET                 6049
+##  3 PANIC AT THE DISCO             4572
+##  4 BLACK EYED PEAS                4481
+##  5 CAREY, MARIAH                  4470
+##  6 GREEN DAY                      4378
+##  7 CLARKSON, KELLY                4016
+##  8 UNDERWOOD, CARRIE              3762
+##  9 PINK                           3668
+## 10 MAROON 5                       3604
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;based-on-the-chart-data-what-artists-would-you-call-the-beatles-of-the-decade-2000-2009&quot;&gt;Based on the chart data, what artist(s) would you call “The Beatles” of the decade 2000-2009?&lt;/h2&gt;
+
+&lt;p&gt;Actually, this question is really difficult to answer, because “The
+Beatles” has various meanings according to different interpretations.&lt;/p&gt;
+
+&lt;p&gt;However, we can try to give some directions by analyzing the number of
+songs on the chart and the mean point of the songs on the chart of each artist.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;df %&amp;gt;%
+  group_by(artist) %&amp;gt;%
+  summarise(song_number = n()) %&amp;gt;%
+  arrange(desc(song_number)) %&amp;gt;%
+  head(10)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;## # A tibble: 10 x 2
+##    artist              song_number
+##    &amp;lt;chr&amp;gt;                     &amp;lt;int&amp;gt;
+##  1 SPEARS, BRITNEY              21
+##  2 PINK                         18
+##  3 CAREY, MARIAH                14
+##  4 CLARKSON, KELLY              14
+##  5 EMINEM                       14
+##  6 BEYONCE                      13
+##  7 LAVIGNE, AVRIL               13
+##  8 AGUILERA, CHRISTINA          12
+##  9 MAYER, JOHN                  12
+## 10 NELLY                        12
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;df %&amp;gt;%
+  group_by(artist) %&amp;gt;%
+  summarise(mean_total_points = mean(total_points)) %&amp;gt;%
+  arrange(desc(mean_total_points)) %&amp;gt;%
+  head(10)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;## # A tibble: 10 x 2
+##    artist                                      mean_total_points
+##    &amp;lt;chr&amp;gt;                                                   &amp;lt;dbl&amp;gt;
+##  1 FERGIE featuring LUDACRIS                               1335
+##  2 BLACK EYED PEAS featuring JUSTIN TIMBERLAKE             1111
+##  3 ESTELLE featuring KANYE WEST                            1072
+##  4 LOS LONELY BOYS                                          928
+##  5 LOPEZ, JENNIFER featuring JA RULE                        861
+##  6 SHAGGY featuring RICARDO DUCENT                          829
+##  7 FOXX, JAMIE featuring T-PAIN                             808
+##  8 POWTER, DANIEL                                           779
+##  9 INDIA.ARIE                                               764.
+## 10 EVE featuring GWEN STEFANI                               757
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;what-was-the-most-commonly-used-word-in-a-song-title-for-the-decade-2000-2009&quot;&gt;What was the most commonly used word in a song title for the decade 2000-2009?&lt;/h2&gt;
+
+&lt;p&gt;For this question, due to there are many special symbols in the song
+title, I need to clean the special patterns in the title.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;title_df &amp;lt;- df[&quot;song_title&quot;]
+title_df &amp;lt;- title_df %&amp;gt;% mutate(song_title = str_to_lower(song_title))
+title_df$song_title &amp;lt;- gsub(pattern = &quot;\\(&quot;, replacement =&quot; &quot;, title_df$song_title)
+title_df$song_title &amp;lt;- gsub(pattern = &quot;\\)&quot;, replacement =&quot; &quot;, title_df$song_title)
+title_df$song_title &amp;lt;- gsub(pattern = &quot;,&quot;, replacement =&quot; &quot;, title_df$song_title)
+title_df$song_title &amp;lt;- gsub(pattern = &quot;n't&quot;, replacement =&quot; not &quot;, title_df$song_title)
+title_df$song_title &amp;lt;- gsub(pattern = &quot;'s&quot;, replacement =&quot; &quot;, title_df$song_title)
+title_df$song_title &amp;lt;- gsub(pattern = &quot;'re&quot;, replacement =&quot; are &quot;, title_df$song_title)
+title_df$song_title &amp;lt;- gsub(pattern = &quot;'m&quot;, replacement =&quot; am &quot;, title_df$song_title)
+title_df$song_title &amp;lt;- gsub(pattern = &quot;\\\&quot;&quot;, replacement =&quot; &quot;, title_df$song_title)
+title_df$song_title &amp;lt;- gsub(pattern = &quot;\\.&quot;, replacement =&quot; &quot;, title_df$song_title)
+title_df$song_title &amp;lt;- gsub(pattern = &quot;-&quot;, replacement =&quot; &quot;, title_df$song_title)
+title_df$song_title &amp;lt;- gsub(pattern = &quot;_&quot;, replacement =&quot; &quot;, title_df$song_title)
+title_df$song_title &amp;lt;- gsub(pattern = &quot;!&quot;, replacement =&quot; &quot;, title_df$song_title)
+title_df$song_title &amp;lt;- gsub(pattern = &quot;\\?&quot;, replacement =&quot; &quot;, title_df$song_title)
+title_df$song_title &amp;lt;- gsub(pattern = &quot;…&quot;, replacement =&quot; &quot;, title_df$song_title)
+title_df$song_title &amp;lt;- gsub(pattern = &quot;[0-9]&quot;, replacement =&quot; &quot;, title_df$song_title)
+title_df$song_title &amp;lt;- gsub(pattern = &quot;/&quot;, replacement =&quot; &quot;, title_df$song_title)
+title_df$song_title &amp;lt;- gsub(pattern = &quot;&amp;amp;&quot;, replacement =&quot; &quot;, title_df$song_title)
+title_df$song_title &amp;lt;- gsub(pattern = &quot;#&quot;, replacement =&quot; &quot;, title_df$song_title)
+title_df$song_title &amp;lt;- gsub(pattern = &quot; +&quot;, replacement =&quot; &quot;, title_df$song_title)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then make the data frame become list, which can help the following
+steps.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;title_list &amp;lt;- title_df[[&quot;song_title&quot;]]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Split all of the title into scattered words.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;title_words &amp;lt;- data.frame()
+count &amp;lt;- 1
+for (i in title_list) {
+  title_split &amp;lt;- str_split(string = i, pattern = &quot; &quot;)
+  for(j in title_split[[1]]){
+    title_words[count,1] &amp;lt;- j
+    count &amp;lt;- count + 1
+  }
+}
+names(title_words) &amp;lt;- &quot;word&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Clean the different forms of the same word.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;title_words &amp;lt;- title_words %&amp;gt;%
+  mutate(word = case_when(word == &quot;girls&quot; ~ &quot;girl&quot;,
+                          word == &quot;angels&quot; ~ &quot;angel&quot;,
+                          word == &quot;days&quot; ~ &quot;day&quot;,
+                          word == &quot;lovin'&quot; ~ &quot;love&quot;,
+                          word == &quot;loving&quot; ~ &quot;love&quot;,
+                          word == &quot;loved'&quot; ~ &quot;love&quot;,
+                          word == &quot;luv&quot; ~ &quot;love&quot;,
+                          word == &quot;waiting&quot; ~ &quot;wait&quot;,
+                          word == &quot;does&quot; ~ &quot;do&quot;,
+                          word == &quot;lights&quot; ~ &quot;light&quot;,
+                          word == &quot;things&quot; ~ &quot;thing&quot;,
+                          word == &quot;comes&quot; ~ &quot;come&quot;,
+                          word == &quot;dancing&quot; ~ &quot;dance&quot;,
+                          word == &quot;dancin'&quot; ~ &quot;dance&quot;,
+                          word == &quot;boys&quot; ~ &quot;boy&quot;,
+                          word == &quot;burning&quot; ~ &quot;burn&quot;,
+                          word == &quot;burnin'&quot; ~ &quot;burn&quot;,
+                          word == &quot;calle&quot; ~ &quot;call&quot;,
+                          word == &quot;called&quot; ~ &quot;call&quot;,
+                          word == &quot;calling&quot; ~ &quot;call&quot;,
+                          word == &quot;call&quot; ~ &quot;call&quot;,
+                          TRUE ~ word))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Count the number of each word.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;word_count &amp;lt;- title_words %&amp;gt;%
+  filter(word != &quot;&quot;) %&amp;gt;%
+  anti_join(stop_words,by = &quot;word&quot;) %&amp;gt;%
+  group_by(word) %&amp;gt;%
+  summarise(number = n()) %&amp;gt;%
+  arrange(desc(number)) %&amp;gt;%
+  mutate(word = str_to_upper(word))
+word_count
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;## # A tibble: 1,192 x 2
+##    word  number
+##    &amp;lt;chr&amp;gt;  &amp;lt;int&amp;gt;
+##  1 LOVE      87
+##  2 GIRL      43
+##  3 TIME      29
+##  4 LIFE      21
+##  5 DAY       20
+##  6 WORLD     15
+##  7 BABY      14
+##  8 DANCE     14
+##  9 ROCK      14
+## 10 SONG      14
+## # … with 1,182 more rows
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Generate the word cloud by &lt;code class=&quot;highlighter-rouge&quot;&gt;wordcloud2&lt;/code&gt; function.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;wordcloud2(head(word_count,100),
+           size = 1,
+           fontFamily = &quot;Montserrat&quot;,
+           fontWeight = &quot;Bold&quot;,
+           minRotation = -pi/6,
+           maxRotation = -pi/6,
+           rotateRatio = 1,
+           color = &quot;#125FA0&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;iframe src=&quot;https://waittim.github.io/gallery/song-wordcloud.html&quot; frameborder=&quot;0&quot; width=&quot;700&quot; height=&quot;423&quot; allowfullscreen=&quot;true&quot; mozallowfullscreen=&quot;true&quot; webkitallowfullscreen=&quot;true&quot;&gt;&lt;/iframe&gt;
+
+&lt;h2 id=&quot;sentiment-analysis-of-titles&quot;&gt;Sentiment analysis of titles&lt;/h2&gt;
+
+&lt;p&gt;In order to analyze the sentiment of the words in the titles, I got the
+stop words(meaningless words) dictionary and sentiment dictionary from
+the &lt;code class=&quot;highlighter-rouge&quot;&gt;tidytext&lt;/code&gt; library.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;sentiments &amp;lt;- get_sentiments(&quot;nrc&quot;)
+
+df_sentiments &amp;lt;- title_words %&amp;gt;%
+  filter(word != &quot;&quot;) %&amp;gt;%
+  anti_join(stop_words,by = &quot;word&quot;) %&amp;gt;%
+  left_join(sentiments)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;df_sentiments_filtered &amp;lt;- df_sentiments %&amp;gt;%
+  filter(!is.na(sentiment)) %&amp;gt;%
+  group_by(sentiment) %&amp;gt;%
+  summarize(n = n()) %&amp;gt;%
+  arrange(desc(n))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After removed the stop word, I counted the number of each word in the titles.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;df_sentiments_filtered %&amp;gt;%
+  ggplot(aes(x = reorder(sentiment, n, function(n) -n), y = n)) +
+  geom_bar(stat = &quot;identity&quot;,fill=&quot;#125FA0&quot;, width = 0.7) +
+  theme_classic() +
+  labs(x = &quot;\nSentiments&quot;, y=&quot;number\n&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/hPqWrqhc/unnamed-chunk-19-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;And we can also count what is the percentage of positive words in the
+words that have sentiments.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;words_positive &amp;lt;- df_sentiments %&amp;gt;%
+  filter(sentiment == &quot;positive&quot;) %&amp;gt;%
+  group_by(word) %&amp;gt;%
+  summarise(n=n())
+
+words_all_sentiment &amp;lt;- df_sentiments %&amp;gt;%
+  filter(!is.na(sentiment)) %&amp;gt;%
+  group_by(word) %&amp;gt;%
+  summarize(n = n()) %&amp;gt;%
+  arrange(desc(n))
+
+nrow(words_positive)/nrow(words_all_sentiment)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;## [1] 0.4294671
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;who-spent-the-most-weeks-at-1-for-the-decade-2000-2009&quot;&gt;Who spent the most weeks at #1 for the decade 2000-2009?&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;df %&amp;gt;%
+  group_by(artist) %&amp;gt;%
+  summarise(top1_time_sum = sum(weeks_at_number_1)) %&amp;gt;%
+  arrange(desc(top1_time_sum)) %&amp;gt;%
+  head(1)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;## # A tibble: 1 x 2
+##   artist         top1_time_sum
+##   &amp;lt;chr&amp;gt;                  &amp;lt;int&amp;gt;
+## 1 JACKSON, JANET            39
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And there are the songs belong to this artist.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;df %&amp;gt;%
+  filter(artist == &quot;JACKSON, JANET&quot;,
+         weeks_at_number_1 != 0) %&amp;gt;%
+  arrange(desc(weeks_at_number_1)) %&amp;gt;%
+  select(song_title, artist, year, weeks_at_number_1)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;## # A tibble: 6 x 4
+##   song_title                            artist       year  weeks_at_number…
+##   &amp;lt;chr&amp;gt;                                 &amp;lt;chr&amp;gt;        &amp;lt;fct&amp;gt;            &amp;lt;int&amp;gt;
+## 1 SOMEONE TO CALL MY LOVER              JACKSON, JA… 2001                10
+## 2 ALL FOR YOU                           JACKSON, JA… 2001                10
+## 3 &quot;DOESN'T REALLY MATTER (from \&quot;NUTTY… JACKSON, JA… 2000                 8
+## 4 FEEDBACK                              JACKSON, JA… 2008                 6
+## 5 SPECIAL                               JACKSON, JA… 2000                 3
+## 6 LUV                                   JACKSON, JA… 2008                 2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;what-song-spent-the-most-weeks-at-1-for-the-decade-2000-2009&quot;&gt;What song spent the most weeks at #1 for the decade 2000-2009?&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;df %&amp;gt;%
+  arrange(desc(weeks_at_number_1)) %&amp;gt;%
+  select(song_title, artist, year, weeks_at_number_1) %&amp;gt;%
+  head(1)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;## # A tibble: 1 x 4
+##   song_title    artist      year  weeks_at_number_1
+##   &amp;lt;chr&amp;gt;         &amp;lt;chr&amp;gt;       &amp;lt;fct&amp;gt;             &amp;lt;int&amp;gt;
+## 1 NO SUCH THING MAYER, JOHN 2002                 13
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;what-song-peaked-at-1-the-quickest-in-the-decade-2000-2009&quot;&gt;What song peaked at #1 the quickest in the decade 2000-2009?&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;df %&amp;gt;%
+  filter(weeks_at_number_1 != 0) %&amp;gt;%
+  arrange(weeks_to_reach_peak) %&amp;gt;%
+  select(song_title, artist, year, weeks_at_number_1, weeks_to_reach_peak, debut_date, peak_date) %&amp;gt;%
+  head(1)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;## # A tibble: 1 x 7
+##   song_title artist year  weeks_at_number… weeks_to_reach_… debut_date
+##   &amp;lt;chr&amp;gt;      &amp;lt;chr&amp;gt;  &amp;lt;fct&amp;gt;            &amp;lt;int&amp;gt;            &amp;lt;int&amp;gt; &amp;lt;date&amp;gt;    
+## 1 SOMEONE T… JACKS… 2001                10                2 2001-07-22
+## # … with 1 more variable: peak_date &amp;lt;date&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;what-song-took-the-longest-to-reach-1-in-the-decade-2000-2009&quot;&gt;What song took the longest to reach #1 in the decade 2000-2009?&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;df %&amp;gt;%
+  filter(weeks_at_number_1 != 0) %&amp;gt;%
+  arrange(desc(weeks_to_reach_peak)) %&amp;gt;%
+  select(song_title, artist, year, weeks_at_number_1, weeks_to_reach_peak, debut_date, peak_date) %&amp;gt;%
+  head(1)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;## # A tibble: 1 x 7
+##   song_title artist year  weeks_at_number… weeks_to_reach_… debut_date
+##   &amp;lt;chr&amp;gt;      &amp;lt;chr&amp;gt;  &amp;lt;fct&amp;gt;            &amp;lt;int&amp;gt;            &amp;lt;int&amp;gt; &amp;lt;date&amp;gt;    
+## 1 BEFORE HE… UNDER… 2007                 3               31 2006-11-05
+## # … with 1 more variable: peak_date &amp;lt;date&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;solo-men-solo-women-groups-for-the-decade-2000-2009---design-a-graphic-that-shows-the-distribution-of-songs-hitting-1&quot;&gt;Solo men, solo women, groups for the decade 2000-2009 - design a graphic that shows the distribution of songs hitting #1&lt;/h2&gt;
+
+&lt;p&gt;The solo artists have their full name in the data by the format as
+“LastName, FirstName”, as a result, we can tell whether the data is a
+single person name by the presence of a comma.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;df %&amp;gt;%
+  mutate(solo_group = case_when(str_detect(string = artist, pattern = &quot;,&quot;) ~ &quot;solo&quot;,
+                                TRUE ~ &quot;group&quot;)) %&amp;gt;%
+  mutate(solo_group = as.factor(solo_group)) %&amp;gt;%
+  filter(weeks_at_number_1 != 0) %&amp;gt;%
+  group_by(solo_group) %&amp;gt;%
+  summarise(number = n())
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;## # A tibble: 2 x 2
+##   solo_group number
+##   &amp;lt;fct&amp;gt;       &amp;lt;int&amp;gt;
+## 1 group          92
+## 2 solo           84
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Actually, there is no built-in pie chart function in &lt;code class=&quot;highlighter-rouge&quot;&gt;ggplot2&lt;/code&gt;. But we
+can use bar chart function then twisting the y-axis to the polar
+coordinate system to create a pie chart.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;df %&amp;gt;%
+  mutate(solo_group = case_when(str_detect(string = artist, pattern = &quot;,&quot;) ~ &quot;solo&quot;,
+                                TRUE ~ &quot;group&quot;)) %&amp;gt;%
+  mutate(solo_group = as.factor(solo_group)) %&amp;gt;%
+  filter(weeks_at_number_1 != 0) %&amp;gt;%
+  ggplot()+
+  geom_bar(aes(x=1, fill = solo_group))+
+  coord_polar(theta = &quot;y&quot;)+
+  theme(axis.text = element_blank(),
+        axis.title = element_blank(),
+        axis.ticks = element_blank(),
+        axis.line = element_blank(),
+        legend.title = element_blank(),
+        panel.background = element_blank()
+        )+
+  scale_fill_brewer(palette = &quot;Paired&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/fWdQmbz8/unnamed-chunk-27-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;solo-men-solo-women-groups-for-the-decade-2000-2009---design-a-graphic-that-shows-the-distribution-of-songs-hitting-the-top-10&quot;&gt;Solo men, solo women, groups for the decade 2000-2009 - design a graphic that shows the distribution of songs hitting the Top 10&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;df %&amp;gt;%
+  mutate(solo_group = case_when(str_detect(string = artist, pattern = &quot;,&quot;) ~ &quot;solo&quot;,
+                                TRUE ~ &quot;group&quot;)) %&amp;gt;%
+  mutate(solo_group = as.factor(solo_group)) %&amp;gt;%
+  filter(weeks_top_10 != 0) %&amp;gt;%
+  group_by(solo_group) %&amp;gt;%
+  summarise(number = n())
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;## # A tibble: 2 x 2
+##   solo_group number
+##   &amp;lt;fct&amp;gt;       &amp;lt;int&amp;gt;
+## 1 group         318
+## 2 solo          255
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;df %&amp;gt;%
+  mutate(solo_group = case_when(str_detect(string = artist, pattern = &quot;,&quot;) ~ &quot;solo&quot;,
+                                TRUE ~ &quot;group&quot;)) %&amp;gt;%
+  mutate(solo_group = as.factor(solo_group)) %&amp;gt;%
+  filter(weeks_top_10 != 0) %&amp;gt;%
+  ggplot()+
+  geom_bar(aes(x=1, fill = solo_group))+
+  coord_polar(theta = &quot;y&quot;)+
+  theme(axis.text = element_blank(),
+        axis.title = element_blank(),
+        axis.ticks = element_blank(),
+        axis.line = element_blank(),
+        legend.title = element_blank(),
+        panel.background = element_blank()
+        )+
+  scale_fill_brewer(palette = &quot;Paired&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/ncY8SwQ7/unnamed-chunk-29-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;what-song-spent-the-most-time-on-the-charts-in-the-decade-2000-2009&quot;&gt;What song spent the most time on the charts in the decade 2000-2009)&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;df %&amp;gt;%
+  arrange(desc(weeks_top_50)) %&amp;gt;%
+  select(song_title, artist, year, weeks_top_50) %&amp;gt;%
+  head(3)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;## # A tibble: 3 x 4
+##   song_title                      artist                 year  weeks_top_50
+##   &amp;lt;chr&amp;gt;                           &amp;lt;chr&amp;gt;                  &amp;lt;fct&amp;gt;        &amp;lt;int&amp;gt;
+## 1 TIME OF YOUR LIFE (GOOD RIDDAN… GREEN DAY              2006            65
+## 2 BEFORE HE CHEATS                UNDERWOOD, CARRIE      2007            57
+## 3 GLAMOROUS                       FERGIE featuring LUDA… 2007            50
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Actually, TIME OF YOUR LIFE (GOOD RIDDANCE) never be the top 1. A sad
+story.&lt;/p&gt;
+
+&lt;h2 id=&quot;is-there-a-correlation-between-weeks-spent-on-the-chart-and-weeks-at-1&quot;&gt;Is there a correlation between weeks spent on the chart and weeks at #1?&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;cor(x = df[[&quot;weeks_at_number_1&quot;]],
+    y = df[[&quot;weeks_top_50&quot;]])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;## [1] 0.471703
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;df %&amp;gt;%
+  ggplot(aes(x=weeks_at_number_1, y=weeks_top_50))+
+  geom_jitter(alpha = 0.3, color = &quot;dodgerblue4&quot;)+
+  geom_smooth(color = &quot;dodgerblue4&quot;, se = FALSE)+
+  theme_classic()+
+  labs(x=&quot;\nWeeks at Top 1&quot;, y=&quot;Weeks at Top 50\n&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/7ZxFFMgR/unnamed-chunk-32-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Hint: Project GitHub page: &lt;a href=&quot;https://github.com/waittim/Cashbox-Magazine-song-records-Analysis&quot;&gt;Cashbox-Magazine-song-records-Analysis&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 15 Feb 2020 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2020/02/15/song-analysis/</link>
+        <guid isPermaLink="true">http://localhost:4000/2020/02/15/song-analysis/</guid>
+        
+        <category>EDA</category>
+        
+        <category>Project</category>
+        
+        <category>R</category>
+        
+        <category>Text Analysis</category>
+        
+        
+      </item>
+    
+      <item>
         <title>Think and Get Jobs - H1B Visa Analysis</title>
-        <description>&lt;h1 id=&quot;h1b&quot;&gt;H1B&lt;/h1&gt;
+        <description>&lt;h1 id=&quot;slides&quot;&gt;Slides&lt;/h1&gt;
+&lt;iframe src=&quot;https://docs.google.com/presentation/d/e/2PACX-1vQR_hrMRbhVNpoudmrkJRcPi3lTcSG0g1lYYnMOElPjTcrC_y1Bxk16DdwxUCLruMuoQEPX0n04Zc8k/embed?start=false&amp;amp;loop=false&amp;amp;delayms=3000&quot; frameborder=&quot;0&quot; width=&quot;700&quot; height=&quot;423&quot; allowfullscreen=&quot;true&quot; mozallowfullscreen=&quot;true&quot; webkitallowfullscreen=&quot;true&quot;&gt;&lt;/iframe&gt;
+
+&lt;h1 id=&quot;h1b&quot;&gt;H1B&lt;/h1&gt;
 &lt;p&gt;The H1B visa is a non-immigrant visa that allows companies in the US to hire graduate-level workers in specialty occupations that require theoretical or technical expertise in specialized fields.&lt;/p&gt;
 
 &lt;h3 id=&quot;requirements&quot;&gt;Requirements&lt;/h3&gt;
@@ -117,7 +1192,7 @@ The timeline of relevant events is listed above. Sources for this information ar
 &lt;p&gt;We wanted to look at how the number of applications differed per state over the course of the last 5 years.
 Here we can see that the states of California, Texas, New York, Michigan, Georgia, Pennsylvania, Florida, and Illinois are the states with the highest number of applications. The number of applicants is seen to increase over time (from 2015 to 2017) for Washington, Virginia and North Carolina. States that have the lowest number of applicants are Montana, Wyoming and South Dakota.&lt;/p&gt;
 
-&lt;iframe src=&quot;https://waittim.github.io/gallery/h1b-map.html&quot; frameborder=&quot;0&quot; width=&quot;700&quot; height=&quot;423&quot; allowfullscreen=&quot;true&quot; mozallowfullscreen=&quot;true&quot; webkitallowfullscreen=&quot;true&quot;&gt;&lt;/iframe&gt;
+&lt;iframe src=&quot;https://waittim.github.io/gallery/h1b-map.html&quot; frameborder=&quot;0&quot; width=&quot;700&quot; height=&quot;435&quot; allowfullscreen=&quot;true&quot; mozallowfullscreen=&quot;true&quot; webkitallowfullscreen=&quot;true&quot;&gt;&lt;/iframe&gt;
 
 &lt;h1 id=&quot;stem&quot;&gt;STEM&lt;/h1&gt;
 
@@ -148,7 +1223,7 @@ wage distribution between STEM and non-STEM.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Following right after are business analyst and programmer analyst positions. It is important to note that approximately 10 out of these 20 jobs could be associated with data-related jobs. Even if they were not explicitly mentioned as a data-related job, they have, in their job description, data-related roles.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/HWw2d2Jv/image016.png&quot; alt=&quot;&quot; title=&quot;Figure 5: Top 20 jobs in STEM with the highest number of applications in 2018. All jobs are colored blue, data-related jobs are colored red.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/76nN1xRL/WX20200319-015802-2x.png&quot; alt=&quot;&quot; title=&quot;Figure 5: Top 20 jobs in STEM with the highest number of applications in 2018. All jobs are colored blue, data-related jobs are colored red.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;After recognizing the number of data-related jobs within the top 20 job titles in the last year, the next step was to break down what these data-related roles were and if we could combine them and/or break them down based on how complex we wanted our analysis to be.&lt;/p&gt;
 
@@ -275,7 +1350,7 @@ wage distribution between STEM and non-STEM.&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;nationwide-overview&quot;&gt;Nationwide Overview&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/bvvyN3Nx/image049.png&quot; alt=&quot;&quot; title=&quot;Figure 14: Number of data jobs per state in 2018&quot; /&gt;&lt;/p&gt;
+&lt;iframe src=&quot;https://waittim.github.io/gallery/h1b-map-data.html&quot; frameborder=&quot;0&quot; width=&quot;700&quot; height=&quot;435&quot; allowfullscreen=&quot;true&quot; mozallowfullscreen=&quot;true&quot; webkitallowfullscreen=&quot;true&quot;&gt;&lt;/iframe&gt;
 
 &lt;p&gt;This is an incomplete but interesting cartographic analysis (Fig. 14). The first thing we can see from here, however, is that the most number of applications in data-related roles are coming from (starting from the west coast to east) Washington, California, Texas, Illinois, Atlanta, Florida, New York, New Jersey, and Massachusetts.&lt;/p&gt;
 
@@ -355,12 +1430,9 @@ wage distribution between STEM and non-STEM.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Finally, although Tennessee is not the best for international students pursuing data-related roles, there does seem to be a potential for growth since tech giants such as Amazon and Microsoft are creating more opportunities for jobs in the Nashville area in the future.&lt;/p&gt;
 
-&lt;h1 id=&quot;slides&quot;&gt;Slides&lt;/h1&gt;
-&lt;iframe src=&quot;https://docs.google.com/presentation/d/e/2PACX-1vQR_hrMRbhVNpoudmrkJRcPi3lTcSG0g1lYYnMOElPjTcrC_y1Bxk16DdwxUCLruMuoQEPX0n04Zc8k/embed?start=false&amp;amp;loop=false&amp;amp;delayms=3000&quot; frameborder=&quot;0&quot; width=&quot;700&quot; height=&quot;423&quot; allowfullscreen=&quot;true&quot; mozallowfullscreen=&quot;true&quot; webkitallowfullscreen=&quot;true&quot;&gt;&lt;/iframe&gt;
-
 &lt;p&gt;&lt;em&gt;Hint: Project GitHub page: &lt;a href=&quot;https://github.com/waittim/H1B-visas-analysis&quot;&gt;H1B-visas-analysis&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
 </description>
-        <pubDate>Thu, 12 Dec 2019 00:00:00 -0600</pubDate>
+        <pubDate>Thu, 12 Dec 2019 00:00:00 -0500</pubDate>
         <link>http://localhost:4000/2019/12/12/h1b-analysis/</link>
         <guid isPermaLink="true">http://localhost:4000/2019/12/12/h1b-analysis/</guid>
         
@@ -377,7 +1449,10 @@ wage distribution between STEM and non-STEM.&quot; /&gt;&lt;/p&gt;
     
       <item>
         <title>As data scientists, what should we do?</title>
-        <description>&lt;h1 id=&quot;summary&quot;&gt;Summary&lt;/h1&gt;
+        <description>&lt;h1 id=&quot;slides&quot;&gt;Slides&lt;/h1&gt;
+&lt;iframe src=&quot;https://docs.google.com/presentation/d/e/2PACX-1vTr02Z5Zn7lGTvEo2Jz5P0ADkz76YFfvNOnQUXeQiHwZ5CrpOJhR2fL8avHvWIIcQtWGTb6wOTmLNRS/embed?start=false&amp;amp;loop=true&amp;amp;delayms=15000&quot; frameborder=&quot;0&quot; width=&quot;700&quot; height=&quot;423&quot; allowfullscreen=&quot;true&quot; mozallowfullscreen=&quot;true&quot; webkitallowfullscreen=&quot;true&quot;&gt;&lt;/iframe&gt;
+
+&lt;h1 id=&quot;summary&quot;&gt;Summary&lt;/h1&gt;
 
 &lt;p&gt;3 big parts in Data Science jobs:&lt;/p&gt;
 &lt;ul&gt;
@@ -518,11 +1593,8 @@ Overall, we can divide it into three parts:&lt;/p&gt;
 &lt;p&gt;Finally, the best solution will be found according to the category.&lt;/p&gt;
 
 &lt;p&gt;At the same time, we need to carry out this process &lt;strong&gt;multiple times&lt;/strong&gt; in the same project, and constantly improve and expand until a satisfactory result is achieved.&lt;/p&gt;
-
-&lt;h1 id=&quot;slides&quot;&gt;Slides&lt;/h1&gt;
-&lt;iframe src=&quot;https://docs.google.com/presentation/d/e/2PACX-1vTr02Z5Zn7lGTvEo2Jz5P0ADkz76YFfvNOnQUXeQiHwZ5CrpOJhR2fL8avHvWIIcQtWGTb6wOTmLNRS/embed?start=false&amp;amp;loop=true&amp;amp;delayms=15000&quot; frameborder=&quot;0&quot; width=&quot;700&quot; height=&quot;423&quot; allowfullscreen=&quot;true&quot; mozallowfullscreen=&quot;true&quot; webkitallowfullscreen=&quot;true&quot;&gt;&lt;/iframe&gt;
 </description>
-        <pubDate>Wed, 11 Dec 2019 00:00:00 -0600</pubDate>
+        <pubDate>Wed, 11 Dec 2019 00:00:00 -0500</pubDate>
         <link>http://localhost:4000/2019/12/11/ds-applications/</link>
         <guid isPermaLink="true">http://localhost:4000/2019/12/11/ds-applications/</guid>
         
@@ -604,7 +1676,7 @@ result_df %&amp;gt;%
 
 &lt;p&gt;As we can see, with the N increasing, the power under a certain correlation is growing up. In other words, when we can collect more samples, the probability that the study will end in success will be higher. And definitely, when the real correlation is higher, the probability will be higher.&lt;/p&gt;
 </description>
-        <pubDate>Fri, 22 Nov 2019 00:00:00 -0600</pubDate>
+        <pubDate>Fri, 22 Nov 2019 00:00:00 -0500</pubDate>
         <link>http://localhost:4000/2019/11/22/power-correlation/</link>
         <guid isPermaLink="true">http://localhost:4000/2019/11/22/power-correlation/</guid>
         
@@ -739,7 +1811,7 @@ mtext(text=&quot;slant = 100   slant = 10       slant = 2      slant = 0&quot;,
 
 &lt;p&gt;Definitely, when the N is bigger, the QQplot will fit the y=x line better, which means the CLT works better when it wants to simulate the distribution. And when the slant is bigger, in other words, the Skew-Normal distribution has higher skewness, it will be more difficult to simulate the distribution.&lt;/p&gt;
 </description>
-        <pubDate>Tue, 12 Nov 2019 00:00:00 -0600</pubDate>
+        <pubDate>Tue, 12 Nov 2019 00:00:00 -0500</pubDate>
         <link>http://localhost:4000/2019/11/12/clt/</link>
         <guid isPermaLink="true">http://localhost:4000/2019/11/12/clt/</guid>
         
@@ -756,7 +1828,10 @@ mtext(text=&quot;slant = 100   slant = 10       slant = 2      slant = 0&quot;,
     
       <item>
         <title>What makes a trending video?</title>
-        <description>&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+        <description>&lt;h1 id=&quot;slides&quot;&gt;Slides&lt;/h1&gt;
+&lt;iframe src=&quot;https://docs.google.com/presentation/d/e/2PACX-1vTN6OHLfZ70A3x6X97oe68aBpaGtQUUmvcnJ-n9QSCdz99m_S4hYXZYY__sMhHhwB0hapDY1y2HuHuo/embed?start=false&amp;amp;loop=true&amp;amp;delayms=30000&quot; frameborder=&quot;0&quot; width=&quot;700&quot; height=&quot;423&quot; allowfullscreen=&quot;true&quot; mozallowfullscreen=&quot;true&quot; webkitallowfullscreen=&quot;true&quot;&gt;&lt;/iframe&gt;
+
+&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
 
 &lt;p&gt;YouTube is one of the biggest media platforms of the 21st century.&lt;/p&gt;
 
@@ -1031,14 +2106,11 @@ As a content creator, you will have to make sure to keep that in mind while tryi
 
 &lt;p&gt;The model has 0.73 weighted average precision, which is a solid result. It further proves the importance of  the four features: &lt;strong&gt;title, channel_title, tags, description&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;h1 id=&quot;slides&quot;&gt;Slides&lt;/h1&gt;
-&lt;iframe src=&quot;https://docs.google.com/presentation/d/e/2PACX-1vTN6OHLfZ70A3x6X97oe68aBpaGtQUUmvcnJ-n9QSCdz99m_S4hYXZYY__sMhHhwB0hapDY1y2HuHuo/embed?start=false&amp;amp;loop=true&amp;amp;delayms=30000&quot; frameborder=&quot;0&quot; width=&quot;700&quot; height=&quot;423&quot; allowfullscreen=&quot;true&quot; mozallowfullscreen=&quot;true&quot; webkitallowfullscreen=&quot;true&quot;&gt;&lt;/iframe&gt;
-
 &lt;p&gt;&lt;em&gt;Hint 1: Project GitHub page: &lt;a href=&quot;https://github.com/waittim/Youtube-trending-videos-analysis&quot;&gt;Youtube-trending-videos-analysis&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;Hint 2: Data source: &lt;a href=&quot;https://www.kaggle.com/datasnaek/youtube-new&quot;&gt;Trending YouTube Video Statistics&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
 </description>
-        <pubDate>Tue, 29 Oct 2019 00:00:00 -0500</pubDate>
+        <pubDate>Tue, 29 Oct 2019 00:00:00 -0400</pubDate>
         <link>http://localhost:4000/2019/10/29/trending-video/</link>
         <guid isPermaLink="true">http://localhost:4000/2019/10/29/trending-video/</guid>
         
@@ -1050,1100 +2122,7 @@ As a content creator, you will have to make sure to keep that in mind while tryi
         
         <category>R</category>
         
-        
-      </item>
-    
-      <item>
-        <title>Simulation method comparison</title>
-        <description>&lt;h1 id=&quot;situation-description&quot;&gt;Situation description&lt;/h1&gt;
-
-&lt;p&gt;This time, I will perform a 2 × 4 × 2 factorial simulation study to compare the coverage probability of various methods of calculating &lt;strong&gt;90%&lt;/strong&gt; confidence intervals. The three factors in the experiment are:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;True, underlying distribution
-    &lt;ul&gt;
-      &lt;li&gt;standard normal&lt;/li&gt;
-      &lt;li&gt;gamma(shape = 1.4, scale = 3)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Model
-    &lt;ul&gt;
-      &lt;li&gt;method of moments with normal&lt;/li&gt;
-      &lt;li&gt;method of moments with gamma&lt;/li&gt;
-      &lt;li&gt;kernel density estimation&lt;/li&gt;
-      &lt;li&gt;bootstrap&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Parameter of interest
-    &lt;ul&gt;
-      &lt;li&gt;sample min (1st order statistic)&lt;/li&gt;
-      &lt;li&gt;median
-Other settings in the experiment that will not change are:
-    -   Sample size, &lt;em&gt;N&lt;/em&gt; = 201
-    -   &lt;em&gt;Outside the loop&lt;/em&gt; estimation&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&quot;define-functions&quot;&gt;Define functions&lt;/h1&gt;
-
-&lt;h2 id=&quot;data-generation-function&quot;&gt;Data generation function&lt;/h2&gt;
-
-&lt;p&gt;Set up data generate a function that can generate the data based on normal distribution or gamma distribution. The distribution will be defined by the parameter “dist”. The default parameter of the gamma distribution is shape=1.4 and scale=3.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;generate_data &amp;lt;- function(N, dist, sh=1.4, sc=3){
-  if(dist==&quot;norm&quot;){
-    rnorm(N)
-  }else if(dist==&quot;gamma&quot;){
-    rgamma(N, shape=sh, scale=sc)
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&quot;confidence-interval-estimation-function&quot;&gt;Confidence interval estimation function&lt;/h2&gt;
-
-&lt;p&gt;Then define the function for calculating the confidence interval, which can estimate the distribution by method of moment with normal distribution, method of moment with gamma distribution, kernel density distribution, and bootstrap. At the same time, the function can use the function defined by “par.int” to calculate the parameter we want. The details will be introduced in the chunk.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;estimate.ci &amp;lt;- function(data, mod, par.int, R=10, smoo=0.3){
-  # data: input data
-  # mod: define the estimation method and the distribution.
-  #      (MMnorm: method of moment with normal distribution,
-  #       MMgamma: method of moment with gamma distribution,
-  #       KDE: kernal density distribution,
-  #       Boot: bootstrap)
-  # par.int: the function what can get the parameter we want for the estimated distribution
-
-  N &amp;lt;- length(data) # save N as the number of the inputted data
-  sum.measure &amp;lt;- get(par.int) # make charactor can be used as function
-
-
-  if(mod==&quot;MMnorm&quot;){
-    # use method of moment with normal distribution to estimate
-
-    mm.mean &amp;lt;- mean(data) # get the original mean of data
-    mm.sd &amp;lt;- sd(data) # get the original standard deviation of data
-
-    samp.dist &amp;lt;- NA #
-    for(i in 1:R){
-      sim.data &amp;lt;-rnorm(length(data), mm.mean, mm.sd)
-      # use the mean &amp;amp; sd of data to generate a new normal distribution
-      if(par.int==&quot;median&quot;){
-        samp.dist[i] &amp;lt;- median(sim.data)
-        # save the median of generated distribution
-      }else if(par.int==&quot;min&quot;){
-        samp.dist[i] &amp;lt;- min(sim.data)
-        # save the min of generated distribution
-      }
-    }
-    return(quantile(samp.dist, c(0.05, 0.95)))
-    # the output will be the 95% confidence interval of needed distribution
-
-  }else if(mod==&quot;MMgamma&quot;){
-    # use method of moment with gamma distribution to estimate
-
-    mm.shape &amp;lt;- mean(data)^2/var(data)
-    # get the original shape parameter of data
-    mm.scale &amp;lt;- var(data)/mean(data)
-    # get the original scale parameter of data
-
-    #create a N*R array to reserve the gamma distributions
-    sim.data &amp;lt;- array(rgamma(length(data)*R, shape=mm.shape, scale=mm.scale), dim=c(N, R))
-    # use the function called by par.int for each column and reserve the results as a distribution
-    samp.dist &amp;lt;- apply(sim.data, 2, FUN=sum.measure)
-    return(quantile(samp.dist, c(0.05, 0.95)))
-    # the output will be the 95% confidence interval of needed distribution
-
-  }else if(mod==&quot;KDE&quot;){
-    # use kernal density estimation
-
-    ecdfstar &amp;lt;- function(t, data, smooth=smoo){
-        # use pnorm function which has sd=smoo on the outer product of t and data.
-        # t[i] is the quantile, data[j] is the mean for pnorm.
-        # in other words, calculate the persentage under quantile &quot;t&quot; of distribution &quot;data&quot;
-        outer(t, data, function(a,b){ pnorm(a, b, smooth)}) %&amp;gt;%
-        rowMeans
-        # then count the mean of each row, AKA, the mean persentage under quantile &quot;t&quot;
-    }
-
-    # create a 1 column data frame with a sequence from min-sd to max+sd of the data with break=0.01
-    tbl &amp;lt;- data.frame(
-        x = seq(min(data)-sd(data), max(data)+sd(data),
-                by = 0.01)
-    )
-
-    tbl$p &amp;lt;- ecdfstar(tbl$x, data, smoo)
-    # add a new column called p reserve the result of ecdfstar function
-    tbl &amp;lt;- tbl[!duplicated(tbl$p),]
-    # remove all of rows which contain the duplicated value in column &quot;p&quot;.
-
-    qkde &amp;lt;- function(ps, tbl){
-      # convert &quot;ps&quot; to a factor with the break as column &quot;p&quot; in &quot;tbl&quot; data frame
-      rows &amp;lt;- cut(ps, tbl$p, labels = FALSE)
-      tbl[rows, &quot;x&quot;]
-      # return the part of column &quot;x&quot; which match the rows number factor
-    }
-
-    U &amp;lt;- runif(N*R) # create a uniform distribution with the size=N*R
-
-    # reserve the result of qkde as a N*R matrix
-    sim.data &amp;lt;- array(qkde(U,tbl), dim=c(N, R))
-    # use the function called by par.int for each column and reserve the results as a distribution
-    samp.dist &amp;lt;- apply(sim.data, 2, sum.measure)
-
-    return(quantile(samp.dist, c(0.05, 0.95), na.rm=TRUE))
-    # the output will be the 95% confidence interval
-
-  }else if(mod==&quot;Boot&quot;){
-    # use bootstrap
-
-    # get random sample with size=N from the data R times, reserve the result as a N*R matrix
-    sim.data &amp;lt;- array(sample(data, N*R, replace=TRUE), dim=c(N,R))
-    # use the function called by par.int for each column and reserve the results as a distribution
-    samp.dist &amp;lt;- apply(sim.data, 2, sum.measure)
-
-    return(quantile(samp.dist, c(0.05, 0.95), na.rm=TRUE))
-    # the output will be the 95% confidence interval
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&quot;destination-capture-function&quot;&gt;Destination capture function&lt;/h2&gt;
-
-&lt;p&gt;Create a function to justify that is the confidence interval matches the requirement. When the result is TRUE, return 1.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;capture_par &amp;lt;- function(ci, true.par){
-  1*(ci[1] &amp;lt; true.par &amp;amp; true.par &amp;lt; ci[2])
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&quot;simulation&quot;&gt;Simulation&lt;/h1&gt;
-
-&lt;h2 id=&quot;calculation-prepare&quot;&gt;Calculation prepare&lt;/h2&gt;
-
-&lt;p&gt;Now we can set the size of distribution N is 201. When use gamma distribution, we will use the shape 1.4 and scale 3.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;N &amp;lt;- 201
-shape.set &amp;lt;- 1.4
-scale.set &amp;lt;- 3
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Define the capture destinations.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;true.norm.med &amp;lt;- qnorm(0.5)
-true.norm.min &amp;lt;- mean(apply(array(rnorm(N*10000), dim=c(N, 10000)),2,min))
-true.gamma.med &amp;lt;- qgamma(0.5, shape = shape.set, scale=scale.set)
-true.gamma.min &amp;lt;- mean(apply(array(rgamma(N*10000, shape=shape.set, scale=scale.set), dim=c(N, 10000)),2,min))
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;For the standard min of distribution part, we expand the data size for 10000 times and get the mean min value as the standard min.&lt;/p&gt;
-
-&lt;p&gt;Create a table called “simsettings” to reserve the results of each estimation method and the target parameter.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;simsettings &amp;lt;- expand.grid(dist=c(&quot;norm&quot;, &quot;gamma&quot;), model=c(&quot;MMnorm&quot;, &quot;MMgamma&quot;, &quot;KDE&quot;, &quot;Boot&quot;), par.int=c(&quot;median&quot;, &quot;min&quot;), cov.prob=NA,  stringsAsFactors = FALSE, KEEP.OUT.ATTRS = FALSE)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Add a new column to reserve the capture destinations.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;simsettings$truth &amp;lt;- c(true.norm.med, true.gamma.med, true.norm.med, true.gamma.med, true.norm.med, true.gamma.med, true.norm.med, true.gamma.med, true.norm.min, true.gamma.min, true.norm.min, true.gamma.min, true.norm.min, true.gamma.min, true.norm.min, true.gamma.min)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&quot;calculation&quot;&gt;Calculation&lt;/h2&gt;
-
-&lt;p&gt;Base on the “simsettings” table, calculate the capture probabilities and reserve them in the table.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;for(k in c(1:2,4:10,12:16)){
-  dist1 &amp;lt;- simsettings[k,1]
-  model1 &amp;lt;- simsettings[k,2]
-  par.int1 &amp;lt;- simsettings[k,3]
-  true.par1 &amp;lt;- simsettings[k,5]
-
-  cover &amp;lt;- NA
-  for(sims in 1:100){
-    cover[sims] &amp;lt;- generate_data(N, dist1) %&amp;gt;%
-    estimate.ci(mod=model1, par.int=par.int1, R=1000) %&amp;gt;%
-    capture_par(true.par = true.par1)
-  }
-  simsettings[k,4] &amp;lt;- mean(cover)
-}
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
-
-&lt;p&gt;Show the result table.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;simsettings
-&lt;/code&gt;&lt;/pre&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;##     dist   model par.int cov.prob       truth
-## 1   norm  MMnorm  median     0.99  0.00000000
-## 2  gamma  MMnorm  median     0.01  3.25311453
-## 3   norm MMgamma  median       NA  0.00000000
-## 4  gamma MMgamma  median     0.97  3.25311453
-## 5   norm     KDE  median     0.94  0.00000000
-## 6  gamma     KDE  median     0.93  3.25311453
-## 7   norm    Boot  median     0.94  0.00000000
-## 8  gamma    Boot  median     0.90  3.25311453
-## 9   norm  MMnorm     min     1.00 -2.74462674
-## 10 gamma  MMnorm     min     0.00  0.07277036
-## 11  norm MMgamma     min       NA -2.74462674
-## 12 gamma MMgamma     min     0.99  0.07277036
-## 13  norm     KDE     min     0.94 -2.74462674
-## 14 gamma     KDE     min     0.35  0.07277036
-## 15  norm    Boot     min     0.40 -2.74462674
-## 16 gamma    Boot     min     0.57  0.07277036
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Definitely, for the method of moment part, when the data distribution matches the model distribution (e.g. norm - MMnorm, gamma - MMgamma), the capture probabilities are more than 90%. When the distributions do not match with each other, the results will be close to 0% or NA.&lt;/p&gt;
-
-&lt;p&gt;And for kernel density estimation, when we need to get the median of the distributions, the results are pretty good as close to 100%. But when we need to get the min of the distributions, the capture probabilities of normal and gamma are really different. For the normal distribution, it works well, but for gamma distribution, it is about 37%. The reason might be that gamma distribution is a skewed distribution.&lt;/p&gt;
-
-&lt;p&gt;For the bootstrap part, the results are not as good as others. When we want to get the median of the distributions, the capture probabilities are just about 90%. And when it comes to min of the distributions, the probabilities become 50%. Obviously, it is because selecting a sample randomly is too difficult to get the min point every time.&lt;/p&gt;
-</description>
-        <pubDate>Sun, 27 Oct 2019 00:00:00 -0500</pubDate>
-        <link>http://localhost:4000/2019/10/27/simulation-compare/</link>
-        <guid isPermaLink="true">http://localhost:4000/2019/10/27/simulation-compare/</guid>
-        
-        <category>Probability</category>
-        
-        <category>Simulation</category>
-        
-        <category>R</category>
-        
-        <category>Method of Moments</category>
-        
-        <category>KDE</category>
-        
-        <category>Bootstrap</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Coverage probability of MLE</title>
-        <description>&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;In statistics, maximum likelihood estimation (MLE) is a method of estimating the parameters of a probability distribution by maximizing a likelihood function, so that under the assumed statistical model the observed data is most probable. The point in the parameter space that maximizes the likelihood function is called the maximum likelihood estimate. The logic of maximum likelihood is both intuitive and flexible, and as such the method has become a dominant means of statistical inference.
-&lt;em&gt;From &lt;a href=&quot;https://en.wikipedia.org/wiki/Maximum_likelihood_estimation&quot;&gt;Wikipedia - Maximum likelihood estimation&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Coverage probability is an important operating characteristic of methods for constructing interval estimates, particularly confidence intervals.&lt;/p&gt;
-
-&lt;p&gt;The destination of this blog is that performing a simulation to calculate the coverage probability of the 95% confidence interval of the median when computed from F&lt;sub&gt;X&lt;/sub&gt;&lt;sup&gt;mle&lt;/sup&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;library(stats4)
-library(tidyverse)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&quot;step-1-single-sample&quot;&gt;Step 1: Single sample&lt;/h1&gt;
-&lt;p&gt;&lt;strong&gt;Generate a single sample from a standard normal distribution of size N = 201.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;First, let’s set the size of distribution (N) as 201, and create a standard normal distribution as sample.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;N &amp;lt;- 201
-sample1 &amp;lt;- rnorm(201)
-median(sample1)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Then use the MLE function we learned before.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;nll &amp;lt;- function(mean, sd) {
-  fs &amp;lt;- dnorm(sample1,
-              mean = mean,
-              sd = sd,
-              log = TRUE)
-  - sum(fs, na.rm = T)
-}
-
-fit &amp;lt;- stats4::mle(
-  nll,
-  start = list(mean = 0, sd = 1),
-  method = &quot;L-BFGS-B&quot;,
-  lower = c(0, 0.01)
-)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;By the result of MLE, we can get the estimated mean and standard deviation of the sample distribution before.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;coef(fit)
-sample1_mean &amp;lt;- coef(fit)[[1]]
-sample1_sd &amp;lt;- coef(fit)[[2]]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The estimated mean is &lt;code class=&quot;highlighter-rouge&quot;&gt;r sample1_mean&lt;/code&gt; and the estimated standard deviation is &lt;code class=&quot;highlighter-rouge&quot;&gt;r sample1_sd&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h1 id=&quot;step-2-approximate-median-distribution&quot;&gt;Step 2: Approximate median distribution&lt;/h1&gt;
-&lt;p&gt;&lt;strong&gt;Approximate the sampling distribution of the median, conditional on the estimate of the distribution in the previous step.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;In the previous step, we get a pair of estimated mean and standard deviation. Based on the parameter, we can generate new distributions to simulate the original distribution.&lt;/p&gt;
-
-&lt;p&gt;Now we need to get the median of the new distribution, and if repeat the process for lots of time, we can get the distribution of the median of the estimated distribution.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;median_list &amp;lt;- rep(NA, 500)
-for (i in seq_along(median_list)) {
-  median_list[i] &amp;lt;-
-    median(rnorm(N, mean = sample1_mean, sd = sample1_sd))
-}
-#hist(median_list,breaks = 100)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&quot;step-3-calculate-95-ci&quot;&gt;Step 3: Calculate 95% CI&lt;/h1&gt;
-&lt;p&gt;&lt;strong&gt;Calculate a 95% confidence interval from the approximated sampling distribution.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;For the median distribution we got in the previous step, we can use &lt;em&gt;quantile()&lt;/em&gt; function to get the 95% confidence interval.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;sample1_quantile95 &amp;lt;- quantile(median_list, c(0.025, 0.975))
-sample1_quantile95
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&quot;step-4-calculate-coverage-probability&quot;&gt;Step 4: Calculate coverage probability&lt;/h1&gt;
-&lt;p&gt;&lt;strong&gt;Now we will explain the concept of coverage probability. And calculating the coverage probability.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;First, create a matrix to save the distributions we are going to generate. Every column is one distribution. Then use the method in the previous steps, generate all of the distributions.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;samples &amp;lt;- matrix(nrow = N, ncol = 1000)
-for (i in 1:ncol(samples)) {
-  samples[, i] &amp;lt;- rnorm(N)
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now create a matrix to save the estimated parameters of each distribution.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;coef &amp;lt;- matrix(nrow = 2, ncol = ncol(samples))
-for (i in 1:ncol(samples)) {
-
-  coef[1, i] &amp;lt;- mean(samples[, i]) #coef(fit)[[1]]
-  coef[2, i] &amp;lt;- sd(samples[, i]) #coef(fit)[[2]]
-
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now create a matrix to save 95% confidence interval.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;quantile95_list &amp;lt;- matrix(nrow = 2, ncol = ncol(samples))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;For each pair of estimated parameters, create an estimated distribution, then get the median number. Then also do the process for &lt;code class=&quot;highlighter-rouge&quot;&gt;r N&lt;/code&gt; times, get the 95% confidence interval and save them in the matrix.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;for (j in 1:ncol(samples)) {
-  median_list &amp;lt;- rep(NA, N)
-  for (i in seq_along(median_list)) {
-    norm_dist &amp;lt;- rnorm(N, mean = coef[1, j], sd = coef[2, j])
-    median_list[i] &amp;lt;- median(norm_dist)
-  }
-  quantile95 &amp;lt;- quantile(median_list, c(0.025, 0.975))
-  quantile95_list[1, j] &amp;lt;- quantile95[[1]]
-  quantile95_list[2, j] &amp;lt;- quantile95[[2]]
-
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;For calculating the coverage probability, we can save all of the results of judgment in a vector. Definitely, the coverage probability is the number of successful capture divide by the number of distribution.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;interest &amp;lt;- rep(NA, ncol(samples))
-for (i in seq_along(interest)) {
-  interest[i] &amp;lt;-
-    case_when(
-      quantile95_list[1, i] &amp;gt; 0 | quantile95_list[2, i] &amp;lt; 0 ~ 0,
-      quantile95_list[1, i] &amp;lt;= 0 &amp;amp;
-        quantile95_list[2, i] &amp;gt;= 0 ~ 1,
-    )
-}
-coverage_probability &amp;lt;- sum(interest) / length(interest)
-sum(interest)
-coverage_probability
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This time, the coverage probability is &lt;code class=&quot;highlighter-rouge&quot;&gt;r coverage_probability&lt;/code&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;sum(quantile95_list[2,] &amp;lt; 0)
-sum(quantile95_list[1,] &amp;gt; 0)
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&quot;step-5-simulation-visualization&quot;&gt;Step 5: Simulation visualization&lt;/h1&gt;
-&lt;p&gt;&lt;strong&gt;Perform the simulation.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;In order to make the results more intuitive, we can use &lt;em&gt;geom_linerange()&lt;/em&gt; function in &lt;em&gt;ggplot&lt;/em&gt; to draw the 95% confidence interval. And set the 95% confidence interval which did not capture the real mean of the original distribution, “0” as a red line.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;quantile95_df &amp;lt;- as.data.frame(t(quantile95_list))
-quantile95_df[&quot;sample_num&quot;] &amp;lt;- seq(1:ncol(samples))
-quantile95_df[&quot;interest&quot;] &amp;lt;- interest
-ggplot(quantile95_df) +
-  geom_linerange(aes(x = sample_num,
-                     ymin = V1,
-                     ymax = V2),
-                 color = case_when(interest == 1 ~ &quot;blue&quot;,
-                                   interest == 0 ~ &quot;red&quot;)) +
-  geom_hline(yintercept = 0,
-             color = &quot;gray&quot;,
-             alpha = 0.7) +
-  coord_flip() +
-  theme_bw()
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/9MPrGHm9/prob7-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;step-6-future-works&quot;&gt;Step 6: Future works&lt;/h1&gt;
-&lt;p&gt;&lt;strong&gt;How to change the simulation to learn more about the operating characteristics of the chosen method for constructing the 95% confidence interval.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;I think I will choose to use bigger distribution to test the process, likes set the N as 5000 or 10000. And I could calculate the other quantile of the distributions to find out is there any difference. After that, maybe I will use other distribution but not a standard normal distribution, such as gamma or beta distribution.&lt;/p&gt;
-</description>
-        <pubDate>Tue, 15 Oct 2019 00:00:00 -0500</pubDate>
-        <link>http://localhost:4000/2019/10/15/coverage-probability/</link>
-        <guid isPermaLink="true">http://localhost:4000/2019/10/15/coverage-probability/</guid>
-        
-        <category>Probability</category>
-        
-        <category>Simulation</category>
-        
-        <category>R</category>
-        
-        <category>MLE</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Which quantiles of a continuous distribution can one estimate with more precision?</title>
-        <description>&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
-
-&lt;p&gt;The median is an important quantity in data analysis. It represents the middle value of the data distribution. Estimates of the median, however, have a degree of uncertainty because (a) the estimates are calculated from a finite sample and (b) the data distribution of the underlying data is generally unknown. One important role of a data scientist is to quantify and to communicate the degree of uncertainty in his or her data analysis.&lt;/p&gt;
-
-&lt;p&gt;This time, we are going to find out what can make our sample distribution more precise during the simulation.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;library(tidyverse)
-library(reshape2)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&quot;standard-normal-distribution&quot;&gt;Standard Normal Distribution&lt;/h1&gt;
-
-&lt;p&gt;First, we need to set up the initial parameters. For every simulation process, we will generate 200 values base on the standard normal distribution, and we will generate them for 5000 times.&lt;/p&gt;
-
-&lt;p&gt;Therefore, set the sample size as 200, the test number is 5000.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;sample_size &amp;lt;- 200
-test_num &amp;lt;- 5000
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Then let’s create a function to find out the quantile values of each test and output them as sequences.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;find_quantile_value &amp;lt;- function(fn,sample_size, quantile_position){
-  sample &amp;lt;- fn(sample_size)
-  qtseq &amp;lt;- quantile(sample, seq(0.05,0.95,0.05))
-  qtseq[[quantile_position]]
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;In order to store the values of each quantile, we can create a data frame. For there are 19 quantiles and 5000 tests, the data frame should be a 5000*19 table.
-Then use for-loop traverse each test and each quantile.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;sml_results &amp;lt;- as.data.frame(matrix(NA, nrow = test_num, ncol = 19))
-
-for(i in 1:nrow(sml_results)){
-  for(q in 1:ncol(sml_results)){
-    sml_results[i,q] &amp;lt;- find_quantile_value(rnorm,sample_size, q)
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now we need to find the middle 95% length of the distributions of each quantile value.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;length_list &amp;lt;- rep(NA,ncol(sml_results))
-for(q in 1:ncol(sml_results)){
-  quantile_2.5_97.5&amp;lt;- quantile(sml_results[,q], c(0.025, 0.975))
-  length_list[q] &amp;lt;- quantile_2.5_97.5[[2]]-quantile_2.5_97.5[[1]]
-}
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Save the data we got before into a data frame and plot them.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;length_df &amp;lt;- as.data.frame(matrix(ncol = 2, nrow = length(length_list)))
-names(length_df) &amp;lt;- c(&quot;quantile_position&quot;,&quot;mid95_length&quot;)
-length_df[,1] &amp;lt;- seq(0.05,0.95,0.05)
-length_df[,2] &amp;lt;- length_list
-ggplot(length_df,aes(x=quantile_position,y=mid95_length))+
-  geom_point()+geom_line()+
-  labs(title = &quot;Length of middle 95% of normal distribution&quot;)+
-  scale_x_continuous(
-    name = &quot;pth quantile&quot;,
-    breaks = seq(0.05, 0.95, 0.05)
-  )+
-  scale_y_continuous(name = &quot;Length&quot;)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/J0jRCrkY/prob5-s1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;as we can see, when the quantile is approaching 50%, the length is going lower. It means that when the quantile is approaching 50%, simulation error is lower. It means when the quantile is 50%, it has the best precision.&lt;/p&gt;
-
-&lt;p&gt;In other words, when the quantile is 50%, the median has the tightest sampling distribution.&lt;/p&gt;
-
-&lt;p&gt;Then, we need to transfer the x-axis from quantile to the density values of the original distribution. In this part, it should be a standard normal distribution.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;length_d_df &amp;lt;- length_df %&amp;gt;%
-  mutate(density=dnorm(qnorm(quantile_position)))
-
-ggplot(length_d_df, aes(x=density,y=mid95_length))+
-  geom_point()+geom_line()+
-  labs(title = &quot;Length of middle 95% of normal distribution by density&quot;, x= &quot;Density&quot;,y=&quot;Length&quot;)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/9QLChND2/prob5-s2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;In this graph, we can find when density is bigger, the simulation error is lower.&lt;/p&gt;
-
-&lt;h1 id=&quot;exponential-distribution&quot;&gt;Exponential Distribution&lt;/h1&gt;
-
-&lt;p&gt;Distribution 2 is the exponential distribution with rate = 1.&lt;/p&gt;
-
-&lt;p&gt;As we did before, calculate the values of each quantile and each test then plot the graph.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;
-for(i in 1:nrow(sml_results)){
-  for(q in 1:ncol(sml_results)){
-    sml_results[i,q] &amp;lt;- find_quantile_value(rexp,sample_size, q)
-  }
-}
-
-length_list &amp;lt;- rep(NA,ncol(sml_results))
-for(q in 1:ncol(sml_results)){
-  quantile_2.5_97.5&amp;lt;- quantile(sml_results[,q], c(0.025, 0.975))
-  length_list[q] &amp;lt;- quantile_2.5_97.5[[2]]-quantile_2.5_97.5[[1]]
-}
-
-length_df &amp;lt;- as.data.frame(matrix(ncol = 2, nrow = length(length_list)))
-names(length_df) &amp;lt;- c(&quot;quantile_position&quot;,&quot;mid95_length&quot;)
-length_df[,1] &amp;lt;- seq(0.05,0.95,0.05)
-length_df[,2] &amp;lt;- length_list
-ggplot(length_df,aes(x=quantile_position,y=mid95_length))+
-  geom_point()+geom_line()+
-  labs(title = &quot;Length of middle 95% of exponential distribution&quot;)+
-  scale_x_continuous(
-    name = &quot;pth quantile&quot;,
-    breaks = seq(0.05, 0.95, 0.05)
-  )+
-  scale_y_continuous(name = &quot;Length&quot;)
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/cCtNMsh4/prob5-e1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;For this exponential distribution, when quantile is bigger, the error of simulation is bigger.&lt;/p&gt;
-
-&lt;p&gt;In other words, when the quantile is 5%, the median has the tightest sampling distribution.&lt;/p&gt;
-
-&lt;p&gt;And when the Density is higher, the error is smaller.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;length_d_df &amp;lt;- length_df %&amp;gt;%
-  mutate(density=dexp(qexp(quantile_position)))
-
-ggplot(length_d_df, aes(x=density,y=mid95_length))+
-  geom_point()+geom_line()+
-  labs(title = &quot;Length of middle 95% of exponential distribution by density&quot;, x= &quot;Density&quot;,y=&quot;Length&quot;)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/GmdmryzF/prob5-e2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;mixture-distribution-3&quot;&gt;Mixture Distribution 3&lt;/h1&gt;
-
-&lt;p&gt;Distribution 3 is a mixture distribution defined by these functions.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;rf3 &amp;lt;- function(N){
-  G &amp;lt;- sample(0:2, N, replace = TRUE, prob = c(5,3,2))
-  (G==0)*rnorm(N) + (G==1)*rnorm(N,4) + (G==2)*rnorm(N,-4,2)
-}
-
-pf3 &amp;lt;- function(x){
-  .5*pnorm(x) + .3*pnorm(x,4) + .2*pnorm(x,-4,2)
-}
-
-df3 &amp;lt;- function(x){
-  .5*dnorm(x) + .3*dnorm(x,4) + .2*dnorm(x,-4,2)
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;And just like we did in previous chunks, plot the middle 95% length of the quantiles.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;for(i in 1:nrow(sml_results)){
-  for(q in 1:ncol(sml_results)){
-    sml_results[i,q] &amp;lt;- find_quantile_value(rf3,sample_size, q)
-  }
-}
-
-length_list &amp;lt;- rep(NA,ncol(sml_results))
-for(q in 1:ncol(sml_results)){
-  quantile_2.5_97.5&amp;lt;- quantile(sml_results[,q], c(0.025, 0.975))
-  length_list[q] &amp;lt;- quantile_2.5_97.5[[2]]-quantile_2.5_97.5[[1]]
-}
-
-length_df &amp;lt;- as.data.frame(matrix(ncol = 2, nrow = length(length_list)))
-names(length_df) &amp;lt;- c(&quot;quantile_position&quot;,&quot;mid95_length&quot;)
-length_df[,1] &amp;lt;- seq(0.05,0.95,0.05)
-length_df[,2] &amp;lt;- length_list
-ggplot(length_df,aes(x=quantile_position,y=mid95_length))+
-  geom_point()+geom_line()+
-  labs(title = &quot;Length of middle 95% of given mixture distribution 3&quot;)+
-  scale_x_continuous(
-    name = &quot;pth quantile&quot;,
-    breaks = seq(0.05, 0.95, 0.05)
-  )+
-  scale_y_continuous(name = &quot;Length&quot;)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/rwjFpwYv/prob5-m31.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Definitely, when the quantile is 40%, the median has the tightest sampling distribution.&lt;/p&gt;
-
-&lt;p&gt;We don’t have the qf3 function, therefore we need to use the pf3 function to calculate the values when their counterpart quantile is set. And the other part is the same as previous chunks.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;pf3 &amp;lt;- function(x){
-  .5*pnorm(x) + .3*pnorm(x,4) + .2*pnorm(x,-4,2)
-}
-
-quantile_seq &amp;lt;- seq(0.05,0.95,0.05)
-qf3_seq &amp;lt;- rep(NA, length(quantile_seq))
-for(i in seq_along(quantile_seq)){
-qf3_seq[i] &amp;lt;- uniroot(function(x){pf3(x)-quantile_seq[i]}, c(-100,100))[[1]]
-}
-
-length_d_df &amp;lt;- length_df %&amp;gt;%
-  mutate(density=df3(qf3_seq))
-
-ggplot(length_d_df, aes(x=density,y=mid95_length))+
-  geom_point()+geom_line()+
-  labs(title = &quot;Length of middle 95% of given mixture distribution 3 by density&quot;, x= &quot;Density&quot;,y=&quot;Length&quot;)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/N00G2v3L/prob5-m32.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;mixture-distribution-4&quot;&gt;Mixture Distribution 4&lt;/h1&gt;
-
-&lt;p&gt;Mixture Distribution 4 is the following mixture distribution.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;rf4 &amp;lt;- function(N){
-  G &amp;lt;- sample(0:1, N, replace = TRUE)
-  (G==0)*rbeta(N,5,1) + (G==1)*rbeta(N,1,5)
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;As previous chunks, we can plot the length of each quantile.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;for(i in 1:nrow(sml_results)){
-  for(q in 1:ncol(sml_results)){
-    sml_results[i,q] &amp;lt;- find_quantile_value(rf4,sample_size, q)
-  }
-}
-
-length_list &amp;lt;- rep(NA,ncol(sml_results))
-for(q in 1:ncol(sml_results)){
-  quantile_2.5_97.5&amp;lt;- quantile(sml_results[,q], c(0.025, 0.975))
-  length_list[q] &amp;lt;- quantile_2.5_97.5[[2]]-quantile_2.5_97.5[[1]]
-}
-
-length_df &amp;lt;- as.data.frame(matrix(ncol = 2, nrow = length(length_list)))
-names(length_df) &amp;lt;- c(&quot;quantile_position&quot;,&quot;mid95_length&quot;)
-length_df[,1] &amp;lt;- seq(0.05,0.95,0.05)
-length_df[,2] &amp;lt;- length_list
-ggplot(length_df,aes(x=quantile_position,y=mid95_length))+
-  geom_point()+geom_line()+
-  labs(title = &quot;Length of middle 95% of given mixture distribution 4&quot;)+
-  scale_x_continuous(
-    name = &quot;pth quantile&quot;,
-    breaks = seq(0.05, 0.95, 0.05)
-  )+
-  scale_y_continuous(name = &quot;Length&quot;)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/YSyr1y7R/prob5-m41.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Definitely, when the quantile is 5% or 95%, the median has the tightest sampling distribution.&lt;/p&gt;
-
-&lt;p&gt;Base on the rf4 function we had, we can write the pf4 and df4 functions. After that, use the method we used to plot the graph.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;rf4 &amp;lt;- function(N){
-  G &amp;lt;- sample(0:1, N, replace = TRUE)
-  (G==0)*rbeta(N,5,1) + (G==1)*rbeta(N,1,5)
-}
-
-pf4 &amp;lt;- function(x){
-  .5*pbeta(x,5,1) + .5*pbeta(x,1,5)
-}
-
-df4 &amp;lt;- function(x){
-  .5*dbeta(x,5,1) + .5*dbeta(x,1,5)
-}
-
-quantile_seq &amp;lt;- seq(0.05,0.95,0.05)
-qf4_seq &amp;lt;- rep(NA, length(quantile_seq))
-for(i in seq_along(quantile_seq)){
-qf4_seq[i] &amp;lt;- uniroot(function(x){pf4(x)-quantile_seq[i]}, c(-100,100))[[1]]
-}
-
-
-length_d_df &amp;lt;- length_df %&amp;gt;%
-  mutate(density=df4(qf4_seq))
-
-ggplot(length_d_df, aes(x=density,y=mid95_length))+
-  geom_point()+geom_line()+
-  labs(title = &quot;Length of middle 95% of given mixture distribution 4 by density&quot;, x= &quot;Density&quot;,y=&quot;Length&quot;)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/hjzSMbPB/prob5-m42.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;other-tests&quot;&gt;Other Tests&lt;/h1&gt;
-
-&lt;p&gt;In this part, we will focus on the situations that when sample size becomes 400, 800 and 1600.&lt;/p&gt;
-
-&lt;p&gt;Now use a for loop to generate all of the data given different sample sizes.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;sample_size &amp;lt;- c(400,800,1600)
-test_num &amp;lt;- 5000
-
-length_df &amp;lt;- as.data.frame(matrix(ncol = 1+length(sample_size), nrow = length(length_list)))
-names(length_df) &amp;lt;- c(&quot;quantile_position&quot;,&quot;400_mid95_length&quot;,&quot;800_mid95_length&quot;,&quot;1600_mid95_length&quot;)
-length_df[,1] &amp;lt;- seq(0.05,0.95,0.05)
-
-for(n in seq_along(sample_size)){
-
-  sml_results &amp;lt;- as.data.frame(matrix(NA, nrow = test_num, ncol = 19))
-
-  for(i in 1:nrow(sml_results)){
-    for(q in 1:ncol(sml_results)){
-      sml_results[i,q] &amp;lt;- find_quantile_value(rnorm,sample_size[n], q)
-    }
-  }
-
-  length_list &amp;lt;- rep(NA,ncol(sml_results))
-  for(q in 1:ncol(sml_results)){
-    quantile_2.5_97.5&amp;lt;- quantile(sml_results[,q], c(0.025, 0.975))
-    length_list[q] &amp;lt;- quantile_2.5_97.5[[2]]-quantile_2.5_97.5[[1]]
-  }
-
-  length_df[,1+n] &amp;lt;- length_list
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Then plot the graph of different sample sizes and compare them.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;length_df %&amp;gt;%
-  melt(id = &quot;quantile_position&quot;) %&amp;gt;%
-  ggplot()+
-  geom_line(aes(x=quantile_position,y=value,color=variable))+
-  labs(title = &quot;Length of middle 95% of normal distribution given different sample sizes&quot;, y = &quot;Length&quot;)+
-  scale_x_continuous(
-    name = &quot;pth quantile&quot;,
-    breaks = seq(0.05, 0.95, 0.05)
-  )
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/Vkfm2cL4/prob5-o1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;length_df %&amp;gt;%
-  mutate(density=dnorm(qnorm(quantile_position))) %&amp;gt;%
-  select(-quantile_position) %&amp;gt;%
-  melt(id = &quot;density&quot;) %&amp;gt;%
-  ggplot()+
-  geom_line(aes(x=density,y=value,color=variable))+
-  labs(title = &quot;Length of middle 95% of normal distribution given different sample sizes&quot;, y = &quot;Length&quot;)+
-  scale_x_continuous(
-    name = &quot;pth quantile&quot;,
-    breaks = seq(0.05, 0.95, 0.05)
-  )
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/J4cRThmG/prob5-o2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Definitely, when the sample size is bigger, the error of simulation will be smaller.&lt;/p&gt;
-
-&lt;p&gt;In a word, when you have more simulation test, when the test number is increasing, the length will be smaller, which means the error of simulation is less than before.&lt;/p&gt;
-</description>
-        <pubDate>Wed, 18 Sep 2019 00:00:00 -0500</pubDate>
-        <link>http://localhost:4000/2019/09/18/quantile-precision/</link>
-        <guid isPermaLink="true">http://localhost:4000/2019/09/18/quantile-precision/</guid>
-        
-        <category>Probability</category>
-        
-        <category>Simulation</category>
-        
-        <category>R</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Visualization Cheat Sheet</title>
-        <description>&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/VkNRNRdQ/image.png&quot; alt=&quot;Visualization cheat sheet&quot; title=&quot;Visualization cheat sheet&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Created by &lt;strong&gt;Zekun Wang&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Base on &lt;strong&gt;Storytelling With Data&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Download: &lt;a href=&quot;https://github.com/waittim/waittim.github.io/raw/master/gallery/Visualizations%20cheatsheet.pdf&quot;&gt;PDF version&lt;/a&gt;&lt;/p&gt;
-</description>
-        <pubDate>Fri, 13 Sep 2019 00:00:00 -0500</pubDate>
-        <link>http://localhost:4000/2019/09/13/visualization-cheatsheet/</link>
-        <guid isPermaLink="true">http://localhost:4000/2019/09/13/visualization-cheatsheet/</guid>
-        
-        <category>Visualization</category>
-        
-        <category>Cheat sheet</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>If home-field advantage exists, how much of an impact does it have on winning the world series?</title>
-        <description>&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.technadu.com/wp-content/uploads/2019/05/World-Series-Logo.png&quot; alt=&quot;WORLD SERIES&quot; /&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;In team sports, the term home advantage – also called home ground, home field, home-field advantage, home court, home-court advantage, defender’s advantage or home-ice advantage – describes the benefit that the home team is said to gain over the visiting team. This benefit has been attributed to psychological effects supporting fans have on the competitors or referees; to psychological or physiological advantages of playing near home in familiar situations; to the disadvantages away teams suffer from changing time zones or climates, or from the rigors of travel; … In baseball, in particular, the difference may also be the result of the home team having been assembled to take advantage of the idiosyncrasies of the home ballpark, such as the distances to the outfield walls; most other sports are played in standardized venues.
-&lt;em&gt;From &lt;a href=&quot;https://en.wikipedia.org/wiki/Home_advantage&quot;&gt;Wikipedia - Home advantage&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;This time we will also talk about the competitions between the Braves and the Yankee, and the table below has the two possible schedules for each game of the series. (NYC = New York City, ATL = Atlanta)&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Overall advantage&lt;/th&gt;
-      &lt;th&gt;Game 1&lt;/th&gt;
-      &lt;th&gt;Game 2&lt;/th&gt;
-      &lt;th&gt;Game 3&lt;/th&gt;
-      &lt;th&gt;Game 4&lt;/th&gt;
-      &lt;th&gt;Game 5&lt;/th&gt;
-      &lt;th&gt;Game 6&lt;/th&gt;
-      &lt;th&gt;Game 7&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Braves&lt;/td&gt;
-      &lt;td&gt;ATL&lt;/td&gt;
-      &lt;td&gt;ATL&lt;/td&gt;
-      &lt;td&gt;NYC&lt;/td&gt;
-      &lt;td&gt;NYC&lt;/td&gt;
-      &lt;td&gt;NYC&lt;/td&gt;
-      &lt;td&gt;ATL&lt;/td&gt;
-      &lt;td&gt;ATL&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Yankees&lt;/td&gt;
-      &lt;td&gt;NYC&lt;/td&gt;
-      &lt;td&gt;NYC&lt;/td&gt;
-      &lt;td&gt;ATL&lt;/td&gt;
-      &lt;td&gt;ATL&lt;/td&gt;
-      &lt;td&gt;ATL&lt;/td&gt;
-      &lt;td&gt;NYC&lt;/td&gt;
-      &lt;td&gt;NYC&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;Let &lt;em&gt;P&lt;sub&gt;B&lt;/sub&gt;&lt;/em&gt; be the probability that the Braves win a single head-to-head match-up with the Yankees, under the assumption that home-field advantage doesn’t exist. Let &lt;em&gt;P&lt;sub&gt;B&lt;/sub&gt;&lt;sup&gt;H&lt;/sup&gt;&lt;/em&gt; denote the probability that the Braves win a single head-to-head match-up with the Yankees as the home team (H for home). Let &lt;em&gt;P&lt;sub&gt;B&lt;/sub&gt;&lt;sup&gt;A&lt;/sup&gt;&lt;/em&gt; denote the probability that the Braves win a single head-to-head match-up with the away team (A for away).&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Game location&lt;/th&gt;
-      &lt;th&gt;No advantage&lt;/th&gt;
-      &lt;th&gt;Advantage&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;ATL&lt;/td&gt;
-      &lt;td&gt;&lt;em&gt;P&lt;sub&gt;B&lt;/sub&gt;&lt;/em&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;em&gt;P&lt;sub&gt;B&lt;/sub&gt;&lt;sup&gt;H&lt;/sup&gt; = P&lt;sub&gt;B&lt;/sub&gt; $\times$ 1.1&lt;/em&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;NYC&lt;/td&gt;
-      &lt;td&gt;&lt;em&gt;P&lt;sub&gt;B&lt;/sub&gt;&lt;/em&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;em&gt;P&lt;sub&gt;B&lt;/sub&gt;&lt;sup&gt;A&lt;/sup&gt; = 1 - (1 - P&lt;sub&gt;B&lt;/sub&gt;)$\times$ 1.1&lt;/em&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;library(dplyr)
-library(data.table)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now let’s look at the questions.&lt;/p&gt;
-
-&lt;h1 id=&quot;questions&quot;&gt;Questions&lt;/h1&gt;
-&lt;h2 id=&quot;1-compute-analytically-the-probability-that-the-braves-win-the-world-series-when-the-sequence-of-game-locations-is-nyc-nyc-atl-atl-atl-nyc-nyc-calculate-the-probability-with-and-without-home-field-advantage-when-pb--055-what-is-the-difference-in-probabilities&quot;&gt;1. Compute analytically the probability that the Braves win the world series when the sequence of game locations is {NYC, NYC, ATL, ATL, ATL, NYC, NYC}. Calculate the probability with and without home field advantage when &lt;em&gt;P&lt;sub&gt;B&lt;/sub&gt; = 0.55&lt;/em&gt;. What is the difference in probabilities?&lt;/h2&gt;
-
-&lt;p&gt;First, load the &lt;em&gt;.csv&lt;/em&gt; file to make sure what’s the situations we need to calculate, which represents the data we will generate later.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;# Get all possible outcomes
-apo &amp;lt;- fread(&quot;all-possible-world-series-outcomes.csv&quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;And we need to define a sequence of game locations. This time, the sequence should be {NYC, NYC, ATL, ATL, ATL, NYC, NYC}. As a result of that the Braves is an Atlanta team, we use 1 to represent Atlanta and use 0 to represent NYC.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;# Home field indicator
-hfi &amp;lt;- c(0,0,1,1,1,0,0) #{NYC, NYC, ATL, ATL, ATL, NYC, NYC}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now we use 0.55 to define the &lt;em&gt;P&lt;sub&gt;B&lt;/sub&gt;&lt;/em&gt; and generate other probabilities by &lt;em&gt;P&lt;sub&gt;B&lt;/sub&gt;&lt;/em&gt; as we talked before.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;# P_B
-pb &amp;lt;- 0.55
-advantage_multiplier &amp;lt;- 1.1 # Set = 1 for no advantage
-pbh &amp;lt;- pb * advantage_multiplier
-pba &amp;lt;- 1 - (1 - pb) * advantage_multiplier
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;In this part, we will use the parameters we defined before. In every row of data.table, we use the different probabilities which influenced by home-field advantage to calculate the overall probabilities of each situation.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;# Calculate the probability of each possible outcome
-apo[, p := NA_real_] # Initialize new column in apo to store prob
-for(i in 1:nrow(apo)){
-  prob_game &amp;lt;- rep(1, 7)
-  for(j in 1:7){
-    p_win &amp;lt;- ifelse(hfi[j], pbh, pba)
-    prob_game[j] &amp;lt;- case_when(
-        apo[i,j,with=FALSE] == &quot;W&quot; ~ p_win
-      , apo[i,j,with=FALSE] == &quot;L&quot; ~ 1 - p_win
-      , TRUE ~ 1
-    )
-  }
-  apo[i, p := prod(prob_game)] # Data.table syntax
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Then we output the probability that the Braves wins the World Series under the influence of home field advantage.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;# Probability of overall World Series outcomes
-p_home &amp;lt;- purrr::flatten_dbl(apo[, sum(p), overall_outcome][1,2])
-p_home
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The probability is &lt;code class=&quot;highlighter-rouge&quot;&gt;r p_home&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Then we can calculate the probability when there is no home field advantage.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;p_nohome &amp;lt;- 1 - pbinom(3, 7, 0.55)
-p_nohome
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The probability is &lt;code class=&quot;highlighter-rouge&quot;&gt;r p_nohome&lt;/code&gt;. Definitely, when home-field advantage exists, the probability that the Braves win the World Series is lower, &lt;code class=&quot;highlighter-rouge&quot;&gt;r p_home&lt;/code&gt;, than the probability without home-field advantage. Given &lt;em&gt;P&lt;sub&gt;B&lt;/sub&gt;=0.55&lt;/em&gt;, the probability of the Braves winning the World Series with a home field advantage &lt;code class=&quot;highlighter-rouge&quot;&gt;r (p_home-p_nohome)*100 &lt;/code&gt;a less likely than the probability of the Braves winning the World Series without a home-field advantage.&lt;/p&gt;
-
-&lt;h2 id=&quot;2-calculate-the-same-probabilities-as-the-previous-question-by-simulation&quot;&gt;2. Calculate the same probabilities as the previous question by simulation.&lt;/h2&gt;
-
-&lt;p&gt;In this part, we will use simulation to test the probability.&lt;/p&gt;
-
-&lt;p&gt;Given the location sequence, we use different winning probabilities of the head to head games and randomly generate the result of each game. Repeat the process 100000 times, we can get the approximate solution of the probability with home field advantage influence.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;set.seed(314)
-sml_list_h &amp;lt;- rep(NA, 100000)
-for (i in seq_along(sml_list_h)){
-  round &amp;lt;- rep(NA,7)
-  for(j in 1:7){
-    p_win &amp;lt;- ifelse(hfi[j], pbh, pba)
-    round[j] &amp;lt;- rbinom(1,1,p_win)
-  }
-  sml_list_h[i] &amp;lt;- ifelse(sum(round)&amp;gt;=4, 1, 0)
-}
-mean_sml_h &amp;lt;- mean(sml_list_h)
-mean_sml_h
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now we can get the approximate solution, &lt;code class=&quot;highlighter-rouge&quot;&gt;r mean_sml_h&lt;/code&gt;, which is a little different from &lt;code class=&quot;highlighter-rouge&quot;&gt;r p_home&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Now, let’s simulate the situation without home-field advantage influence. It’s easy because we only need to make p_win as a constant value.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;set.seed(314)
-sml_list_nh &amp;lt;- rep(NA, 100000)
-for (i in seq_along(sml_list_nh)){
-  round &amp;lt;- rep(NA,7)
-  for(j in 1:7){
-    p_win &amp;lt;- 0.55
-    round[j] &amp;lt;- rbinom(1,1,p_win)
-  }
-  sml_list_nh[i] &amp;lt;- ifelse(sum(round)&amp;gt;=4, 1, 0)
-}
-mean_sml_nh &amp;lt;- mean(sml_list_nh)
-mean_sml_nh
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&quot;3-what-is-the-absolute-and-relative-error-for-your-simulation-in-the-previous-question&quot;&gt;3. What is the absolute and relative error for your simulation in the previous question?&lt;/h2&gt;
-
-&lt;p&gt;Absolute error =
-&lt;script type=&quot;math/tex&quot;&gt;|p̂−p|&lt;/script&gt;&lt;/p&gt;
-
-&lt;p&gt;Relative error =
-&lt;script type=&quot;math/tex&quot;&gt;|p̂−p|/p&lt;/script&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;abs_error_h &amp;lt;- abs(mean(sml_list_h) - p_home)
-rel_error_h &amp;lt;- abs(mean(sml_list_h) - p_home)/mean(sml_list_h)
-abs_error_h
-rel_error_h
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Therefore, given home-field advantage the absolute error is &lt;code class=&quot;highlighter-rouge&quot;&gt;r abs_error_h&lt;/code&gt;. The relative error is &lt;code class=&quot;highlighter-rouge&quot;&gt;r rel_error_h&lt;/code&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;abs_error_nh &amp;lt;- abs(mean(sml_list_nh) - p_nohome)
-rel_error_nh &amp;lt;- abs(mean(sml_list_nh) - p_nohome)/mean(sml_list_nh)
-abs_error_nh
-rel_error_nh
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Therefore, given no home-field advantage the absolute error is &lt;code class=&quot;highlighter-rouge&quot;&gt;r abs_error_nh&lt;/code&gt;. The relative error is &lt;code class=&quot;highlighter-rouge&quot;&gt;r rel_error_nh&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;bonus-1-does-the-difference-in-probabilites-with-vs-without-home-field-advantage-depend-on-pb&quot;&gt;Bonus 1. Does the difference in probabilites (with vs without home field advantage) depend on &lt;em&gt;P&lt;sub&gt;B&lt;/sub&gt;&lt;/em&gt;?&lt;/h2&gt;
-
-&lt;p&gt;The process is similar to the answer of question 1.&lt;/p&gt;
-
-&lt;p&gt;We can create some lists to save the different &lt;em&gt;P&lt;sub&gt;B&lt;/sub&gt;&lt;/em&gt;s, the probabilities of win the World Series with or without home-field advantage, and the difference between these two situations given different &lt;em&gt;P&lt;sub&gt;B&lt;/sub&gt;&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;Then given every &lt;em&gt;P&lt;sub&gt;B&lt;/sub&gt;&lt;/em&gt;, calculate these values every time.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;pb_list &amp;lt;- seq(0,1,0.01)
-ph_win_list &amp;lt;- seq_along(pb_list)
-pnh_win_list &amp;lt;- ph_win_list
-diff_list &amp;lt;- ph_win_list
-for (p in seq_along(pb_list)) {
-  pb &amp;lt;- pb_list[p]
-  advantage_multiplier &amp;lt;- 1.1
-  pbh &amp;lt;- pb * advantage_multiplier
-  pba &amp;lt;- 1 - (1 - pb) * advantage_multiplier
-
-  pnh_win_list[p] &amp;lt;- 1 - pbinom(3, 7, pb_list[p])
-
-  # Calculate the probability of each possible outcome
-  apo[, p := NA_real_] # Initialize new column in apo to store prob
-  for(i in 1:nrow(apo)){
-    prob_game &amp;lt;- rep(1, 7)
-    for(j in 1:7){
-      p_win &amp;lt;- ifelse(hfi[j], pbh, pba)
-      prob_game[j] &amp;lt;- case_when(
-          apo[i,j,with=FALSE] == &quot;W&quot; ~ p_win
-        , apo[i,j,with=FALSE] == &quot;L&quot; ~ 1 - p_win
-        , TRUE ~ 1
-      )
-    }
-  apo[i, p := prod(prob_game)] # Data.table syntax
-  }
-  ph_win_list[p] &amp;lt;- purrr::flatten_dbl(apo[, sum(p), overall_outcome][1][,2])
-  diff_list[p] &amp;lt;- pnh_win_list[p] - ph_win_list[p]
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Then, plot a graph to show the relationship between &lt;em&gt;P&lt;sub&gt;B&lt;/sub&gt;&lt;/em&gt; and differences.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;plot(x= pb_list, y=diff_list)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/65B70gRL/prob4-b1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Obviously, the relationship between &lt;em&gt;P&lt;sub&gt;B&lt;/sub&gt;&lt;/em&gt; and differences is a compound function containing trigonometric functions.&lt;/p&gt;
-
-&lt;p&gt;And the format might be a trigonometric function times a function, that when going to the start and the end of one period approximate 0, otherwise approximate 1. By the way, the period should be 1.&lt;/p&gt;
-
-&lt;p&gt;There are some examples.
-&lt;script type=&quot;math/tex&quot;&gt;y = A \cdot sin(B \cdot x + C)
-\\
-y = A \cdot sin(B \cdot x + C) \cdot |D \cdot sin(\pi \cdot x + E)|
-\\
-y = A \cdot sin(B \cdot x + C) \cdot  ( D \cdot sin(\pi \cdot x + E))^2
-\\
-y = Ax^3 + Bx^2y + Cxy^2+Dy^3 +Ex^2+Fxy+Gy^2+Hx+Iy+J&lt;/script&gt;
-Unfortunately, after these functions I listed cannot regress to the graph we got.&lt;/p&gt;
-
-&lt;h2 id=&quot;bonus-2-does-the-difference-in-probabilites-with-vs-without-home-field-advantage-depend-on-the-advantage-factor-the-advantage-factor-in-pbh-and-pba-is-the-11-multiplier-that-results-in-a-10-increase-for-the-home-team&quot;&gt;Bonus 2. Does the difference in probabilites (with vs without home field advantage) depend on the advantage factor? (The advantage factor in PBH and PBA is the 1.1 multiplier that results in a 10% increase for the home team.)&lt;/h2&gt;
-
-&lt;p&gt;In this question, the process is similar to Bonus1. We only need to change the sequence content from &lt;em&gt;P&lt;sub&gt;B&lt;/sub&gt;&lt;/em&gt; to the home-field advantage factor and make &lt;em&gt;P&lt;sub&gt;B&lt;/sub&gt;&lt;/em&gt; be a constant(0.55). Therefore, we will use &lt;em&gt;ha_list&lt;/em&gt; to save the sequence.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;ha_list &amp;lt;- seq(1,2,0.01)
-ph_win_list &amp;lt;- seq_along(ha_list)
-pnh_win_list &amp;lt;- ph_win_list
-diff_list2 &amp;lt;- ph_win_list
-for (p in seq_along(ha_list)) {
-  pb &amp;lt;- 0.55
-  advantage_multiplier &amp;lt;- ha_list[p]
-  pbh &amp;lt;- pb * advantage_multiplier
-  pba &amp;lt;- 1 - (1 - pb) * advantage_multiplier
-
-  pnh_win_list[p] &amp;lt;- 1 - pbinom(3, 7, 0.55)
-
-  # Calculate the probability of each possible outcome
-  apo[, p := NA_real_] # Initialize new column in apo to store prob
-  for(i in 1:nrow(apo)){
-    prob_game &amp;lt;- rep(1, 7)
-    for(j in 1:7){
-      p_win &amp;lt;- ifelse(hfi[j], pbh, pba)
-      prob_game[j] &amp;lt;- case_when(
-          apo[i,j,with=FALSE] == &quot;W&quot; ~ p_win
-        , apo[i,j,with=FALSE] == &quot;L&quot; ~ 1 - p_win
-        , TRUE ~ 1
-      )
-    }
-  apo[i, p := prod(prob_game)] # Data.table syntax
-  }
-  ph_win_list[p] &amp;lt;- purrr::flatten_dbl(apo[, sum(p), overall_outcome][1][,2])
-  diff_list2[p] &amp;lt;- pnh_win_list[p] - ph_win_list[p]
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Let’s look at the graph. Obviously, when the home-field advantage factor is increasing, the difference in probabilities between with and without home filed advantage will increase too.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;plot(x= ha_list, y=diff_list2)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/rmhHPvs0/prob4-b2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Thu, 12 Sep 2019 00:00:00 -0500</pubDate>
-        <link>http://localhost:4000/2019/09/12/home-advantage/</link>
-        <guid isPermaLink="true">http://localhost:4000/2019/09/12/home-advantage/</guid>
-        
-        <category>Probability</category>
-        
-        <category>Simulation</category>
-        
-        <category>R</category>
+        <category>Python</category>
         
         
       </item>
