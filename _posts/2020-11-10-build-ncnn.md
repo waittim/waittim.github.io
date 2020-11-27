@@ -156,7 +156,7 @@ tar -xf vulkansdk-linux-x86_64-1.2.154.0.tar.gz
 export VULKAN_SDK=$(pwd)/1.2.154.0/x86_64
 ```
 
-However, cause I'm using a virtual machine running on Macbook pro, I choose to forget Vulkan.
+However, cause I'm using a virtual machine running on Macbook pro, I choose to forget Vulkan. If you choose to do so, please remember to set the Vulkan option to be OFF.
 
 Then we need to clone the repository of NCNN and start to compile it.
 
@@ -173,7 +173,7 @@ So far, the compilation process of NCNN has been completed. It is recommended to
 
 After this, we can start to use various tools in the `ncnn/build/tools` folder to help us convert the model.
 
-For example, you can copy the **.cfg** and .**weights** files of your darknet model to the **darknet** folder, and use the code to convert to the NCNN model.
+For example, you can copy the **.cfg** and .**weights** files of your darknet model to the **darknet** folder, and use the code to convert to the NCNN model. The details could be found [here](https://github.com/Tencent/ncnn/tree/master/tools/darknet).
 
 ```
 ./darknet2ncnn yolo-fastest.cfg best.weights yolo-fastest.param yolo-fastest.bin 1
