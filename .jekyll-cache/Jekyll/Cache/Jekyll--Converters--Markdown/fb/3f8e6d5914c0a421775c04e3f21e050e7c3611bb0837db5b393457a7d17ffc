@@ -1,0 +1,72 @@
+I"�<p><strong><a href="http://facemask-detection.com/">facemask-detection.com</a></strong></p>
+
+<p>This is an AI that <strong>detects masks super fast</strong>:</p>
+<ul>
+  <li>No installation.</li>
+  <li>No registration.</li>
+  <li>No need to buy expensive devices.</li>
+  <li>You don’t even need a continuous internet connection.</li>
+  <li>Most importantly, it is completely <strong>FREE</strong>!</li>
+</ul>
+
+<p>Well, let’s be serious. This is an AI model running in the browser that can recognize whether people are wearing masks and automatically remind them.</p>
+
+<p>Let us recall those mask detection machines at the entrance of luxury stores, they can remind customers to bring masks. However, most small business and local shops cannot pay thousands of dollars to equip them. Now, you only need a tablet or laptop, and you can have it! After loading, this model runs completely locally on your device, and no data will be uploaded to the server (trust me, I can’t afford it).</p>
+
+<iframe width="700" height="393" src="https://www.youtube-nocookie.com/embed/Zx6cvJPsEoU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<h2 id="how-to-use-it">How to use it?</h2>
+
+<ol>
+  <li>Launch Google chrome browser, open <em>chrome://flags</em> in the address bar</li>
+  <li>Enable all <em>WebAssembly</em> features</li>
+  <li>Re-launch chrome , open the <a href="http://facemask-detection.com/">webpage</a>,and allow the access to camera.</li>
+</ol>
+
+<p><img src="https://github.com/waittim/waittim.github.io/raw/master/img/webassembly-setting.png" alt="webassemblysetting.png" /></p>
+
+<p><strong>Hint:</strong> iOS is not supported yet, please use Android, MacOS and Windows. The FPS depends on your device CPU.</p>
+
+<h2 id="why-its-so-fast">Why it’s so fast?</h2>
+
+<p>This model is modified from <a href="https://github.com/dog-qiuqiu/Yolo-Fastest">Yolo-Fastest</a> and is only 1.3M in size. It might be the fastest and lightest open source improved version of yolo general object detection model. The Yolo series models that we are familiar with, which are characterized by detection speed, are much larger than it, usually tens of M in size. Even the smallest one, YOLOv5s, is 7.5M. Therefore, this model only puts little pressure on the device.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Model</th>
+      <th>Yolo-Fastest</th>
+      <th><a href="https://github.com/ultralytics/yolov3/releases">YOLOv3-tiny</a></th>
+      <th><a href="https://github.com/ultralytics/yolov3/releases">YOLOv3-SPP</a></th>
+      <th><a href="https://github.com/ultralytics/yolov5/releases">YOLOv5s</a></th>
+      <th><a href="https://github.com/ultralytics/yolov5/releases">YOLOv5m</a></th>
+      <th><a href="https://github.com/ultralytics/yolov5/releases">YOLOv5l</a></th>
+      <th><a href="https://github.com/ultralytics/yolov5/releases">YOLOv5x</a></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Weight size</strong></td>
+      <td>1.3M</td>
+      <td>8.9M</td>
+      <td>63.0M</td>
+      <td>7.5M</td>
+      <td>21.8M</td>
+      <td>47.8M</td>
+      <td>89.0M</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The deployment of this model is achieved through the <a href="https://github.com/Tencent/ncnn">NCNN</a> framework and <a href="https://webassembly.org/">WebAssembly</a>. NCNN is a high-performance neural network inference computing framework optimized for mobile platforms. It has excellent performance on low computing power devices. WebAssembly compiles the C++ program into a binary format, so that it can run at high speed in the browser.</p>
+
+<p>Because of this, even without a GPU, even if it runs in a browser, it can complete the detection with a high FPS, which exceeds most common mask detection tools.</p>
+
+<h2 id="what-about-privacy-issues">What about privacy issues?</h2>
+
+<p>Since this model runs entirely in the browser, it does not and does not need to upload any data, such as video content, to the server. All detection processes are completed locally. After loading, the user can even cut off the Internet connection. (So I don’t need to rent a server lol)</p>
+
+<p>All video content will only be processed in real time and will not be stored in any form.</p>
+
+<p>Therefore, there is no need to worry about any privacy leakage and other issues. This also means that the user does not need to set up wifi for the place where the device is placed or worry about the extra data charge caused by detection. At the same time, the tool will not occupy the storage space of the device.</p>
+:ET

@@ -5,9 +5,103 @@
     <description>Across the Great Wall, we can reach every corner in the world</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 27 Nov 2020 16:54:46 -0500</pubDate>
-    <lastBuildDate>Fri, 27 Nov 2020 16:54:46 -0500</lastBuildDate>
+    <pubDate>Fri, 27 Nov 2020 23:01:02 -0500</pubDate>
+    <lastBuildDate>Fri, 27 Nov 2020 23:01:02 -0500</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
+    
+      <item>
+        <title>Super fast In-browser FaceMask Detection</title>
+        <description>&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;http://facemask-detection.com/&quot;&gt;facemask-detection.com&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;This is an AI that &lt;strong&gt;detects masks super fast&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;No installation.&lt;/li&gt;
+  &lt;li&gt;No registration.&lt;/li&gt;
+  &lt;li&gt;No need to buy expensive devices.&lt;/li&gt;
+  &lt;li&gt;You don’t even need a continuous internet connection.&lt;/li&gt;
+  &lt;li&gt;Most importantly, it is completely &lt;strong&gt;FREE&lt;/strong&gt;!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Well, let’s be serious. This is an AI model running in the browser that can recognize whether people are wearing masks and automatically remind them.&lt;/p&gt;
+
+&lt;p&gt;Let us recall those mask detection machines at the entrance of luxury stores, they can remind customers to bring masks. However, most small business and local shops cannot pay thousands of dollars to equip them. Now, you only need a tablet or laptop, and you can have it! After loading, this model runs completely locally on your device, and no data will be uploaded to the server (trust me, I can’t afford it).&lt;/p&gt;
+
+&lt;iframe width=&quot;700&quot; height=&quot;393&quot; src=&quot;https://www.youtube-nocookie.com/embed/Zx6cvJPsEoU&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;h2 id=&quot;how-to-use-it&quot;&gt;How to use it?&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Launch Google chrome browser, open &lt;em&gt;chrome://flags&lt;/em&gt; in the address bar&lt;/li&gt;
+  &lt;li&gt;Enable all &lt;em&gt;WebAssembly&lt;/em&gt; features&lt;/li&gt;
+  &lt;li&gt;Re-launch chrome , open the &lt;a href=&quot;http://facemask-detection.com/&quot;&gt;webpage&lt;/a&gt;,and allow the access to camera.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/waittim/waittim.github.io/raw/master/img/webassembly-setting.png&quot; alt=&quot;webassemblysetting.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Hint:&lt;/strong&gt; iOS is not supported yet, please use Android, MacOS and Windows. The FPS depends on your device CPU.&lt;/p&gt;
+
+&lt;h2 id=&quot;why-its-so-fast&quot;&gt;Why it’s so fast?&lt;/h2&gt;
+
+&lt;p&gt;This model is modified from &lt;a href=&quot;https://github.com/dog-qiuqiu/Yolo-Fastest&quot;&gt;Yolo-Fastest&lt;/a&gt; and is only 1.3M in size. It might be the fastest and lightest open source improved version of yolo general object detection model. The Yolo series models that we are familiar with, which are characterized by detection speed, are much larger than it, usually tens of M in size. Even the smallest one, YOLOv5s, is 7.5M. Therefore, this model only puts little pressure on the device.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Model&lt;/th&gt;
+      &lt;th&gt;Yolo-Fastest&lt;/th&gt;
+      &lt;th&gt;&lt;a href=&quot;https://github.com/ultralytics/yolov3/releases&quot;&gt;YOLOv3-tiny&lt;/a&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;a href=&quot;https://github.com/ultralytics/yolov3/releases&quot;&gt;YOLOv3-SPP&lt;/a&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;a href=&quot;https://github.com/ultralytics/yolov5/releases&quot;&gt;YOLOv5s&lt;/a&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;a href=&quot;https://github.com/ultralytics/yolov5/releases&quot;&gt;YOLOv5m&lt;/a&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;a href=&quot;https://github.com/ultralytics/yolov5/releases&quot;&gt;YOLOv5l&lt;/a&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;a href=&quot;https://github.com/ultralytics/yolov5/releases&quot;&gt;YOLOv5x&lt;/a&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Weight size&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;1.3M&lt;/td&gt;
+      &lt;td&gt;8.9M&lt;/td&gt;
+      &lt;td&gt;63.0M&lt;/td&gt;
+      &lt;td&gt;7.5M&lt;/td&gt;
+      &lt;td&gt;21.8M&lt;/td&gt;
+      &lt;td&gt;47.8M&lt;/td&gt;
+      &lt;td&gt;89.0M&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;The deployment of this model is achieved through the &lt;a href=&quot;https://github.com/Tencent/ncnn&quot;&gt;NCNN&lt;/a&gt; framework and &lt;a href=&quot;https://webassembly.org/&quot;&gt;WebAssembly&lt;/a&gt;. NCNN is a high-performance neural network inference computing framework optimized for mobile platforms. It has excellent performance on low computing power devices. WebAssembly compiles the C++ program into a binary format, so that it can run at high speed in the browser.&lt;/p&gt;
+
+&lt;p&gt;Because of this, even without a GPU, even if it runs in a browser, it can complete the detection with a high FPS, which exceeds most common mask detection tools.&lt;/p&gt;
+
+&lt;h2 id=&quot;what-about-privacy-issues&quot;&gt;What about privacy issues?&lt;/h2&gt;
+
+&lt;p&gt;Since this model runs entirely in the browser, it does not and does not need to upload any data, such as video content, to the server. All detection processes are completed locally. After loading, the user can even cut off the Internet connection. (So I don’t need to rent a server lol)&lt;/p&gt;
+
+&lt;p&gt;All video content will only be processed in real time and will not be stored in any form.&lt;/p&gt;
+
+&lt;p&gt;Therefore, there is no need to worry about any privacy leakage and other issues. This also means that the user does not need to set up wifi for the place where the device is placed or worry about the extra data charge caused by detection. At the same time, the tool will not occupy the storage space of the device.&lt;/p&gt;
+
+&lt;h2 id=&quot;whats-more&quot;&gt;What’s more?&lt;/h2&gt;
+
+&lt;p&gt;Because the existing deployment uses SIMD, etc., it cannot run on Safari temporarily. And iOS only supports WebAssembly in Safari, so it cannot be used on the iOS now. I am still working on the problem.&lt;/p&gt;
+
+&lt;p&gt;Of course, this project is not yet mature. If you have any suggestions or are willing to contribute to this project, please be sure to contact me.
+Thank you very much!&lt;/p&gt;
+</description>
+        <pubDate>Fri, 27 Nov 2020 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2020/11/27/mask-detection/</link>
+        <guid isPermaLink="true">http://localhost:4000/2020/11/27/mask-detection/</guid>
+        
+        <category>Deep Learning</category>
+        
+        <category>Object Detection</category>
+        
+        <category>Project</category>
+        
+        
+      </item>
     
       <item>
         <title>Tutorial for compiling NCNN library</title>
@@ -1822,307 +1916,6 @@ mtext(text=&quot;slant = 100   slant = 10       slant = 2      slant = 0&quot;,
         <category>R</category>
         
         <category>CLT</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>What makes a trending video?</title>
-        <description>&lt;h1 id=&quot;slides&quot;&gt;Slides&lt;/h1&gt;
-&lt;iframe src=&quot;https://docs.google.com/presentation/d/e/2PACX-1vTN6OHLfZ70A3x6X97oe68aBpaGtQUUmvcnJ-n9QSCdz99m_S4hYXZYY__sMhHhwB0hapDY1y2HuHuo/embed?start=false&amp;amp;loop=true&amp;amp;delayms=30000&quot; frameborder=&quot;0&quot; width=&quot;700&quot; height=&quot;423&quot; allowfullscreen=&quot;true&quot; mozallowfullscreen=&quot;true&quot; webkitallowfullscreen=&quot;true&quot;&gt;&lt;/iframe&gt;
-
-&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
-
-&lt;p&gt;YouTube is one of the biggest media platforms of the 21st century.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;5 Billion&lt;/strong&gt; videos are watched daily.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;500 Hours&lt;/strong&gt; of videos are uploaded every minute.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;51%&lt;/strong&gt; of users say that they visit the website daily.&lt;/p&gt;
-
-&lt;p&gt;This makes YouTube a powerful tool for advertising, business, research and content creators.&lt;/p&gt;
-
-&lt;h2 id=&quot;motivation&quot;&gt;Motivation&lt;/h2&gt;
-
-&lt;p&gt;Being able to predict if a YouTube video is likely to be trending or not is highly useful if you are:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;A content creator&lt;/strong&gt; who wants to make trending videos.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;An advertiser&lt;/strong&gt; who wants to know the best videos to put advertisements on before they become trending videos.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;A researcher&lt;/strong&gt; trying to derive insight about behavior from YouTube trends.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;To do this, you will need to know :&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;When&lt;/strong&gt; to upload/look for, a potentially trending YouTube video&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;How&lt;/strong&gt; to upload/look for, a potentially trending YouTube video&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;What&lt;/strong&gt; to upload/look for, in a potentially trending YouTube video&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;a-look-at-the-trending-videos&quot;&gt;A look at the trending videos&lt;/h2&gt;
-
-&lt;p&gt;A trending video can be identified by three major measures:&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;Number of &lt;strong&gt;Likes&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;Number of &lt;strong&gt;Views&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;Number of &lt;strong&gt;Comments&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Likes&lt;/th&gt;
-      &lt;th&gt;Views&lt;/th&gt;
-      &lt;th&gt;Comments&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;img src=&quot;https://i.postimg.cc/MZQhgDcr/image.png&quot; alt=&quot;&quot; title=&quot;dislikes &amp;amp; likes&quot; /&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;img src=&quot;https://i.postimg.cc/2ytyqxDt/image.png&quot; alt=&quot;&quot; title=&quot;views&quot; /&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;img src=&quot;https://i.postimg.cc/XqtNN7KS/image.png&quot; alt=&quot;&quot; title=&quot;comments&quot; /&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;Upon looking at the distribution of likes, dislikes , views and comments of the trending YouTube videos, we can see that, “most of” the trending YouTube videos have a total of:&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;1,000,000&lt;/strong&gt; views&lt;/li&gt;
-  &lt;li&gt;About &lt;strong&gt;1,000&lt;/strong&gt; dislikes or &lt;strong&gt;10,000&lt;/strong&gt; likes&lt;/li&gt;
-  &lt;li&gt;About &lt;strong&gt;2,000&lt;/strong&gt; comments&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;We will be looking at the number of videos being posted and the number of views being received.&lt;/p&gt;
-
-&lt;h1 id=&quot;when-to-post-a-trending-video&quot;&gt;When to post a trending video&lt;/h1&gt;
-
-&lt;h2 id=&quot;best-month&quot;&gt;Best month&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/Dy2mZ8KF/image.png&quot; alt=&quot;&quot; title=&quot;best month&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Lowest&lt;/strong&gt; number of trending videos are being posted in the months of &lt;strong&gt;June&lt;/strong&gt; to &lt;strong&gt;October&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;It also shows that the &lt;strong&gt;highest&lt;/strong&gt; number of trending videos are posted in the month of &lt;strong&gt;May&lt;/strong&gt; with highest number of views.&lt;/p&gt;
-
-&lt;p&gt;The best time to post a video would be &lt;strong&gt;April&lt;/strong&gt; and &lt;strong&gt;May&lt;/strong&gt; as they show the &lt;strong&gt;highest&lt;/strong&gt; number of views in comparison to the number of videos posted.  Months December, March and February also see a high number of trending videos being posted but not as many views.&lt;/p&gt;
-
-&lt;h2 id=&quot;best-day-of-the-week&quot;&gt;Best day of the week&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/nL7nTJt0/image.png&quot; alt=&quot;&quot; title=&quot;Best day of the week&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Most trending videos are being posted on &lt;strong&gt;Tuesdays&lt;/strong&gt; through &lt;strong&gt;Friday&lt;/strong&gt;. Thursday and Friday see the highest number of trending videos with Friday showing the highest number of views.&lt;/p&gt;
-
-&lt;p&gt;Interestingly,  &lt;strong&gt;Saturday&lt;/strong&gt; and &lt;strong&gt;Sunday&lt;/strong&gt; are the worst to post videos as there are fewer videos being posted on these and these days see &lt;strong&gt;lowest number of views&lt;/strong&gt; as compared to other days.&lt;/p&gt;
-
-&lt;p&gt;However, there might be an extremely small chance that a video that you post on Sunday reaches &lt;strong&gt;200 million views&lt;/strong&gt;!&lt;/p&gt;
-
-&lt;h2 id=&quot;best-time-of-day&quot;&gt;Best time of day&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/tCYQ2j3W/image.png “Best time of day 1”&quot; alt=&quot;&quot; /&gt;
-&lt;img src=&quot;https://i.postimg.cc/YCKnYKbp/image.png&quot; alt=&quot;&quot; title=&quot;Best time of day 2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;We see the highest number of trending videos being posted around &lt;strong&gt;8AM to 5PM&lt;/strong&gt; with the peak time from &lt;strong&gt;9AM to 1PM&lt;/strong&gt;. (CST)&lt;/p&gt;
-
-&lt;p&gt;Surprisingly, around &lt;strong&gt;11PM&lt;/strong&gt;, where few of the the lowest amount of videos are being posted, we see the &lt;strong&gt;highest variation&lt;/strong&gt; in the number of views!&lt;/p&gt;
-
-&lt;p&gt;The best time to post a video would be around &lt;strong&gt;8AM to 11AM&lt;/strong&gt;. However, there is small chance if you post at &lt;strong&gt;11PM&lt;/strong&gt;, that your video will get the highest number of views, though it might be risky as this is also.&lt;/p&gt;
-
-&lt;h1 id=&quot;how-to-post-a-trending-video&quot;&gt;How to post a trending video&lt;/h1&gt;
-
-&lt;h2 id=&quot;rows-of-description&quot;&gt;Rows of description&lt;/h2&gt;
-
-&lt;p&gt;“Rows of description” are defined by the number of rows it takes to give the description of the video.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/SRcZtgK0/image.png&quot; alt=&quot;&quot; title=&quot;Rows of description&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Most trending YouTube videos have &lt;strong&gt;1 - 3 rows&lt;/strong&gt; of description only and videos with &lt;strong&gt;1 row of description&lt;/strong&gt; see the highest number of views. Keeping a simple description of the video may be what attracts or loses a viewer.&lt;/p&gt;
-
-&lt;p&gt;However, we see a spike in number of views at around 20 rows of description. These might be videos which required further explanation.&lt;/p&gt;
-
-&lt;h2 id=&quot;number-of-tags&quot;&gt;Number of tags&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/dVgyLwBB/image.png&quot; alt=&quot;&quot; title=&quot;Number of tagshttps://i.postimg.cc/dVgyLwBB/image.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;There are a large number of trending videos with no tags but they see a lower number of views. Anywhere between &lt;strong&gt;3 to 20&lt;/strong&gt; tags see a higher number of views. Most people uploading videos chose to add tags within this range.&lt;/p&gt;
-
-&lt;p&gt;We can also see that adding more tags outside of this range resulted in a decline in the number of views. Furthermore, the number of people choosing to add tags greater than this range also declined.&lt;/p&gt;
-
-&lt;h2 id=&quot;title-of-a-trending-video&quot;&gt;Title of a trending video&lt;/h2&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Number of Uppercase Letters&lt;/th&gt;
-      &lt;th&gt;Length of Title&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;img src=&quot;https://i.postimg.cc/cHL0W8n5/10.png&quot; alt=&quot;&quot; title=&quot;Number of Uppercase Letters&quot; /&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;img src=&quot;https://i.postimg.cc/0QXxy2G5/11.png&quot; alt=&quot;&quot; title=&quot;Length of Title&quot; /&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;the greatest number of views appeared on videos where the title had between &lt;strong&gt;1 to 15&lt;/strong&gt; uppercase letters. Most uploaders chose to stay within this range.&lt;/p&gt;
-
-&lt;p&gt;the highest number of views appeared on videos where the title was less than &lt;strong&gt;50&lt;/strong&gt; characters long. Uploaders mostly chose titles between &lt;strong&gt;25-50&lt;/strong&gt; characters long.&lt;/p&gt;
-
-&lt;h1 id=&quot;what-is-in-a-trending-video&quot;&gt;What is in a trending video&lt;/h1&gt;
-
-&lt;h2 id=&quot;categorical-analysis&quot;&gt;Categorical analysis&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/TPFMzHTh/image.png&quot; alt=&quot;&quot; title=&quot;Categorical analysis&quot; /&gt;
-Categories of &lt;strong&gt;Entertainment&lt;/strong&gt; and &lt;strong&gt;Music&lt;/strong&gt; have the highest number of trending videos. However, Music has a higher number of views as compared to Entertainment.&lt;/p&gt;
-
-&lt;p&gt;Film and animation has a lower number of trending videos as compared to Entertainment but has comparable views.&lt;/p&gt;
-
-&lt;p&gt;If you are a &lt;strong&gt;musician&lt;/strong&gt; or an &lt;strong&gt;entertainer&lt;/strong&gt;, your videos are more likely to be trending as compared to any other type of video.&lt;/p&gt;
-
-&lt;h2 id=&quot;likesdislikes-ratio&quot;&gt;Likes/Dislikes ratio&lt;/h2&gt;
-
-&lt;p&gt;If the L/D ratio is less than 1, more people disliked the video. If greater than 1, more people liked the video. If equal to 1, an equal number of people liked and disliked the video. A video is &lt;strong&gt;controversial&lt;/strong&gt; when the L/D ratio is less than 1 or equal to 1.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/6qzHXyCz/image.png&quot; alt=&quot;&quot; title=&quot;Likes/Dislikes ratio&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;If L/D = &lt;strong&gt;10-100&lt;/strong&gt; we see &lt;strong&gt;the highest views&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;If L/D ratio is &lt;strong&gt;less than 10&lt;/strong&gt;, the number of views &lt;strong&gt;decline&lt;/strong&gt;. &lt;strong&gt;The more controversial&lt;/strong&gt; a video is, &lt;strong&gt;the less number&lt;/strong&gt; of views it has.&lt;/p&gt;
-
-&lt;p&gt;However, videos with higher &lt;strong&gt;L/D ratios (&amp;gt;100)&lt;/strong&gt; coincided with &lt;strong&gt;fewer views&lt;/strong&gt;. It seems that videos which are slightly controversial may be viewed more than videos which are not controversial at all.&lt;/p&gt;
-
-&lt;h2 id=&quot;sentiment-analysis&quot;&gt;Sentiment Analysis&lt;/h2&gt;
-
-&lt;p&gt;Understanding how sentiment plays a role in the making of a trending of YouTube video is an interesting area to look at.&lt;/p&gt;
-
-&lt;p&gt;To do this sort of analysis we look at the channel title, title tags, and description to see how positive or negative a typical trending video is.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Classification&lt;/strong&gt;
-For this problem we can classify our videos into four distinct categories:&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;Popular :&lt;/strong&gt; views &amp;lt; 10,000&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Very Popular :&lt;/strong&gt; 10,000 &amp;lt; views &amp;lt; 100,000&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Highly Popular :&lt;/strong&gt; 100,000 &amp;lt; views &amp;lt; 1 Million&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Hyper Popular :&lt;/strong&gt; views &amp;gt; 1 Million&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/ryb0h86L/image.png&quot; alt=&quot;&quot; title=&quot;Sentiment Analysis 1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;From this we can see that the very popular to hyper popular trending videos have positive sentiments in their descriptions, tags and channel title of around &lt;strong&gt;70%&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;The &lt;strong&gt;least&lt;/strong&gt; popular videos of these four categories had a positive sentiment of about &lt;strong&gt;57%&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;This is consistent with our analysis of Likes/Dislikes ratio. It shows that a video needs to be &lt;strong&gt;controversial&lt;/strong&gt;; however &lt;strong&gt;the more negative&lt;/strong&gt; it tends to be, &lt;strong&gt;the less likely&lt;/strong&gt; it is to be the most trending video.&lt;/p&gt;
-
-&lt;h1 id=&quot;conclusions&quot;&gt;Conclusions&lt;/h1&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/HsdxvjSR/image.png&quot; alt=&quot;&quot; title=&quot;breakdown&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Knowing the components of a Trending YouTube video might be able to provide some insight about what a trending video looks like and how to recognize it but &lt;strong&gt;human behavior is unpredictable&lt;/strong&gt; and there will always be outliers.&lt;/p&gt;
-
-&lt;p&gt;In general, your video is much more likely to be trending if you are a &lt;strong&gt;musician&lt;/strong&gt; or an &lt;strong&gt;entertainer&lt;/strong&gt;. This might have to do with the demographic and the reasons why people visit YouTube.&lt;/p&gt;
-
-&lt;p&gt;While creating video content, it’s important to keep the idea of &lt;strong&gt;controversy&lt;/strong&gt; in mind. This is based on human psyche: people are attracted to anything that grabs attention, and controversy does just that.&lt;/p&gt;
-
-&lt;p&gt;However, it’s important to &lt;strong&gt;strike a balance&lt;/strong&gt;. You will see the most amount of views and have the highest likelihood of a trending video when you hit the sweet spot between challenging a thought and inciting emotion.
-As a content creator, you will have to make sure to keep that in mind while trying to enter an online media market that is highly saturated.&lt;/p&gt;
-
-&lt;h1 id=&quot;appendix&quot;&gt;Appendix&lt;/h1&gt;
-
-&lt;p&gt;Motivated by the results from this research, we build a &lt;strong&gt;classification model&lt;/strong&gt; using &lt;strong&gt;naive bayes&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;The inputs features are title, channel_title, tags, description.&lt;/p&gt;
-
-&lt;p&gt;We labeled our dataset into four categories as before:&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;Popular : 10,000 &amp;gt; views&lt;/li&gt;
-  &lt;li&gt;Very Popular : 10,000 &amp;lt; views &amp;lt; 100,000&lt;/li&gt;
-  &lt;li&gt;Highly Popular : 100,000 &amp;lt; views &amp;lt; 1 Million&lt;/li&gt;
-  &lt;li&gt;Hyper Popular : views &amp;gt; 1 Million&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;.&lt;/th&gt;
-      &lt;th&gt;precision&lt;/th&gt;
-      &lt;th&gt;recall&lt;/th&gt;
-      &lt;th&gt;fl-score&lt;/th&gt;
-      &lt;th&gt;support&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;0.14&lt;/td&gt;
-      &lt;td&gt;0.89&lt;/td&gt;
-      &lt;td&gt;0.25&lt;/td&gt;
-      &lt;td&gt;162&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;0.20&lt;/td&gt;
-      &lt;td&gt;0.68&lt;/td&gt;
-      &lt;td&gt;0.31&lt;/td&gt;
-      &lt;td&gt;878&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;3&lt;/td&gt;
-      &lt;td&gt;0.80&lt;/td&gt;
-      &lt;td&gt;0.39&lt;/td&gt;
-      &lt;td&gt;0.53&lt;/td&gt;
-      &lt;td&gt;3873&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;4&lt;/td&gt;
-      &lt;td&gt;0.81&lt;/td&gt;
-      &lt;td&gt;0.58&lt;/td&gt;
-      &lt;td&gt;0.68&lt;/td&gt;
-      &lt;td&gt;3277&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;accuracy&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;0.51&lt;/td&gt;
-      &lt;td&gt;8190&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;macro avg&lt;/td&gt;
-      &lt;td&gt;0.49&lt;/td&gt;
-      &lt;td&gt;0.64&lt;/td&gt;
-      &lt;td&gt;0.44&lt;/td&gt;
-      &lt;td&gt;8190&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;weighted avg&lt;/td&gt;
-      &lt;td&gt;0.73&lt;/td&gt;
-      &lt;td&gt;0.51&lt;/td&gt;
-      &lt;td&gt;0.56&lt;/td&gt;
-      &lt;td&gt;8190&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;The model has 0.73 weighted average precision, which is a solid result. It further proves the importance of  the four features: &lt;strong&gt;title, channel_title, tags, description&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Hint 1: Project GitHub page: &lt;a href=&quot;https://github.com/waittim/Youtube-trending-videos-analysis&quot;&gt;Youtube-trending-videos-analysis&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Hint 2: Data source: &lt;a href=&quot;https://www.kaggle.com/datasnaek/youtube-new&quot;&gt;Trending YouTube Video Statistics&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
-</description>
-        <pubDate>Tue, 29 Oct 2019 00:00:00 -0400</pubDate>
-        <link>http://localhost:4000/2019/10/29/trending-video/</link>
-        <guid isPermaLink="true">http://localhost:4000/2019/10/29/trending-video/</guid>
-        
-        <category>YouTube</category>
-        
-        <category>EDA</category>
-        
-        <category>Project</category>
-        
-        <category>R</category>
-        
-        <category>Python</category>
         
         
       </item>
