@@ -4,7 +4,7 @@ title:      Super fast In-browser FaceMask Detection
 subtitle:   Open the webpage, then you have it!
 date:       2020-11-27
 author:     Zekun
-header-img: img/post-deep-brain.jpg
+header-img: img/bg-mask.jpg
 catalog: true
 tags:
     - Deep Learning
@@ -63,4 +63,5 @@ Therefore, there is no need to worry about any privacy leakage and other issues.
 Because the existing deployment uses SIMD, etc., it cannot run on Safari temporarily. And iOS only supports WebAssembly in Safari, so it cannot be used on the iOS now. I am still working on the problem.
 
 Of course, this project is not yet mature. If you have any suggestions or are willing to contribute to this project, please be sure to contact me.
+
 Thank you very much!
