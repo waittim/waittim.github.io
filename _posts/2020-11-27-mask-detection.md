@@ -62,6 +62,8 @@ Therefore, there is no need to worry about any privacy leakage and other issues.
 
 Because the existing deployment uses SIMD, etc., it cannot run on Safari temporarily. And iOS only supports WebAssembly in Safari, so it cannot be used on the iOS now. I am still working on the problem.
 
+All in all, this is a free alternative version of the expensive mask detection machine. In such a hard time, I hope this AI can give a hand to those small businesses that strive to persist. So that they can obtain protection similar to luxury shops at a small cost. As long as this tool can protect one more person from COVID-19, it is enough.
+
 Of course, this project is not yet mature. If you have any suggestions or are willing to contribute to this project, please be sure to contact me.
 
 Thank you very much!
