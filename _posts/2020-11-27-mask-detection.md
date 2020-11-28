@@ -15,17 +15,16 @@ tags:
 **[facemask-detection.com](http://facemask-detection.com/)** 👈👈
 
 This is an AI that **detects masks super fast**:
-- No installation.
-- No registration.
+- No installation or registration.
 - No need to buy expensive devices.
 - You don't even need a continuous internet connection.
-- Most importantly, it is completely **FREE**!
+- Most importantly, completely **FREE**!
 
 Well, let's be serious. This is an AI model running in the browser that can recognize whether people are wearing masks and automatically remind them.
 
 ![mask-detection-machines.png](https://github.com/waittim/waittim.github.io/raw/master/img/mask-detection-machines.png)
 
-Let us recall those mask detection machines at the entrance of luxury stores, they can remind customers to bring masks. However, most small business and local shops cannot pay thousands of dollars to equip them. Now, you only need a tablet or laptop, and you can have it! After loading, this model runs completely locally on your device, and no data will be uploaded to the server (trust me, I can't afford it).
+Let us recall those mask detection machines at the entrance of luxury stores, they can remind customers to wear masks. However, most small business and local shops cannot pay thousands of dollars to equip them. Now, you only need a tablet or laptop, and you can have it! After loading, this model runs completely locally on your device, and no data will be uploaded to the server (trust me, I can't afford it).
 
 <iframe width="700" height="393" src="https://www.youtube-nocookie.com/embed/Zx6cvJPsEoU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
