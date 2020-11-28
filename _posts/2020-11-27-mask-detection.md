@@ -23,6 +23,8 @@ This is an AI that **detects masks super fast**:
 
 Well, let's be serious. This is an AI model running in the browser that can recognize whether people are wearing masks and automatically remind them.
 
+![mask-detection-machines.png](https://github.com/waittim/waittim.github.io/raw/master/img/mask-detection-machines.png)
+
 Let us recall those mask detection machines at the entrance of luxury stores, they can remind customers to bring masks. However, most small business and local shops cannot pay thousands of dollars to equip them. Now, you only need a tablet or laptop, and you can have it! After loading, this model runs completely locally on your device, and no data will be uploaded to the server (trust me, I can't afford it).
 
 <iframe width="700" height="393" src="https://www.youtube-nocookie.com/embed/Zx6cvJPsEoU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -62,7 +64,7 @@ Therefore, there is no need to worry about any privacy leakage and other issues.
 
 Because the existing deployment uses SIMD, etc., it cannot run on Safari temporarily. And iOS only supports WebAssembly in Safari, so it cannot be used on the iOS now. I am still working on the problem.
 
-All in all, this is a free alternative version of the expensive mask detection machine. In such a hard time, I hope this AI can give a hand to those small businesses that strive to persist. So that they can obtain protection similar to luxury shops at a small cost. As long as this tool can protect one more person from COVID-19, it is enough.
+All in all, this is a free alternative version of the expensive mask detection machine. In such a hard time, I hope this AI can give a hand to those small businesses that strive to persist. So that they can obtain protection similar to luxury shops at a small cost. As long as this tool can protect one more person from COVID-19, it would be enough.
 
 Of course, this project is not yet mature. If you have any suggestions or are willing to contribute to this project, please be sure to contact me.
 
