@@ -12,7 +12,7 @@ tags:
     - Project
 ---
 
-**[facemask-detection.com](http://facemask-detection.com/)** 👈👈
+**[facemask-detection.com](https://facemask-detection.com/)** 👈👈
 
 This is an AI that **detects masks super fast**:
 - No installation or registration.
