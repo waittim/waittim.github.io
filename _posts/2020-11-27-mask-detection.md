@@ -32,7 +32,7 @@ Let us recall those mask detection machines at the entrance of luxury stores, th
 
 1. Launch the latest version of Chrome browser, open *chrome://flags* in the address bar
 2. Enable all *WebAssembly* features
-3. Re-launch chrome , open the [webpage](http://facemask-detection.com/),and allow the access to camera.
+3. Re-launch chrome ,open the [webpage](http://facemask-detection.com/), and allow the access to camera.
 
 ![webassemblysetting.png](https://github.com/waittim/waittim.github.io/raw/master/img/webassembly-setting.png)
 
