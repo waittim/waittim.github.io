@@ -45,7 +45,7 @@ This model is modified from [Yolo-Fastest](https://github.com/dog-qiuqiu/Yolo-Fa
 
 | Model | Yolo-Fastest | [YOLOv3-tiny](https://github.com/ultralytics/yolov3/releases) | [YOLOv3-SPP](https://github.com/ultralytics/yolov3/releases) | [YOLOv5s](https://github.com/ultralytics/yolov5/releases) | [YOLOv5m](https://github.com/ultralytics/yolov5/releases) | [YOLOv5l](https://github.com/ultralytics/yolov5/releases) | [YOLOv5x](https://github.com/ultralytics/yolov5/releases) |
 | - | - | - | - | - | - | - | - |
-| **Weight size** | 1.3M | 8.9M | 63.0M | 7.5M | 21.8M | 47.8M | 89.0M |
+| **Size** | 1.3M | 8.9M | 63.0M | 7.5M | 21.8M | 47.8M | 89.0M |
 
 The deployment of this model is achieved through the [NCNN](https://github.com/Tencent/ncnn) framework and [WebAssembly](https://webassembly.org/). NCNN is a high-performance neural network inference computing framework optimized for mobile platforms. It has excellent performance on low computing power devices. WebAssembly compiles the C++ program into a binary format, so that it can run at high speed in the browser.
 
@@ -63,8 +63,8 @@ Therefore, there is no need to worry about any privacy leakage and other issues.
 
 Because the existing deployment uses SIMD, etc., it cannot run on Safari temporarily. And iOS only supports WebAssembly in Safari, so it cannot be used on the iOS now. I am still working on the problem.
 
-All in all, this is a free alternative version of the expensive mask detection machine. In such a hard time, I hope this AI can give a hand to those small businesses that strive to persist. So that they can obtain protection similar to luxury shops at a small cost. As long as this tool can protect one more person from COVID-19, it would be enough.
+All in all, this is a free alternative of the expensive mask detection machine. In such a hard time, I hope this AI can give a hand to those small businesses that strive to persist. So that they can obtain protection similar to luxury shops at a small cost. As long as this tool can protect one more person from COVID-19, it would be enough.
 
-Of course, this project is not yet mature. If you have any suggestions or are willing to contribute to this project, please be sure to contact me.
+Of course, this project is not yet mature. If you have any suggestions or are willing to contribute to this project, please contact me.
 
 Thank you very much!

@@ -5,26 +5,27 @@
     <description>Across the Great Wall, we can reach every corner in the world</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 27 Nov 2020 23:01:02 -0500</pubDate>
-    <lastBuildDate>Fri, 27 Nov 2020 23:01:02 -0500</lastBuildDate>
+    <pubDate>Sun, 29 Nov 2020 19:03:15 -0500</pubDate>
+    <lastBuildDate>Sun, 29 Nov 2020 19:03:15 -0500</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
         <title>Super fast In-browser FaceMask Detection</title>
-        <description>&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;http://facemask-detection.com/&quot;&gt;facemask-detection.com&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+        <description>&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://facemask-detection.com/&quot;&gt;facemask-detection.com&lt;/a&gt;&lt;/strong&gt; 👈👈&lt;/p&gt;
 
 &lt;p&gt;This is an AI that &lt;strong&gt;detects masks super fast&lt;/strong&gt;:&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;No installation.&lt;/li&gt;
-  &lt;li&gt;No registration.&lt;/li&gt;
+  &lt;li&gt;No installation or registration.&lt;/li&gt;
   &lt;li&gt;No need to buy expensive devices.&lt;/li&gt;
   &lt;li&gt;You don’t even need a continuous internet connection.&lt;/li&gt;
-  &lt;li&gt;Most importantly, it is completely &lt;strong&gt;FREE&lt;/strong&gt;!&lt;/li&gt;
+  &lt;li&gt;Most importantly, completely &lt;strong&gt;FREE&lt;/strong&gt;!&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;Well, let’s be serious. This is an AI model running in the browser that can recognize whether people are wearing masks and automatically remind them.&lt;/p&gt;
 
-&lt;p&gt;Let us recall those mask detection machines at the entrance of luxury stores, they can remind customers to bring masks. However, most small business and local shops cannot pay thousands of dollars to equip them. Now, you only need a tablet or laptop, and you can have it! After loading, this model runs completely locally on your device, and no data will be uploaded to the server (trust me, I can’t afford it).&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/waittim/waittim.github.io/raw/master/img/mask-detection-machines.png&quot; alt=&quot;mask-detection-machines.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Let us recall those mask detection machines at the entrance of luxury stores, they can remind customers to wear masks. However, most small business and local shops cannot pay thousands of dollars to equip them. Now, you only need a tablet or laptop, and you can have it! After loading, this model runs completely locally on your device, and no data will be uploaded to the server (trust me, I can’t afford it).&lt;/p&gt;
 
 &lt;iframe width=&quot;700&quot; height=&quot;393&quot; src=&quot;https://www.youtube-nocookie.com/embed/Zx6cvJPsEoU&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
 
@@ -59,7 +60,7 @@
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;Weight size&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;Size&lt;/strong&gt;&lt;/td&gt;
       &lt;td&gt;1.3M&lt;/td&gt;
       &lt;td&gt;8.9M&lt;/td&gt;
       &lt;td&gt;63.0M&lt;/td&gt;
@@ -87,8 +88,11 @@
 
 &lt;p&gt;Because the existing deployment uses SIMD, etc., it cannot run on Safari temporarily. And iOS only supports WebAssembly in Safari, so it cannot be used on the iOS now. I am still working on the problem.&lt;/p&gt;
 
-&lt;p&gt;Of course, this project is not yet mature. If you have any suggestions or are willing to contribute to this project, please be sure to contact me.
-Thank you very much!&lt;/p&gt;
+&lt;p&gt;All in all, this is a free alternative of the expensive mask detection machine. In such a hard time, I hope this AI can give a hand to those small businesses that strive to persist. So that they can obtain protection similar to luxury shops at a small cost. As long as this tool can protect one more person from COVID-19, it would be enough.&lt;/p&gt;
+
+&lt;p&gt;Of course, this project is not yet mature. If you have any suggestions or are willing to contribute to this project, please contact me.&lt;/p&gt;
+
+&lt;p&gt;Thank you very much!&lt;/p&gt;
 </description>
         <pubDate>Fri, 27 Nov 2020 00:00:00 -0500</pubDate>
         <link>http://localhost:4000/2020/11/27/mask-detection/</link>
