@@ -37,7 +37,7 @@ Let us recall those mask detection machines at the entrance of luxury stores, th
 
 ![webassemblysetting.png](https://github.com/waittim/waittim.github.io/raw/master/img/webassembly-setting.png)
 
-**Hint:** iOS is not supported yet, please use Android, MacOS and Windows. The FPS depends on your device CPU.
+**Hint:** iOS is not supported yet, please use Android, macOS and Windows. The FPS depends on your device CPU.
 
 ## Why it's so fast?
 
@@ -62,9 +62,14 @@ Therefore, there is no need to worry about any privacy leakage and other issues.
 
 ## What's more?
 
-Because the existing deployment uses SIMD, etc., it cannot run on Safari temporarily. And iOS only supports WebAssembly in Safari, so it cannot be used on the iOS now. I am still working on the problem.
+Because the existing deployment uses SIMD, etc., it cannot run on Safari temporarily. And iOS only supports WebAssembly in Safari, so it cannot be used on the iOS now. I am still working on the problem. It’s coming.
 
-All in all, this is a free alternative of the expensive mask detection machine. In such a hard time, I hope this AI can give a hand to those small businesses that strive to persist. So that they can obtain protection similar to luxury shops at a small cost. As long as this tool can protect one more person from COVID-19, it would be enough.
+All in all, it is just a free alternative to the expensive mask detection machine. You can buy a tablet for $60 and a floor standing for $20 to get similar functions. After this pandemic, these devices can also be used for other purposes.
+
+![price-eg.jpg](https://github.com/waittim/waittim.github.io/raw/master/img/price-eg.jpg)
+
+
+In such a hard time, I hope this AI can give a hand to those small businesses that strive to persist. So that they can obtain protection similar to luxury shops at a small cost. As long as this tool can protect one more person from COVID-19, it would be enough.
 
 Of course, this project is not yet mature. If you have any suggestions or are willing to contribute to this project, please contact me.
 
