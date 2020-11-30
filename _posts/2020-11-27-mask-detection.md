@@ -30,9 +30,10 @@ Let us recall those mask detection machines at the entrance of luxury stores, th
 
 ## How to use it?
 
-1. Launch the latest version of Chrome browser, open *chrome://flags* in the address bar
-2. Enable all *WebAssembly* features
-3. Re-launch chrome ,open the [webpage](http://facemask-detection.com/), and allow the access to camera.
+1. Download and Launch the latest version of Chrome browser
+2. Enter *chrome://flags* in the address bar
+3. Enable all *WebAssembly* features
+4. Re-launch chrome, open the [webpage](http://facemask-detection.com/), and allow the access to camera.
 
 ![webassemblysetting.png](https://github.com/waittim/waittim.github.io/raw/master/img/webassembly-setting.png)
 
@@ -53,7 +54,7 @@ Because of this, even without a GPU, even if it runs in a browser, it can comple
 
 ## What about privacy issues?
 
-Since this model runs entirely in the browser, it does not and does not need to upload any data, such as video content, to the server. All detection processes are completed locally. After loading, the user can even cut off the Internet connection. (So I don't need to rent a server lol)
+Since this model runs entirely in the browser, it does not and does not need to upload any data, such as video content, to the server. All detection processes are completed locally. After loading, the user can even cut off the Internet connection. 
 
 All video content will only be processed in real time and will not be stored in any form.
 
