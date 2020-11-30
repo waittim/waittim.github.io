@@ -30,7 +30,7 @@ Let us recall those mask detection machines at the entrance of luxury stores, th
 
 ## How to use it?
 
-1. Launch Google chrome browser, open *chrome://flags* in the address bar
+1. Launch the latest version of Google Chrome browser, open *chrome://flags* in the address bar
 2. Enable all *WebAssembly* features
 3. Re-launch chrome , open the [webpage](http://facemask-detection.com/),and allow the access to camera.
 
