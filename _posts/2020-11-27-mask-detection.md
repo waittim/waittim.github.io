@@ -10,6 +10,9 @@ tags:
     - Deep Learning
     - Object Detection
     - Project
+    - Python
+    - C++
+    - JavaScript
 ---
 
 **[facemask-detection.com](https://facemask-detection.com/)** 👈👈
@@ -67,7 +70,6 @@ Because the existing deployment uses SIMD, etc., it cannot run on Safari tempora
 All in all, it is just a free alternative to the expensive mask detection machine. You can buy a tablet for $60 and a floor standing for $20 to get similar functions. After this pandemic, these devices can also be used for other purposes.
 
 ![price-eg.jpg](https://github.com/waittim/waittim.github.io/raw/master/img/price-eg.jpg)
-
 
 In such a hard time, I hope this AI can give a hand to those small businesses that strive to persist. So that they can obtain protection similar to luxury shops at a small cost. As long as this tool can protect one more person from COVID-19, it would be enough.
 
