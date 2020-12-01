@@ -33,6 +33,8 @@ Let us recall those mask detection machines at the entrance of luxury stores, th
 
 ## How to use it?
 
+Now, you can use it on Android, iOS, Windows, macOS, Linux systems. For the best experience and fastest speed, please use the Chrome browser under non-iOS systems.
+
 1. [Download](https://www.google.com/chrome/) and Launch the latest version of Chrome browser
 2. Enter *chrome://flags* in the address bar
 3. Enable all *WebAssembly* features
@@ -40,7 +42,7 @@ Let us recall those mask detection machines at the entrance of luxury stores, th
 
 ![webassemblysetting.png](https://github.com/waittim/waittim.github.io/raw/master/img/webassembly-setting.png)
 
-**Hint:** iOS is not supported yet, please use Android, macOS and Windows. The FPS depends on your device CPU.
+**Hint:** The FPS depends on your device CPU.
 
 ## Why it's so fast?
 
@@ -65,7 +67,7 @@ Therefore, there is no need to worry about any privacy leakage and other issues.
 
 ## What's more?
 
-Because the existing deployment uses SIMD, etc., it cannot run on Safari temporarily. And iOS only supports WebAssembly in Safari, so it cannot be used on the iOS now. I am still working on the problem. It’s coming.
+Because only Safari supports WebAssembly under the iOS system, and it does not support parallel computing acceleration methods such as SIMD, the speed will be slower than other platforms.
 
 All in all, it is just a free alternative to the expensive mask detection machine. You can buy a tablet for $60 and a floor standing for $20 to get similar functions. After this pandemic, these devices can also be used for other purposes.
 
