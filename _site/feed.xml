@@ -5,8 +5,8 @@
     <description>Across the Great Wall, we can reach every corner in the world</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 06 Dec 2020 03:25:31 -0500</pubDate>
-    <lastBuildDate>Sun, 06 Dec 2020 03:25:31 -0500</lastBuildDate>
+    <pubDate>Sun, 06 Dec 2020 03:38:58 -0500</pubDate>
+    <lastBuildDate>Sun, 06 Dec 2020 03:38:58 -0500</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -19,13 +19,13 @@
 
 &lt;p&gt;The transmission of infectious diseases depends on three elements: the source of infection, the route of transmission, and the susceptible population. Wearing a mask is the most convenient way to cut off the route of transmission. According to the data, if both parties wear masks, even if the social distance of 6 Feet is not maintained, the risk of transmission will be reduced from 90% to 1.5%. Therefore, it is necessary to ensure that as many people as possible wear masks in public places.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://github.com/waittim/waittim.github.io/raw/master/img/risk-mask-nomask.jpg&quot; alt=&quot;risk-mask-nomask.jpg&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/waittim/waittim.github.io/raw/master/img/risk-mask-nomask.jpg&quot; width=&quot;350&quot; height=&quot;453&quot; alt=&quot;risk-mask-nomask&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The question is, how to do it?&lt;/p&gt;
 
 &lt;p&gt;At the entrances of luxury stores and large supermarkets, we can often see staff specifically reminding people to wear masks or setting up mask detection machines. However, it is difficult to find them in small businesses or public facilities. The reason is obvious. Hire someone to remind customers that there is a high cost. In 2019, the average monthly income of the U.S. is approximately $4,365. And to set up a professional mask testing equipment, will cost $1,000 - $4,000. After the pandemic is over, these devices will be useless. Therefore, this will be an unaffordable cost for small businesses that are struggling to survive.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://github.com/waittim/mask-detector/blob/master/modeling/results.png&quot; alt=&quot;results&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/waittim/waittim.github.io/raw/master/img/mask-machine-price.jpg&quot; alt=&quot;mask-machine-price.jpg&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Considering that the United States has 30.2 million small businesses&lt;sup&gt;[2]&lt;/sup&gt; and a large number of public facilities, it is necessary to find a cheap and affordable alternative. This is also the main purpose of this project: to develop a low-cost face mask detection program.&lt;/p&gt;
 
@@ -73,6 +73,8 @@
 &lt;p&gt;However, if these data are used directly for training, the model will be difficult to converge. Therefore, the model used has been pre-trained using the COCO dataset (Microsoft Common Objects in Context, 80 categories)&lt;sup&gt;[8]&lt;/sup&gt;. Then after changing the output category and related model structure, used this dataset for training.&lt;/p&gt;
 
 &lt;p&gt;The code framework used for training is mainly adapted from the YOLOV3 repository from Ultralytics&lt;sup&gt;[9]&lt;/sup&gt;. The training is finished based on Google Colab, the results are as follows:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/waittim/mask-detector/raw/master/modeling/results.png&quot; alt=&quot;results&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;It can be seen that the model has achieved good training results, and mAP@0.5 is stable above 0.8.&lt;/p&gt;
 
