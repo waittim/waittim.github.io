@@ -5,9 +5,194 @@
     <description>Across the Great Wall, we can reach every corner in the world</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 29 Nov 2020 19:03:15 -0500</pubDate>
-    <lastBuildDate>Sun, 29 Nov 2020 19:03:15 -0500</lastBuildDate>
+    <pubDate>Sun, 06 Dec 2020 03:20:38 -0500</pubDate>
+    <lastBuildDate>Sun, 06 Dec 2020 03:20:38 -0500</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
+    
+      <item>
+        <title>Project Report - Face Mask Detection</title>
+        <description>&lt;h2 id=&quot;background&quot;&gt;Background&lt;/h2&gt;
+
+&lt;p&gt;In the last November, the COVID-19 epidemic in the United States reached a new wave of peaks. During Thanksgiving week alone, there were 1,147,489 new cases and 10,279 new deaths.&lt;sup&gt;[1]&lt;/sup&gt; It’s not just numbers. It means that 10 thousand families lost their loved one, 10 thousand people would never have another Thanksgiving in the future.&lt;/p&gt;
+
+&lt;p&gt;Even after Thanksgiving, the daily increase in cases hit new highs many times. Before the vaccine arrived, we had no way to prevent infectious disease, except for wearing masks and maintaining social distance. Even after the successful development of a vaccine, due to factors such as vaccination rate, we still need to admit that preventing infection will become a part of our lives for a long time.&lt;/p&gt;
+
+&lt;p&gt;The transmission of infectious diseases depends on three elements: the source of infection, the route of transmission, and the susceptible population. Wearing a mask is the most convenient way to cut off the route of transmission. According to the data, if both parties wear masks, even if the social distance of 6 Feet is not maintained, the risk of transmission will be reduced from 90% to 1.5%. Therefore, it is necessary to ensure that as many people as possible wear masks in public places.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/waittim/waittim.github.io/raw/master/img/risk-mask-nomask.jpg&quot; alt=&quot;risk-mask-nomask.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The question is, how to do it?&lt;/p&gt;
+
+&lt;p&gt;At the entrances of luxury stores and large supermarkets, we can often see staff specifically reminding people to wear masks or setting up mask detection machines. However, it is difficult to find them in small businesses or public facilities. The reason is obvious. Hire someone to remind customers that there is a high cost. In 2019, the average monthly income of the U.S. is approximately $4,365. And to set up a professional mask testing equipment, will cost $1,000 - $4,000. After the pandemic is over, these devices will be useless. Therefore, this will be an unaffordable cost for small businesses that are struggling to survive.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/waittim/mask-detector/blob/master/modeling/results.png&quot; alt=&quot;results&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Considering that the United States has 30.2 million small businesses&lt;sup&gt;[2]&lt;/sup&gt; and a large number of public facilities, it is necessary to find a cheap and affordable alternative. This is also the main purpose of this project: to develop a low-cost face mask detection program.&lt;/p&gt;
+
+&lt;h2 id=&quot;modeling&quot;&gt;Modeling&lt;/h2&gt;
+
+&lt;p&gt;Considering that the target is a low-cost and wide-coverage mask detection scheme, the first thing that affects is the choice of model.&lt;/p&gt;
+
+&lt;p&gt;Due to the cost limitation, it means that the final product cannot have a high demand for the computing power of the equipment. Generally, the smaller the model, the less demand for device computing power, and the faster it runs on edge devices. So I only consider using a small target detection model.&lt;/p&gt;
+
+&lt;p&gt;The existing miniaturized face detection model can achieve a size of about 2M, and models such as Retinaface&lt;sup&gt;[3]&lt;/sup&gt; can achieve a better recognition effect on human faces. However, considering that the goal of the project includes detecting faces wearing masks, it has imposed greater restrictions on the use of facial landmarks. Therefore, I did not choose to use a single-target face detection model.&lt;/p&gt;
+
+&lt;p&gt;Among the multi-object detection models, the final model I used is Yolo-Fastest&lt;sup&gt;[4]&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;p&gt;YOLO is short for You Only Look Once. It divides the image into different grids, and each grid is responsible for the boxes with the center point in the grid, which reduces a lot of repetitive work compared to the RCNN type model. Therefore, the YOLO model family is known for its speed. Yolo-Fastest is an open source small object detection model shared by dog-qiuqiu. It may be the fastest and lightest known open source YOLO general object detection model. Its size is only 1.3M and very suitable for deployment in low computing power scenarios such as edge devices.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Model&lt;/th&gt;
+      &lt;th&gt;Yolo-Fastest&lt;/th&gt;
+      &lt;th&gt;&lt;a href=&quot;https://github.com/ultralytics/yolov3/releases&quot;&gt;YOLOv3-tiny&lt;/a&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;a href=&quot;https://github.com/ultralytics/yolov3/releases&quot;&gt;YOLOv3-SPP&lt;/a&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;a href=&quot;https://github.com/ultralytics/yolov5/releases&quot;&gt;YOLOv5s&lt;/a&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;a href=&quot;https://github.com/ultralytics/yolov5/releases&quot;&gt;YOLOv5m&lt;/a&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;a href=&quot;https://github.com/ultralytics/yolov5/releases&quot;&gt;YOLOv5l&lt;/a&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;a href=&quot;https://github.com/ultralytics/yolov5/releases&quot;&gt;YOLOv5x&lt;/a&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Weight size&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;1.3M&lt;/td&gt;
+      &lt;td&gt;8.9M&lt;/td&gt;
+      &lt;td&gt;63.0M&lt;/td&gt;
+      &lt;td&gt;7.5M&lt;/td&gt;
+      &lt;td&gt;21.8M&lt;/td&gt;
+      &lt;td&gt;47.8M&lt;/td&gt;
+      &lt;td&gt;89.0M&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;In the model training part, the dataset I use mainly come from the MAFA dataset and the WIDER FACE dataset. The MAFA (MAsked FAces) dataset is collected from internet pictures and contains various face images and annotation information with masks.&lt;sup&gt;[5]&lt;/sup&gt; The WIDER FACE dataset is collected from the WIDER dataset, most of which are faces without masks.&lt;sup&gt;[6]&lt;/sup&gt; Among them, the upper edge of the marking box in the original MAFA dataset is only marks to the eyebrows of the face, while the WIDER FACE dataset marks the position of the whole face. Thanks to AIZOO&lt;sup&gt;[7]&lt;/sup&gt; for re-annotated the data in the MAFA section. The final dataset I used contains 4065 MAFA pictures, 3894 WIDER FACE pictures, and a small number of pictures covering the face with hands.&lt;/p&gt;
+
+&lt;p&gt;However, if these data are used directly for training, the model will be difficult to converge. Therefore, the model used has been pre-trained using the COCO dataset (Microsoft Common Objects in Context, 80 categories)&lt;sup&gt;[8]&lt;/sup&gt;. Then after changing the output category and related model structure, used this dataset for training.&lt;/p&gt;
+
+&lt;p&gt;The code framework used for training is mainly adapted from the YOLOV3 repository from Ultralytics&lt;sup&gt;[9]&lt;/sup&gt;. The training is finished based on Google Colab, the results are as follows:&lt;/p&gt;
+
+&lt;p&gt;It can be seen that the model has achieved good training results, and mAP@0.5 is stable above 0.8.&lt;/p&gt;
+
+&lt;h2 id=&quot;deployment&quot;&gt;Deployment&lt;/h2&gt;
+
+&lt;p&gt;In order for the target group to achieve the goal of mask detection at the lowest cost, the form of the final product needs to be considered.&lt;/p&gt;
+
+&lt;p&gt;If I choose to develop special equipment, users still need to purchase additional equipment. This form is not significantly different from the existing mask detection equipment on the market. The device can only be used for mask detection, which will lose its value after the pandemic is over. Even if the cost can be reduced as much as possible to reduce price, definitely it will greatly restrict the use of people. In addition, a large number of issues such as equipment manufacturing and sales need to be considered, which is far beyond my ability. Therefore, this scheme is not feasible.&lt;/p&gt;
+
+&lt;p&gt;If I choose to develop an APP to achieve this function, considering the diversity of user equipment, I need to develop APPs for various systems separately, which is expected to include at least Android, iOS, Windows, and macOS. And due to the fragmentation of the Android ecosystem, it is also necessary to adapt to various common types of Android devices. This will be a lot of work, so I gave up the plan.&lt;/p&gt;
+
+&lt;p&gt;Therefore, the solution I chose was to develop a web page so that mask detection can be achieved in the browser. The reasons are as follows:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;As one of the most commonly used software, the browser can be found on most devices and adapts well to the corresponding system.&lt;/li&gt;
+  &lt;li&gt;Only need to create a webpage, it can be used on most devices.&lt;/li&gt;
+  &lt;li&gt;Users only need to open the webpage to use, almost no learning cost.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;And even for webpage deployment, it is also necessary to determine how the model runs: making the model runs on the server-side or making the model runs locally in the browser. Considering that if the model is placed on the server-side, the server will require huge bandwidth and can handle a large amount of video data, which is difficult for me to afford. Moreover, deploying the model on the server means that videos containing faces need to be uploaded to the server, therefore, a large part of users will have privacy concerns. Moreover, the uploading and downloading of videos require a stable internet connection and a huge amount of data fees for users, which will also bring additional costs and restrictions. Therefore, enabling the model to run locally in the browser became the final choice.&lt;/p&gt;
+
+&lt;p&gt;The common way to make the model run in the browser is to use tenserflow.js&lt;sup&gt;[10]&lt;/sup&gt; or use onnx.js&lt;sup&gt;[11]&lt;/sup&gt;, etc. I tried both approaches.&lt;/p&gt;
+
+&lt;h4 id=&quot;onnxjs&quot;&gt;onnx.js&lt;/h4&gt;
+
+&lt;p&gt;In order to use onnx.js, I first need to convert the existing PyTorch model into an ONNX model. ONNX is the abbreviation of Open Neural Network Exchange.&lt;sup&gt;[12]&lt;/sup&gt; As an open format, ONNX defines various common operators in the field of machine learning and deep learning to facilitate developers to use ONNX as a relay to convert models from one framework to another. Now ONNX has supported PyTorch, TensorFlow, Caffe2, NCNN, and other common deep learning frameworks. Onnx.js is a JavaScript(Abbreviated as JS) library that can directly read the ONNX model in the JS environment for inference.&lt;/p&gt;
+
+&lt;p&gt;The first problem is that JS does not support INT64 format variables and onnx.js runs in the JS environment. The ONNX model directly exported by PyTorch contains a large number of variables in the INT64 format. Therefore, I need to convert the INT64 component to INT32 format in the ONNX model. After learning the specific expression of the ONNX model, I completed this part of the conversion through filtering, extraction, and replacement. It should be noted that some ONNX operators do not support INT32 as input, such as ConstantOfShape, etc. people need to find an alternative method by themselves.&lt;/p&gt;
+
+&lt;p&gt;Secondly, in the attempt, I found that because onnx.js is relatively niche, there are many operators that are not supported, including &lt;em&gt;Resize&lt;/em&gt; in the model I used. After contacting the maintenance team of onnx.js, this point was also confirmed.&lt;sup&gt;[13]&lt;/sup&gt; To solve this problem, I need to understand the library in depth, modify the onnx.js library, and add support for the operator. Since I have no experience in JS, I finally gave up on this solution.&lt;/p&gt;
+
+&lt;h4 id=&quot;tensorflowjs&quot;&gt;tensorflow.js&lt;/h4&gt;
+
+&lt;p&gt;In order to use tensorflow.js, I need to first convert the model to a TensorFlow SavedModel format or Keras h5 format. The conversion from the PyTorch model to the SavedModel model is accomplished through the ONNX model mentioned above as a relay. tensorflow.js does not run the TensorFlow model directly in the JS environment but needs to first convert the model into a special readable web format model.&lt;sup&gt;[14]&lt;/sup&gt; However, at this step, I also encountered an unsupported operator, &lt;em&gt;TensorScatterUpdate&lt;/em&gt;. After contacting the maintenance team of tensorflow.js, they said “we should be able to add the support fairly soon”&lt;sup&gt;[15]&lt;/sup&gt; at that time. Nevertheless, the operator has not been supported so far.&lt;/p&gt;
+
+&lt;p&gt;Since &lt;em&gt;TensorScatterUpdate&lt;/em&gt; comes from the model conversion process, I tried to directly use the Keras framework to read the model structure and weight files in the Darknet model files. After the release of TensorFlow 2.0, Keras has been embedded as a part of the TensorFlow framework. The existing code on the Internet is based on the old version of Keras, so I refactored the conversion code according to the new Keras API, and added the processing of grouped convolution and other structures. However, even so, the converted model still cannot be converted to the form required by tensorflow.js.&lt;/p&gt;
+
+&lt;p&gt;Therefore, in the end, I chose to continue to look for other solutions.&lt;/p&gt;
+
+&lt;h4 id=&quot;ncnn--webassembly&quot;&gt;NCNN + WebAssembly&lt;/h4&gt;
+
+&lt;p&gt;During the exploration process, I found a possibly effective way to implement in-browser operation through the NCNN framework and WebAssembly.&lt;/p&gt;
+
+&lt;p&gt;NCNN is an open-source optimized inference framework for mobile platforms, implemented in pure C++ and without third-party library dependencies.&lt;sup&gt;[16]&lt;/sup&gt; Its performance on edge devices is excellent. WebAssembly (abbreviated as WASM) is a low-level language that can run in the browser.&lt;sup&gt;[17]&lt;/sup&gt; It is in binary form and is faster than JS. The C++ code can be compiled into WASM format. This also means that we can run C++ programs in the browser in this approach. As long as NCNN can support enough operators, we don’t need to pay attention to whether a certain operator has been implemented in JS. Fortunately, NCNN is a mature enough framework and already supports a large number of operators.&lt;/p&gt;
+
+&lt;p&gt;Therefore, I first converted the PyTorch model into an NCNN model. Then I wrote a C++ program, input the image in the form of RGBA in the main process, use the NCNN library for inference, and finally output the category, confidence, and boxes. Compile the C++ program into WASM format. After that, in the JS program, the WASM program is called as a function. Obtain the camera video stream and input it into the function, and finally use the output result to draw the image.&lt;/p&gt;
+
+&lt;p&gt;After completing the core program, I used HTML and CSS to complete the development of the webpage around the program. I made different adaptations based on the degree of WebAssembly supporting under different systems, to obtain the highest FPS.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;In general, the project has achieved its original purpose: providing a low-cost alternative to mask detection equipment. The results have been published on &lt;a href=&quot;https://facemask-detection.com/&quot;&gt;facemask-detection.com&lt;/a&gt; for users to remember and use.&lt;/p&gt;
+
+&lt;p&gt;The advantages are summarized as follows:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Easy to use.&lt;/strong&gt; Users do not need to purchase any professional equipment, no need to download any software. Just open the web page, you can use it.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Low cost.&lt;/strong&gt; Users can use their idle tablets, iPad, or laptops. Even if the user wants a new one, they can buy a new tablet and its stand, for less than $100. And get similar functions to a device with thousands of dollars.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;High speed.&lt;/strong&gt; Because the model size is extremely small, and the NCNN framework optimized for mobile devices, and it runs by the final binary-based WebAssembly, the overall speed is extremely fast. This also means that users can get the smoothest experience.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;No privacy issues.&lt;/strong&gt; Since the program runs entirely in the browser locally in real-time, there is no need to save any content or upload any data to the server, so users do not have to worry about privacy issues.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Multi-language support.&lt;/strong&gt; The webpage now supports English, Spanish and Chinese, covering 92% of the US population and 50% of the world population.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/waittim/waittim.github.io/raw/master/img/products.jpg&quot; alt=&quot;products.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Reference:&lt;/p&gt;
+
+  &lt;p&gt;[1] https://coronavirus.1point3acres.com/&lt;/p&gt;
+
+  &lt;p&gt;[2] https://www.fundera.com/blog/small-business-employment-and-growth-statistics&lt;/p&gt;
+
+  &lt;p&gt;[3] https://github.com/biubug6/Pytorch_Retinaface&lt;/p&gt;
+
+  &lt;p&gt;[4] https://github.com/dog-qiuqiu/Yolo-Fastest&lt;/p&gt;
+
+  &lt;p&gt;[5] https://openaccess.thecvf.com/content_cvpr_2017/papers/Ge_Detecting_Masked_Faces_CVPR_2017_paper.pdf
+[6] http://shuoyang1213.me/WIDERFACE/&lt;/p&gt;
+
+  &lt;p&gt;[7] https://github.com/AIZOOTech/FaceMaskDetection/blob/master/README.md&lt;/p&gt;
+
+  &lt;p&gt;[8] https://cocodataset.org/&lt;/p&gt;
+
+  &lt;p&gt;[9] https://github.com/ultralytics/yolov3&lt;/p&gt;
+
+  &lt;p&gt;[10] https://github.com/tensorflow/tfjs&lt;/p&gt;
+
+  &lt;p&gt;[11] https://github.com/microsoft/onnxjs&lt;/p&gt;
+
+  &lt;p&gt;[12] https://onnx.ai/&lt;/p&gt;
+
+  &lt;p&gt;[13] https://github.com/microsoft/onnxjs/issues/240&lt;/p&gt;
+
+  &lt;p&gt;[14] https://www.tensorflow.org/js/tutorials/conversion/import_saved_model&lt;/p&gt;
+
+  &lt;p&gt;[15] https://github.com/tensorflow/tfjs/issues/4222&lt;/p&gt;
+
+  &lt;p&gt;[16] https://github.com/Tencent/ncnn&lt;/p&gt;
+
+  &lt;p&gt;[17] https://webassembly.org/&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+        <pubDate>Tue, 01 Dec 2020 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2020/12/01/mask-detection-report/</link>
+        <guid isPermaLink="true">http://localhost:4000/2020/12/01/mask-detection-report/</guid>
+        
+        <category>Deep Learning</category>
+        
+        <category>Object Detection</category>
+        
+        <category>Project</category>
+        
+        <category>Python</category>
+        
+        <category>C++</category>
+        
+        <category>JavaScript</category>
+        
+        
+      </item>
     
       <item>
         <title>Super fast In-browser FaceMask Detection</title>
@@ -25,21 +210,24 @@
 
 &lt;p&gt;&lt;img src=&quot;https://github.com/waittim/waittim.github.io/raw/master/img/mask-detection-machines.png&quot; alt=&quot;mask-detection-machines.png&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Let us recall those mask detection machines at the entrance of luxury stores, they can remind customers to wear masks. However, most small business and local shops cannot pay thousands of dollars to equip them. Now, you only need a tablet or laptop, and you can have it! After loading, this model runs completely locally on your device, and no data will be uploaded to the server (trust me, I can’t afford it).&lt;/p&gt;
+&lt;p&gt;Let us recall those mask detection machines at the entrance of luxury stores, they can remind customers to wear masks. However, most small business and local shops cannot pay thousands of dollars to equip them. Now, you only need a tablet or laptop, and you can have it! After loading, this model runs completely locally on your device, and no data will be uploaded to the server.&lt;/p&gt;
 
 &lt;iframe width=&quot;700&quot; height=&quot;393&quot; src=&quot;https://www.youtube-nocookie.com/embed/Zx6cvJPsEoU&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
 
 &lt;h2 id=&quot;how-to-use-it&quot;&gt;How to use it?&lt;/h2&gt;
 
+&lt;p&gt;Now, you can use it on Android, iOS, Windows, macOS, Linux systems. For the best experience and fastest speed, please use the Chrome browser under non-iOS systems.&lt;/p&gt;
+
 &lt;ol&gt;
-  &lt;li&gt;Launch Google chrome browser, open &lt;em&gt;chrome://flags&lt;/em&gt; in the address bar&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.google.com/chrome/&quot;&gt;Download&lt;/a&gt; and Launch the latest version of Chrome browser&lt;/li&gt;
+  &lt;li&gt;Enter &lt;em&gt;chrome://flags&lt;/em&gt; in the address bar&lt;/li&gt;
   &lt;li&gt;Enable all &lt;em&gt;WebAssembly&lt;/em&gt; features&lt;/li&gt;
-  &lt;li&gt;Re-launch chrome , open the &lt;a href=&quot;http://facemask-detection.com/&quot;&gt;webpage&lt;/a&gt;,and allow the access to camera.&lt;/li&gt;
+  &lt;li&gt;Re-launch chrome, open the &lt;a href=&quot;http://facemask-detection.com/&quot;&gt;webpage&lt;/a&gt;, and allow the access to camera.&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://github.com/waittim/waittim.github.io/raw/master/img/webassembly-setting.png&quot; alt=&quot;webassemblysetting.png&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Hint:&lt;/strong&gt; iOS is not supported yet, please use Android, MacOS and Windows. The FPS depends on your device CPU.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Hint:&lt;/strong&gt; The FPS depends on your device CPU.&lt;/p&gt;
 
 &lt;h2 id=&quot;why-its-so-fast&quot;&gt;Why it’s so fast?&lt;/h2&gt;
 
@@ -78,7 +266,7 @@
 
 &lt;h2 id=&quot;what-about-privacy-issues&quot;&gt;What about privacy issues?&lt;/h2&gt;
 
-&lt;p&gt;Since this model runs entirely in the browser, it does not and does not need to upload any data, such as video content, to the server. All detection processes are completed locally. After loading, the user can even cut off the Internet connection. (So I don’t need to rent a server lol)&lt;/p&gt;
+&lt;p&gt;Since this model runs entirely in the browser, it does not and does not need to upload any data, such as video content, to the server. All detection processes are completed locally. After loading, the user can even cut off the Internet connection.&lt;/p&gt;
 
 &lt;p&gt;All video content will only be processed in real time and will not be stored in any form.&lt;/p&gt;
 
@@ -86,11 +274,15 @@
 
 &lt;h2 id=&quot;whats-more&quot;&gt;What’s more?&lt;/h2&gt;
 
-&lt;p&gt;Because the existing deployment uses SIMD, etc., it cannot run on Safari temporarily. And iOS only supports WebAssembly in Safari, so it cannot be used on the iOS now. I am still working on the problem.&lt;/p&gt;
+&lt;p&gt;Because only Safari supports WebAssembly under the iOS system, and it does not support parallel computing acceleration methods such as SIMD, the speed will be slower than other platforms.&lt;/p&gt;
 
-&lt;p&gt;All in all, this is a free alternative of the expensive mask detection machine. In such a hard time, I hope this AI can give a hand to those small businesses that strive to persist. So that they can obtain protection similar to luxury shops at a small cost. As long as this tool can protect one more person from COVID-19, it would be enough.&lt;/p&gt;
+&lt;p&gt;All in all, it is just a free alternative to the expensive mask detection machine. You can buy a tablet for $60 and a floor standing for $20 to get similar functions. After this pandemic, these devices can also be used for other purposes.&lt;/p&gt;
 
-&lt;p&gt;Of course, this project is not yet mature. If you have any suggestions or are willing to contribute to this project, please contact me.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/waittim/waittim.github.io/raw/master/img/price-eg.jpg&quot; alt=&quot;price-eg.jpg&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In such a hard time, I hope this AI can give a hand to those small businesses that strive to persist. So that they can obtain protection similar to luxury shops at a small cost. As long as this tool can protect one more person from COVID-19, it would be enough.&lt;/p&gt;
+
+&lt;p&gt;Of course, this project is not mature yet. If you have any suggestions or are willing to contribute to this project, please contact me.&lt;/p&gt;
 
 &lt;p&gt;Thank you very much!&lt;/p&gt;
 </description>
@@ -103,6 +295,12 @@
         <category>Object Detection</category>
         
         <category>Project</category>
+        
+        <category>Python</category>
+        
+        <category>C++</category>
+        
+        <category>JavaScript</category>
         
         
       </item>
@@ -560,9 +758,9 @@ anim_save(&quot;output.gif&quot;)
 
 &lt;p&gt;The entire working process is divided into three parts: 10-read-in, 20-feature-engineering, 30-exploratory-data-analysis.&lt;/p&gt;
 
-&lt;h1 id=&quot;10-read-in&quot;&gt;10-read-in&lt;/h1&gt;
+&lt;h2 id=&quot;10-read-in&quot;&gt;10-read-in&lt;/h2&gt;
 
-&lt;h2 id=&quot;import-libraries&quot;&gt;Import libraries.&lt;/h2&gt;
+&lt;h4 id=&quot;import-libraries&quot;&gt;Import libraries.&lt;/h4&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;library(readxl)
 library(tidyverse)
@@ -586,7 +784,7 @@ sentiment dictionary.&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;RColorBrewer&lt;/strong&gt;: set color palette for graphes.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;read-in-raw-data-and-make-the-column-names&quot;&gt;Read in raw data and make the column names.&lt;/h2&gt;
+&lt;h4 id=&quot;read-in-raw-data-and-make-the-column-names&quot;&gt;Read in raw data and make the column names.&lt;/h4&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;for(i in seq(2000,2009,1)){
   df &amp;lt;- read_excel(&quot;Analysis Exercise.xls&quot;, sheet = as.character(i))
@@ -615,7 +813,7 @@ sentiment dictionary.&lt;/li&gt;
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;data(&quot;stop_words&quot;)
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h1 id=&quot;20-feature-engineering&quot;&gt;20-feature-engineering&lt;/h1&gt;
+&lt;h2 id=&quot;20-feature-engineering&quot;&gt;20-feature-engineering&lt;/h2&gt;
 
 &lt;p&gt;This data set is clean enough and I don’t need to clean the data as normal.&lt;/p&gt;
 
@@ -650,12 +848,12 @@ data are the days. I need to transfer them to be the real date. The
 &lt;code class=&quot;highlighter-rouge&quot;&gt;origin&lt;/code&gt; attribute should be 1900-01-01, but due to 1900-leap-year-bug
 of Excel, use 1899-12-30 can get the right answer.&lt;/p&gt;
 
-&lt;h1 id=&quot;30-exploratory-data-analysis&quot;&gt;30-exploratory-data-analysis&lt;/h1&gt;
+&lt;h2 id=&quot;30-exploratory-data-analysis&quot;&gt;30-exploratory-data-analysis&lt;/h2&gt;
 
 &lt;p&gt;In this part, I will answer the following questions to finish the
 exploratory data analysis(EDA) part.&lt;/p&gt;
 
-&lt;h2 id=&quot;what-percent-of-songs-that-chart-never-make-the-top-10&quot;&gt;What percent of songs that chart never make the Top 10?&lt;/h2&gt;
+&lt;h4 id=&quot;what-percent-of-songs-that-chart-never-make-the-top-10&quot;&gt;What percent of songs that chart never make the Top 10?&lt;/h4&gt;
 
 &lt;p&gt;For all years:&lt;/p&gt;
 
@@ -689,7 +887,7 @@ never_top10_year %&amp;gt;%
 
 &lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/0j7gsVWT/unnamed-chunk-7-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;what-were-the-top-10-songs-of-the-decade-2000-2009&quot;&gt;What were the top 10 songs of the decade 2000-2009?&lt;/h2&gt;
+&lt;h4 id=&quot;what-were-the-top-10-songs-of-the-decade-2000-2009&quot;&gt;What were the top 10 songs of the decade 2000-2009?&lt;/h4&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;df %&amp;gt;%
   arrange(desc(total_points)) %&amp;gt;%
@@ -712,7 +910,7 @@ never_top10_year %&amp;gt;%
 ## 10 SOMEONE TO CALL MY LOVER JACKSON, JANET               2001          1012
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;who-was-the-top-artist-of-the-decade-2000-2009&quot;&gt;Who was the top artist of the decade 2000-2009?&lt;/h2&gt;
+&lt;h4 id=&quot;who-was-the-top-artist-of-the-decade-2000-2009&quot;&gt;Who was the top artist of the decade 2000-2009?&lt;/h4&gt;
 
 &lt;p&gt;(Who were the top 10 artists of the decade 2000-2009?)&lt;/p&gt;
 
@@ -738,7 +936,7 @@ never_top10_year %&amp;gt;%
 ## 10 MAROON 5                       3604
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;based-on-the-chart-data-what-artists-would-you-call-the-beatles-of-the-decade-2000-2009&quot;&gt;Based on the chart data, what artist(s) would you call “The Beatles” of the decade 2000-2009?&lt;/h2&gt;
+&lt;h4 id=&quot;based-on-the-chart-data-what-artists-would-you-call-the-beatles-of-the-decade-2000-2009&quot;&gt;Based on the chart data, what artist(s) would you call “The Beatles” of the decade 2000-2009?&lt;/h4&gt;
 
 &lt;p&gt;Actually, this question is really difficult to answer, because “The
 Beatles” has various meanings according to different interpretations.&lt;/p&gt;
@@ -790,7 +988,7 @@ songs on the chart and the mean point of the songs on the chart of each artist.&
 ## 10 EVE featuring GWEN STEFANI                               757
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;what-was-the-most-commonly-used-word-in-a-song-title-for-the-decade-2000-2009&quot;&gt;What was the most commonly used word in a song title for the decade 2000-2009?&lt;/h2&gt;
+&lt;h4 id=&quot;what-was-the-most-commonly-used-word-in-a-song-title-for-the-decade-2000-2009&quot;&gt;What was the most commonly used word in a song title for the decade 2000-2009?&lt;/h4&gt;
 
 &lt;p&gt;For this question, due to there are many special symbols in the song
 title, I need to clean the special patterns in the title.&lt;/p&gt;
@@ -907,7 +1105,7 @@ word_count
 
 &lt;iframe src=&quot;https://waittim.github.io/gallery/song-wordcloud.html&quot; frameborder=&quot;0&quot; width=&quot;700&quot; height=&quot;423&quot; allowfullscreen=&quot;true&quot; mozallowfullscreen=&quot;true&quot; webkitallowfullscreen=&quot;true&quot;&gt;&lt;/iframe&gt;
 
-&lt;h2 id=&quot;sentiment-analysis-of-titles&quot;&gt;Sentiment analysis of titles&lt;/h2&gt;
+&lt;h4 id=&quot;sentiment-analysis-of-titles&quot;&gt;Sentiment analysis of titles&lt;/h4&gt;
 
 &lt;p&gt;In order to analyze the sentiment of the words in the titles, I got the
 stop words(meaningless words) dictionary and sentiment dictionary from
@@ -959,7 +1157,7 @@ nrow(words_positive)/nrow(words_all_sentiment)
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;## [1] 0.4294671
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;who-spent-the-most-weeks-at-1-for-the-decade-2000-2009&quot;&gt;Who spent the most weeks at #1 for the decade 2000-2009?&lt;/h2&gt;
+&lt;h4 id=&quot;who-spent-the-most-weeks-at-1-for-the-decade-2000-2009&quot;&gt;Who spent the most weeks at #1 for the decade 2000-2009?&lt;/h4&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;df %&amp;gt;%
   group_by(artist) %&amp;gt;%
@@ -994,7 +1192,7 @@ nrow(words_positive)/nrow(words_all_sentiment)
 ## 6 LUV                                   JACKSON, JA… 2008                 2
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;what-song-spent-the-most-weeks-at-1-for-the-decade-2000-2009&quot;&gt;What song spent the most weeks at #1 for the decade 2000-2009?&lt;/h2&gt;
+&lt;h4 id=&quot;what-song-spent-the-most-weeks-at-1-for-the-decade-2000-2009&quot;&gt;What song spent the most weeks at #1 for the decade 2000-2009?&lt;/h4&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;df %&amp;gt;%
   arrange(desc(weeks_at_number_1)) %&amp;gt;%
@@ -1008,7 +1206,7 @@ nrow(words_positive)/nrow(words_all_sentiment)
 ## 1 NO SUCH THING MAYER, JOHN 2002                 13
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;what-song-peaked-at-1-the-quickest-in-the-decade-2000-2009&quot;&gt;What song peaked at #1 the quickest in the decade 2000-2009?&lt;/h2&gt;
+&lt;h4 id=&quot;what-song-peaked-at-1-the-quickest-in-the-decade-2000-2009&quot;&gt;What song peaked at #1 the quickest in the decade 2000-2009?&lt;/h4&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;df %&amp;gt;%
   filter(weeks_at_number_1 != 0) %&amp;gt;%
@@ -1024,7 +1222,7 @@ nrow(words_positive)/nrow(words_all_sentiment)
 ## # … with 1 more variable: peak_date &amp;lt;date&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;what-song-took-the-longest-to-reach-1-in-the-decade-2000-2009&quot;&gt;What song took the longest to reach #1 in the decade 2000-2009?&lt;/h2&gt;
+&lt;h4 id=&quot;what-song-took-the-longest-to-reach-1-in-the-decade-2000-2009&quot;&gt;What song took the longest to reach #1 in the decade 2000-2009?&lt;/h4&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;df %&amp;gt;%
   filter(weeks_at_number_1 != 0) %&amp;gt;%
@@ -1040,7 +1238,7 @@ nrow(words_positive)/nrow(words_all_sentiment)
 ## # … with 1 more variable: peak_date &amp;lt;date&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;solo-men-solo-women-groups-for-the-decade-2000-2009---design-a-graphic-that-shows-the-distribution-of-songs-hitting-1&quot;&gt;Solo men, solo women, groups for the decade 2000-2009 - design a graphic that shows the distribution of songs hitting #1&lt;/h2&gt;
+&lt;h4 id=&quot;solo-men-solo-women-groups-for-the-decade-2000-2009---design-a-graphic-that-shows-the-distribution-of-songs-hitting-1&quot;&gt;Solo men, solo women, groups for the decade 2000-2009 - design a graphic that shows the distribution of songs hitting #1&lt;/h4&gt;
 
 &lt;p&gt;The solo artists have their full name in the data by the format as
 “LastName, FirstName”, as a result, we can tell whether the data is a
@@ -1086,7 +1284,7 @@ coordinate system to create a pie chart.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/fWdQmbz8/unnamed-chunk-27-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;solo-men-solo-women-groups-for-the-decade-2000-2009---design-a-graphic-that-shows-the-distribution-of-songs-hitting-the-top-10&quot;&gt;Solo men, solo women, groups for the decade 2000-2009 - design a graphic that shows the distribution of songs hitting the Top 10&lt;/h2&gt;
+&lt;h4 id=&quot;solo-men-solo-women-groups-for-the-decade-2000-2009---design-a-graphic-that-shows-the-distribution-of-songs-hitting-the-top-10&quot;&gt;Solo men, solo women, groups for the decade 2000-2009 - design a graphic that shows the distribution of songs hitting the Top 10&lt;/h4&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;df %&amp;gt;%
   mutate(solo_group = case_when(str_detect(string = artist, pattern = &quot;,&quot;) ~ &quot;solo&quot;,
@@ -1124,7 +1322,7 @@ coordinate system to create a pie chart.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/ncY8SwQ7/unnamed-chunk-29-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;what-song-spent-the-most-time-on-the-charts-in-the-decade-2000-2009&quot;&gt;What song spent the most time on the charts in the decade 2000-2009)&lt;/h2&gt;
+&lt;h4 id=&quot;what-song-spent-the-most-time-on-the-charts-in-the-decade-2000-2009&quot;&gt;What song spent the most time on the charts in the decade 2000-2009)&lt;/h4&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;df %&amp;gt;%
   arrange(desc(weeks_top_50)) %&amp;gt;%
@@ -1143,7 +1341,7 @@ coordinate system to create a pie chart.&lt;/p&gt;
 &lt;p&gt;Actually, TIME OF YOUR LIFE (GOOD RIDDANCE) never be the top 1. A sad
 story.&lt;/p&gt;
 
-&lt;h2 id=&quot;is-there-a-correlation-between-weeks-spent-on-the-chart-and-weeks-at-1&quot;&gt;Is there a correlation between weeks spent on the chart and weeks at #1?&lt;/h2&gt;
+&lt;h4 id=&quot;is-there-a-correlation-between-weeks-spent-on-the-chart-and-weeks-at-1&quot;&gt;Is there a correlation between weeks spent on the chart and weeks at #1?&lt;/h4&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;cor(x = df[[&quot;weeks_at_number_1&quot;]],
     y = df[[&quot;weeks_top_50&quot;]])
@@ -1187,13 +1385,13 @@ story.&lt;/p&gt;
 &lt;h1 id=&quot;h1b&quot;&gt;H1B&lt;/h1&gt;
 &lt;p&gt;The H1B visa is a non-immigrant visa that allows companies in the US to hire graduate-level workers in specialty occupations that require theoretical or technical expertise in specialized fields.&lt;/p&gt;
 
-&lt;h3 id=&quot;requirements&quot;&gt;Requirements&lt;/h3&gt;
+&lt;h4 id=&quot;requirements&quot;&gt;Requirements&lt;/h4&gt;
 &lt;ol&gt;
   &lt;li&gt;A bachelor’s degree.&lt;/li&gt;
   &lt;li&gt;Job offer from a company within the United States for a specialty position that matches your degree.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h3 id=&quot;why-is-h1b-popular&quot;&gt;Why is H1B Popular?&lt;/h3&gt;
+&lt;h4 id=&quot;why-is-h1b-popular&quot;&gt;Why is H1B Popular?&lt;/h4&gt;
 &lt;ol&gt;
   &lt;li&gt;For a company in the US, applying for H1B is generally quicker than applying for a US Green Card, so it is popular when they want to bring in an employee for a longer period.&lt;/li&gt;
   &lt;li&gt;H1B is open to nationals and citizens of any country, as opposed to other visa types that are only open to people with certain countries of citizenship.&lt;/li&gt;
@@ -1202,7 +1400,7 @@ story.&lt;/p&gt;
   &lt;li&gt;The main benefit of H1B that attracts a large volume of applicants is the fact that it is a dual intent visa. This means that it allows its holders to seek permanent residency while under the H1B nonimmigrant status.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h3 id=&quot;caveats&quot;&gt;Caveats&lt;/h3&gt;
+&lt;h4 id=&quot;caveats&quot;&gt;Caveats&lt;/h4&gt;
 &lt;p&gt;Despite having a lot of advantages, applying for the H1B comes with its own set of caveats or disadvantages.&lt;/p&gt;
 
 &lt;ol&gt;
@@ -1212,16 +1410,16 @@ This means there is a strong likelihood that for any given year, your petition w
   &lt;li&gt;It is difficult to find an employer that would be willing to sponsor an employee for H1B, as the process can get expensive and is unreliable.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h3 id=&quot;h1b-historic-timeline&quot;&gt;H1B Historic Timeline&lt;/h3&gt;
+&lt;h4 id=&quot;h1b-historic-timeline&quot;&gt;H1B Historic Timeline&lt;/h4&gt;
 &lt;p&gt;&lt;img src=&quot;https://i.loli.net/2019/12/23/uB49UpgOJeoR6Yh.png&quot; alt=&quot;Timeline&quot; /&gt;
 The timeline of relevant events is listed above. Sources for this information are from the New York times, government official documents from USCIS (U.S. Citizenship and Immigration Services).&lt;/p&gt;
 
 &lt;h1 id=&quot;exploration&quot;&gt;Exploration&lt;/h1&gt;
 
-&lt;h3 id=&quot;purpose&quot;&gt;Purpose&lt;/h3&gt;
+&lt;h4 id=&quot;purpose&quot;&gt;Purpose&lt;/h4&gt;
 &lt;p&gt;The main purpose of our exploration was to examine and recognize the trends in H1B Visa and see how data-related jobs in the United States have changed over the past 5 years.&lt;/p&gt;
 
-&lt;h3 id=&quot;dataset&quot;&gt;Dataset&lt;/h3&gt;
+&lt;h4 id=&quot;dataset&quot;&gt;Dataset&lt;/h4&gt;
 &lt;p&gt;To perform this analysis, we combined data sets of 5 different years from 2014 to 2018.
 &lt;img src=&quot;https://i.loli.net/2019/12/23/HhcSbvMuTYt9mDf.png&quot; alt=&quot;df1&quot; /&gt;
 &lt;img src=&quot;https://i.loli.net/2019/12/23/wjlLDzWR3EZJ8am.png&quot; alt=&quot;df2&quot; /&gt;&lt;/p&gt;
@@ -1285,7 +1483,7 @@ The timeline of relevant events is listed above. Sources for this information ar
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;h3 id=&quot;number-of-applications-per-state&quot;&gt;Number of Applications Per State&lt;/h3&gt;
+&lt;h4 id=&quot;number-of-applications-per-state&quot;&gt;Number of Applications Per State&lt;/h4&gt;
 
 &lt;p&gt;We wanted to look at how the number of applications differed per state over the course of the last 5 years.
 Here we can see that the states of California, Texas, New York, Michigan, Georgia, Pennsylvania, Florida, and Illinois are the states with the highest number of applications. The number of applicants is seen to increase over time (from 2015 to 2017) for Washington, Virginia and North Carolina. States that have the lowest number of applicants are Montana, Wyoming and South Dakota.&lt;/p&gt;
@@ -1315,7 +1513,7 @@ wage distribution between STEM and non-STEM.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;It is visible from the density plot of the wage distribution of the year 2018 that the wages of the STEM jobs in 2018 are not only higher but the distribution is also tighter as compared to the distribution for the non-STEM jobs.&lt;/p&gt;
 
-&lt;h3 id=&quot;top-jobs-in-stem-in-2018&quot;&gt;Top Jobs In STEM in 2018&lt;/h3&gt;
+&lt;h4 id=&quot;top-jobs-in-stem-in-2018&quot;&gt;Top Jobs In STEM in 2018&lt;/h4&gt;
 
 &lt;p&gt;What naturally followed after this was an analysis of what these STEM jobs were, to gain an understanding of why so many foreign students were attracted to them (Figure 5). Software developer and software engineer positions seem to be the top two jobs with the highest number of applications. This might be attributed to the tech boom of the last 5 years, which has greatly increased the demand for software developers.&lt;/p&gt;
 
@@ -1362,7 +1560,7 @@ wage distribution between STEM and non-STEM.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Two important things to notice here (Figure 6). Firstly, the total number of jobs for business analysts is much higher than the total number of jobs for other roles. There also seems to be a downward trend in the number of jobs for business analysts after 2016; however, the number of jobs within business analytics remains much higher than the number of jobs in any of the other categories in any of the years. Secondly, the number of jobs for data scientists, analysts and engineers are all showing an upward trend. There appears to be a higher number of jobs for data analysts as compared to data scientists and data engineers. A reason for this is that the role of data scientists only emerged recently and the number of jobs available in the industry has just recently, in the past couple of years, started growing.&lt;/p&gt;
 
-&lt;h3 id=&quot;prevailing-wages-per-data-related-job-category&quot;&gt;Prevailing Wages Per Data Related Job Category&lt;/h3&gt;
+&lt;h4 id=&quot;prevailing-wages-per-data-related-job-category&quot;&gt;Prevailing Wages Per Data Related Job Category&lt;/h4&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/520q5WsD/image022.png&quot; alt=&quot;&quot; title=&quot;Figure 7: Prevailing wages for data-related jobs in 2018&quot; /&gt;&lt;/p&gt;
 
@@ -1376,11 +1574,11 @@ wage distribution between STEM and non-STEM.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The company Infosys showed a very steep downward trend and also had the highest number of H1B applications in the year 2014 which was on a completely different scale as compared to other similar companies (Fig. 9). This drew the attention of our analysis because it was a highly abnormal trend, but upon deeper examination, it revealed a precautionary tale for foreign students trying to get jobs in the United States.&lt;/p&gt;
 
-&lt;h3 id=&quot;story-behind-infosys&quot;&gt;Story Behind Infosys&lt;/h3&gt;
+&lt;h4 id=&quot;story-behind-infosys&quot;&gt;Story Behind Infosys&lt;/h4&gt;
 
 &lt;p&gt;In 2013, Infosys agreed to pay $34 million to settle a lawsuit against them which claimed they were involved in fraud and abuse of the immigration process in the United States . Infosys brought foreign nationals into the country on visa types that are not authorized for employment in the United States. This means that the company was involved in fraudulent activity. The USCIS has been stricter on companies like Infosys (Wipro, Tata) because they have a history of trying to go around the system and abusing it to employ cheap labor. The denial rate  for these companies has been extremely high and can be seen to effectively reduce the total number of applications submitted through them over the course of the last 5 years.&lt;/p&gt;
 
-&lt;h3 id=&quot;top-tech-companies&quot;&gt;Top Tech Companies&lt;/h3&gt;
+&lt;h4 id=&quot;top-tech-companies&quot;&gt;Top Tech Companies&lt;/h4&gt;
 
 &lt;p&gt;A natural assumption for someone entering the market as a data scientist would be that the top tech companies have the highest number of jobs for data-related roles. We examine the top tech giants that are
 &lt;img src=&quot;https://i.postimg.cc/HsL7R4by/image028.png&quot; alt=&quot;&quot; title=&quot;Figure 10: Data related job trends in the top tech companies in the past 5 years&quot; /&gt;&lt;/p&gt;
@@ -1414,7 +1612,7 @@ wage distribution between STEM and non-STEM.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Another trend of interest is that of Amazon (Fig 11 (d)) which sees a decrease in the number of applications for data-related roles after the year 2017. This might be attributed to stricter H1B regulations implemented under Trump’s administration and also could be attributed to data scientist jobs doing jobs of data scientists.&lt;/p&gt;
 
-&lt;h3 id=&quot;ibm&quot;&gt;IBM&lt;/h3&gt;
+&lt;h4 id=&quot;ibm&quot;&gt;IBM&lt;/h4&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/wv7jFFCq/image039.png&quot; alt=&quot;&quot; title=&quot;Figure 12: IBM trends for data-related roles - (a)IBM Spaghetti plot for all jobs&quot; /&gt;
 &lt;img src=&quot;https://i.postimg.cc/g04WCRVx/image042.png&quot; alt=&quot;&quot; title=&quot;Figure 12: IBM trends for data-related roles - (b)Data-related roles for IBM&quot; /&gt;&lt;/p&gt;
@@ -1423,7 +1621,7 @@ wage distribution between STEM and non-STEM.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;This downward trend is probably linked to IBM’s consulting sector combined with stricter government regulations . Despite this trend, the number of applications for specific data-related roles in IBM (Fig 12 (b)) seems to be unaffected by this downward trend.&lt;/p&gt;
 
-&lt;h3 id=&quot;other-consulting-companies&quot;&gt;Other Consulting Companies&lt;/h3&gt;
+&lt;h4 id=&quot;other-consulting-companies&quot;&gt;Other Consulting Companies&lt;/h4&gt;
 
 &lt;p&gt;It would make sense that other consulting or non-tech companies should show trends similar to that of IBM with a decreasing number of applications. And this can be seen in both Deloitte and Accenture (Fig. 13 (a) and (b). Even though Deloitte has been a major employer for data-related roles in the past 5 years, it has shown a sharp decrease in these roles after 2016 (Fig 13 (a)). This decline started before President Trump’s election around 2015, when stricter regulations were implemented on working offsite on H1B.&lt;/p&gt;
 
@@ -1446,7 +1644,7 @@ wage distribution between STEM and non-STEM.&quot; /&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;locations-for-data-related-jobs&quot;&gt;Locations for Data-Related Jobs&lt;/h1&gt;
 
-&lt;h3 id=&quot;nationwide-overview&quot;&gt;Nationwide Overview&lt;/h3&gt;
+&lt;h4 id=&quot;nationwide-overview&quot;&gt;Nationwide Overview&lt;/h4&gt;
 
 &lt;iframe src=&quot;https://waittim.github.io/gallery/h1b-map-data.html&quot; frameborder=&quot;0&quot; width=&quot;700&quot; height=&quot;435&quot; allowfullscreen=&quot;true&quot; mozallowfullscreen=&quot;true&quot; webkitallowfullscreen=&quot;true&quot;&gt;&lt;/iframe&gt;
 
@@ -1468,14 +1666,14 @@ wage distribution between STEM and non-STEM.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Upon taking a deeper look at the different jobs and the top states for those jobs, we can see how the number of applications for the data-related roles is being distributed among the top states. What is interesting to note here is that the Business Analyst role is higher for almost all states except for the state of Michigan where the Data Analyst applications are higher than the Business Analyst applications. We can see the majority of Data Scientist applications are coming from California while Washington and New York follow right after.&lt;/p&gt;
 
-&lt;h3 id=&quot;regions-of-the-united-states&quot;&gt;Regions of the United States&lt;/h3&gt;
+&lt;h4 id=&quot;regions-of-the-united-states&quot;&gt;Regions of the United States&lt;/h4&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/vTtknw0c/image053.png&quot; alt=&quot;&quot; title=&quot;Figure 16: 1 Point = 1 City. Color = Data position with the highest number of jobs in that city&quot; /&gt;
 &lt;em&gt;Figure 16: 1 Point = 1 City. Color = Data position with the highest number of jobs in that city&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;To find where would be best to apply based on the type of data role, a deeper analysis is needed into what cities would be best to apply to, based on the number of proportions of jobs available for each of the data roles. In Figure 16, each point is a city and the color of the city is given by what data-position provided the majority of the application in 2017 and 2018. Using two years for the analysis instead of one is better as it provides a better picture of the data-related jobs.  We can see lots of blue clusters forming on the east coast, while some black clusters forming in Michigan and more of a variety of colors in California in the Bay Area and Washington.&lt;/p&gt;
 
-&lt;h3 id=&quot;the-western-united-states&quot;&gt;The Western United States&lt;/h3&gt;
+&lt;h4 id=&quot;the-western-united-states&quot;&gt;The Western United States&lt;/h4&gt;
 
 &lt;p&gt;The Western United States has two main states of interest for data-related roles, Washington and California.
 &lt;img src=&quot;https://i.postimg.cc/zG8D4qsP/image055.png&quot; alt=&quot;&quot; title=&quot;Figure 17: State of Washington and data-related roles in that state &quot; /&gt;&lt;/p&gt;
@@ -1486,19 +1684,19 @@ wage distribution between STEM and non-STEM.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;If pursuing a data scientist role or job title, state of California seems to have the most variety and also the highest number of applications for H1B applications for that role (668 H1B applications). The big red circles show that a large number of data scientists applied for H1B from the bay area (San Jose, San Francisco, and Oakland). This makes complete sense because of the presence of Silicon Valley, where most of the headquarters for tech companies are located, and the recent boom in data science jobs in the tech industry (cite).&lt;/p&gt;
 
-&lt;h3 id=&quot;the-northeastern-united-states&quot;&gt;The Northeastern United States&lt;/h3&gt;
+&lt;h4 id=&quot;the-northeastern-united-states&quot;&gt;The Northeastern United States&lt;/h4&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/cJPpymK4/image059.png&quot; alt=&quot;&quot; title=&quot;Figure 19: The Northeastern States and data-related roles in those states&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;We see four main clusters on this map. Boston, New York, Philadelphia, and Washington DC. The majority of these clusters are blue as northeast has a relatively large number of finance and insurance companies (+ 22.7% relative as compared to other places in the United States) , and these companies have a large number of business analyst or data analytics positions as compared to other roles. The existence of some black clusters is an indication of this industry requiring data analysts.&lt;/p&gt;
 
-&lt;h3 id=&quot;the-midwestern-united-states&quot;&gt;The Midwestern United States&lt;/h3&gt;
+&lt;h4 id=&quot;the-midwestern-united-states&quot;&gt;The Midwestern United States&lt;/h4&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/wvJS6mJ5/image061.png&quot; alt=&quot;&quot; title=&quot;Figure 20: Midwestern states and data-related roles in those states&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The midwest shows relatively more black clusters as compared to any other region. There is a large black cluster in the state of Michigan indicating a significant number of data analyst positions, in Detroit. And a large blue cluster in Chicago indicating a large number of business analyst positions.&lt;/p&gt;
 
-&lt;h3 id=&quot;state-of-tennessee&quot;&gt;State of Tennessee&lt;/h3&gt;
+&lt;h4 id=&quot;state-of-tennessee&quot;&gt;State of Tennessee&lt;/h4&gt;
 
 &lt;p&gt;The final and most important analysis, relevant to the authors of this paper and the potential individuals reading it, is an analysis of the data-related job market for international students, using H1B, in the state of Tennessee.&lt;/p&gt;
 
@@ -1785,141 +1983,6 @@ result_df %&amp;gt;%
         <category>R</category>
         
         <category>Correlation</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Central limite theorem - Approximation</title>
-        <description>&lt;p&gt;Import the packages first.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;library(magrittr)
-library(sn)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&quot;situation-description&quot;&gt;Situation Description&lt;/h1&gt;
-
-&lt;p&gt;The central limit theorem is an important computational short-cut for generating and making inference from the sampling distribution of the mean. I will recall that the central limit theorem short-cut relies on a
-number of conditions, specifically:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Independent observations&lt;/li&gt;
-  &lt;li&gt;Identically distributed observations&lt;/li&gt;
-  &lt;li&gt;Mean and variance exist&lt;/li&gt;
-  &lt;li&gt;Sample size large enough for convergence&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;In this simulation study, I.m going to compare the sampling distribution of the mean generated by simulation to the sampling distribution implied by the central limit theorem. I will compare the distributions graphically in QQ-plots.&lt;/p&gt;
-
-&lt;p&gt;This will be a 4 × 4 factorial experiment. The first factor will be the sample size, with N = 5, 10, 20, and 40. The second factor will be the degree of skewness in the underlying distribution. The underlying distribution will be the Skew-Normal distribution. The Skew-Normal distribution has three parameters: location
-&lt;script type=&quot;math/tex&quot;&gt;\xi&lt;/script&gt;, scale
-&lt;script type=&quot;math/tex&quot;&gt;\omega&lt;/script&gt;, and slant
-&lt;script type=&quot;math/tex&quot;&gt;\alpha&lt;/script&gt;. When the slant parameter is 0, the distribution reverts to the normal distribution. As the slant parameter increases, the distribution becomes increasingly skewed. In this simulation, the slant will be set to 0, 2, 10, 100. Set location and scale to 0 and 1, respectively, for all simulation settings.&lt;/p&gt;
-
-&lt;h1 id=&quot;plot-preparation&quot;&gt;Plot preparation&lt;/h1&gt;
-
-&lt;p&gt;In the very beginning, we need to set up the parameters that do not change in the following steps. The slant of Skew-Normal distribution will change later, therefore, only the location
-&lt;script type=&quot;math/tex&quot;&gt;\xi&lt;/script&gt; and scale
-&lt;script type=&quot;math/tex&quot;&gt;\omega&lt;/script&gt; will be set in this part.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;R &amp;lt;- 5000
-location &amp;lt;- 0
-scale &amp;lt;- 1
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;location:
-&lt;script type=&quot;math/tex&quot;&gt;\xi&lt;/script&gt;, scale:
-&lt;script type=&quot;math/tex&quot;&gt;\omega&lt;/script&gt;, slant:
-&lt;script type=&quot;math/tex&quot;&gt;\alpha&lt;/script&gt;&lt;/p&gt;
-
-&lt;p&gt;Before creating the function, let’s clarify the functions for calculating the delta, mean and standard deviation for the central limit theorem (CLT).&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;Delta:
-&lt;script type=&quot;math/tex&quot;&gt;\delta =\frac{\alpha}{\sqrt{1+\alpha^2}}&lt;/script&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Mean:
-&lt;script type=&quot;math/tex&quot;&gt;\xi+\omega \delta \sqrt{\frac{2}{\pi}}&lt;/script&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Standard deviation:
-&lt;script type=&quot;math/tex&quot;&gt;\sqrt{\omega^2(1-\frac{2\delta^2}{\pi})  }&lt;/script&gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Then define the function for the CLT process and generating the QQplots by using the functions before.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;qqplot_creator &amp;lt;- function(slant, N) {
-  delta &amp;lt;- slant / (sqrt(1 + slant ^ 2))
-
-  # Quantites to calculate/generate
-  pop_mean &amp;lt;- location + scale * delta * (sqrt(2 / pi))
-  pop_sd &amp;lt;- sqrt(scale ^ 2 * (1 - ((2 * delta ^ 2) / pi)))
-
-  Z &amp;lt;- rnorm(R) # generate the normal distribution as the basement
-
-  #CLT approximation
-  sample_dist_clt &amp;lt;- Z * (pop_sd / sqrt(N)) + pop_mean
-
-  #Simulation approximation
-  random.skew &amp;lt;- array(rsn(R * N, xi = location, omega = scale, alpha = slant),
-                      dim = c(R, N))
-
-  sample_dist_sim &amp;lt;- apply(random.skew, 1, mean)
-
-  qqplot(sample_dist_clt, sample_dist_sim, axes = FALSE, frame.plot=TRUE, ann = FALSE)
-  abline(0,1)
-
-  }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&quot;qqplot-generation&quot;&gt;QQplot generation&lt;/h1&gt;
-
-&lt;p&gt;Now we can set the slants and Ns we want to test in the following steps. As the requirement, the N = 5, 10, 20, and 40 and slant will be set to 0, 2, 10, 100. Then create a sequence to define the points where we want to test.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;slant &amp;lt;- c(0,2,10,100)
-N &amp;lt;- c(5,10,20,40)
-x &amp;lt;- seq(-2,2,0.01)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Set a graph for put all of the QQplots together and use the qqplot_creator function to fill the QQplots inside.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-{r}&quot;&gt;par(mfrow=c(4,5),mai=c(0.1,0.1,0.1,0.1), oma = c(0, 4, 4, 0))
-
-for(i in slant){
-  plot(dsn(x,
-           xi = location,
-           omega = scale,
-           alpha = i),
-       axes = FALSE,
-       frame.plot=TRUE,
-       type = &quot;l&quot;,
-       xlab = NA, ylab = NA)
-  for(j in N){
-    qqplot_creator(i, j)
-  }
-}
-mtext(text=&quot;Distribution              N=5                N=10                   N=20                    N=40&quot;,
-      side = 3,
-      outer = TRUE)
-mtext(text=&quot;slant = 100   slant = 10       slant = 2      slant = 0&quot;,
-      side = 2,
-      outer = TRUE)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&quot;https://i.postimg.cc/rwCbSBq2/image.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
-
-&lt;p&gt;Definitely, when the N is bigger, the QQplot will fit the y=x line better, which means the CLT works better when it wants to simulate the distribution. And when the slant is bigger, in other words, the Skew-Normal distribution has higher skewness, it will be more difficult to simulate the distribution.&lt;/p&gt;
-</description>
-        <pubDate>Tue, 12 Nov 2019 00:00:00 -0500</pubDate>
-        <link>http://localhost:4000/2019/11/12/clt/</link>
-        <guid isPermaLink="true">http://localhost:4000/2019/11/12/clt/</guid>
-        
-        <category>Probability</category>
-        
-        <category>Simulation</category>
-        
-        <category>R</category>
-        
-        <category>CLT</category>
         
         
       </item>

@@ -75,6 +75,6 @@ All in all, it is just a free alternative to the expensive mask detection machin
 
 In such a hard time, I hope this AI can give a hand to those small businesses that strive to persist. So that they can obtain protection similar to luxury shops at a small cost. As long as this tool can protect one more person from COVID-19, it would be enough.
 
-Of course, this project is not yet mature. If you have any suggestions or are willing to contribute to this project, please contact me.
+Of course, this project is not mature yet. If you have any suggestions or are willing to contribute to this project, please contact me.
 
 Thank you very much!

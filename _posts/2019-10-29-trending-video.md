@@ -15,12 +15,12 @@ tags:
 ---
 
 
-# Slides
+## Slides
 <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vTN6OHLfZ70A3x6X97oe68aBpaGtQUUmvcnJ-n9QSCdz99m_S4hYXZYY__sMhHhwB0hapDY1y2HuHuo/embed?start=false&loop=true&delayms=30000" frameborder="0" width="700" height="423" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 
 
 
-# Introduction
+## Introduction
 
 YouTube is one of the biggest media platforms of the 21st century.
 
@@ -32,7 +32,7 @@ YouTube is one of the biggest media platforms of the 21st century.
 
 This makes YouTube a powerful tool for advertising, business, research and content creators.
 
-## Motivation
+#### Motivation
 
 Being able to predict if a YouTube video is likely to be trending or not is highly useful if you are:
 - **A content creator** who wants to make trending videos.
@@ -44,7 +44,7 @@ To do this, you will need to know :
 2. **How** to upload/look for, a potentially trending YouTube video
 3. **What** to upload/look for, in a potentially trending YouTube video
 
-## A look at the trending videos
+#### A look at the trending videos
 
 A trending video can be identified by three major measures:
 1. Number of **Likes**
@@ -62,9 +62,9 @@ Upon looking at the distribution of likes, dislikes , views and comments of the 
 
 We will be looking at the number of videos being posted and the number of views being received.
 
-# When to post a trending video
+## When to post a trending video
 
-## Best month
+#### Best month
 
 ![](https://i.postimg.cc/Dy2mZ8KF/image.png "best month")
 
@@ -74,7 +74,7 @@ It also shows that the **highest** number of trending videos are posted in the m
 
 The best time to post a video would be **April** and **May** as they show the **highest** number of views in comparison to the number of videos posted.  Months December, March and February also see a high number of trending videos being posted but not as many views.
 
-## Best day of the week
+#### Best day of the week
 
 ![](https://i.postimg.cc/nL7nTJt0/image.png "Best day of the week")
 
@@ -84,7 +84,7 @@ Interestingly,  **Saturday** and **Sunday** are the worst to post videos as ther
 
 However, there might be an extremely small chance that a video that you post on Sunday reaches **200 million views**!
 
-## Best time of day
+#### Best time of day
 
 ![](https://i.postimg.cc/tCYQ2j3W/image.png “Best time of day 1”)
 ![](https://i.postimg.cc/YCKnYKbp/image.png "Best time of day 2")
@@ -96,9 +96,9 @@ Surprisingly, around **11PM**, where few of the the lowest amount of videos are 
 The best time to post a video would be around **8AM to 11AM**. However, there is small chance if you post at **11PM**, that your video will get the highest number of views, though it might be risky as this is also.
 
 
-# How to post a trending video
+## How to post a trending video
 
-## Rows of description
+#### Rows of description
 
 “Rows of description” are defined by the number of rows it takes to give the description of the video.
 
@@ -108,7 +108,7 @@ Most trending YouTube videos have **1 - 3 rows** of description only and videos 
 
 However, we see a spike in number of views at around 20 rows of description. These might be videos which required further explanation.
 
-## Number of tags
+#### Number of tags
 
 ![](https://i.postimg.cc/dVgyLwBB/image.png "Number of tagshttps://i.postimg.cc/dVgyLwBB/image.png")
 
@@ -116,7 +116,7 @@ There are a large number of trending videos with no tags but they see a lower nu
 
 We can also see that adding more tags outside of this range resulted in a decline in the number of views. Furthermore, the number of people choosing to add tags greater than this range also declined.  
 
-## Title of a trending video
+#### Title of a trending video
 
 Number of Uppercase Letters | Length of Title  
 --- | ---
@@ -126,9 +126,9 @@ the greatest number of views appeared on videos where the title had between **1 
 
 the highest number of views appeared on videos where the title was less than **50** characters long. Uploaders mostly chose titles between **25-50** characters long.
 
-# What is in a trending video
+## What is in a trending video
 
-## Categorical analysis
+#### Categorical analysis
 
 ![](https://i.postimg.cc/TPFMzHTh/image.png "Categorical analysis")
 Categories of **Entertainment** and **Music** have the highest number of trending videos. However, Music has a higher number of views as compared to Entertainment.
@@ -137,7 +137,7 @@ Film and animation has a lower number of trending videos as compared to Entertai
 
 If you are a **musician** or an **entertainer**, your videos are more likely to be trending as compared to any other type of video.
 
-## Likes/Dislikes ratio
+#### Likes/Dislikes ratio
 
 If the L/D ratio is less than 1, more people disliked the video. If greater than 1, more people liked the video. If equal to 1, an equal number of people liked and disliked the video. A video is **controversial** when the L/D ratio is less than 1 or equal to 1.   
 
@@ -149,7 +149,7 @@ If L/D ratio is **less than 10**, the number of views **decline**. **The more co
 
 However, videos with higher **L/D ratios (>100)** coincided with **fewer views**. It seems that videos which are slightly controversial may be viewed more than videos which are not controversial at all.
 
-## Sentiment Analysis
+#### Sentiment Analysis
 
 Understanding how sentiment plays a role in the making of a trending of YouTube video is an interesting area to look at.
 
@@ -170,7 +170,7 @@ The **least** popular videos of these four categories had a positive sentiment o
 
 This is consistent with our analysis of Likes/Dislikes ratio. It shows that a video needs to be **controversial**; however **the more negative** it tends to be, **the less likely** it is to be the most trending video.
 
-# Conclusions
+## Conclusions
 
 ![](https://i.postimg.cc/HsdxvjSR/image.png "breakdown")
 
@@ -183,7 +183,7 @@ While creating video content, it’s important to keep the idea of **controversy
 However, it’s important to **strike a balance**. You will see the most amount of views and have the highest likelihood of a trending video when you hit the sweet spot between challenging a thought and inciting emotion.
 As a content creator, you will have to make sure to keep that in mind while trying to enter an online media market that is highly saturated.
 
-# Appendix
+## Appendix
 
 Motivated by the results from this research, we build a **classification model** using **naive bayes**.
 

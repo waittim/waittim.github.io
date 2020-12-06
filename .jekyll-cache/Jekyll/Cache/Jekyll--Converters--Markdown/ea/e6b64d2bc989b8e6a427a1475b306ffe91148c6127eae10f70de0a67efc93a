@@ -1,4 +1,4 @@
-I"�<p><strong><a href="https://facemask-detection.com/">facemask-detection.com</a></strong> 👈👈</p>
+I"<p><strong><a href="https://facemask-detection.com/">facemask-detection.com</a></strong> 👈👈</p>
 
 <p>This is an AI that <strong>detects masks super fast</strong>:</p>
 <ul>
@@ -12,21 +12,24 @@
 
 <p><img src="https://github.com/waittim/waittim.github.io/raw/master/img/mask-detection-machines.png" alt="mask-detection-machines.png" /></p>
 
-<p>Let us recall those mask detection machines at the entrance of luxury stores, they can remind customers to wear masks. However, most small business and local shops cannot pay thousands of dollars to equip them. Now, you only need a tablet or laptop, and you can have it! After loading, this model runs completely locally on your device, and no data will be uploaded to the server (trust me, I can’t afford it).</p>
+<p>Let us recall those mask detection machines at the entrance of luxury stores, they can remind customers to wear masks. However, most small business and local shops cannot pay thousands of dollars to equip them. Now, you only need a tablet or laptop, and you can have it! After loading, this model runs completely locally on your device, and no data will be uploaded to the server.</p>
 
 <iframe width="700" height="393" src="https://www.youtube-nocookie.com/embed/Zx6cvJPsEoU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
 
 <h2 id="how-to-use-it">How to use it?</h2>
 
+<p>Now, you can use it on Android, iOS, Windows, macOS, Linux systems. For the best experience and fastest speed, please use the Chrome browser under non-iOS systems.</p>
+
 <ol>
-  <li>Launch Google chrome browser, open <em>chrome://flags</em> in the address bar</li>
+  <li><a href="https://www.google.com/chrome/">Download</a> and Launch the latest version of Chrome browser</li>
+  <li>Enter <em>chrome://flags</em> in the address bar</li>
   <li>Enable all <em>WebAssembly</em> features</li>
-  <li>Re-launch chrome , open the <a href="http://facemask-detection.com/">webpage</a>,and allow the access to camera.</li>
+  <li>Re-launch chrome, open the <a href="http://facemask-detection.com/">webpage</a>, and allow the access to camera.</li>
 </ol>
 
 <p><img src="https://github.com/waittim/waittim.github.io/raw/master/img/webassembly-setting.png" alt="webassemblysetting.png" /></p>
 
-<p><strong>Hint:</strong> iOS is not supported yet, please use Android, MacOS and Windows. The FPS depends on your device CPU.</p>
+<p><strong>Hint:</strong> The FPS depends on your device CPU.</p>
 
 <h2 id="why-its-so-fast">Why it’s so fast?</h2>
 
@@ -65,7 +68,7 @@
 
 <h2 id="what-about-privacy-issues">What about privacy issues?</h2>
 
-<p>Since this model runs entirely in the browser, it does not and does not need to upload any data, such as video content, to the server. All detection processes are completed locally. After loading, the user can even cut off the Internet connection. (So I don’t need to rent a server lol)</p>
+<p>Since this model runs entirely in the browser, it does not and does not need to upload any data, such as video content, to the server. All detection processes are completed locally. After loading, the user can even cut off the Internet connection.</p>
 
 <p>All video content will only be processed in real time and will not be stored in any form.</p>
 
@@ -73,11 +76,15 @@
 
 <h2 id="whats-more">What’s more?</h2>
 
-<p>Because the existing deployment uses SIMD, etc., it cannot run on Safari temporarily. And iOS only supports WebAssembly in Safari, so it cannot be used on the iOS now. I am still working on the problem.</p>
+<p>Because only Safari supports WebAssembly under the iOS system, and it does not support parallel computing acceleration methods such as SIMD, the speed will be slower than other platforms.</p>
 
-<p>All in all, this is a free alternative of the expensive mask detection machine. In such a hard time, I hope this AI can give a hand to those small businesses that strive to persist. So that they can obtain protection similar to luxury shops at a small cost. As long as this tool can protect one more person from COVID-19, it would be enough.</p>
+<p>All in all, it is just a free alternative to the expensive mask detection machine. You can buy a tablet for $60 and a floor standing for $20 to get similar functions. After this pandemic, these devices can also be used for other purposes.</p>
 
-<p>Of course, this project is not yet mature. If you have any suggestions or are willing to contribute to this project, please contact me.</p>
+<p><img src="https://github.com/waittim/waittim.github.io/raw/master/img/price-eg.jpg" alt="price-eg.jpg" /></p>
+
+<p>In such a hard time, I hope this AI can give a hand to those small businesses that strive to persist. So that they can obtain protection similar to luxury shops at a small cost. As long as this tool can protect one more person from COVID-19, it would be enough.</p>
+
+<p>Of course, this project is not mature yet. If you have any suggestions or are willing to contribute to this project, please contact me.</p>
 
 <p>Thank you very much!</p>
 :ET

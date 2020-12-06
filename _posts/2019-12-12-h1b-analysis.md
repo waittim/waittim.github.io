@@ -20,18 +20,18 @@ tags:
 # H1B
 The H1B visa is a non-immigrant visa that allows companies in the US to hire graduate-level workers in specialty occupations that require theoretical or technical expertise in specialized fields.
 
-### Requirements
+#### Requirements
 1. A bachelor's degree.
 2. Job offer from a company within the United States for a specialty position that matches your degree.
 
-### Why is H1B Popular?
+#### Why is H1B Popular?
 1. For a company in the US, applying for H1B is generally quicker than applying for a US Green Card, so it is popular when they want to bring in an employee for a longer period.
 2. H1B is open to nationals and citizens of any country, as opposed to other visa types that are only open to people with certain countries of citizenship.
 3. H1B allows holders to stay for three years initially and can be easily extended to three more years after the first term.
 4. H1B allows holders to move their status from one company to another and also allows its holders to work part-time and work for multiple employers at the same time.
 5. The main benefit of H1B that attracts a large volume of applicants is the fact that it is a dual intent visa. This means that it allows its holders to seek permanent residency while under the H1B nonimmigrant status.
 
-### Caveats
+#### Caveats
 Despite having a lot of advantages, applying for the H1B comes with its own set of caveats or disadvantages.
 
 1. The biggest drawback of H1B is the fact that there is a limit on the number of petitions that are approved each year. Because of the large number of petitions each year, the USCIS has chosen to have all petitions entered into a lottery. Through this an annual general cap of 65,000 in first, and then run the remaining in the master’s-and-above 20,000 categories.
@@ -39,17 +39,17 @@ This means there is a strong likelihood that for any given year, your petition w
 2. Because of its lottery, the deadlines for the H1B applications are very inflexible.
 3. It is difficult to find an employer that would be willing to sponsor an employee for H1B, as the process can get expensive and is unreliable.
 
-### H1B Historic Timeline
+#### H1B Historic Timeline
 ![Timeline](https://i.loli.net/2019/12/23/uB49UpgOJeoR6Yh.png)
 The timeline of relevant events is listed above. Sources for this information are from the New York times, government official documents from USCIS (U.S. Citizenship and Immigration Services).   
 
 
 # Exploration
 
-### Purpose
+#### Purpose
 The main purpose of our exploration was to examine and recognize the trends in H1B Visa and see how data-related jobs in the United States have changed over the past 5 years.
 
-### Dataset
+#### Dataset
 To perform this analysis, we combined data sets of 5 different years from 2014 to 2018.
 ![df1](https://i.loli.net/2019/12/23/HhcSbvMuTYt9mDf.png)
 ![df2](https://i.loli.net/2019/12/23/wjlLDzWR3EZJ8am.png)
@@ -69,7 +69,7 @@ data_job_title | This will be used to classify the data-related job titles into 
 stem | This is supposed to classify the h1b application into STEM or non-STEM based on another dataset to recognize its classification.
 soc_code | SOC is a federal statistical standard used by federal agencies to classify workers into occupational categories to collect, calculate, or disseminate data.
 
-### Number of Applications Per State
+#### Number of Applications Per State
 
 We wanted to look at how the number of applications differed per state over the course of the last 5 years.
 Here we can see that the states of California, Texas, New York, Michigan, Georgia, Pennsylvania, Florida, and Illinois are the states with the highest number of applications. The number of applicants is seen to increase over time (from 2015 to 2017) for Washington, Virginia and North Carolina. States that have the lowest number of applicants are Montana, Wyoming and South Dakota.
@@ -100,7 +100,7 @@ The medians of the prevailing wages of the STEM and non-STEM jobs have gotten wi
 
 It is visible from the density plot of the wage distribution of the year 2018 that the wages of the STEM jobs in 2018 are not only higher but the distribution is also tighter as compared to the distribution for the non-STEM jobs.
 
-### Top Jobs In STEM in 2018
+#### Top Jobs In STEM in 2018
 
 What naturally followed after this was an analysis of what these STEM jobs were, to gain an understanding of why so many foreign students were attracted to them (Figure 5). Software developer and software engineer positions seem to be the top two jobs with the highest number of applications. This might be attributed to the tech boom of the last 5 years, which has greatly increased the demand for software developers.
 
@@ -127,7 +127,7 @@ We combined machine learning and deep learning jobs into data science jobs, as t
 
 Two important things to notice here (Figure 6). Firstly, the total number of jobs for business analysts is much higher than the total number of jobs for other roles. There also seems to be a downward trend in the number of jobs for business analysts after 2016; however, the number of jobs within business analytics remains much higher than the number of jobs in any of the other categories in any of the years. Secondly, the number of jobs for data scientists, analysts and engineers are all showing an upward trend. There appears to be a higher number of jobs for data analysts as compared to data scientists and data engineers. A reason for this is that the role of data scientists only emerged recently and the number of jobs available in the industry has just recently, in the past couple of years, started growing.
 
-### Prevailing Wages Per Data Related Job Category
+#### Prevailing Wages Per Data Related Job Category
 
 ![](https://i.postimg.cc/520q5WsD/image022.png "Figure 7: Prevailing wages for data-related jobs in 2018")
 
@@ -141,11 +141,11 @@ To get a general trend of what was going on in the industry for data-related rol
 
 The company Infosys showed a very steep downward trend and also had the highest number of H1B applications in the year 2014 which was on a completely different scale as compared to other similar companies (Fig. 9). This drew the attention of our analysis because it was a highly abnormal trend, but upon deeper examination, it revealed a precautionary tale for foreign students trying to get jobs in the United States.
 
-### Story Behind Infosys
+#### Story Behind Infosys
 
 In 2013, Infosys agreed to pay $34 million to settle a lawsuit against them which claimed they were involved in fraud and abuse of the immigration process in the United States . Infosys brought foreign nationals into the country on visa types that are not authorized for employment in the United States. This means that the company was involved in fraudulent activity. The USCIS has been stricter on companies like Infosys (Wipro, Tata) because they have a history of trying to go around the system and abusing it to employ cheap labor. The denial rate  for these companies has been extremely high and can be seen to effectively reduce the total number of applications submitted through them over the course of the last 5 years.
 
-### Top Tech Companies
+#### Top Tech Companies
 
 A natural assumption for someone entering the market as a data scientist would be that the top tech companies have the highest number of jobs for data-related roles. We examine the top tech giants that are
 ![](https://i.postimg.cc/HsL7R4by/image028.png "Figure 10: Data related job trends in the top tech companies in the past 5 years")
@@ -163,7 +163,7 @@ All of the tech companies show an increasing trend in the data-related. However,
 
 Another trend of interest is that of Amazon (Fig 11 (d)) which sees a decrease in the number of applications for data-related roles after the year 2017. This might be attributed to stricter H1B regulations implemented under Trump’s administration and also could be attributed to data scientist jobs doing jobs of data scientists.
 
-### IBM
+#### IBM
 
 ![](https://i.postimg.cc/wv7jFFCq/image039.png "Figure 12: IBM trends for data-related roles - (a)IBM Spaghetti plot for all jobs")
 ![](https://i.postimg.cc/g04WCRVx/image042.png "Figure 12: IBM trends for data-related roles - (b)Data-related roles for IBM")
@@ -172,7 +172,7 @@ IBM H1B petitions see an overall decrease after the year 2017 (Fig 12 (a)). This
 
 This downward trend is probably linked to IBM’s consulting sector combined with stricter government regulations . Despite this trend, the number of applications for specific data-related roles in IBM (Fig 12 (b)) seems to be unaffected by this downward trend.
 
-### Other Consulting Companies
+#### Other Consulting Companies
 
 It would make sense that other consulting or non-tech companies should show trends similar to that of IBM with a decreasing number of applications. And this can be seen in both Deloitte and Accenture (Fig. 13 (a) and (b). Even though Deloitte has been a major employer for data-related roles in the past 5 years, it has shown a sharp decrease in these roles after 2016 (Fig 13 (a)). This decline started before President Trump’s election around 2015, when stricter regulations were implemented on working offsite on H1B.
 
@@ -185,7 +185,7 @@ The worksite regulations implemented in 2015 can cause problems for consulting c
 
 # Locations for Data-Related Jobs
 
-### Nationwide Overview
+#### Nationwide Overview
 
 <iframe src="https://waittim.github.io/gallery/h1b-map-data.html" frameborder="0" width="700" height="435" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 
@@ -205,14 +205,14 @@ Wyoming and Montana have 2 and 5 H1B applications, respectively,  in 2018. This 
 
 Upon taking a deeper look at the different jobs and the top states for those jobs, we can see how the number of applications for the data-related roles is being distributed among the top states. What is interesting to note here is that the Business Analyst role is higher for almost all states except for the state of Michigan where the Data Analyst applications are higher than the Business Analyst applications. We can see the majority of Data Scientist applications are coming from California while Washington and New York follow right after.
 
-### Regions of the United States
+#### Regions of the United States
 
 ![](https://i.postimg.cc/vTtknw0c/image053.png "Figure 16: 1 Point = 1 City. Color = Data position with the highest number of jobs in that city")
 *Figure 16: 1 Point = 1 City. Color = Data position with the highest number of jobs in that city*
 
 To find where would be best to apply based on the type of data role, a deeper analysis is needed into what cities would be best to apply to, based on the number of proportions of jobs available for each of the data roles. In Figure 16, each point is a city and the color of the city is given by what data-position provided the majority of the application in 2017 and 2018. Using two years for the analysis instead of one is better as it provides a better picture of the data-related jobs.  We can see lots of blue clusters forming on the east coast, while some black clusters forming in Michigan and more of a variety of colors in California in the Bay Area and Washington.
 
-### The Western United States
+#### The Western United States
 
 The Western United States has two main states of interest for data-related roles, Washington and California.
 ![](https://i.postimg.cc/zG8D4qsP/image055.png "Figure 17: State of Washington and data-related roles in that state ")
@@ -223,19 +223,19 @@ Washington has a significant amount of data-related roles with Seattle having a 
 
 If pursuing a data scientist role or job title, state of California seems to have the most variety and also the highest number of applications for H1B applications for that role (668 H1B applications). The big red circles show that a large number of data scientists applied for H1B from the bay area (San Jose, San Francisco, and Oakland). This makes complete sense because of the presence of Silicon Valley, where most of the headquarters for tech companies are located, and the recent boom in data science jobs in the tech industry (cite).
 
-### The Northeastern United States
+#### The Northeastern United States
 
 ![](https://i.postimg.cc/cJPpymK4/image059.png "Figure 19: The Northeastern States and data-related roles in those states")
 
 We see four main clusters on this map. Boston, New York, Philadelphia, and Washington DC. The majority of these clusters are blue as northeast has a relatively large number of finance and insurance companies (+ 22.7% relative as compared to other places in the United States) , and these companies have a large number of business analyst or data analytics positions as compared to other roles. The existence of some black clusters is an indication of this industry requiring data analysts.
 
-### The Midwestern United States
+#### The Midwestern United States
 
 ![](https://i.postimg.cc/wvJS6mJ5/image061.png "Figure 20: Midwestern states and data-related roles in those states")
 
 The midwest shows relatively more black clusters as compared to any other region. There is a large black cluster in the state of Michigan indicating a significant number of data analyst positions, in Detroit. And a large blue cluster in Chicago indicating a large number of business analyst positions.
 
-### State of Tennessee
+#### State of Tennessee
 
 The final and most important analysis, relevant to the authors of this paper and the potential individuals reading it, is an analysis of the data-related job market for international students, using H1B, in the state of Tennessee.
 

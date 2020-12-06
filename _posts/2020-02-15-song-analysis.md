@@ -19,9 +19,9 @@ This article mainly introduces the full picture of a data analysis pipeline by s
 
 The entire working process is divided into three parts: 10-read-in, 20-feature-engineering, 30-exploratory-data-analysis.
 
-# 10-read-in
+## 10-read-in
 
-## Import libraries.
+#### Import libraries.
 
 ```{r}
 library(readxl)
@@ -44,7 +44,7 @@ Library introduction (The parts used in this pipeline):
   - **wordcloud2**: create word cloud graph.
   - **RColorBrewer**: set color palette for graphes.
 
-## Read in raw data and make the column names.
+#### Read in raw data and make the column names.
 
 ```{r}
 for(i in seq(2000,2009,1)){
@@ -76,7 +76,7 @@ Import the stop words for text analysis in the EDA part.
 data("stop_words")
 ```
 
-# 20-feature-engineering
+## 20-feature-engineering
 
 This data set is clean enough and I don’t need to clean the data as normal.
 
@@ -112,12 +112,12 @@ data are the days. I need to transfer them to be the real date. The
 `origin` attribute should be 1900-01-01, but due to 1900-leap-year-bug
 of Excel, use 1899-12-30 can get the right answer.
 
-# 30-exploratory-data-analysis
+## 30-exploratory-data-analysis
 
 In this part, I will answer the following questions to finish the
 exploratory data analysis(EDA) part.
 
-## What percent of songs that chart never make the Top 10?
+#### What percent of songs that chart never make the Top 10?
 
 For all years:
 
@@ -152,7 +152,7 @@ never_top10_year %>%
 
 ![](https://i.postimg.cc/0j7gsVWT/unnamed-chunk-7-1.png)
 
-## What were the top 10 songs of the decade 2000-2009?
+#### What were the top 10 songs of the decade 2000-2009?
 
 ```{r}
 df %>%
@@ -175,7 +175,7 @@ df %>%
     ##  9 TIME OF YOUR LIFE (GOOD… GREEN DAY                    2006          1040
     ## 10 SOMEONE TO CALL MY LOVER JACKSON, JANET               2001          1012
 
-## Who was the top artist of the decade 2000-2009?
+#### Who was the top artist of the decade 2000-2009?
 
 (Who were the top 10 artists of the decade 2000-2009?)
 
@@ -201,7 +201,7 @@ df %>%
     ##  9 PINK                           3668
     ## 10 MAROON 5                       3604
 
-## Based on the chart data, what artist(s) would you call “The Beatles” of the decade 2000-2009?
+#### Based on the chart data, what artist(s) would you call “The Beatles” of the decade 2000-2009?
 
 Actually, this question is really difficult to answer, because “The
 Beatles” has various meanings according to different interpretations.
@@ -253,7 +253,7 @@ df %>%
     ##  9 INDIA.ARIE                                               764.
     ## 10 EVE featuring GWEN STEFANI                               757
 
-## What was the most commonly used word in a song title for the decade 2000-2009?
+#### What was the most commonly used word in a song title for the decade 2000-2009?
 
 For this question, due to there are many special symbols in the song
 title, I need to clean the special patterns in the title.
@@ -376,7 +376,7 @@ wordcloud2(head(word_count,100),
 <iframe src="https://waittim.github.io/gallery/song-wordcloud.html" frameborder="0" width="700" height="423" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 
 
-## Sentiment analysis of titles
+#### Sentiment analysis of titles
 
 In order to analyze the sentiment of the words in the titles, I got the
 stop words(meaningless words) dictionary and sentiment dictionary from
@@ -431,7 +431,7 @@ nrow(words_positive)/nrow(words_all_sentiment)
 
     ## [1] 0.4294671
 
-## Who spent the most weeks at \#1 for the decade 2000-2009?
+#### Who spent the most weeks at \#1 for the decade 2000-2009?
 
 ```{r}
 df %>%
@@ -466,7 +466,7 @@ df %>%
     ## 5 SPECIAL                               JACKSON, JA… 2000                 3
     ## 6 LUV                                   JACKSON, JA… 2008                 2
 
-## What song spent the most weeks at \#1 for the decade 2000-2009?
+#### What song spent the most weeks at \#1 for the decade 2000-2009?
 
 ```{r}
 df %>%
@@ -480,7 +480,7 @@ df %>%
     ##   <chr>         <chr>       <fct>             <int>
     ## 1 NO SUCH THING MAYER, JOHN 2002                 13
 
-## What song peaked at \#1 the quickest in the decade 2000-2009?
+#### What song peaked at \#1 the quickest in the decade 2000-2009?
 
 ```{r}
 df %>%
@@ -496,7 +496,7 @@ df %>%
     ## 1 SOMEONE T… JACKS… 2001                10                2 2001-07-22
     ## # … with 1 more variable: peak_date <date>
 
-## What song took the longest to reach \#1 in the decade 2000-2009?
+#### What song took the longest to reach \#1 in the decade 2000-2009?
 
 ```{r}
 df %>%
@@ -512,7 +512,7 @@ df %>%
     ## 1 BEFORE HE… UNDER… 2007                 3               31 2006-11-05
     ## # … with 1 more variable: peak_date <date>
 
-## Solo men, solo women, groups for the decade 2000-2009 - design a graphic that shows the distribution of songs hitting \#1
+#### Solo men, solo women, groups for the decade 2000-2009 - design a graphic that shows the distribution of songs hitting \#1
 
 The solo artists have their full name in the data by the format as
 “LastName, FirstName”, as a result, we can tell whether the data is a
@@ -559,7 +559,7 @@ df %>%
 
 ![](https://i.postimg.cc/fWdQmbz8/unnamed-chunk-27-1.png)
 
-## Solo men, solo women, groups for the decade 2000-2009 - design a graphic that shows the distribution of songs hitting the Top 10
+#### Solo men, solo women, groups for the decade 2000-2009 - design a graphic that shows the distribution of songs hitting the Top 10
 
 ```{r}
 df %>%
@@ -598,7 +598,7 @@ df %>%
 
 ![](https://i.postimg.cc/ncY8SwQ7/unnamed-chunk-29-1.png)
 
-## What song spent the most time on the charts in the decade 2000-2009)
+#### What song spent the most time on the charts in the decade 2000-2009)
 
 ```{r}
 df %>%
@@ -617,7 +617,7 @@ df %>%
 Actually, TIME OF YOUR LIFE (GOOD RIDDANCE) never be the top 1. A sad
 story.
 
-## Is there a correlation between weeks spent on the chart and weeks at \#1?
+#### Is there a correlation between weeks spent on the chart and weeks at \#1?
 
 ```{r}
 cor(x = df[["weeks_at_number_1"]],

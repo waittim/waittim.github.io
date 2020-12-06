@@ -11,7 +11,7 @@
     <meta name="keywords"  content="ZW, Zekun Blog, 王泽坤的博客, zekunwang, 王泽坤, data science, DS, machine learning">
     <meta name="theme-color" content="#000000">
     
-    <title>Simulation method comparison - Zekun Wang's Blog | Data Science</title>
+    <title>Project Report - Face Mask Detection - Zekun Wang's Blog | Data Science</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -23,7 +23,7 @@
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="http://localhost:4000/2019/10/27/simulation-compare/">
+    <link rel="canonical" href="http://localhost:4000/2020/12/01/mask-detection-report/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -155,13 +155,13 @@
 
     <!-- Image to hack wechat -->
 <!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="/img/prob8-simulation.jpg" width="0" height="0"> -->
+<!-- <img src="/img/bg-mask.jpg" width="0" height="0"> -->
 
 <!-- Post Header -->
 <style type="text/css">
     header.intro-header{
         position: relative;
-        background-image: url('/img/prob8-simulation.jpg')
+        background-image: url('/img/bg-mask.jpg')
     }
 
     
@@ -174,25 +174,25 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#Probability" title="Probability">Probability</a>
+                        <a class="tag" href="/tags/#Deep Learning" title="Deep Learning">Deep Learning</a>
                         
-                        <a class="tag" href="/tags/#Simulation" title="Simulation">Simulation</a>
+                        <a class="tag" href="/tags/#Object Detection" title="Object Detection">Object Detection</a>
                         
-                        <a class="tag" href="/tags/#R" title="R">R</a>
+                        <a class="tag" href="/tags/#Project" title="Project">Project</a>
                         
-                        <a class="tag" href="/tags/#Method of Moments" title="Method of Moments">Method of Moments</a>
+                        <a class="tag" href="/tags/#Python" title="Python">Python</a>
                         
-                        <a class="tag" href="/tags/#KDE" title="KDE">KDE</a>
+                        <a class="tag" href="/tags/#C++" title="C++">C++</a>
                         
-                        <a class="tag" href="/tags/#Bootstrap" title="Bootstrap">Bootstrap</a>
+                        <a class="tag" href="/tags/#JavaScript" title="JavaScript">JavaScript</a>
                         
                     </div>
-                    <h1>Simulation method comparison</h1>
+                    <h1>Project Report - Face Mask Detection</h1>
                     
                     
-                    <h2 class="subheading">Probability and Statistical Inference - 08</h2>
+                    <h2 class="subheading">Low-cost solution for small businesses and public places</h2>
                     
-                    <span class="meta">Posted by Zekun on October 27, 2019</span>
+                    <span class="meta">Posted by Zekun on December 1, 2020</span>
                 </div>
             </div>
         </div>
@@ -214,240 +214,169 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<h1 id="situation-description">Situation description</h1>
+				<h2 id="background">Background</h2>
 
-<p>This time, I will perform a 2 × 4 × 2 factorial simulation study to compare the coverage probability of various methods of calculating <strong>90%</strong> confidence intervals. The three factors in the experiment are:</p>
+<p>In the last November, the COVID-19 epidemic in the United States reached a new wave of peaks. During Thanksgiving week alone, there were 1,147,489 new cases and 10,279 new deaths.<sup>[1]</sup> It’s not just numbers. It means that 10 thousand families lost their loved one, 10 thousand people would never have another Thanksgiving in the future.</p>
+
+<p>Even after Thanksgiving, the daily increase in cases hit new highs many times. Before the vaccine arrived, we had no way to prevent infectious disease, except for wearing masks and maintaining social distance. Even after the successful development of a vaccine, due to factors such as vaccination rate, we still need to admit that preventing infection will become a part of our lives for a long time.</p>
+
+<p>The transmission of infectious diseases depends on three elements: the source of infection, the route of transmission, and the susceptible population. Wearing a mask is the most convenient way to cut off the route of transmission. According to the data, if both parties wear masks, even if the social distance of 6 Feet is not maintained, the risk of transmission will be reduced from 90% to 1.5%. Therefore, it is necessary to ensure that as many people as possible wear masks in public places.</p>
+
+<p><img src="https://github.com/waittim/waittim.github.io/raw/master/img/risk-mask-nomask.jpg" alt="risk-mask-nomask.jpg" /></p>
+
+<p>The question is, how to do it?</p>
+
+<p>At the entrances of luxury stores and large supermarkets, we can often see staff specifically reminding people to wear masks or setting up mask detection machines. However, it is difficult to find them in small businesses or public facilities. The reason is obvious. Hire someone to remind customers that there is a high cost. In 2019, the average monthly income of the U.S. is approximately $4,365. And to set up a professional mask testing equipment, will cost $1,000 - $4,000. After the pandemic is over, these devices will be useless. Therefore, this will be an unaffordable cost for small businesses that are struggling to survive.</p>
+
+<p><img src="https://github.com/waittim/mask-detector/blob/master/modeling/results.png" alt="results" /></p>
+
+<p>Considering that the United States has 30.2 million small businesses<sup>[2]</sup> and a large number of public facilities, it is necessary to find a cheap and affordable alternative. This is also the main purpose of this project: to develop a low-cost face mask detection program.</p>
+
+<h2 id="modeling">Modeling</h2>
+
+<p>Considering that the target is a low-cost and wide-coverage mask detection scheme, the first thing that affects is the choice of model.</p>
+
+<p>Due to the cost limitation, it means that the final product cannot have a high demand for the computing power of the equipment. Generally, the smaller the model, the less demand for device computing power, and the faster it runs on edge devices. So I only consider using a small target detection model.</p>
+
+<p>The existing miniaturized face detection model can achieve a size of about 2M, and models such as Retinaface<sup>[3]</sup> can achieve a better recognition effect on human faces. However, considering that the goal of the project includes detecting faces wearing masks, it has imposed greater restrictions on the use of facial landmarks. Therefore, I did not choose to use a single-target face detection model.</p>
+
+<p>Among the multi-object detection models, the final model I used is Yolo-Fastest<sup>[4]</sup>.</p>
+
+<p>YOLO is short for You Only Look Once. It divides the image into different grids, and each grid is responsible for the boxes with the center point in the grid, which reduces a lot of repetitive work compared to the RCNN type model. Therefore, the YOLO model family is known for its speed. Yolo-Fastest is an open source small object detection model shared by dog-qiuqiu. It may be the fastest and lightest known open source YOLO general object detection model. Its size is only 1.3M and very suitable for deployment in low computing power scenarios such as edge devices.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Model</th>
+      <th>Yolo-Fastest</th>
+      <th><a href="https://github.com/ultralytics/yolov3/releases">YOLOv3-tiny</a></th>
+      <th><a href="https://github.com/ultralytics/yolov3/releases">YOLOv3-SPP</a></th>
+      <th><a href="https://github.com/ultralytics/yolov5/releases">YOLOv5s</a></th>
+      <th><a href="https://github.com/ultralytics/yolov5/releases">YOLOv5m</a></th>
+      <th><a href="https://github.com/ultralytics/yolov5/releases">YOLOv5l</a></th>
+      <th><a href="https://github.com/ultralytics/yolov5/releases">YOLOv5x</a></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Weight size</strong></td>
+      <td>1.3M</td>
+      <td>8.9M</td>
+      <td>63.0M</td>
+      <td>7.5M</td>
+      <td>21.8M</td>
+      <td>47.8M</td>
+      <td>89.0M</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In the model training part, the dataset I use mainly come from the MAFA dataset and the WIDER FACE dataset. The MAFA (MAsked FAces) dataset is collected from internet pictures and contains various face images and annotation information with masks.<sup>[5]</sup> The WIDER FACE dataset is collected from the WIDER dataset, most of which are faces without masks.<sup>[6]</sup> Among them, the upper edge of the marking box in the original MAFA dataset is only marks to the eyebrows of the face, while the WIDER FACE dataset marks the position of the whole face. Thanks to AIZOO<sup>[7]</sup> for re-annotated the data in the MAFA section. The final dataset I used contains 4065 MAFA pictures, 3894 WIDER FACE pictures, and a small number of pictures covering the face with hands.</p>
+
+<p>However, if these data are used directly for training, the model will be difficult to converge. Therefore, the model used has been pre-trained using the COCO dataset (Microsoft Common Objects in Context, 80 categories)<sup>[8]</sup>. Then after changing the output category and related model structure, used this dataset for training.</p>
+
+<p>The code framework used for training is mainly adapted from the YOLOV3 repository from Ultralytics<sup>[9]</sup>. The training is finished based on Google Colab, the results are as follows:</p>
+
+<p>It can be seen that the model has achieved good training results, and mAP@0.5 is stable above 0.8.</p>
+
+<h2 id="deployment">Deployment</h2>
+
+<p>In order for the target group to achieve the goal of mask detection at the lowest cost, the form of the final product needs to be considered.</p>
+
+<p>If I choose to develop special equipment, users still need to purchase additional equipment. This form is not significantly different from the existing mask detection equipment on the market. The device can only be used for mask detection, which will lose its value after the pandemic is over. Even if the cost can be reduced as much as possible to reduce price, definitely it will greatly restrict the use of people. In addition, a large number of issues such as equipment manufacturing and sales need to be considered, which is far beyond my ability. Therefore, this scheme is not feasible.</p>
+
+<p>If I choose to develop an APP to achieve this function, considering the diversity of user equipment, I need to develop APPs for various systems separately, which is expected to include at least Android, iOS, Windows, and macOS. And due to the fragmentation of the Android ecosystem, it is also necessary to adapt to various common types of Android devices. This will be a lot of work, so I gave up the plan.</p>
+
+<p>Therefore, the solution I chose was to develop a web page so that mask detection can be achieved in the browser. The reasons are as follows:</p>
 
 <ol>
-  <li>True, underlying distribution
-    <ul>
-      <li>standard normal</li>
-      <li>gamma(shape = 1.4, scale = 3)</li>
-    </ul>
-  </li>
-  <li>Model
-    <ul>
-      <li>method of moments with normal</li>
-      <li>method of moments with gamma</li>
-      <li>kernel density estimation</li>
-      <li>bootstrap</li>
-    </ul>
-  </li>
-  <li>Parameter of interest
-    <ul>
-      <li>sample min (1st order statistic)</li>
-      <li>median
-Other settings in the experiment that will not change are:
-    -   Sample size, <em>N</em> = 201
-    -   <em>Outside the loop</em> estimation</li>
-    </ul>
-  </li>
+  <li>As one of the most commonly used software, the browser can be found on most devices and adapts well to the corresponding system.</li>
+  <li>Only need to create a webpage, it can be used on most devices.</li>
+  <li>Users only need to open the webpage to use, almost no learning cost.</li>
 </ol>
 
-<h1 id="define-functions">Define functions</h1>
+<p>And even for webpage deployment, it is also necessary to determine how the model runs: making the model runs on the server-side or making the model runs locally in the browser. Considering that if the model is placed on the server-side, the server will require huge bandwidth and can handle a large amount of video data, which is difficult for me to afford. Moreover, deploying the model on the server means that videos containing faces need to be uploaded to the server, therefore, a large part of users will have privacy concerns. Moreover, the uploading and downloading of videos require a stable internet connection and a huge amount of data fees for users, which will also bring additional costs and restrictions. Therefore, enabling the model to run locally in the browser became the final choice.</p>
 
-<h2 id="data-generation-function">Data generation function</h2>
+<p>The common way to make the model run in the browser is to use tenserflow.js<sup>[10]</sup> or use onnx.js<sup>[11]</sup>, etc. I tried both approaches.</p>
 
-<p>Set up data generate a function that can generate the data based on normal distribution or gamma distribution. The distribution will be defined by the parameter “dist”. The default parameter of the gamma distribution is shape=1.4 and scale=3.</p>
+<h4 id="onnxjs">onnx.js</h4>
 
-<pre><code class="language-{r}">generate_data &lt;- function(N, dist, sh=1.4, sc=3){
-  if(dist=="norm"){
-    rnorm(N)
-  }else if(dist=="gamma"){
-    rgamma(N, shape=sh, scale=sc)
-  }
-}
-</code></pre>
+<p>In order to use onnx.js, I first need to convert the existing PyTorch model into an ONNX model. ONNX is the abbreviation of Open Neural Network Exchange.<sup>[12]</sup> As an open format, ONNX defines various common operators in the field of machine learning and deep learning to facilitate developers to use ONNX as a relay to convert models from one framework to another. Now ONNX has supported PyTorch, TensorFlow, Caffe2, NCNN, and other common deep learning frameworks. Onnx.js is a JavaScript(Abbreviated as JS) library that can directly read the ONNX model in the JS environment for inference.</p>
 
-<h2 id="confidence-interval-estimation-function">Confidence interval estimation function</h2>
+<p>The first problem is that JS does not support INT64 format variables and onnx.js runs in the JS environment. The ONNX model directly exported by PyTorch contains a large number of variables in the INT64 format. Therefore, I need to convert the INT64 component to INT32 format in the ONNX model. After learning the specific expression of the ONNX model, I completed this part of the conversion through filtering, extraction, and replacement. It should be noted that some ONNX operators do not support INT32 as input, such as ConstantOfShape, etc. people need to find an alternative method by themselves.</p>
 
-<p>Then define the function for calculating the confidence interval, which can estimate the distribution by method of moment with normal distribution, method of moment with gamma distribution, kernel density distribution, and bootstrap. At the same time, the function can use the function defined by “par.int” to calculate the parameter we want. The details will be introduced in the chunk.</p>
-<pre><code class="language-{r}">estimate.ci &lt;- function(data, mod, par.int, R=10, smoo=0.3){
-  # data: input data
-  # mod: define the estimation method and the distribution.
-  #      (MMnorm: method of moment with normal distribution,
-  #       MMgamma: method of moment with gamma distribution,
-  #       KDE: kernal density distribution,
-  #       Boot: bootstrap)
-  # par.int: the function what can get the parameter we want for the estimated distribution
+<p>Secondly, in the attempt, I found that because onnx.js is relatively niche, there are many operators that are not supported, including <em>Resize</em> in the model I used. After contacting the maintenance team of onnx.js, this point was also confirmed.<sup>[13]</sup> To solve this problem, I need to understand the library in depth, modify the onnx.js library, and add support for the operator. Since I have no experience in JS, I finally gave up on this solution.</p>
 
-  N &lt;- length(data) # save N as the number of the inputted data
-  sum.measure &lt;- get(par.int) # make charactor can be used as function
+<h4 id="tensorflowjs">tensorflow.js</h4>
 
+<p>In order to use tensorflow.js, I need to first convert the model to a TensorFlow SavedModel format or Keras h5 format. The conversion from the PyTorch model to the SavedModel model is accomplished through the ONNX model mentioned above as a relay. tensorflow.js does not run the TensorFlow model directly in the JS environment but needs to first convert the model into a special readable web format model.<sup>[14]</sup> However, at this step, I also encountered an unsupported operator, <em>TensorScatterUpdate</em>. After contacting the maintenance team of tensorflow.js, they said “we should be able to add the support fairly soon”<sup>[15]</sup> at that time. Nevertheless, the operator has not been supported so far.</p>
 
-  if(mod=="MMnorm"){
-    # use method of moment with normal distribution to estimate
+<p>Since <em>TensorScatterUpdate</em> comes from the model conversion process, I tried to directly use the Keras framework to read the model structure and weight files in the Darknet model files. After the release of TensorFlow 2.0, Keras has been embedded as a part of the TensorFlow framework. The existing code on the Internet is based on the old version of Keras, so I refactored the conversion code according to the new Keras API, and added the processing of grouped convolution and other structures. However, even so, the converted model still cannot be converted to the form required by tensorflow.js.</p>
 
-    mm.mean &lt;- mean(data) # get the original mean of data
-    mm.sd &lt;- sd(data) # get the original standard deviation of data
+<p>Therefore, in the end, I chose to continue to look for other solutions.</p>
 
-    samp.dist &lt;- NA #
-    for(i in 1:R){
-      sim.data &lt;-rnorm(length(data), mm.mean, mm.sd)
-      # use the mean &amp; sd of data to generate a new normal distribution
-      if(par.int=="median"){
-        samp.dist[i] &lt;- median(sim.data)
-        # save the median of generated distribution
-      }else if(par.int=="min"){
-        samp.dist[i] &lt;- min(sim.data)
-        # save the min of generated distribution
-      }
-    }
-    return(quantile(samp.dist, c(0.05, 0.95)))
-    # the output will be the 95% confidence interval of needed distribution
+<h4 id="ncnn--webassembly">NCNN + WebAssembly</h4>
 
-  }else if(mod=="MMgamma"){
-    # use method of moment with gamma distribution to estimate
+<p>During the exploration process, I found a possibly effective way to implement in-browser operation through the NCNN framework and WebAssembly.</p>
 
-    mm.shape &lt;- mean(data)^2/var(data)
-    # get the original shape parameter of data
-    mm.scale &lt;- var(data)/mean(data)
-    # get the original scale parameter of data
+<p>NCNN is an open-source optimized inference framework for mobile platforms, implemented in pure C++ and without third-party library dependencies.<sup>[16]</sup> Its performance on edge devices is excellent. WebAssembly (abbreviated as WASM) is a low-level language that can run in the browser.<sup>[17]</sup> It is in binary form and is faster than JS. The C++ code can be compiled into WASM format. This also means that we can run C++ programs in the browser in this approach. As long as NCNN can support enough operators, we don’t need to pay attention to whether a certain operator has been implemented in JS. Fortunately, NCNN is a mature enough framework and already supports a large number of operators.</p>
 
-    #create a N*R array to reserve the gamma distributions
-    sim.data &lt;- array(rgamma(length(data)*R, shape=mm.shape, scale=mm.scale), dim=c(N, R))
-    # use the function called by par.int for each column and reserve the results as a distribution
-    samp.dist &lt;- apply(sim.data, 2, FUN=sum.measure)
-    return(quantile(samp.dist, c(0.05, 0.95)))
-    # the output will be the 95% confidence interval of needed distribution
+<p>Therefore, I first converted the PyTorch model into an NCNN model. Then I wrote a C++ program, input the image in the form of RGBA in the main process, use the NCNN library for inference, and finally output the category, confidence, and boxes. Compile the C++ program into WASM format. After that, in the JS program, the WASM program is called as a function. Obtain the camera video stream and input it into the function, and finally use the output result to draw the image.</p>
 
-  }else if(mod=="KDE"){
-    # use kernal density estimation
+<p>After completing the core program, I used HTML and CSS to complete the development of the webpage around the program. I made different adaptations based on the degree of WebAssembly supporting under different systems, to obtain the highest FPS.</p>
 
-    ecdfstar &lt;- function(t, data, smooth=smoo){
-        # use pnorm function which has sd=smoo on the outer product of t and data.
-        # t[i] is the quantile, data[j] is the mean for pnorm.
-        # in other words, calculate the persentage under quantile "t" of distribution "data"
-        outer(t, data, function(a,b){ pnorm(a, b, smooth)}) %&gt;%
-        rowMeans
-        # then count the mean of each row, AKA, the mean persentage under quantile "t"
-    }
+<h2 id="conclusion">Conclusion</h2>
 
-    # create a 1 column data frame with a sequence from min-sd to max+sd of the data with break=0.01
-    tbl &lt;- data.frame(
-        x = seq(min(data)-sd(data), max(data)+sd(data),
-                by = 0.01)
-    )
+<p>In general, the project has achieved its original purpose: providing a low-cost alternative to mask detection equipment. The results have been published on <a href="https://facemask-detection.com/">facemask-detection.com</a> for users to remember and use.</p>
 
-    tbl$p &lt;- ecdfstar(tbl$x, data, smoo)
-    # add a new column called p reserve the result of ecdfstar function
-    tbl &lt;- tbl[!duplicated(tbl$p),]
-    # remove all of rows which contain the duplicated value in column "p".
+<p>The advantages are summarized as follows:</p>
 
-    qkde &lt;- function(ps, tbl){
-      # convert "ps" to a factor with the break as column "p" in "tbl" data frame
-      rows &lt;- cut(ps, tbl$p, labels = FALSE)
-      tbl[rows, "x"]
-      # return the part of column "x" which match the rows number factor
-    }
+<ul>
+  <li><strong>Easy to use.</strong> Users do not need to purchase any professional equipment, no need to download any software. Just open the web page, you can use it.</li>
+  <li><strong>Low cost.</strong> Users can use their idle tablets, iPad, or laptops. Even if the user wants a new one, they can buy a new tablet and its stand, for less than $100. And get similar functions to a device with thousands of dollars.</li>
+  <li><strong>High speed.</strong> Because the model size is extremely small, and the NCNN framework optimized for mobile devices, and it runs by the final binary-based WebAssembly, the overall speed is extremely fast. This also means that users can get the smoothest experience.</li>
+  <li><strong>No privacy issues.</strong> Since the program runs entirely in the browser locally in real-time, there is no need to save any content or upload any data to the server, so users do not have to worry about privacy issues.</li>
+  <li><strong>Multi-language support.</strong> The webpage now supports English, Spanish and Chinese, covering 92% of the US population and 50% of the world population.</li>
+</ul>
 
-    U &lt;- runif(N*R) # create a uniform distribution with the size=N*R
+<p><img src="https://github.com/waittim/waittim.github.io/raw/master/img/products.jpg" alt="products.jpg" /></p>
 
-    # reserve the result of qkde as a N*R matrix
-    sim.data &lt;- array(qkde(U,tbl), dim=c(N, R))
-    # use the function called by par.int for each column and reserve the results as a distribution
-    samp.dist &lt;- apply(sim.data, 2, sum.measure)
+<blockquote>
+  <p>Reference:</p>
 
-    return(quantile(samp.dist, c(0.05, 0.95), na.rm=TRUE))
-    # the output will be the 95% confidence interval
+  <p>[1] https://coronavirus.1point3acres.com/</p>
 
-  }else if(mod=="Boot"){
-    # use bootstrap
+  <p>[2] https://www.fundera.com/blog/small-business-employment-and-growth-statistics</p>
 
-    # get random sample with size=N from the data R times, reserve the result as a N*R matrix
-    sim.data &lt;- array(sample(data, N*R, replace=TRUE), dim=c(N,R))
-    # use the function called by par.int for each column and reserve the results as a distribution
-    samp.dist &lt;- apply(sim.data, 2, sum.measure)
+  <p>[3] https://github.com/biubug6/Pytorch_Retinaface</p>
 
-    return(quantile(samp.dist, c(0.05, 0.95), na.rm=TRUE))
-    # the output will be the 95% confidence interval
-  }
-}
-</code></pre>
+  <p>[4] https://github.com/dog-qiuqiu/Yolo-Fastest</p>
 
-<h2 id="destination-capture-function">Destination capture function</h2>
+  <p>[5] https://openaccess.thecvf.com/content_cvpr_2017/papers/Ge_Detecting_Masked_Faces_CVPR_2017_paper.pdf
+[6] http://shuoyang1213.me/WIDERFACE/</p>
 
-<p>Create a function to justify that is the confidence interval matches the requirement. When the result is TRUE, return 1.</p>
-<pre><code class="language-{r}">capture_par &lt;- function(ci, true.par){
-  1*(ci[1] &lt; true.par &amp; true.par &lt; ci[2])
-}
-</code></pre>
+  <p>[7] https://github.com/AIZOOTech/FaceMaskDetection/blob/master/README.md</p>
 
-<h1 id="simulation">Simulation</h1>
+  <p>[8] https://cocodataset.org/</p>
 
-<h2 id="calculation-prepare">Calculation prepare</h2>
+  <p>[9] https://github.com/ultralytics/yolov3</p>
 
-<p>Now we can set the size of distribution N is 201. When use gamma distribution, we will use the shape 1.4 and scale 3.</p>
-<pre><code class="language-{r}">N &lt;- 201
-shape.set &lt;- 1.4
-scale.set &lt;- 3
-</code></pre>
+  <p>[10] https://github.com/tensorflow/tfjs</p>
 
-<p>Define the capture destinations.</p>
-<pre><code class="language-{r}">true.norm.med &lt;- qnorm(0.5)
-true.norm.min &lt;- mean(apply(array(rnorm(N*10000), dim=c(N, 10000)),2,min))
-true.gamma.med &lt;- qgamma(0.5, shape = shape.set, scale=scale.set)
-true.gamma.min &lt;- mean(apply(array(rgamma(N*10000, shape=shape.set, scale=scale.set), dim=c(N, 10000)),2,min))
-</code></pre>
-<p>For the standard min of distribution part, we expand the data size for 10000 times and get the mean min value as the standard min.</p>
+  <p>[11] https://github.com/microsoft/onnxjs</p>
 
-<p>Create a table called “simsettings” to reserve the results of each estimation method and the target parameter.</p>
-<pre><code class="language-{r}">simsettings &lt;- expand.grid(dist=c("norm", "gamma"), model=c("MMnorm", "MMgamma", "KDE", "Boot"), par.int=c("median", "min"), cov.prob=NA,  stringsAsFactors = FALSE, KEEP.OUT.ATTRS = FALSE)
-</code></pre>
+  <p>[12] https://onnx.ai/</p>
 
-<p>Add a new column to reserve the capture destinations.</p>
-<pre><code class="language-{r}">simsettings$truth &lt;- c(true.norm.med, true.gamma.med, true.norm.med, true.gamma.med, true.norm.med, true.gamma.med, true.norm.med, true.gamma.med, true.norm.min, true.gamma.min, true.norm.min, true.gamma.min, true.norm.min, true.gamma.min, true.norm.min, true.gamma.min)
-</code></pre>
+  <p>[13] https://github.com/microsoft/onnxjs/issues/240</p>
 
-<h2 id="calculation">Calculation</h2>
+  <p>[14] https://www.tensorflow.org/js/tutorials/conversion/import_saved_model</p>
 
-<p>Base on the “simsettings” table, calculate the capture probabilities and reserve them in the table.</p>
-<pre><code class="language-{r}">for(k in c(1:2,4:10,12:16)){
-  dist1 &lt;- simsettings[k,1]
-  model1 &lt;- simsettings[k,2]
-  par.int1 &lt;- simsettings[k,3]
-  true.par1 &lt;- simsettings[k,5]
+  <p>[15] https://github.com/tensorflow/tfjs/issues/4222</p>
 
-  cover &lt;- NA
-  for(sims in 1:100){
-    cover[sims] &lt;- generate_data(N, dist1) %&gt;%
-    estimate.ci(mod=model1, par.int=par.int1, R=1000) %&gt;%
-    capture_par(true.par = true.par1)
-  }
-  simsettings[k,4] &lt;- mean(cover)
-}
+  <p>[16] https://github.com/Tencent/ncnn</p>
 
-</code></pre>
-
-<h1 id="conclusion">Conclusion</h1>
-
-<p>Show the result table.</p>
-<pre><code class="language-{r}">simsettings
-</code></pre>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>##     dist   model par.int cov.prob       truth
-## 1   norm  MMnorm  median     0.99  0.00000000
-## 2  gamma  MMnorm  median     0.01  3.25311453
-## 3   norm MMgamma  median       NA  0.00000000
-## 4  gamma MMgamma  median     0.97  3.25311453
-## 5   norm     KDE  median     0.94  0.00000000
-## 6  gamma     KDE  median     0.93  3.25311453
-## 7   norm    Boot  median     0.94  0.00000000
-## 8  gamma    Boot  median     0.90  3.25311453
-## 9   norm  MMnorm     min     1.00 -2.74462674
-## 10 gamma  MMnorm     min     0.00  0.07277036
-## 11  norm MMgamma     min       NA -2.74462674
-## 12 gamma MMgamma     min     0.99  0.07277036
-## 13  norm     KDE     min     0.94 -2.74462674
-## 14 gamma     KDE     min     0.35  0.07277036
-## 15  norm    Boot     min     0.40 -2.74462674
-## 16 gamma    Boot     min     0.57  0.07277036
-</code></pre></div></div>
-
-<p>Definitely, for the method of moment part, when the data distribution matches the model distribution (e.g. norm - MMnorm, gamma - MMgamma), the capture probabilities are more than 90%. When the distributions do not match with each other, the results will be close to 0% or NA.</p>
-
-<p>And for kernel density estimation, when we need to get the median of the distributions, the results are pretty good as close to 100%. But when we need to get the min of the distributions, the capture probabilities of normal and gamma are really different. For the normal distribution, it works well, but for gamma distribution, it is about 37%. The reason might be that gamma distribution is a skewed distribution.</p>
-
-<p>For the bootstrap part, the results are not as good as others. When we want to get the median of the distributions, the capture probabilities are just about 90%. And when it comes to min of the distributions, the probabilities become 50%. Obviously, it is because selecting a sample randomly is too difficult to get the min point every time.</p>
+  <p>[17] https://webassembly.org/</p>
+</blockquote>
 
 
                 <hr style="visibility: hidden;">
@@ -455,19 +384,12 @@ true.gamma.min &lt;- mean(apply(array(rgamma(N*10000, shape=shape.set, scale=sca
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2019/10/15/coverage-probability/" data-toggle="tooltip" data-placement="top" title="Coverage probability of MLE">
+                        <a href="/2020/11/27/mask-detection/" data-toggle="tooltip" data-placement="top" title="Super fast In-browser FaceMask Detection">
                         Previous<br>
-                        <span>Coverage probability of MLE</span>
+                        <span>Super fast In-browser FaceMask Detection</span>
                         </a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2019/10/29/trending-video/" data-toggle="tooltip" data-placement="top" title="What makes a trending video?">
-                        Next<br>
-                        <span>What makes a trending video?</span>
-                        </a>
-                    </li>
                     
                 </ul>
 
