@@ -1,7 +1,7 @@
 ---
 layout:     post
-title:      Note - How to get information from IP?
-subtitle:   geoip2 module introduction
+title:      How to get information from IP?
+subtitle:   Note - geoip2 module introduction
 date:       2020-07-20
 author:     Zekun
 header-img: img/post-python.jpg
@@ -175,4 +175,4 @@ response.traits.network
 #IPv4Network('129.59.80.0/20')
 ```
 
-With this library, you can convert IP information into address information or latitude and longitude information for exploratory data analysis or modeling.
+With this method, you can convert IP information into address information or latitude and longitude information, etc., for exploratory data analysis or modeling.
