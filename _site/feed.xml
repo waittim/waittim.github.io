@@ -5,8 +5,8 @@
     <description>Across the Great Wall, we can reach every corner in the world</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 07 Dec 2020 17:40:02 -0500</pubDate>
-    <lastBuildDate>Mon, 07 Dec 2020 17:40:02 -0500</lastBuildDate>
+    <pubDate>Mon, 07 Dec 2020 17:53:54 -0500</pubDate>
+    <lastBuildDate>Mon, 07 Dec 2020 17:53:54 -0500</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -826,8 +826,6 @@ make install
         <pubDate>Sun, 25 Oct 2020 00:00:00 -0400</pubDate>
         <link>http://localhost:4000/2020/10/25/darknet2keras/</link>
         <guid isPermaLink="true">http://localhost:4000/2020/10/25/darknet2keras/</guid>
-        
-        <category>Object Detection</category>
         
         <category>Deep Learning</category>
         

@@ -7,7 +7,6 @@ author:     Zekun
 header-img: img/post-deep-brain.jpg
 catalog: true
 tags:
-    - Object Detection
     - Deep Learning
     - Python
     - Keras
