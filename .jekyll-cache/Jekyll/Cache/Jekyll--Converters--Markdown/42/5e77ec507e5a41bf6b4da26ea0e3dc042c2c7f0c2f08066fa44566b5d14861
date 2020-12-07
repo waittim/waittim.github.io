@@ -1,4 +1,4 @@
-I"A<h2 id="background">Background</h2>
+I"#A<h2 id="background">Background</h2>
 
 <p>In the last November, the COVID-19 epidemic in the United States reached a new wave of peaks. During Thanksgiving week alone, there were 1,147,489 new cases and 10,279 new deaths.<sup>[1]</sup> It’s not just numbers. It means that 10 thousand families lost their loved one, 10 thousand people would never have another Thanksgiving in the future.</p>
 
@@ -22,9 +22,9 @@
 
 <p>Due to the cost limitation, it means that the final product cannot have a high demand for the computing power of the equipment. Generally, the smaller the model, the less demand for device computing power, and the faster it runs on edge devices. So I only consider using a small target detection model.</p>
 
-<p>The existing miniaturized face detection model can achieve a size of about 2M, and models such as Retinaface<sup>[3]</sup> can achieve a better recognition effect on human faces. However, considering that the goal of the project includes detecting faces wearing masks, it has imposed greater restrictions on the use of facial landmarks. Therefore, I did not choose to use a single-target face detection model.</p>
+<p>The existing miniaturized face detection model can achieve a size of about 2M, and models such as Retinaface<sup>[3]</sup> can achieve a great recognition effect on human faces. However, considering that the goal of the project includes detecting faces wearing masks, it has imposed greater restrictions on the use of facial landmarks. Therefore, I did not choose to use a single-category face detection model.</p>
 
-<p>Among the multi-object detection models, the final model I used is Yolo-Fastest<sup>[4]</sup>.</p>
+<p>Among the multi-categories detection models, the final model I used is Yolo-Fastest<sup>[4]</sup>.</p>
 
 <p>YOLO is short for You Only Look Once. It divides the image into different grids, and each grid is responsible for the boxes with the center point in the grid, which reduces a lot of repetitive work compared to the RCNN type model. Therefore, the YOLO model family is known for its speed. Yolo-Fastest is an open source small object detection model shared by dog-qiuqiu. It may be the fastest and lightest known open source YOLO general object detection model. Its size is only 1.3M and very suitable for deployment in low computing power scenarios such as edge devices.</p>
 
