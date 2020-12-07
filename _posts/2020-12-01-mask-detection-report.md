@@ -41,9 +41,9 @@ Considering that the target is a low-cost and wide-coverage mask detection schem
 
 Due to the cost limitation, it means that the final product cannot have a high demand for the computing power of the equipment. Generally, the smaller the model, the less demand for device computing power, and the faster it runs on edge devices. So I only consider using a small target detection model.
 
-The existing miniaturized face detection model can achieve a size of about 2M, and models such as Retinaface<sup>[3]</sup> can achieve a great recognition effect on human faces. However, considering that the goal of the project includes detecting faces wearing masks, it has imposed greater restrictions on the use of facial landmarks. Therefore, I did not choose to use a single-target face detection model.
+The existing miniaturized face detection model can achieve a size of about 2M, and models such as Retinaface<sup>[3]</sup> can achieve a great recognition effect on human faces. However, considering that the goal of the project includes detecting faces wearing masks, it has imposed greater restrictions on the use of facial landmarks. Therefore, I did not choose to use a single-category face detection model.
 
-Among the multi-object detection models, the final model I used is Yolo-Fastest<sup>[4]</sup>.
+Among the multi-categories detection models, the final model I used is Yolo-Fastest<sup>[4]</sup>.
 
 YOLO is short for You Only Look Once. It divides the image into different grids, and each grid is responsible for the boxes with the center point in the grid, which reduces a lot of repetitive work compared to the RCNN type model. Therefore, the YOLO model family is known for its speed. Yolo-Fastest is an open source small object detection model shared by dog-qiuqiu. It may be the fastest and lightest known open source YOLO general object detection model. Its size is only 1.3M and very suitable for deployment in low computing power scenarios such as edge devices.
 
