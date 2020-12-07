@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      How to get information from IP?
+title:      How to get information from IP address?
 subtitle:   Note - geoip2 module introduction
 date:       2020-07-20
 author:     Zekun
@@ -13,7 +13,7 @@ tags:
 ---
 
 
-The process of getting IP information is done based on [GeoIP2 Databases](https://www.maxmind.com/en/geoip2-databases). I Used the [MaxMind GeoIP2 Python API](https://geoip2.readthedocs.io/en/latest/) for IP information queries. The Github page for the API is [GeoIP2-python](https://github.com/maxmind/GeoIP2-python).
+The process of getting IP address information is done based on [GeoIP2 Databases](https://www.maxmind.com/en/geoip2-databases). I Used the [MaxMind GeoIP2 Python API](https://geoip2.readthedocs.io/en/latest/) for IP information queries. The Github page for the API is [GeoIP2-python](https://github.com/maxmind/GeoIP2-python).
 
 You need to download [GeoLite2-City.mmdb](https://github.com/waittim/waittim.github.io/raw/master/gallery/GeoLite2-City.mmdb) as data source and install **geoip2** module before you can use it.
 
@@ -175,4 +175,4 @@ response.traits.network
 #IPv4Network('129.59.80.0/20')
 ```
 
-With this method, you can convert IP information into address information or latitude and longitude information, etc., for exploratory data analysis or modeling.
+With this method, you can convert IP address information into actual address or latitude and longitude information, etc., for exploratory data analysis or modeling.
