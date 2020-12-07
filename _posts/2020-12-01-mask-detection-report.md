@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      Project Report - Face Mask Detection
+title:      Project Details - In-browser Face Mask Detection
 subtitle:   Low-cost solution for small businesses and public places
 date:       2020-12-01
 author:     Zekun

@@ -5,12 +5,12 @@
     <description>Across the Great Wall, we can reach every corner in the world</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 06 Dec 2020 19:54:10 -0500</pubDate>
-    <lastBuildDate>Sun, 06 Dec 2020 19:54:10 -0500</lastBuildDate>
+    <pubDate>Sun, 06 Dec 2020 22:16:44 -0500</pubDate>
+    <lastBuildDate>Sun, 06 Dec 2020 22:16:44 -0500</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
-        <title>Project Report - Face Mask Detection</title>
+        <title>Project Details - In-browser Face Mask Detection</title>
         <description>&lt;h2 id=&quot;background&quot;&gt;Background&lt;/h2&gt;
 
 &lt;p&gt;In the last November, the COVID-19 epidemic in the United States reached a new wave of peaks. During Thanksgiving week alone, there were 1,147,489 new cases and 10,279 new deaths.&lt;sup&gt;[1]&lt;/sup&gt; It’s not just numbers. It means that 10 thousand families lost their loved one, 10 thousand people would never have another Thanksgiving in the future.&lt;/p&gt;
