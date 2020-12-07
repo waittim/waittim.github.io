@@ -117,39 +117,28 @@ The advantages are summarized as follows:
 - **No privacy issues.** Since the program runs entirely in the browser locally in real-time, there is no need to save any content or upload any data to the server, so users do not have to worry about privacy issues.
 - **Multi-language support.** The webpage now supports English, Spanish and Chinese, covering 92% of the US population and 50% of the world population.
 
+<br />
+<br />
+<br />
 ![products.jpg](https://github.com/waittim/waittim.github.io/raw/master/img/products.jpg)
 
-> Reference:
-> 
-> [1] https://coronavirus.1point3acres.com/
-> 
-> [2] https://www.fundera.com/blog/small-business-employment-and-growth-statistics
-> 
-> [3] https://github.com/biubug6/Pytorch_Retinaface
-> 
-> [4] https://github.com/dog-qiuqiu/Yolo-Fastest
-> 
-> [5] https://openaccess.thecvf.com/content_cvpr_2017/papers/Ge_Detecting_Masked_Faces_CVPR_2017_paper.pdf
-> [6] http://shuoyang1213.me/WIDERFACE/
-> 
-> [7] https://github.com/AIZOOTech/FaceMaskDetection/blob/master/README.md
-> 
-> [8] https://cocodataset.org/
-> 
-> [9] https://github.com/ultralytics/yolov3
-> 
-> [10] https://github.com/tensorflow/tfjs
-> 
-> [11] https://github.com/microsoft/onnxjs
-> 
-> [12] https://onnx.ai/
-> 
-> [13] https://github.com/microsoft/onnxjs/issues/240
-> 
-> [14] https://www.tensorflow.org/js/tutorials/conversion/import_saved_model
-> 
-> [15] https://github.com/tensorflow/tfjs/issues/4222
-> 
-> [16] https://github.com/Tencent/ncnn
-> 
-> [17] https://webassembly.org/
+<font color=gray size=1>
+Reference:<br />
+[1] https://coronavirus.1point3acres.com/<br />
+[2] https://www.fundera.com/blog/small-business-employment-and-growth-statistics<br />
+[3] https://github.com/biubug6/Pytorch_Retinaface<br />
+[4] https://github.com/dog-qiuqiu/Yolo-Fastest<br />
+[5] https://openaccess.thecvf.com/content_cvpr_2017/papers/Ge_Detecting_Masked_Faces_CVPR_2017_paper.pdf<br />
+[6] http://shuoyang1213.me/WIDERFACE/<br />
+[7] https://github.com/AIZOOTech/FaceMaskDetection/blob/master/README.md<br />
+[8] https://cocodataset.org/<br />
+[9] https://github.com/ultralytics/yolov3<br />
+[10] https://github.com/tensorflow/tfjs<br />
+[11] https://github.com/microsoft/onnxjs<br />
+[12] https://onnx.ai/<br />
+[13] https://github.com/microsoft/onnxjs/issues/240<br />
+[14] https://www.tensorflow.org/js/tutorials/conversion/import_saved_model<br />
+[15] https://github.com/tensorflow/tfjs/issues/4222<br />
+[16] https://github.com/Tencent/ncnn<br />
+[17] https://webassembly.org/<br />
+</font>

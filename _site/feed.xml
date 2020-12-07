@@ -5,8 +5,8 @@
     <description>Across the Great Wall, we can reach every corner in the world</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 06 Dec 2020 03:38:58 -0500</pubDate>
-    <lastBuildDate>Sun, 06 Dec 2020 03:38:58 -0500</lastBuildDate>
+    <pubDate>Sun, 06 Dec 2020 19:54:10 -0500</pubDate>
+    <lastBuildDate>Sun, 06 Dec 2020 19:54:10 -0500</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -138,44 +138,31 @@
   &lt;li&gt;&lt;strong&gt;Multi-language support.&lt;/strong&gt; The webpage now supports English, Spanish and Chinese, covering 92% of the US population and 50% of the world population.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://github.com/waittim/waittim.github.io/raw/master/img/products.jpg&quot; alt=&quot;products.jpg&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;img src=&quot;https://github.com/waittim/waittim.github.io/raw/master/img/products.jpg&quot; alt=&quot;products.jpg&quot; /&gt;&lt;/p&gt;
 
-&lt;blockquote&gt;
-  &lt;p&gt;Reference:&lt;/p&gt;
-
-  &lt;p&gt;[1] https://coronavirus.1point3acres.com/&lt;/p&gt;
-
-  &lt;p&gt;[2] https://www.fundera.com/blog/small-business-employment-and-growth-statistics&lt;/p&gt;
-
-  &lt;p&gt;[3] https://github.com/biubug6/Pytorch_Retinaface&lt;/p&gt;
-
-  &lt;p&gt;[4] https://github.com/dog-qiuqiu/Yolo-Fastest&lt;/p&gt;
-
-  &lt;p&gt;[5] https://openaccess.thecvf.com/content_cvpr_2017/papers/Ge_Detecting_Masked_Faces_CVPR_2017_paper.pdf
-[6] http://shuoyang1213.me/WIDERFACE/&lt;/p&gt;
-
-  &lt;p&gt;[7] https://github.com/AIZOOTech/FaceMaskDetection/blob/master/README.md&lt;/p&gt;
-
-  &lt;p&gt;[8] https://cocodataset.org/&lt;/p&gt;
-
-  &lt;p&gt;[9] https://github.com/ultralytics/yolov3&lt;/p&gt;
-
-  &lt;p&gt;[10] https://github.com/tensorflow/tfjs&lt;/p&gt;
-
-  &lt;p&gt;[11] https://github.com/microsoft/onnxjs&lt;/p&gt;
-
-  &lt;p&gt;[12] https://onnx.ai/&lt;/p&gt;
-
-  &lt;p&gt;[13] https://github.com/microsoft/onnxjs/issues/240&lt;/p&gt;
-
-  &lt;p&gt;[14] https://www.tensorflow.org/js/tutorials/conversion/import_saved_model&lt;/p&gt;
-
-  &lt;p&gt;[15] https://github.com/tensorflow/tfjs/issues/4222&lt;/p&gt;
-
-  &lt;p&gt;[16] https://github.com/Tencent/ncnn&lt;/p&gt;
-
-  &lt;p&gt;[17] https://webassembly.org/&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;font color=&quot;gray&quot; size=&quot;1&quot;&gt;
+Reference:&lt;br /&gt;
+[1] https://coronavirus.1point3acres.com/&lt;br /&gt;
+[2] https://www.fundera.com/blog/small-business-employment-and-growth-statistics&lt;br /&gt;
+[3] https://github.com/biubug6/Pytorch_Retinaface&lt;br /&gt;
+[4] https://github.com/dog-qiuqiu/Yolo-Fastest&lt;br /&gt;
+[5] https://openaccess.thecvf.com/content_cvpr_2017/papers/Ge_Detecting_Masked_Faces_CVPR_2017_paper.pdf&lt;br /&gt;
+[6] http://shuoyang1213.me/WIDERFACE/&lt;br /&gt;
+[7] https://github.com/AIZOOTech/FaceMaskDetection/blob/master/README.md&lt;br /&gt;
+[8] https://cocodataset.org/&lt;br /&gt;
+[9] https://github.com/ultralytics/yolov3&lt;br /&gt;
+[10] https://github.com/tensorflow/tfjs&lt;br /&gt;
+[11] https://github.com/microsoft/onnxjs&lt;br /&gt;
+[12] https://onnx.ai/&lt;br /&gt;
+[13] https://github.com/microsoft/onnxjs/issues/240&lt;br /&gt;
+[14] https://www.tensorflow.org/js/tutorials/conversion/import_saved_model&lt;br /&gt;
+[15] https://github.com/tensorflow/tfjs/issues/4222&lt;br /&gt;
+[16] https://github.com/Tencent/ncnn&lt;br /&gt;
+[17] https://webassembly.org/&lt;br /&gt;
+&lt;/font&gt;
 </description>
         <pubDate>Tue, 01 Dec 2020 00:00:00 -0500</pubDate>
         <link>http://localhost:4000/2020/12/01/mask-detection-report/</link>
