@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      Darknet to Keras Transformation
+title:      Darknet to Keras - Model Transformation
 subtitle:   New version based on TensorFlow 2.0
 date:       2020-10-25
 author:     Zekun
@@ -367,4 +367,4 @@ This time, no buffer issue.
 
 
 --- 
-*Note: Thanks to the articles "[模型转换[yolov3模型在keras与darknet之间转换]](https://www.cnblogs.com/shouhuxianjian/p/10567201.html)" for the help in the compilation process.*
+*Note: Thanks to the articles "[模型转换[yolov3模型在keras与darknet之间转换]](https://www.cnblogs.com/shouhuxianjian/p/10567201.html)" for the help.*
