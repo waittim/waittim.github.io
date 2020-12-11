@@ -1,4 +1,4 @@
-I"W�<p>In the process of completing the mask detection project recently, I tried to convert Darknet into a Keras model. In other words, to convert the <code class="highlighter-rouge">.cfg</code> file and the <code class="highlighter-rouge">.weights</code> file into a <code class="highlighter-rouge">.h5</code> file.</p>
+I"R�<p>In the process of completing the mask detection project recently, I tried to convert Darknet into a Keras model. In other words, to convert the <code class="highlighter-rouge">.cfg</code> file and the <code class="highlighter-rouge">.weights</code> file into a <code class="highlighter-rouge">.h5</code> file.</p>
 
 <p>There are actually some ready-made codes online to complete this process, such as <a href="https://github.com/allanzelener/YAD2K">YAD2K</a> and <a href="https://github.com/qqwweee/keras-yolo3">keras-yolo3</a>. However, the most recent update of these repository was at least three years ago. The Keras used is an older version. The new version of Keras has been embedded in TensorFlow 2.0.</p>
 
@@ -131,10 +131,13 @@
           3 - Get the weights
         '''</span>
         <span class="c1"># Darknet serializes convolutional weights as:
-</span>        <span class="c1"># [bias/beta, [gamma, mean, variance], conv_weights]
-</span>        <span class="bp">self</span><span class="o">.</span><span class="n">count</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+</span>
+        <span class="c1"># [bias/beta, [gamma, mean, variance], conv_weights]
+</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">count</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="c1"># read conv block
-</span>        <span class="n">filters</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">block</span><span class="p">[</span><span class="s">'filters'</span><span class="p">])</span>
+</span>
+        <span class="n">filters</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">block</span><span class="p">[</span><span class="s">'filters'</span><span class="p">])</span>
         <span class="n">size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">block</span><span class="p">[</span><span class="s">'size'</span><span class="p">])</span>
         <span class="n">stride</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">block</span><span class="p">[</span><span class="s">'stride'</span><span class="p">])</span>
         <span class="n">pad</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">block</span><span class="p">[</span><span class="s">'pad'</span><span class="p">])</span>
@@ -155,24 +158,31 @@
               <span class="n">weights_shape</span><span class="p">)</span>
 
         <span class="c1"># Read the bias
-</span>        <span class="n">conv_bias</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight_loader</span><span class="o">.</span><span class="n">parser_buffer</span><span class="p">(</span>
+</span>
+        <span class="n">conv_bias</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight_loader</span><span class="o">.</span><span class="n">parser_buffer</span><span class="p">(</span>
                                  <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">filters</span><span class="p">,),</span>
                                  <span class="n">dtype</span><span class="o">=</span><span class="s">'float32'</span><span class="p">,</span>
                                  <span class="n">buffer_size</span><span class="o">=</span><span class="n">filters</span><span class="o">*</span><span class="mi">4</span><span class="p">)</span>
  
         <span class="c1"># If there is a bn, read scale，mean，var 
-</span>        <span class="k">if</span> <span class="n">batch_normalize</span><span class="p">:</span>
+</span>
+        <span class="k">if</span> <span class="n">batch_normalize</span><span class="p">:</span>
             <span class="n">bn_weight_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bn</span><span class="p">(</span><span class="n">filters</span><span class="p">,</span> <span class="n">conv_bias</span><span class="p">)</span>
 
         <span class="c1"># Read the weights
-</span>        <span class="n">conv_weights</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight_loader</span><span class="o">.</span><span class="n">parser_buffer</span><span class="p">(</span>
+</span>
+        <span class="n">conv_weights</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight_loader</span><span class="o">.</span><span class="n">parser_buffer</span><span class="p">(</span>
                               <span class="n">shape</span><span class="o">=</span><span class="n">darknet_w_shape</span><span class="p">,</span>
                               <span class="n">dtype</span><span class="o">=</span><span class="s">'float32'</span><span class="p">,</span>
                               <span class="n">buffer_size</span><span class="o">=</span><span class="n">weights_size</span><span class="o">*</span><span class="mi">4</span><span class="p">)</span>
+
         <span class="c1"># DarkNet conv_weights are serialized Caffe-style:
-</span>        <span class="c1"># (out_dim, in_dim, height, width)
-</span>        <span class="c1"># We would like to set these to Tensorflow order:
-</span>        <span class="c1"># (height, width, in_dim, out_dim)
+</span>
+        <span class="c1"># (out_dim, in_dim, height, width)
+</span>
+        <span class="c1"># We would like to set these to Tensorflow order:
+</span>
+        <span class="c1"># (height, width, in_dim, out_dim)
 </span>
         <span class="n">conv_weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">conv_weights</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
         <span class="n">conv_weights</span> <span class="o">=</span> <span class="p">[</span><span class="n">conv_weights</span><span class="p">]</span> <span class="k">if</span> <span class="n">batch_normalize</span> <span class="k">else</span> \
@@ -212,6 +222,7 @@
     <span class="k">def</span> <span class="nf">bn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">filters</span><span class="p">,</span><span class="n">conv_bias</span><span class="p">):</span>
         <span class="s">'''bn has 4 parameters. they're bias, scale, mean, var,
            The bias has been read, and the remaining three are read here, scale, mean, var '''</span>
+           
         <span class="n">bn_weights</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight_loader</span><span class="o">.</span><span class="n">parser_buffer</span><span class="p">(</span>
                               <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="n">filters</span><span class="p">),</span>
                               <span class="n">dtype</span><span class="o">=</span><span class="s">'float32'</span><span class="p">,</span>
@@ -337,5 +348,5 @@
 <p>This time, no buffer issue.</p>
 
 <hr />
-<p><em>Note: Thanks to the articles “<a href="https://www.cnblogs.com/shouhuxianjian/p/10567201.html">模型转换[yolov3模型在keras与darknet之间转换]</a>” for the help in the compilation process.</em></p>
+<p><em>Note: Thanks to the articles “<a href="https://www.cnblogs.com/shouhuxianjian/p/10567201.html">模型转换[yolov3模型在keras与darknet之间转换]</a>” for the help.</em></p>
 :ET

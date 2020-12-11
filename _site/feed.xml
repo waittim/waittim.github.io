@@ -5,8 +5,8 @@
     <description>Across the Great Wall, we can reach every corner in the world</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 07 Dec 2020 17:53:54 -0500</pubDate>
-    <lastBuildDate>Mon, 07 Dec 2020 17:53:54 -0500</lastBuildDate>
+    <pubDate>Fri, 11 Dec 2020 06:49:20 -0500</pubDate>
+    <lastBuildDate>Fri, 11 Dec 2020 06:49:20 -0500</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -295,6 +295,196 @@ Reference:&lt;br /&gt;
       </item>
     
       <item>
+        <title>Tutorial for compiling NCNN with WASM</title>
+        <description>&lt;p&gt;The content of this tutorial is an extension of the &lt;a href=&quot;https://waittim.github.io/2020/11/10/build-ncnn/&quot;&gt;Tutorial for compiling NCNN library&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;When we successfully compile the NCNN library normally, we can use the tools in it to convert our models into NCNN format models (&lt;code class=&quot;highlighter-rouge&quot;&gt;*.param&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;*.bin&lt;/code&gt;). This model can be used for various mobile terminal deployments.&lt;/p&gt;
+
+&lt;p&gt;But when we need to deploy the model in a webpage, we need to compile the model and the C++ program that calls it into WebAssembly format. Before compiling the program, we must first compile the NCNN library into the form of WebAssembly.&lt;/p&gt;
+
+&lt;p&gt;The content of this article is the specific steps for compiling the NCNN library into WebAssembly. The following steps have been tested on &lt;strong&gt;Ubuntu 18.04&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;install-nodejs&quot;&gt;Install Node.js&lt;/h2&gt;
+
+&lt;p&gt;Before starting, we need to install the latest version of node.js as a dependency in the environment. You can find the installation tutorial on its official &lt;a href=&quot;https://github.com/nodejs/help/wiki/Installation&quot;&gt;Github&lt;/a&gt;. I chose its recommended installation location.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;VERSION=v14.15.1
+DISTRO=linux-x64
+sudo mkdir -p /usr/local/lib/nodejs
+sudo tar -xJvf node-$VERSION-$DISTRO.tar.xz -C /usr/local/lib/nodejs
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This step is to extract the nodejs package to the recommended location. Next, run &lt;code class=&quot;highlighter-rouge&quot;&gt;~/.profile&lt;/code&gt; in terminal, and paste the content below to the end of the pop-up file.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Nodejs
+VERSION=v14.15.1
+DISTRO=linux-x64
+export PATH=/usr/local/lib/nodejs/node-$VERSION-$DISTRO/bin:$PATH
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Run &lt;code class=&quot;highlighter-rouge&quot;&gt;. ~/.profile&lt;/code&gt; in terminal to refresh the profile.&lt;/p&gt;
+
+&lt;p&gt;After the installation is over, you can run &lt;code class=&quot;highlighter-rouge&quot;&gt;node -v&lt;/code&gt; in terminal to check whether the installation is successful.&lt;/p&gt;
+
+&lt;h2 id=&quot;build-ncnn-with-wasm&quot;&gt;Build NCNN with WASM&lt;/h2&gt;
+
+&lt;p&gt;First, let’s clone the NCNN repository. This folder should be &lt;strong&gt;different&lt;/strong&gt; from the one we used before(in the previous article), because they have different usage.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/Tencent/ncnn.git
+cd ncnn
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then clone the key library &lt;strong&gt;emsdk&lt;/strong&gt; for compiling WASM.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/emscripten-core/emsdk.git
+cd emsdk
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Install and activate it.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./emsdk install latest
+./emsdk activate latest
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then, return to the parent folder(master of ncnn), set the emsdk as a source.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd ..
+source emsdk/emsdk_env.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Observe the output of the terminal here, you will find that the currently used nodejs is a built-in library in emsdk, and its version is old. Therefore, we need to re-add the latest version of nodejs that we installed before to the path.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;export PATH=/usr/local/lib/nodejs/node-v14.15.1-linux-x64/bin:$PATH
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You can run &lt;code class=&quot;highlighter-rouge&quot;&gt;node -v&lt;/code&gt; to check the version again.&lt;/p&gt;
+
+&lt;p&gt;Next, prepare to compile the NCNN library.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mkdir build &amp;amp;&amp;amp; cd build
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If you are compiling for a browser that supports experimental WebAssembly features such as SIMD and SSE2, please use the following code.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cmake -DCMAKE_TOOLCHAIN_FILE=../emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake -DNCNN_SIMPLEOMP=ON -DNCNN_BUILD_TESTS=ON ..
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If it is compiled for browsers such as Safari in iOS without SIMD SSE2, replace it with the following code.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cmake -DCMAKE_TOOLCHAIN_FILE=../emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake -DNCNN_OPENMP=OFF -DNCNN_SIMPLEOMP=OFF -DNCNN_RUNTIME_CPU=OFF -DNCNN_SSE2=OFF -DNCNN_AVX2=OFF -DNCNN_BUILD_TESTS=ON ..
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then start make.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;make
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;After the make ends, use the built-in test case of NCNN to check whether the compilation is successful.&lt;/p&gt;
+
+&lt;p&gt;With SIMD SSE2:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;TESTS_EXECUTABLE_LOADER=node TESTS_EXECUTABLE_LOADER_ARGUMENTS=&quot;--experimental-wasm-simd;--experimental-wasm-threads;--experimental-wasm-bulk-memory&quot; ctest --output-on-failure -j 2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Without SIMD SSE2:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;TESTS_EXECUTABLE_LOADER=node ctest --output-on-failure -j 2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If all the tests are passed, generate the install file.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;make install
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;So far, the NCNN with WebAssembly has been compiled, and the next step is to introduce its usage.&lt;/p&gt;
+
+&lt;h2 id=&quot;compile-c-code&quot;&gt;Compile C++ code&lt;/h2&gt;
+
+&lt;p&gt;First, we need to write a C++ program that calls the NCNN model. The relevant files I have written have been uploaded in the facemask-detection repository, and I will compile it based on this.&lt;/p&gt;
+
+&lt;p&gt;Clone it to the specified folder.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd ~/Documents 
+git clone https://github.com/waittim/facemask-detection.git
+cd facemask-detection
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Note that if you are compiling a version without SIMD and SSE2, please delete the following content in &lt;a href=&quot;https://github.com/waittim/facemask-detection/blob/master/CMakeLists.txt&quot;&gt;CMakeLists.txt&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;set(CMAKE_C_FLAGS &quot;${CMAKE_C_FLAGS} -fopenmp -s USE_PTHREADS=1 -s PTHREAD_POOL_SIZE=15&quot;) 
+set(CMAKE_CXX_FLAGS &quot;${CMAKE_CXX_FLAGS} -fopenmp -s USE_PTHREADS=1 -s PTHREAD_POOL_SIZE=15&quot;) 
+set(CMAKE_EXE_LINKER_FLAGS &quot;${CMAKE_EXE_LINKER_FLAGS} -fopenmp -s USE_PTHREADS=1 -s PTHREAD_POOL_SIZE=15&quot;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And change &lt;code class=&quot;highlighter-rouge&quot;&gt;target_link_libraries(yolo ncnn pthread)&lt;/code&gt; to be &lt;code class=&quot;highlighter-rouge&quot;&gt;target_link_libraries(yolo ncnn)&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Next, create an empty folder named ncnn in it, and copy the two files under &lt;code class=&quot;highlighter-rouge&quot;&gt;build/install/&lt;/code&gt; under ncnn master to this ncnn folder.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mkdir ncnn
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Copy the emsdk folder under ncnn master and paste it to the master folder of facemask-detection.&lt;/p&gt;
+
+&lt;p&gt;At this time, I recommend to use &lt;code class=&quot;highlighter-rouge&quot;&gt;node -v&lt;/code&gt; to ensure that the version of nodejs is correct.&lt;/p&gt;
+
+&lt;p&gt;Finally, use emsdk to compile.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;emcmake cmake
+emmake make
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;After compiling, you can get &lt;code class=&quot;highlighter-rouge&quot;&gt;yolo.js&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;yolo.wasm&lt;/code&gt;,
+&lt;code class=&quot;highlighter-rouge&quot;&gt;yolo.worker.js&lt;/code&gt;. These are the files needed to call WASM format functions in the JavaScript environment.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;The complete CMakeLists.txt content is as follows:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;project(facemask-detection)
+
+cmake_minimum_required(VERSION 3.10)
+
+set(CMAKE_BUILD_TYPE release)
+
+set(ncnn_DIR &quot;${CMAKE_CURRENT_SOURCE_DIR}/ncnn/lib/cmake/ncnn&quot;)
+find_package(ncnn REQUIRED)
+
+set(CMAKE_C_FLAGS &quot;${CMAKE_C_FLAGS} -s FORCE_FILESYSTEM=1 -s INITIAL_MEMORY=256MB -s EXIT_RUNTIME=1&quot;)
+set(CMAKE_CXX_FLAGS &quot;${CMAKE_CXX_FLAGS} -s FORCE_FILESYSTEM=1 -s INITIAL_MEMORY=256MB -s EXIT_RUNTIME=1&quot;)
+set(CMAKE_EXECUTBLE_LINKER_FLAGS &quot;${CMAKE_EXECUTBLE_LINKER_FLAGS} -s FORCE_FILESYSTEM=1 -s INITIAL_MEMORY=256MB -s EXIT_RUNTIME=1&quot;)
+
+set(CMAKE_C_FLAGS &quot;${CMAKE_C_FLAGS} -fopenmp -s USE_PTHREADS=1 -s PTHREAD_POOL_SIZE=15&quot;)
+set(CMAKE_CXX_FLAGS &quot;${CMAKE_CXX_FLAGS} -fopenmp -s USE_PTHREADS=1 -s PTHREAD_POOL_SIZE=15&quot;)
+set(CMAKE_EXE_LINKER_FLAGS &quot;${CMAKE_EXE_LINKER_FLAGS} -fopenmp -s USE_PTHREADS=1 -s PTHREAD_POOL_SIZE=15&quot;)
+
+set(CMAKE_C_FLAGS &quot;${CMAKE_C_FLAGS} -sEXPORTED_FUNCTIONS=['_yolo_ncnn'] --preload-file ${CMAKE_CURRENT_SOURCE_DIR}/assets@.&quot;)
+set(CMAKE_CXX_FLAGS &quot;${CMAKE_CXX_FLAGS} -sEXPORTED_FUNCTIONS=['_yolo_ncnn'] --preload-file ${CMAKE_CURRENT_SOURCE_DIR}/assets@.&quot;)
+set(CMAKE_EXECUTBLE_LINKER_FLAGS &quot;${CMAKE_EXECUTBLE_LINKER_FLAGS} -sEXPORTED_FUNCTIONS=['_yolo_ncnn'] --preload-file ${CMAKE_CURRENT_SOURCE_DIR}/assets@.&quot;)
+
+
+add_executable(yolo yolo.cpp)
+target_link_libraries(yolo ncnn pthread)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;&lt;em&gt;Note: Thanks to NCNN creator nihui for her help in this process.&lt;/em&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sun, 15 Nov 2020 00:00:00 -0500</pubDate>
+        <link>http://localhost:4000/2020/11/15/build-ncnn-wasm/</link>
+        <guid isPermaLink="true">http://localhost:4000/2020/11/15/build-ncnn-wasm/</guid>
+        
+        <category>NCNN</category>
+        
+        <category>Deep Learning</category>
+        
+        <category>C++</category>
+        
+        <category>WebAssembly</category>
+        
+        
+      </item>
+    
+      <item>
         <title>Tutorial for compiling NCNN library</title>
         <description>&lt;p&gt;This is a tutorial to helping compile NCNN library. The content comes from my attempts to complete the Mask-Detection project, so the operation is based on the Yolo-Fastest model. I hope it will help readers deploy the model, and also for the convenience of myself to quickly rebuild the environment in the future.&lt;/p&gt;
 
@@ -470,7 +660,7 @@ make install
       </item>
     
       <item>
-        <title>Darknet to Keras Transformation</title>
+        <title>Darknet to Keras - Model Transformation</title>
         <description>&lt;p&gt;In the process of completing the mask detection project recently, I tried to convert Darknet into a Keras model. In other words, to convert the &lt;code class=&quot;highlighter-rouge&quot;&gt;.cfg&lt;/code&gt; file and the &lt;code class=&quot;highlighter-rouge&quot;&gt;.weights&lt;/code&gt; file into a &lt;code class=&quot;highlighter-rouge&quot;&gt;.h5&lt;/code&gt; file.&lt;/p&gt;
 
 &lt;p&gt;There are actually some ready-made codes online to complete this process, such as &lt;a href=&quot;https://github.com/allanzelener/YAD2K&quot;&gt;YAD2K&lt;/a&gt; and &lt;a href=&quot;https://github.com/qqwweee/keras-yolo3&quot;&gt;keras-yolo3&lt;/a&gt;. However, the most recent update of these repository was at least three years ago. The Keras used is an older version. The new version of Keras has been embedded in TensorFlow 2.0.&lt;/p&gt;
@@ -821,7 +1011,7 @@ make install
 &lt;p&gt;This time, no buffer issue.&lt;/p&gt;
 
 &lt;hr /&gt;
-&lt;p&gt;&lt;em&gt;Note: Thanks to the articles “&lt;a href=&quot;https://www.cnblogs.com/shouhuxianjian/p/10567201.html&quot;&gt;模型转换[yolov3模型在keras与darknet之间转换]&lt;/a&gt;” for the help in the compilation process.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Note: Thanks to the articles “&lt;a href=&quot;https://www.cnblogs.com/shouhuxianjian/p/10567201.html&quot;&gt;模型转换[yolov3模型在keras与darknet之间转换]&lt;/a&gt;” for the help.&lt;/em&gt;&lt;/p&gt;
 </description>
         <pubDate>Sun, 25 Oct 2020 00:00:00 -0400</pubDate>
         <link>http://localhost:4000/2020/10/25/darknet2keras/</link>
@@ -2087,164 +2277,6 @@ wage distribution between STEM and non-STEM.&quot; /&gt;&lt;/p&gt;
         <category>Project</category>
         
         <category>R</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>As data scientists, what should we do?</title>
-        <description>&lt;h1 id=&quot;slides&quot;&gt;Slides&lt;/h1&gt;
-&lt;iframe src=&quot;https://docs.google.com/presentation/d/e/2PACX-1vTr02Z5Zn7lGTvEo2Jz5P0ADkz76YFfvNOnQUXeQiHwZ5CrpOJhR2fL8avHvWIIcQtWGTb6wOTmLNRS/embed?start=false&amp;amp;loop=true&amp;amp;delayms=15000&quot; frameborder=&quot;0&quot; width=&quot;700&quot; height=&quot;423&quot; allowfullscreen=&quot;true&quot; mozallowfullscreen=&quot;true&quot; webkitallowfullscreen=&quot;true&quot;&gt;&lt;/iframe&gt;
-
-&lt;h1 id=&quot;summary&quot;&gt;Summary&lt;/h1&gt;
-
-&lt;p&gt;3 big parts in Data Science jobs:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Use &lt;strong&gt;EXPLORATION&lt;/strong&gt; to turn the unknown into the known.&lt;/li&gt;
-  &lt;li&gt;Use &lt;strong&gt;INFERENCE&lt;/strong&gt; to help find something new from the old.&lt;/li&gt;
-  &lt;li&gt;Use &lt;strong&gt;PREDICTION&lt;/strong&gt; to make better decisions.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;scene-setting&quot;&gt;Scene Setting&lt;/h1&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Imagine a scenario in which our superior asked us to make suggestions for the launch of a new product, and all we have is a data set that contains the past relevant situation of this type of product.&lt;/p&gt;
-
-  &lt;p&gt;What can we do now? What should we do?&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;This is a common scenario for the industry. Maybe different backgrounds, different fields, but the same purpose: we need to start with pure data and go on to obtain a product that can be implemented.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;So what are the key steps in this process?&lt;/strong&gt;
-Overall, we can divide it into three parts:&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;EXPLORATION&lt;/li&gt;
-  &lt;li&gt;INFERENCE&lt;/li&gt;
-  &lt;li&gt;PREDICTION&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&quot;concepts--connections&quot;&gt;Concepts &amp;amp; Connections&lt;/h1&gt;
-
-&lt;h4 id=&quot;01-exploration&quot;&gt;01 Exploration&lt;/h4&gt;
-
-&lt;p&gt;It is also called &lt;strong&gt;visualization&lt;/strong&gt;. Use visual exploration to understand what is in a dataset and the characteristics of the data.&lt;/p&gt;
-
-&lt;p&gt;Identify potential relationships or insights that may be hidden in the data which will help &lt;strong&gt;inference&lt;/strong&gt; and &lt;strong&gt;prediction&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;h4 id=&quot;02-inference&quot;&gt;02 Inference&lt;/h4&gt;
-
-&lt;p&gt;Use data analysis to deduce the properties of a dataset. The properties will give the analyst a more accurate perception of the data and provide a theoretical basis for &lt;strong&gt;prediction&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;h4 id=&quot;03-prediction&quot;&gt;03 Prediction&lt;/h4&gt;
-
-&lt;p&gt;Reference &lt;strong&gt;exploration&lt;/strong&gt; and &lt;strong&gt;inference&lt;/strong&gt; results encompass a variety of techniques from data mining, predictive modeling, and machine learning, that analyze current and historical facts to make predictions about unknown events.&lt;/p&gt;
-
-&lt;h1 id=&quot;01-exploration-visualization&quot;&gt;01 Exploration (Visualization)&lt;/h1&gt;
-
-&lt;p&gt;It is difficult for humans to process large numbers quickly, especially if the numbers are not specifically ordered. Not to mention the quick calculation of the proportional relationship between the numbers, the information within the group under certain conditions.&lt;/p&gt;
-
-&lt;p&gt;But the &lt;strong&gt;human eye can quickly process image information&lt;/strong&gt; and extract key content from it. Therefore, facing a new data set, visualizing the data is one of the best ways to understand it.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;For product data, we can explore the sales of this type of product under different channels, delivery costs, and changes over time. We can also compare the differences between different sub-categories under this large category of products to help differentiate the positioning of products.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;The process of exploration and visualization can help us &lt;strong&gt;turn the unknown into the known&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Based on fMRI images of the brain of insomnia patients, explore whether there is any difference between them and the images of ordinary people.&lt;/p&gt;
-
-  &lt;p&gt;Explore whether physical pain and social pain behave differently in the brain.&lt;/p&gt;
-
-  &lt;p&gt;– Catie Chang (Assistant Professor of Computer Science, Vanderbilt University)&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Visualizing personal stories that are closer to real life enables viewers to have a more immersive experience.&lt;/p&gt;
-
-  &lt;p&gt;– Yorgos Askilidis (Senior Data Scientist, Instagram)&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h1 id=&quot;02-inference-1&quot;&gt;02 Inference&lt;/h1&gt;
-&lt;p&gt;Due to collection costs, storage costs, or historical reasons, we cannot have a data set that contains everything that may be needed. In actual data analysis, we may need to display information that is not included in the data set directly. &lt;strong&gt;Visualization can only show information directly represented&lt;/strong&gt; in the data, but for the data that is not directly displayed, we need to use inference related theory to make inferences based on the existing information.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;For product data example, we can only see the values of variables of each product in the past, but the values do not directly tell us what products are successful. We need to infer and judge the success of a product based on sales volume, cost, profit margin, capital turnover cycle and the stability of the production process of the product itself.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;The significance of inference is to get new information from what is already known. In other words, the inference can help &lt;strong&gt;find something new from the old&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Use billing codes, drug names, and more to mark Parkinson’s patients.&lt;/p&gt;
-
-  &lt;p&gt;Use pathological data to distinguish normal samples from abnormal samples in order to extract control groups for analysis.&lt;/p&gt;
-
-  &lt;p&gt;– Paul Harris (Professor of Biomedical Informatics, Vanderbilt University REDCap)&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Find out the most accurate and efficient indicators that can determine whether a patient has hypertension among a large number of indicators such as genetic data.&lt;/p&gt;
-
-  &lt;p&gt;– Josh Denny (Professor of Biomedical Informatics and Medicine, Vanderbilt University)&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h1 id=&quot;03-prediction-1&quot;&gt;03 Prediction&lt;/h1&gt;
-
-&lt;p&gt;The information obtained by the visualization and inference process is based on the existing data, and the existing data must be a description of what happened before.&lt;/p&gt;
-
-&lt;p&gt;In actual work, it is not enough to focus on the past. We often need to &lt;strong&gt;make decisions about the future&lt;/strong&gt;. At this point, data-based forecasting will become a vital part.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;In the example of the product launch, we may need to predict the possible sales and profitability of the planned product before the actual product launch. According to the forecast results, we can change the resource allocation methods such as product line and pre-production volume to reduce risks and obtain higher returns.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;The value of prediction lies in reducing the cost of trial and error and &lt;strong&gt;making better decisions&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Prediction finds target markets that are “likely to buy” and “definitely buy”, and launches products when the predicted value exceeds a certain threshold.&lt;/p&gt;
-
-  &lt;p&gt;– Kelly Goldsmith (Associate Professor of Marketing, Vanderbilt University)&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Predict the number of viewers to help determine the number of ad views that can be sold, and adjust the number of ads sale based on the forecast to complete the expected playback with minimal cost.&lt;/p&gt;
-
-  &lt;p&gt;– Minchun Zhou (Senior Data Scientist, Comcast)&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;For Wal-Mart in-home delivery, predict what and how often specific consumers might buy, and related products that they might want to try.&lt;/p&gt;
-
-  &lt;p&gt;– Betsy Barton (Director of Data Science, Walmart In-Home Delivery)&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h1 id=&quot;epicycle&quot;&gt;Epicycle&lt;/h1&gt;
-
-&lt;p&gt;Of course, &lt;strong&gt;this process may be performed more than once&lt;/strong&gt;. We may need to perform multiple processing on the same data set, and re-reflect and summarize after each processing, considering what can be implemented next.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;For example, after visualization, think about whether there are still questions that not clear enough and need to be explored. After using inference to investigate, consider again how to visualize the results. And based on the results obtained in previous steps, we can also think about whether we can use them to make predictions and what are the suitable prediction methods.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;In a broad sense, this process also belongs to some kind of epicycle. These parts do not appear in a purely linear sequence, but exist in a &lt;strong&gt;repeatable and mutually affecting relationship&lt;/strong&gt;. They constantly promote each other and ultimately form a successful project.&lt;/p&gt;
-
-&lt;h1 id=&quot;conclusions&quot;&gt;Conclusions&lt;/h1&gt;
-
-&lt;p&gt;In order to achieve the goal more efficiently and successfully, in the actual operation process, we should first &lt;strong&gt;determine what type of things we need to do&lt;/strong&gt;. Do we want to understand the data, or dig deeper based on the existing information, or predict what has not happened based on the existing data.&lt;/p&gt;
-
-&lt;p&gt;After confirming the purpose, it is clear from the definition whether what we need to do is exploration, inference or prediction.&lt;/p&gt;
-
-&lt;p&gt;Finally, the best solution will be found according to the category.&lt;/p&gt;
-
-&lt;p&gt;At the same time, we need to carry out this process &lt;strong&gt;multiple times&lt;/strong&gt; in the same project, and constantly improve and expand until a satisfactory result is achieved.&lt;/p&gt;
-</description>
-        <pubDate>Wed, 11 Dec 2019 00:00:00 -0500</pubDate>
-        <link>http://localhost:4000/2019/12/11/ds-applications/</link>
-        <guid isPermaLink="true">http://localhost:4000/2019/12/11/ds-applications/</guid>
-        
-        <category>Career</category>
-        
-        <category>Talk</category>
         
         
       </item>
