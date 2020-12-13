@@ -5,8 +5,8 @@
     <description>Across the Great Wall, we can reach every corner in the world</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 11 Dec 2020 06:49:20 -0500</pubDate>
-    <lastBuildDate>Fri, 11 Dec 2020 06:49:20 -0500</lastBuildDate>
+    <pubDate>Sun, 13 Dec 2020 05:28:43 -0500</pubDate>
+    <lastBuildDate>Sun, 13 Dec 2020 05:28:43 -0500</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -274,6 +274,22 @@ Reference:&lt;br /&gt;
 &lt;p&gt;Of course, this project is not mature yet. If you have any suggestions or are willing to contribute to this project, please contact me.&lt;/p&gt;
 
 &lt;p&gt;Thank you very much!&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;release-information&quot;&gt;Release information&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;2020.12.13 - 2.0.0&lt;/strong&gt;: Deployed a new model. It can distinguish the face that doesn’t wear a mask properly (completely cover nose and mouth). Improved the recognition of covering the face with a mobile phone.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2020.12.01 - 1.1.0&lt;/strong&gt;: Added support for iOS system. Now it can automatically recognize whether the browser supports advanced computing functions and apply them.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2020.11.30 - 1.0.3&lt;/strong&gt;: Added Spanish and Chinese versions.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2020.11.28 - 1.0.2&lt;/strong&gt;: The domain name was changed to facemask-detection.com, which is convenient for users to remember.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2020.11.26 - 1.0.1&lt;/strong&gt;: The website is officially established.&lt;/p&gt;
 </description>
         <pubDate>Fri, 27 Nov 2020 00:00:00 -0500</pubDate>
         <link>http://localhost:4000/2020/11/27/mask-detection/</link>
