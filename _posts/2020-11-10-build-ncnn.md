@@ -31,13 +31,13 @@ The following content is based on Ubuntu 18.04.5. In fact, I have tried MacOS, b
 
 Usually, Ubuntu has built-in this library, you can use the following code in the Terminal to check the installed version:
 
-```
+```bash
 g++ -v
 ```
 
 Or you can install it via `apt`.
 
-```
+```bash
 sudo apt install gcc
 sudo apt install g++
 ```
@@ -46,7 +46,7 @@ sudo apt install g++
 
 Similar to the previous one, we can still use `apt`.
 
-```
+```bash
 sudo apt install cmake
 ```
 
@@ -54,7 +54,7 @@ sudo apt install cmake
 
 The installation of protobuf can be implemented in accordance with the instructions of its [github repository](). The key is the following steps.
 
-```
+```bash
 sudo apt-get install autoconf automake libtool curl make g++ unzip
 ```
 
@@ -64,7 +64,7 @@ Then download the package from its release page:
 
 The one I downloaded is [protobuf-all-3.14.0.tar.gz](https://github.com/protocolbuffers/protobuf/releases/download/v3.14.0/protobuf-all-3.14.0.tar.gz). Then unzip the package and enter the folder in Terminal. Then run the following code.
 
-```
+```bash
 ./configure
  make
  make check
@@ -80,13 +80,13 @@ Open [https://opencv.org/releases/](https://opencv.org/releases/) and select an 
 
 Then unzip the package and enter the folder in Terminal. Then run the following code to install the dependencies.
 
-```
+```bash
 sudo apt-get install build-essential libgtk2.0-dev libavcodec-dev libavformat-dev libjpeg.dev libtiff4.dev libswscale-dev libjasper-dev
 ```
 
 Create a compilation folder under this folder, then cmake.
 
-```
+```bash
 mkdir build
 cd build
 cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/usr/local ..
@@ -94,39 +94,39 @@ cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/usr/local ..
 
 Then start to compile it.
 
-```
+```bash
 sudo make
 sudo make install
 ```
 
 Add the OpenCV library to the path so that the system can find it.
 
-```
+```bash
 sudo gedit /etc/ld.so.conf.d/opencv.conf
 ```
 
 This command opened a file. Add `/usr/local/lib` at the end of the file and save it. Executing this command makes the configuration path effective.
 
-```
+```bash
 sudo ldconfig
 ```
 
 The following command will open a file.
 
-```
+```bash
 sudo gedit /etc/bash.bashrc
 ```
 
 Add these at the end of the file and save it:
 
-```
+```bash
 PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/lib/pkgconfig  
 export PKG_CONFIG_PATH
 ```
 
 Executing this command makes the configuration path effective.
 
-```
+```bash
 source /etc/bash.bashrc
 sudo updatedb
 ```
@@ -136,7 +136,7 @@ The configuration process of OpenCV has been completed, let's test it with its o
 Enter `opencv-3.4.12/samples/cpp/example_cmake` in Terminal.
 Execute the following code:
 
-```
+```bash
 cmake .
 make
 ./opencv_example
@@ -150,7 +150,7 @@ Now that the dependent libraries have been installed, we will start to compile N
 
 If you want to use GPU, please install Vulkan as a dependency with the following code.
 
-```
+```bash
 wget https://sdk.lunarg.com/sdk/download/1.2.154.0/linux/vulkansdk-linux-x86_64-1.2.154.0.tar.gz?Human=true -O vulkansdk-linux-x86_64-1.2.154.0.tar.gz
 tar -xf vulkansdk-linux-x86_64-1.2.154.0.tar.gz
 export VULKAN_SDK=$(pwd)/1.2.154.0/x86_64
@@ -160,7 +160,7 @@ However, cause I'm using a virtual machine running on Macbook pro, I choose to f
 
 Then we need to clone the repository of NCNN and start to compile it.
 
-```
+```bash
 git clone https://github.com/Tencent/ncnn.git
 cd ncnn
 mkdir -p build
@@ -176,7 +176,7 @@ After this, we can start to use various tools in the `ncnn/build/tools` folder t
 
 For example, you can copy the **.cfg** and .**weights** files of your darknet model to the **darknet** folder, and use the code to convert to the NCNN model. The details could be found [here](https://github.com/Tencent/ncnn/tree/master/tools/darknet).
 
-```
+```bash
 ./darknet2ncnn yolo-fastest.cfg best.weights yolo-fastest.param yolo-fastest.bin 1
 ```
 

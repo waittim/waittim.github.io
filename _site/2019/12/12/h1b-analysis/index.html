@@ -155,13 +155,13 @@
 
     <!-- Image to hack wechat -->
 <!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="/img/post-h1b.jpeg" width="0" height="0"> -->
+<!-- <img src="/img/h1b/post-h1b.jpeg" width="0" height="0"> -->
 
 <!-- Post Header -->
 <style type="text/css">
     header.intro-header{
         position: relative;
-        background-image: url('/img/post-h1b.jpeg')
+        background-image: url('/img/h1b/post-h1b.jpeg')
     }
 
     
@@ -242,7 +242,7 @@ This means there is a strong likelihood that for any given year, your petition w
 </ol>
 
 <h4 id="h1b-historic-timeline">H1B Historic Timeline</h4>
-<p><img src="https://i.loli.net/2019/12/23/uB49UpgOJeoR6Yh.png" alt="Timeline" />
+<p><img src="https://github.com/waittim/waittim.github.io/raw/master/img/h1b/1.png" alt="Timeline" />
 The timeline of relevant events is listed above. Sources for this information are from the New York times, government official documents from USCIS (U.S. Citizenship and Immigration Services).</p>
 
 <h1 id="exploration">Exploration</h1>
@@ -252,8 +252,8 @@ The timeline of relevant events is listed above. Sources for this information ar
 
 <h4 id="dataset">Dataset</h4>
 <p>To perform this analysis, we combined data sets of 5 different years from 2014 to 2018.
-<img src="https://i.loli.net/2019/12/23/HhcSbvMuTYt9mDf.png" alt="df1" />
-<img src="https://i.loli.net/2019/12/23/wjlLDzWR3EZJ8am.png" alt="df2" /></p>
+<img src="https://github.com/waittim/waittim.github.io/raw/master/img/h1b/2.png" alt="df1" />
+<img src="https://github.com/waittim/waittim.github.io/raw/master/img/h1b/3.png" alt="df2" /></p>
 
 <table>
   <thead>
@@ -327,7 +327,7 @@ Here we can see that the states of California, Texas, New York, Michigan, Georgi
 
 <p>The following analysis was done to see the proportion of applicants for H1B that were in STEM fields vs non-STEM fields. This was done using the SOC (Standard Occupational Classification)  code associated with educational background. This was then cross-referenced (left-join) with a list of SOC codes that were considered to be STEM . We combined this with our analysis of the number of applicants per year as a sum just to see if some trends had changed.</p>
 
-<p><img src="https://i.postimg.cc/x1tpYPZV/image010.png" alt="stem-nonstem" title="Figure 2: Number of applications per year. Proportion of STEM and non-STEM H1B Applicants." /></p>
+<p><img src="https://github.com/waittim/waittim.github.io/raw/master/img/h1b/4.png" alt="stem-nonstem" title="Figure 2: Number of applications per year. Proportion of STEM and non-STEM H1B Applicants." /></p>
 
 <p>We observed (from Figure. 2) that the number of applications stays high as compared to the yearly cap of 85,000 applications that get approved. The number of applications also keeps increasing each year with only a slight dip in 2017. The changes in the total number of applications don’t seem to affect the proportion of STEM to non-STEM applications each year. This is also very interesting to note as the number of non-STEM jobs available in the United States is much higher than the number of STEM jobs.</p>
 
@@ -335,12 +335,12 @@ Here we can see that the states of California, Texas, New York, Michigan, Georgi
 
 <p>Another reason why international students might want to pursue STEM would be the prevailing wages for STEM and non-STEM jobs.</p>
 
-<p><img src="https://i.postimg.cc/j20Zv3DP/image012.png" alt="" title="Figure 3: Modified box plot to show only the spread and the median of the
+<p><img src="https://github.com/waittim/waittim.github.io/raw/master/img/h1b/5.png" alt="" title="Figure 3: Modified box plot to show only the spread and the median of the
 wage distribution between STEM and non-STEM." /></p>
 
 <p>The medians of the prevailing wages of the STEM and non-STEM jobs have gotten wider apart but the median for the STEM is always higher than the non-STEM (Figure. 3). In 2018, we see the gap between the two to appear to be the widest.</p>
 
-<p><img src="https://i.postimg.cc/VN2RLZBp/image014.png" alt="" title="Figure 4: Density plot for the prevailing wages for STEM vs non-STEM jobs." /></p>
+<p><img src="https://github.com/waittim/waittim.github.io/raw/master/img/h1b/6.png" alt="" title="Figure 4: Density plot for the prevailing wages for STEM vs non-STEM jobs." /></p>
 
 <p>It is visible from the density plot of the wage distribution of the year 2018 that the wages of the STEM jobs in 2018 are not only higher but the distribution is also tighter as compared to the distribution for the non-STEM jobs.</p>
 
@@ -350,7 +350,7 @@ wage distribution between STEM and non-STEM." /></p>
 
 <p>Following right after are business analyst and programmer analyst positions. It is important to note that approximately 10 out of these 20 jobs could be associated with data-related jobs. Even if they were not explicitly mentioned as a data-related job, they have, in their job description, data-related roles.</p>
 
-<p><img src="https://i.postimg.cc/76nN1xRL/WX20200319-015802-2x.png" alt="" title="Figure 5: Top 20 jobs in STEM with the highest number of applications in 2018. All jobs are colored blue, data-related jobs are colored red." /></p>
+<p><img src="https://github.com/waittim/waittim.github.io/raw/master/img/h1b/7.png" alt="" title="Figure 5: Top 20 jobs in STEM with the highest number of applications in 2018. All jobs are colored blue, data-related jobs are colored red." /></p>
 
 <p>After recognizing the number of data-related jobs within the top 20 job titles in the last year, the next step was to break down what these data-related roles were and if we could combine them and/or break them down based on how complex we wanted our analysis to be.</p>
 
@@ -387,21 +387,21 @@ wage distribution between STEM and non-STEM." /></p>
 
 <p>We combined machine learning and deep learning jobs into data science jobs, as they are highly correlated and it also made the following visualizations easier to look at. Since these data points were essentially just combined with another category, we need to note that the number of machine learning/deep learning jobs (with those explicit keywords as titles) have remained very few.</p>
 
-<p><img src="https://i.postimg.cc/N026V7q4/image020.png" alt="" title="Figure 6: Data related jobs and their four categories. Business Analysts having the highest number of applications and only going down after 2016." /></p>
+<p><img src="https://github.com/waittim/waittim.github.io/raw/master/img/h1b/8.png" alt="" title="Figure 6: Data related jobs and their four categories. Business Analysts having the highest number of applications and only going down after 2016." /></p>
 
 <p>Two important things to notice here (Figure 6). Firstly, the total number of jobs for business analysts is much higher than the total number of jobs for other roles. There also seems to be a downward trend in the number of jobs for business analysts after 2016; however, the number of jobs within business analytics remains much higher than the number of jobs in any of the other categories in any of the years. Secondly, the number of jobs for data scientists, analysts and engineers are all showing an upward trend. There appears to be a higher number of jobs for data analysts as compared to data scientists and data engineers. A reason for this is that the role of data scientists only emerged recently and the number of jobs available in the industry has just recently, in the past couple of years, started growing.</p>
 
 <h4 id="prevailing-wages-per-data-related-job-category">Prevailing Wages Per Data Related Job Category</h4>
 
-<p><img src="https://i.postimg.cc/520q5WsD/image022.png" alt="" title="Figure 7: Prevailing wages for data-related jobs in 2018" /></p>
+<p><img src="https://github.com/waittim/waittim.github.io/raw/master/img/h1b/9.png" alt="" title="Figure 7: Prevailing wages for data-related jobs in 2018" /></p>
 
 <p>From the prevailing wages for the different categories that we have established, we see that the median salary (from Figure 7) for a data scientist is a lot higher for the median salary for the business analyst. This coincides with our earlier analysis when we saw that the number of applications for H1B is a lot higher than the number of job applications from a data scientist or analyst role. The higher number of jobs and lower salaries make it a good option for someone within data science to use that as an opportunity to get into the industry.</p>
 
-<p><img src="https://i.postimg.cc/qvzyhXRT/image024.png" alt="" title="Figure 8: Top 5 companies with the highest number of applications for data-related roles" /></p>
+<p><img src="https://github.com/waittim/waittim.github.io/raw/master/img/h1b/10.png" alt="" title="Figure 8: Top 5 companies with the highest number of applications for data-related roles" /></p>
 
 <p>To get a general trend of what was going on in the industry for data-related roles, we look at five companies with the highest number of applications in the years 2014 to 2017 (Fig. 8). We notice here that despite expecting the highest number of applications to come from tech companies, it comes from 3 consulting firms and two tech companies.</p>
 
-<p><img src="https://i.postimg.cc/Y0MQh54n/image026.png" alt="" title="Figure 9: Infosys and the downward trend in job applications" /></p>
+<p><img src="https://github.com/waittim/waittim.github.io/raw/master/img/h1b/11.png" alt="" title="Figure 9: Infosys and the downward trend in job applications" /></p>
 
 <p>The company Infosys showed a very steep downward trend and also had the highest number of H1B applications in the year 2014 which was on a completely different scale as compared to other similar companies (Fig. 9). This drew the attention of our analysis because it was a highly abnormal trend, but upon deeper examination, it revealed a precautionary tale for foreign students trying to get jobs in the United States.</p>
 
@@ -412,23 +412,23 @@ wage distribution between STEM and non-STEM." /></p>
 <h4 id="top-tech-companies">Top Tech Companies</h4>
 
 <p>A natural assumption for someone entering the market as a data scientist would be that the top tech companies have the highest number of jobs for data-related roles. We examine the top tech giants that are
-<img src="https://i.postimg.cc/HsL7R4by/image028.png" alt="" title="Figure 10: Data related job trends in the top tech companies in the past 5 years" /></p>
+<img src="https://github.com/waittim/waittim.github.io/raw/master/img/h1b/12.png" alt="" title="Figure 10: Data related job trends in the top tech companies in the past 5 years" /></p>
 
 <p>There is a general upward trend to the number of data-related jobs for all tech companies, with Google hiring the least number of people within data-related capacities and Amazon hiring the most. While most companies are showing an upward trend, IBM shows a decreasing trend from 2015 to 2017.</p>
 
 <table>
   <tbody>
     <tr>
-      <td><img src="https://i.postimg.cc/JhXXKrZY/image030.png" alt="" title="Microsoft" /></td>
-      <td><img src="https://i.postimg.cc/kXhtm6yh/image032.png" alt="" title="Google" /></td>
+      <td><img src="https://github.com/waittim/waittim.github.io/raw/master/img/h1b/13.png" alt="" title="Microsoft" /></td>
+      <td><img src="https://github.com/waittim/waittim.github.io/raw/master/img/h1b/14.png" alt="" title="Google" /></td>
     </tr>
     <tr>
       <td>a) Microsoft</td>
       <td>b) Google</td>
     </tr>
     <tr>
-      <td><img src="https://i.postimg.cc/cJfKwDGV/image034.png" alt="" title="Facebook" /></td>
-      <td><img src="https://i.postimg.cc/Zn5Ck4vS/image036.png" alt="" title="Amazon " /></td>
+      <td><img src="https://github.com/waittim/waittim.github.io/raw/master/img/h1b/15.png" alt="" title="Facebook" /></td>
+      <td><img src="https://github.com/waittim/waittim.github.io/raw/master/img/h1b/16.png" alt="" title="Amazon " /></td>
     </tr>
     <tr>
       <td>c) Facebook</td>
@@ -445,10 +445,11 @@ wage distribution between STEM and non-STEM." /></p>
 
 <h4 id="ibm">IBM</h4>
 
-<p><img src="https://i.postimg.cc/wv7jFFCq/image039.png" alt="" title="Figure 12: IBM trends for data-related roles - (a)IBM Spaghetti plot for all jobs" />
-<img src="https://i.postimg.cc/g04WCRVx/image042.png" alt="" title="Figure 12: IBM trends for data-related roles - (b)Data-related roles for IBM" /></p>
+<p><img src="https://github.com/waittim/waittim.github.io/raw/master/img/h1b/17.png" alt="" title="Figure 12: IBM trends for data-related roles - (a)IBM Spaghetti plot for all jobs" /></p>
 
 <p>IBM H1B petitions see an overall decrease after the year 2017 (Fig 12 (a)). This is because of how Trump’s administration has affected the H1B denial rates. We can see that  IBM has an increasing denial rate that is not like those of tech firms. This can be attributed to the fact that IBM is not a traditional tech firm; it provides a lot of consulting services. Due to a stricter review, the H1B application process involves providing more information about the type of exact work a company is involved in, the projects and the subcontractors. This hinders non-tech companies from hiring more international students as it will be both expensive and cumbersome. These companies would rather hire US citizens with the same skills if they can avoid it and most of the time, a foreign employee can be replaced with a US citizen.</p>
+
+<p><img src="https://github.com/waittim/waittim.github.io/raw/master/img/h1b/18.png" alt="" title="Figure 12: IBM trends for data-related roles - (b)Data-related roles for IBM" /></p>
 
 <p>This downward trend is probably linked to IBM’s consulting sector combined with stricter government regulations . Despite this trend, the number of applications for specific data-related roles in IBM (Fig 12 (b)) seems to be unaffected by this downward trend.</p>
 
@@ -459,8 +460,8 @@ wage distribution between STEM and non-STEM." /></p>
 <table>
   <tbody>
     <tr>
-      <td><img src="https://i.postimg.cc/FFw7C5F2/image044.png" alt="" title="Deloitte" /></td>
-      <td><img src="https://i.postimg.cc/9FTzv8rz/image046.png" alt="" title="Accenture" /></td>
+      <td><img src="https://github.com/waittim/waittim.github.io/raw/master/img/h1b/19.png" alt="" title="Deloitte" /></td>
+      <td><img src="https://github.com/waittim/waittim.github.io/raw/master/img/h1b/20.png" alt="" title="Accenture" /></td>
     </tr>
     <tr>
       <td>a) Deloitte Consulting</td>
@@ -493,13 +494,13 @@ wage distribution between STEM and non-STEM." /></p>
 
 <p>Wyoming and Montana have 2 and 5 H1B applications, respectively,  in 2018. This indicates that these would be the worst states to apply for data-related jobs.</p>
 
-<p><img src="https://i.postimg.cc/rFqvkzpW/image051.png" alt="" title="Figure 15: Alluvial diagram showing the distribution of the number of applications from each role " /></p>
+<p><img src="https://github.com/waittim/waittim.github.io/raw/master/img/h1b/21.png" alt="" title="Figure 15: Alluvial diagram showing the distribution of the number of applications from each role " /></p>
 
 <p>Upon taking a deeper look at the different jobs and the top states for those jobs, we can see how the number of applications for the data-related roles is being distributed among the top states. What is interesting to note here is that the Business Analyst role is higher for almost all states except for the state of Michigan where the Data Analyst applications are higher than the Business Analyst applications. We can see the majority of Data Scientist applications are coming from California while Washington and New York follow right after.</p>
 
 <h4 id="regions-of-the-united-states">Regions of the United States</h4>
 
-<p><img src="https://i.postimg.cc/vTtknw0c/image053.png" alt="" title="Figure 16: 1 Point = 1 City. Color = Data position with the highest number of jobs in that city" />
+<p><img src="https://github.com/waittim/waittim.github.io/raw/master/img/h1b/22.png" alt="" title="Figure 16: 1 Point = 1 City. Color = Data position with the highest number of jobs in that city" />
 <em>Figure 16: 1 Point = 1 City. Color = Data position with the highest number of jobs in that city</em></p>
 
 <p>To find where would be best to apply based on the type of data role, a deeper analysis is needed into what cities would be best to apply to, based on the number of proportions of jobs available for each of the data roles. In Figure 16, each point is a city and the color of the city is given by what data-position provided the majority of the application in 2017 and 2018. Using two years for the analysis instead of one is better as it provides a better picture of the data-related jobs.  We can see lots of blue clusters forming on the east coast, while some black clusters forming in Michigan and more of a variety of colors in California in the Bay Area and Washington.</p>
@@ -507,23 +508,23 @@ wage distribution between STEM and non-STEM." /></p>
 <h4 id="the-western-united-states">The Western United States</h4>
 
 <p>The Western United States has two main states of interest for data-related roles, Washington and California.
-<img src="https://i.postimg.cc/zG8D4qsP/image055.png" alt="" title="Figure 17: State of Washington and data-related roles in that state " /></p>
+<img src="https://github.com/waittim/waittim.github.io/raw/master/img/h1b/23.png" alt="" title="Figure 17: State of Washington and data-related roles in that state " /></p>
 
 <p>Washington has a significant amount of data-related roles with Seattle having a majority of Business Analyst applications and Redmond (red circle) has a higher number of data scientists. This may be because of the Amazon and Microsoft headquarters being located in Seattle and Redmond.</p>
 
-<p><img src="https://i.postimg.cc/85JTLcvs/image057.png" alt="" title="Figure 18: The state of California and data-related roles in that state" /></p>
+<p><img src="https://github.com/waittim/waittim.github.io/raw/master/img/h1b/24.png" alt="" title="Figure 18: The state of California and data-related roles in that state" /></p>
 
 <p>If pursuing a data scientist role or job title, state of California seems to have the most variety and also the highest number of applications for H1B applications for that role (668 H1B applications). The big red circles show that a large number of data scientists applied for H1B from the bay area (San Jose, San Francisco, and Oakland). This makes complete sense because of the presence of Silicon Valley, where most of the headquarters for tech companies are located, and the recent boom in data science jobs in the tech industry (cite).</p>
 
 <h4 id="the-northeastern-united-states">The Northeastern United States</h4>
 
-<p><img src="https://i.postimg.cc/cJPpymK4/image059.png" alt="" title="Figure 19: The Northeastern States and data-related roles in those states" /></p>
+<p><img src="https://github.com/waittim/waittim.github.io/raw/master/img/h1b/25.png" alt="" title="Figure 19: The Northeastern States and data-related roles in those states" /></p>
 
 <p>We see four main clusters on this map. Boston, New York, Philadelphia, and Washington DC. The majority of these clusters are blue as northeast has a relatively large number of finance and insurance companies (+ 22.7% relative as compared to other places in the United States) , and these companies have a large number of business analyst or data analytics positions as compared to other roles. The existence of some black clusters is an indication of this industry requiring data analysts.</p>
 
 <h4 id="the-midwestern-united-states">The Midwestern United States</h4>
 
-<p><img src="https://i.postimg.cc/wvJS6mJ5/image061.png" alt="" title="Figure 20: Midwestern states and data-related roles in those states" /></p>
+<p><img src="https://github.com/waittim/waittim.github.io/raw/master/img/h1b/26.png" alt="" title="Figure 20: Midwestern states and data-related roles in those states" /></p>
 
 <p>The midwest shows relatively more black clusters as compared to any other region. There is a large black cluster in the state of Michigan indicating a significant number of data analyst positions, in Detroit. And a large blue cluster in Chicago indicating a large number of business analyst positions.</p>
 
@@ -531,13 +532,13 @@ wage distribution between STEM and non-STEM." /></p>
 
 <p>The final and most important analysis, relevant to the authors of this paper and the potential individuals reading it, is an analysis of the data-related job market for international students, using H1B, in the state of Tennessee.</p>
 
-<p><img src="https://i.postimg.cc/zXjYbKQ0/image063.png" alt="" title="Figure 21: Data related jobs in the state of Tennessee " /></p>
+<p><img src="https://github.com/waittim/waittim.github.io/raw/master/img/h1b/27.png" alt="" title="Figure 21: Data related jobs in the state of Tennessee " /></p>
 
 <p>There are two major cities where you find the biggest clusters for data-related roles: Nashville and Memphis. Both these cities have applications mainly for business analytics. We can see some sprinkles of data analyst roles in other parts of the state, with one small dot representing data science applications around the Oak Ridge area. This is from an employer named Oak Ridge National Laboratory and they hire data scientists for the work and research that they perform.</p>
 
 <p>This does not make Tennessee the best state for foreign students who are pursuing data science; however, growth in data science jobs is projected over the next few years, due to tech companies moving to Tennessee.</p>
 
-<p><img src="https://i.postimg.cc/wMYYJVHb/image065.png" alt="" title="Figure 13: Proportion of data-related jobs as compared to other jobs" /></p>
+<p><img src="https://github.com/waittim/waittim.github.io/raw/master/img/h1b/28.png" alt="" title="Figure 13: Proportion of data-related jobs as compared to other jobs" /></p>
 
 <p>Figure 13 shows that there has been a growth in data-related roles in the past 5 years, with 2018 showing the highest number of applications for data-related roles in the year 2018. This is promising, as it will mean a higher number of data-related roles that will hire and sponsor international students in the years to come.</p>
 

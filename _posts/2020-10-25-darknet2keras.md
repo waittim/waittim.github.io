@@ -358,7 +358,7 @@ if __name__ == '__main__':
 
 Please save the code and rename it to `convert.py`. Usage is the same as in keras-yolo3:
 
-```
+```bash
 python convert.py -w yolov3.cfg yolov3.weights model_data/yolov3.h5
 ```
 

@@ -1,4 +1,4 @@
-I"¦<p><strong>Note:</strong> The content of this article is based on the data what was collected by the project team of Professor <a href="http://math.csu.edu.cn/info/1316/1554.htm">Ziqi Qi</a>, School of Mathematics and Statistics, Central South University (China). The data used for this analysis are not complete.</p>
+I"É<p><strong>Note:</strong> The content of this article is based on the data what was collected by the project team of Professor <a href="http://math.csu.edu.cn/info/1316/1554.htm">Ziqi Qi</a>, School of Mathematics and Statistics, Central South University (China). The data used for this analysis are not complete.</p>
 
 <h1 id="10-import">10-import</h1>
 
@@ -71,7 +71,7 @@ library(gifski)
 anim_save("output.gif")
 </code></pre>
 
-<p><img src="https://i.postimg.cc/ZYPryMhf/output.gif" alt="" /></p>
+<p><img src="https://github.com/waittim/waittim.github.io/raw/master/img/covid-trend.gif" alt="" /></p>
 
 <p>Project GitHub page: <a href="https://github.com/waittim/COVID-19-EDA">COVID-19-EDA</a></p>
 :ET

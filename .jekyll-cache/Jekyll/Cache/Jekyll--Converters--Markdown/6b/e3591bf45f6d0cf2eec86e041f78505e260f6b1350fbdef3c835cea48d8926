@@ -1,4 +1,4 @@
-I"s#<p>This is a tutorial to helping compile NCNN library. The content comes from my attempts to complete the Mask-Detection project, so the operation is based on the Yolo-Fastest model. I hope it will help readers deploy the model, and also for the convenience of myself to quickly rebuild the environment in the future.</p>
+I"™#<p>This is a tutorial to helping compile NCNN library. The content comes from my attempts to complete the Mask-Detection project, so the operation is based on the Yolo-Fastest model. I hope it will help readers deploy the model, and also for the convenience of myself to quickly rebuild the environment in the future.</p>
 
 <p>According to the author nihui, the name of NCNN comes from (New/Next or Naive or Neon or Nihui) + CNN. This is the introduction on <a href="https://github.com/Tencent/ncnn">its Github repository</a>:</p>
 
@@ -21,7 +21,7 @@
 
 <p>Usually, Ubuntu has built-in this library, you can use the following code in the Terminal to check the installed version:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>g++ -v
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>g++ <span class="nt">-v</span>
 </code></pre></div></div>
 
 <p>Or you can install it via <code class="highlighter-rouge">apt</code>.</p>
