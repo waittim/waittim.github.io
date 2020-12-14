@@ -4,7 +4,7 @@ title:      Super fast In-browser FaceMask Detection
 subtitle:   Open the webpage, then you have it!
 date:       2020-11-27
 author:     Zekun
-header-img: img/bg-mask.jpg
+header-img: img/products-bg.jpg
 catalog: true
 tags:
     - Deep Learning
