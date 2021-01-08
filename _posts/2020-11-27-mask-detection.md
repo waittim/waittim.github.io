@@ -85,6 +85,8 @@ Thank you very much!
 
 ## Release information 
 
+**2021.01.06 - 2.0.4**: Add feedback function.
+
 **2020.12.13 - 2.0.0**: Deployed a new model. It can distinguish the face that doesn't wear a mask properly (completely cover nose and mouth). Improved the recognition of covering the face with a mobile phone.
 
 **2020.12.01 - 1.1.0**: Added support for iOS system. Now it can automatically recognize whether the browser supports advanced computing functions and apply them.
@@ -94,3 +96,4 @@ Thank you very much!
 **2020.11.28 - 1.0.2**: The domain name was changed to facemask-detection.com, which is convenient for users to remember.
 
 **2020.11.26 - 1.0.1**: The website is officially established.
+
