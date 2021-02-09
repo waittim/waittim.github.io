@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      Project Details - In-browser Face Mask Detection
+title:      WearMask - Face Mask Detection Project Details
 subtitle:   Low-cost solution for small businesses and public places
 date:       2020-12-01
 author:     Zekun

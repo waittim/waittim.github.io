@@ -1,4 +1,4 @@
-I"?<p><strong><a href="https://facemask-detection.com/">facemask-detection.com</a></strong> 👈👈</p>
+I"�<p><strong><a href="https://facemask-detection.com/">facemask-detection.com</a></strong> 👈👈</p>
 
 <p>This is an AI that <strong>detects masks super fast</strong>:</p>
 <ul>
@@ -94,6 +94,8 @@
 
 <h2 id="release-information">Release information</h2>
 
+<p><strong>2021.01.06 - 2.0.4</strong>: Add feedback function.</p>
+
 <p><strong>2020.12.13 - 2.0.0</strong>: Deployed a new model. It can distinguish the face that doesn’t wear a mask properly (completely cover nose and mouth). Improved the recognition of covering the face with a mobile phone.</p>
 
 <p><strong>2020.12.01 - 1.1.0</strong>: Added support for iOS system. Now it can automatically recognize whether the browser supports advanced computing functions and apply them.</p>
@@ -103,4 +105,5 @@
 <p><strong>2020.11.28 - 1.0.2</strong>: The domain name was changed to facemask-detection.com, which is convenient for users to remember.</p>
 
 <p><strong>2020.11.26 - 1.0.1</strong>: The website is officially established.</p>
+
 :ET

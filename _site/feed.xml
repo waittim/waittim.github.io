@@ -5,13 +5,15 @@
     <description>Across the Great Wall, we can reach every corner in the world</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 14 Dec 2020 02:38:33 -0500</pubDate>
-    <lastBuildDate>Mon, 14 Dec 2020 02:38:33 -0500</lastBuildDate>
+    <pubDate>Thu, 14 Jan 2021 23:16:14 -0500</pubDate>
+    <lastBuildDate>Thu, 14 Jan 2021 23:16:14 -0500</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
-        <title>Project Details - In-browser Face Mask Detection</title>
-        <description>&lt;h2 id=&quot;background&quot;&gt;Background&lt;/h2&gt;
+        <title>WearMask - Face Mask Detection Project Details</title>
+        <description>&lt;p&gt;The paper has been published on &lt;a href=&quot;https://arxiv.org/abs/2101.00784&quot;&gt;arXiv&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;background&quot;&gt;Background&lt;/h2&gt;
 
 &lt;p&gt;In the last November, the COVID-19 epidemic in the United States reached a new wave of peaks. During Thanksgiving week alone, there were 1,147,489 new cases and 10,279 new deaths.&lt;sup&gt;[1]&lt;/sup&gt; It’s not just numbers. It means that 10 thousand families lost their loved one, 10 thousand people would never have another Thanksgiving in the future.&lt;/p&gt;
 
@@ -281,6 +283,8 @@ Reference:&lt;br /&gt;
 
 &lt;h2 id=&quot;release-information&quot;&gt;Release information&lt;/h2&gt;
 
+&lt;p&gt;&lt;strong&gt;2021.01.06 - 2.0.4&lt;/strong&gt;: Add feedback function.&lt;/p&gt;
+
 &lt;p&gt;&lt;strong&gt;2020.12.13 - 2.0.0&lt;/strong&gt;: Deployed a new model. It can distinguish the face that doesn’t wear a mask properly (completely cover nose and mouth). Improved the recognition of covering the face with a mobile phone.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;2020.12.01 - 1.1.0&lt;/strong&gt;: Added support for iOS system. Now it can automatically recognize whether the browser supports advanced computing functions and apply them.&lt;/p&gt;
@@ -290,6 +294,7 @@ Reference:&lt;br /&gt;
 &lt;p&gt;&lt;strong&gt;2020.11.28 - 1.0.2&lt;/strong&gt;: The domain name was changed to facemask-detection.com, which is convenient for users to remember.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;2020.11.26 - 1.0.1&lt;/strong&gt;: The website is officially established.&lt;/p&gt;
+
 </description>
         <pubDate>Fri, 27 Nov 2020 00:00:00 -0500</pubDate>
         <link>http://localhost:4000/2020/11/27/mask-detection/</link>
@@ -1181,7 +1186,7 @@ We are using the free downloaded data, therefore, please import &lt;em&gt;geoip2
     
       <item>
         <title>COVID-19 Data Exploration (Unfinished)</title>
-        <description>&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; The content of this article is based on the data what was collected by the project team of Professor &lt;a href=&quot;http://math.csu.edu.cn/info/1316/1554.htm&quot;&gt;Ziqi Qi&lt;/a&gt;, School of Mathematics and Statistics, Central South University (China). The data used for this analysis are not complete.&lt;/p&gt;
+        <description>&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; The content of this article is based on the data what was collected by the project team of Professor &lt;a href=&quot;http://faculty.csu.edu.cn/chenziqi/en/index.htm&quot;&gt;Ziqi Chen&lt;/a&gt;, School of Mathematics and Statistics, Central South University(China). The data used for this analysis are not complete.&lt;/p&gt;
 
 &lt;h1 id=&quot;10-import&quot;&gt;10-import&lt;/h1&gt;
 
