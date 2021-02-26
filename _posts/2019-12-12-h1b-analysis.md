@@ -13,8 +13,7 @@ tags:
     - R
 ---
 
-# Slides
-<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQR_hrMRbhVNpoudmrkJRcPi3lTcSG0g1lYYnMOElPjTcrC_y1Bxk16DdwxUCLruMuoQEPX0n04Zc8k/embed?start=false&loop=false&delayms=3000" frameborder="0" width="700" height="423" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+![title](https://github.com/waittim/waittim.github.io/raw/master/img/h1b/H1B-title.png)
 
 
 # H1B
@@ -267,5 +266,7 @@ The best location to find a job as a data analyst or in data analytics in the No
 Finally, although Tennessee is not the best for international students pursuing data-related roles, there does seem to be a potential for growth since tech giants such as Amazon and Microsoft are creating more opportunities for jobs in the Nashville area in the future.
 
 
+# Slides
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQR_hrMRbhVNpoudmrkJRcPi3lTcSG0g1lYYnMOElPjTcrC_y1Bxk16DdwxUCLruMuoQEPX0n04Zc8k/embed?start=false&loop=false&delayms=3000" frameborder="0" width="700" height="423" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 
 *Hint: Project GitHub page: [H1B-visas-analysis](https://github.com/waittim/H1B-visas-analysis)*
