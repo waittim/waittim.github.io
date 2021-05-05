@@ -5,12 +5,12 @@
     <description>Across the Great Wall, we can reach every corner in the world</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 05 May 2021 15:57:41 -0500</pubDate>
-    <lastBuildDate>Wed, 05 May 2021 15:57:41 -0500</lastBuildDate>
+    <pubDate>Wed, 05 May 2021 16:05:29 -0500</pubDate>
+    <lastBuildDate>Wed, 05 May 2021 16:05:29 -0500</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
-        <title>K-Means based Anomaly Email Detection in PySpark</title>
+        <title>K-Means based Anomalous Email Detection in PySpark</title>
         <description>&lt;p&gt;K-Means is familiar as a common unsupervised learning clustering method. But in fact, K-Means algorithm can be applied to more scenarios. This time, I will use a K-Means-based approach to complete anomaly detection for text-based email content.&lt;/p&gt;
 
 &lt;p&gt;All the data manipulation and modeling processes involved in this approach will be fully implemented based on &lt;a href=&quot;https://spark.apache.org/docs/latest/api/python/index.html&quot;&gt;PySpark-3.1.1&lt;/a&gt;.  Considering the demand when facing large amount of text data and the high time complexity of K-Means class algorithm, the Spark-based practice can effectively improve the processing power and running speed. To facilitate the reproduction and reduce all kinds of problems caused by the construction of Spark environment, all the contents can be done in the notebook in &lt;a href=&quot;https://colab.research.google.com/notebooks/intro.ipynb&quot;&gt;Google Colab&lt;/a&gt;.&lt;/p&gt;
@@ -805,7 +805,7 @@ only showing top 20 rows
 
 &lt;p&gt;Because emails often have more than one category, but multiple types, such as official notifications, work schedules, personal matters, and so on. If all emails are treated as one class, then in the high-dimensional Euclidean space formed by the resulting FEATURES, an anomaly cannot be successfully distinguished if it does not belong to any class but is in between multiple classes.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://github.com/waittim/waittim.github.io/raw/master/img/cluster.png&quot; alt=&quot;clusters&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/waittim/waittim.github.io/raw/master/img/kmeans-anomaly-detection/cluster.png&quot; alt=&quot;clusters&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;P.S. In addition to the classical K-Means algorithm used in the previous section, the Bisecting KMeans algorithm described below can also be used as an alternative when we have high requirements on the running time of the algorithm.&lt;/p&gt;
 

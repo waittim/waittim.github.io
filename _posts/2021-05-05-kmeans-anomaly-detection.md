@@ -1,7 +1,7 @@
 ---
 layout:     post
-title:      K-Means based Anomaly Email Detection in PySpark
-subtitle:   Anomaly detection for email implemented by Minhash and K-Means, based on PySpark and Colab.
+title:      K-Means based Anomalous Email Detection in PySpark
+subtitle:   Anomaly detection for emails based on Minhash and K-Means, implemented by PySpark and Colab.
 date:       2021-05-05
 author:     Zekun
 header-img: img/kmeans-anomaly-detection/bg-email.png
@@ -939,7 +939,7 @@ So **why do we need to cluster before calculating the distance to the centroid?*
 
 Because emails often have more than one category, but multiple types, such as official notifications, work schedules, personal matters, and so on. If all emails are treated as one class, then in the high-dimensional Euclidean space formed by the resulting FEATURES, an anomaly cannot be successfully distinguished if it does not belong to any class but is in between multiple classes.
 
-![clusters](https://github.com/waittim/waittim.github.io/raw/master/img/cluster.png)
+![clusters](https://github.com/waittim/waittim.github.io/raw/master/img/kmeans-anomaly-detection/cluster.png)
 
 
 P.S. In addition to the classical K-Means algorithm used in the previous section, the Bisecting KMeans algorithm described below can also be used as an alternative when we have high requirements on the running time of the algorithm.
