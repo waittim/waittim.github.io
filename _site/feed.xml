@@ -5,8 +5,8 @@
     <description>Across the Great Wall, we can reach every corner in the world</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 05 May 2021 16:05:29 -0500</pubDate>
-    <lastBuildDate>Wed, 05 May 2021 16:05:29 -0500</lastBuildDate>
+    <pubDate>Wed, 05 May 2021 16:08:07 -0500</pubDate>
+    <lastBuildDate>Wed, 05 May 2021 16:08:07 -0500</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -803,7 +803,7 @@ only showing top 20 rows
 
 &lt;p&gt;So &lt;strong&gt;why do we need to cluster before calculating the distance to the centroid?&lt;/strong&gt; In other words, why can’t we just use the full email-generated vector as a cluster to find outliers?&lt;/p&gt;
 
-&lt;p&gt;Because emails often have more than one category, but multiple types, such as official notifications, work schedules, personal matters, and so on. If all emails are treated as one class, then in the high-dimensional Euclidean space formed by the resulting FEATURES, an anomaly cannot be successfully distinguished if it does not belong to any class but is in between multiple classes.&lt;/p&gt;
+&lt;p&gt;Because emails often have multiple types, such as official notifications, work schedules, personal matters, and so on. If all emails are treated as one class, then in the high-dimensional Euclidean space formed by the features, an anomaly cannot be successfully distinguished if it does not belong to any class but is in between multiple classes.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://github.com/waittim/waittim.github.io/raw/master/img/kmeans-anomaly-detection/cluster.png&quot; alt=&quot;clusters&quot; /&gt;&lt;/p&gt;
 

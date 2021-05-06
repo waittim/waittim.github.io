@@ -19,7 +19,7 @@ K-Means is familiar as a common unsupervised learning clustering method. But in 
 
 All the data manipulation and modeling processes involved in this approach will be fully implemented based on [PySpark-3.1.1](https://spark.apache.org/docs/latest/api/python/index.html).  Considering the demand when facing large amount of text data and the high time complexity of K-Means class algorithm, the Spark-based practice can effectively improve the processing power and running speed. To facilitate the reproduction and reduce all kinds of problems caused by the construction of Spark environment, all the contents can be done in the notebook in [Google Colab](https://colab.research.google.com/notebooks/intro.ipynb).
 
-The data I used is [Insider Threat Test Dataset](https://resources.sei.cmu.edu/library/asset-view.cfm?assetid=508099) from Carnegie Mellon University, which the CERT Division provides, collects synthetic insider threat test datasets that provide both background and malicious actor synthetic data. It contains 1000 users, 17 months long. Please download the dataset from [CMU kilthub](https://kilthub.cmu.edu/articles/dataset/Insider_Threat_Test_Dataset/12841247/1) and unzip them. Then put the CSV files into the fold `./data/` under the same fold of the notebook.
+The data I used is [Insider Threat Test Dataset](https://resources.sei.cmu.edu/library/asset-view.cfm?assetid=508099) from Carnegie Mellon University, which the CERT Division provides, collects synthetic insider threat test datasets that provide both background and malicious actor synthetic data. It contains 1000 users, 17 months long. Please download the dataset from [CMU kilthub](https://kilthub.cmu.edu/articles/dataset/Insider_Threat_Test_Dataset/12841247/1) and unzip them. Then put the CSV files into the folder `./data/` under the same folder of the notebook.
 
 For more background on this data, please see the paper, Bridging the Gap: [A Pragmatic Approach to Generating Insider Threat Data](https://ieeexplore.ieee.org/document/6565236).
 
@@ -27,7 +27,7 @@ For more background on this data, please see the paper, Bridging the Gap: [A Pra
 
 ## Method overview
 
-1. Split text to word list
+1. Split text to the word list
 2. Remove stop words
 3. Generate word count vector
 4. Reduce dimension by MinHash
@@ -35,7 +35,7 @@ For more background on this data, please see the paper, Bridging the Gap: [A Pra
 6. Calculate its distance to the centroid
 7. Sort to get the obs farthest from the corresponding centroid
 
-
+If you want to accelerate the manipulation process, you can skip all of the `dataframe.show()` part.
 
 ## Build environment
 
@@ -710,31 +710,24 @@ for k in range(2,10):
     With K=2
     Silhouette with squared euclidean distance = 0.9054606158887029
     ------------------------------------------------------------
-    
     With K=3
     Silhouette with squared euclidean distance = 0.378622885181141
     ------------------------------------------------------------
-    
     With K=4
     Silhouette with squared euclidean distance = 0.27556189292394295
     ------------------------------------------------------------
-    
     With K=5
     Silhouette with squared euclidean distance = 0.17562579597023814
     ------------------------------------------------------------
-    
     With K=6
     Silhouette with squared euclidean distance = 0.22579471704625662
     ------------------------------------------------------------
-    
     With K=7
     Silhouette with squared euclidean distance = 0.18564839132066216
     ------------------------------------------------------------
-    
     With K=8
     Silhouette with squared euclidean distance = 0.16016978372894128
     ------------------------------------------------------------
-    
     With K=9
     Silhouette with squared euclidean distance = 0.11530445939779198
     ------------------------------------------------------------
@@ -872,7 +865,6 @@ prob_all_distance = kd.estimate(all_distance)
 prob_max = max(prob_all_distance)
 prob_min = min(prob_all_distance)
 
-
 plt.plot(all_distance,prob_all_distance)
 plt.xlim(0, 20)
 plt.title("KDE Curve")
@@ -935,14 +927,14 @@ targetEmail.collect()[0]['content']
 We can see that the first abnormal email in the list is an email containing non-sense content. This shows that our algorithm is really effective in finding anomalous emails in the huge volume of emails.
 
 
-So **why do we need to cluster before calculating the distance to the centroid?** In other words, why can't we just use the full email-generated vector as a cluster to find outliers?
+So **why do we need to cluster before calculating the distance to the centroid?** In other words, why can't we just use the full email-generated vector as one cluster to find outliers?
 
-Because emails often have more than one category, but multiple types, such as official notifications, work schedules, personal matters, and so on. If all emails are treated as one class, then in the high-dimensional Euclidean space formed by the resulting FEATURES, an anomaly cannot be successfully distinguished if it does not belong to any class but is in between multiple classes.
+Because emails often have multiple types, such as official notifications, work schedules, personal matters, and so on. If all emails are treated as one class, then in the high-dimensional Euclidean space formed by the features, an anomaly cannot be successfully distinguished if it does not belong to any class but is in between multiple classes.
 
 ![clusters](https://github.com/waittim/waittim.github.io/raw/master/img/kmeans-anomaly-detection/cluster.png)
 
 
-P.S. In addition to the classical K-Means algorithm used in the previous section, the Bisecting KMeans algorithm described below can also be used as an alternative when we have high requirements on the running time of the algorithm.
+**P.S.** In addition to the classical K-Means algorithm used in the previous section, the Bisecting KMeans algorithm described below can also be used as an alternative when we have high requirements on the running time of the algorithm.
 
 
 ```python
