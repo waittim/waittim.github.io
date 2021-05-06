@@ -15,7 +15,7 @@ tags:
 ---
 
 
-K-Means is familiar as a common unsupervised learning clustering method. But in fact, K-Means algorithm can be applied to more scenarios. This time, I will use a K-Means-based approach to complete anomaly detection for text-based email content.
+K-Means is known as a common unsupervised learning clustering method. But in fact, K-Means algorithm can be applied to more scenarios. This time, I will use a K-Means-based approach to complete anomaly detection for text-based email content.
 
 All the data manipulation and modeling processes involved in this approach will be fully implemented based on [PySpark-3.1.1](https://spark.apache.org/docs/latest/api/python/index.html).  Considering the demand when facing large amount of text data and the high time complexity of K-Means class algorithm, the Spark-based practice can effectively improve the processing power and running speed. To facilitate the reproduction and reduce all kinds of problems caused by the construction of Spark environment, all the contents can be done in the notebook in [Google Colab](https://colab.research.google.com/notebooks/intro.ipynb).
 
@@ -32,8 +32,8 @@ For more background on this data, please see the paper, Bridging the Gap: [A Pra
 3. Generate word count vector
 4. Reduce dimension by MinHash
 5. Find the appropriate centroid for each obs by K-Means
-6. Calculate its distance to the centroid
-7. Sort to get the obs farthest from the corresponding centroid
+6. Calculate the distance
+7. Sort the distance
 
 If you want to accelerate the manipulation process, you can skip all of the `dataframe.show()` part.
 
@@ -119,7 +119,6 @@ from pyspark.ml.linalg import Vectors
 from pyspark.ml.clustering import KMeans
 from pyspark.ml.evaluation import ClusteringEvaluator
 from pyspark.mllib.stat import KernelDensity
-
 ```
 
 
@@ -168,7 +167,7 @@ email.show(5)
 
 ## Extract word-vector
 
-First, we need to split the email content into lists according to words, and then remove common meaningless words, aka "Stop words". The list of stop words is provided by PySaprk. Sometimes, we can also use `n-grams` to get a more representative list of phrases.
+First, we need to split the email content into lists according to words, and then remove common meaningless words, aka "Stop words". The list of stop words is provided by PySpark. Sometimes, we can also use [`n-grams`](https://web.stanford.edu/~jurafsky/slp3/3.pdf) to get a more representative list of phrases.
 
 
 ```python
@@ -212,8 +211,7 @@ wordsData.show()
     
 
 
-`CountVectorizer` can convert a collection of text documents to vectors of token counts. 
-It can produces sparse representations for the documents over the vocabulary.
+The function `CountVectorizer` can convert a collection of text documents to vectors of token counts. It can produce sparse representations for the documents over the vocabulary.
 
 We choose 1000 as the vocabulary dimension under consideration. Of course, if the device allows, we can choose a larger dimension to obtain stronger representation ability.
 
@@ -239,7 +237,6 @@ def no_empty_vector(value):
         return True
     else:
         return False
-
 
 no_empty_vector_udf = udf(no_empty_vector, BooleanType())
 wordsCV = wordsCV.filter(no_empty_vector_udf('features'))
@@ -760,10 +757,7 @@ k = 5
 kmeansmodel = KMeans().setK(k).setMaxIter(10).setFeaturesCol('scaledFeatures').setPredictionCol('prediction').fit(id_hash_sub)
 
 kmeans_results = kmeansmodel.transform(id_hash_sub)
-```
 
-
-```python
 clusterCenters = kmeansmodel.clusterCenters()
 ```
 
@@ -851,7 +845,7 @@ results.show()
 
 The few data points farthest from their corresponding clustering centers are the anomalous emails we are looking for.
 
-In addition, we can also get a more visualized range of the distance distribution by drawing the image of the Kernel Density Estimation (KDE) probability distribution for each distance. And with this, we can determine the appropriate distance threshold as the criterion for judging anomalies.
+In addition, we can also get a better visual of the distance distribution by drawing the image of the KDE probability distribution for each distance. According to this, we can determine the appropriate distance threshold as the criterion for classifying anomalies.
 
 
 ```python
