@@ -469,9 +469,11 @@ scaler = StandardScaler(inputCol="features", outputCol="scaledFeatures",
                         withStd=True, withMean=False)
 
 # Compute summary statistics by fitting the StandardScaler
+
 scalerModel = scaler.fit(id_hash)
 
 # Normalize each feature to have unit standard deviation.
+
 id_hash_scaled = scalerModel.transform(id_hash)
 id_hash_scaled.show()
 ```
