@@ -84,6 +84,7 @@ Thank you very much!
 -------
 
 ## Release information 
+**2025.11.20 - 3.0.0**: New UI design and re-structured repo.
 
 **2021.01.06 - 2.0.4**: Add feedback function.
 
