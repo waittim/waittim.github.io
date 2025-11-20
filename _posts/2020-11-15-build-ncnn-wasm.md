@@ -13,7 +13,7 @@ tags:
     - WebAssembly
 ---
 
-The content of this tutorial is an extension of the [Tutorial for compiling NCNN library](https://waittim.github.io/2020/11/10/build-ncnn/).
+The content of this tutorial is an extension of the [Tutorial for compiling NCNN library](/2020/11/10/build-ncnn/).
 
 When we successfully compile the NCNN library normally, we can use the tools in it to convert our models into NCNN format models (`*.param` and `*.bin`). This model can be used for various mobile terminal deployments.
 
