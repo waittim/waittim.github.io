@@ -4,7 +4,7 @@ title:      Power and sample size calculations correlational studies
 subtitle:   Probability and Statistical Inference - 10
 date:       2019-11-22
 author:     Zekun
-header-img: img/prob10-power&sample.jpg
+header-img: img/headers/prob10-power&sample.jpg
 catalog: true
 tags:
     - Probability

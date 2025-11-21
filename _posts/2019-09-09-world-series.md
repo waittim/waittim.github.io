@@ -4,7 +4,7 @@ title:      How often does the better team win the World Series?
 subtitle:   Probability and Statistical Inference - 03
 date:       2019-09-09
 author:     Zekun
-header-img: img/prob3-worldseries.jpg
+header-img: img/headers/prob3-worldseries.jpg
 catalog: true
 tags:
     - Probability

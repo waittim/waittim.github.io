@@ -4,7 +4,7 @@ title:      As data scientists, what should we do?
 subtitle:   Data science application analysis, taking product launching processes as an example
 date:       2019-12-11
 author:     Zekun
-header-img: img/post-ds-application.jpg
+header-img: img/headers/post-ds-application.jpg
 catalog: true
 tags:
     - Career

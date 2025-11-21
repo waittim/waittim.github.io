@@ -4,7 +4,7 @@ title:      Roulette Simulation
 subtitle:   Probability and Statistical Inference - 01
 date:       2019-08-26
 author:     Zekun
-header-img: img/prob1-roulette.jpg
+header-img: img/headers/prob1-roulette.jpg
 catalog: true
 tags:
     - Probability

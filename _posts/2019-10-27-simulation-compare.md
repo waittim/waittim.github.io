@@ -4,7 +4,7 @@ title:      Simulation method comparison
 subtitle:   Probability and Statistical Inference - 08
 date:       2019-10-27
 author:     Zekun
-header-img: img/prob8-simulation.jpg
+header-img: img/headers/prob8-simulation.jpg
 catalog: true
 tags:
     - Probability

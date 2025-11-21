@@ -4,7 +4,7 @@ title:      Which quantiles of a continuous distribution can one estimate with m
 subtitle:   Probability and Statistical Inference - 05
 date:       2019-09-18
 author:     Zekun
-header-img: img/prob5-quantile.jpeg
+header-img: img/headers/prob5-quantile.jpeg
 catalog: true
 tags:
     - Probability

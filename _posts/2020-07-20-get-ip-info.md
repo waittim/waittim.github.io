@@ -4,7 +4,7 @@ title:      How to get information from IP address?
 subtitle:   Note - geoip2 module introduction
 date:       2020-07-20
 author:     Zekun
-header-img: img/post-python.jpg
+header-img: img/headers/post-python.jpg
 catalog: true
 tags:
     - Feature Engineering

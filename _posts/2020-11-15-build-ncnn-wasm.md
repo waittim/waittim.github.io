@@ -4,7 +4,7 @@ title:      Tutorial for compiling NCNN with WASM
 subtitle:   The second step to deploy a deep learning model in the browser.
 date:       2020-11-15
 author:     Zekun
-header-img: img/post-bg-code.jpg
+header-img: img/headers/post-bg-code.jpg
 catalog: true
 tags:
     - NCNN

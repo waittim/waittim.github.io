@@ -4,7 +4,7 @@ title:      Super fast In-browser FaceMask Detection
 subtitle:   Open the webpage, then you have it!
 date:       2020-11-27
 author:     Zekun
-header-img: img/products-bg.jpg
+header-img: img/ui/products-bg.jpg
 catalog: true
 tags:
     - Deep Learning
@@ -25,7 +25,7 @@ This is an AI that **detects masks super fast**:
 
 Well, let's be serious. This is an AI model running in the browser that can recognize whether people are wearing masks and automatically remind them.
 
-![mask-detection-machines.png](https://github.com/waittim/waittim.github.io/raw/master/img/mask-detection-machines.png)
+![mask-detection-machines.png](https://github.com/waittim/waittim.github.io/raw/master/img/posts/mask-detection-machines.png)
 
 Let us recall those mask detection machines at the entrance of luxury stores, they can remind customers to wear masks. However, most small business and local shops cannot pay thousands of dollars to equip them. Now, you only need a tablet or laptop, and you can have it! After loading, this model runs completely locally on your device, and no data will be uploaded to the server.
 
@@ -40,7 +40,7 @@ Now, you can use it on Android, iOS, Windows, macOS, Linux systems. For the best
 3. Enable all *WebAssembly* features
 4. Re-launch chrome, open the [webpage](http://facemask-detection.com/), and allow the access to camera.
 
-![webassemblysetting.png](https://github.com/waittim/waittim.github.io/raw/master/img/webassembly-setting.png)
+![webassemblysetting.png](https://github.com/waittim/waittim.github.io/raw/master/img/posts/webassembly-setting.png)
 
 **Hint:** The FPS depends on your device CPU.
 
@@ -71,7 +71,7 @@ Because only Safari supports WebAssembly under the iOS system, and it does not s
 
 All in all, it is just a free alternative to the expensive mask detection machine. You can buy a tablet for $60 and a floor standing for $20 to get similar functions. After this pandemic, these devices can also be used for other purposes.
 
-![price-eg.jpg](https://github.com/waittim/waittim.github.io/raw/master/img/price-eg.jpg)
+![price-eg.jpg](https://github.com/waittim/waittim.github.io/raw/master/img/posts/price-eg.jpg)
 
 In such a hard time, I hope this AI can give a hand to those small businesses that strive to persist. So that they can obtain protection similar to luxury shops at a small cost. As long as this tool can protect one more person from COVID-19, it would be enough.
 

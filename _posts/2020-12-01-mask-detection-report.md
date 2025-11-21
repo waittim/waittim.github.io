@@ -4,7 +4,7 @@ title:      WearMask - Face Mask Detection Project Details
 subtitle:   Low-cost solution for small businesses and public places
 date:       2020-12-01
 author:     Zekun
-header-img: img/bg-mask.jpg
+header-img: img/ui/bg-mask.jpg
 catalog: true
 tags:
     - Deep Learning
@@ -25,14 +25,14 @@ Even after Thanksgiving, the daily increase in cases hit new highs many times. B
 
 The transmission of infectious diseases depends on three elements: the source of infection, the route of transmission, and the susceptible population. Wearing a mask is the most convenient way to cut off the route of transmission. According to the data, if both parties wear masks, even if the social distance of 6 Feet is not maintained, the risk of transmission will be reduced from 90% to 1.5%. Therefore, it is necessary to ensure that as many people as possible wear masks in public places.
 
- <img src="https://github.com/waittim/waittim.github.io/raw/master/img/risk-mask-nomask.jpg" width = "350" height = "453" alt="risk-mask-nomask" align=center />
+ <img src="https://github.com/waittim/waittim.github.io/raw/master/img/posts/risk-mask-nomask.jpg" width = "350" height = "453" alt="risk-mask-nomask" align=center />
 
 
 The question is, how to do it?
 
 At the entrances of luxury stores and large supermarkets, we can often see staff specifically reminding people to wear masks or setting up mask detection machines. However, it is difficult to find them in small businesses or public facilities. The reason is obvious. Hire someone to remind customers that there is a high cost. In 2019, the average monthly income of the U.S. is approximately $4,365. And to set up a professional mask testing equipment, will cost $1,000 - $4,000. After the pandemic is over, these devices will be useless. Therefore, this will be an unaffordable cost for small businesses that are struggling to survive.
 
-![mask-machine-price.jpg](https://github.com/waittim/waittim.github.io/raw/master/img/mask-machine-price.jpg)
+![mask-machine-price.jpg](https://github.com/waittim/waittim.github.io/raw/master/img/posts/mask-machine-price.jpg)
 
 Considering that the United States has 30.2 million small businesses<sup>[2]</sup> and a large number of public facilities, it is necessary to find a cheap and affordable alternative. This is also the main purpose of this project: to develop a low-cost face mask detection program.
 
@@ -121,7 +121,7 @@ The advantages are summarized as follows:
 <br />
 <br />
 <br />
-![products.jpg](https://github.com/waittim/waittim.github.io/raw/master/img/products.jpg)
+![products.jpg](https://github.com/waittim/waittim.github.io/raw/master/img/ui/products.jpg)
 
 <font color=gray size=1>
 Reference:<br />

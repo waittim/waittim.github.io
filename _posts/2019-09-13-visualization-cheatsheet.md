@@ -4,7 +4,7 @@ title:      Visualization Cheat Sheet
 subtitle:   Helps efficiently complete data visualization
 date:       2019-09-13
 author:     Zekun
-header-img: img/post-visualizations-cheatsheet.png
+header-img: img/headers/post-visualizations-cheatsheet.png
 catalog: true
 tags:
     - Visualization
@@ -12,7 +12,7 @@ tags:
     - Keynote
 ---
 
-![Visualization cheat sheet](https://github.com/waittim/waittim.github.io/raw/master/img/visual-cheetsheet.png "Visualization cheat sheet")
+![Visualization cheat sheet](https://github.com/waittim/waittim.github.io/raw/master/img/posts/visual-cheetsheet.png "Visualization cheat sheet")
 
 Created by **Zekun Wang**
 

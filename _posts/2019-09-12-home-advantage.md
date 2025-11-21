@@ -4,7 +4,7 @@ title:      If home-field advantage exists, how much of an impact does it have o
 subtitle:   Probability and Statistical Inference - 04
 date:       2019-09-12
 author:     Zekun
-header-img: img/prob4-home-advantage.jpg
+header-img: img/headers/prob4-home-advantage.jpg
 catalog: true
 tags:
     - Probability

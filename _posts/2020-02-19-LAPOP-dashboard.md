@@ -4,7 +4,7 @@ title:      LAPOP Data Dashboard
 subtitle:   A dashboard prototype based on Shiny R
 date:       2020-02-19
 author:     Zekun
-header-img: img/post-lapop-dashborad.jpg
+header-img: img/headers/post-lapop-dashborad.jpg
 catalog: true
 tags:
     - Dashboard
@@ -22,7 +22,7 @@ Due to copyright issues and confidentiality agreements, the dashboard shown with
 2. Select the topics and questions you want to analyze in detail, and obtain key figures and visualization results and time series visualization images for a single problem.
 3. Select topics and questions for cross-analysis to get visual results of cross-analysis.
 
-![demo-home.png](https://github.com/waittim/waittim.github.io/raw/master/img/lapop-dashboard.png)
+![demo-home.png](https://github.com/waittim/waittim.github.io/raw/master/img/posts/lapop-dashboard.png)
 
 **[Click here to open the dashboard](https://zekun.shinyapps.io/LAPOP-shiny-dashboard/)**
 
