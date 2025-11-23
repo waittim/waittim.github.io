@@ -2,6 +2,6 @@
 
 Personal blog of Zekun Wang.
 
-Blog address: [https://waittim.github.io/](https://waittim.github.io/)
+Blog address: [zekun.blog](https://www.zekun.blog/)
 
 Enter `jekyll serve` in the terminal to preview the content locally.
