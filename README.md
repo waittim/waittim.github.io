@@ -1,4 +1,4 @@
-# waittim.github.io
+# zekun.blog
 
 Personal blog of Zekun Wang.
 
