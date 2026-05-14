@@ -13,7 +13,7 @@ tags:
 ---
 
 
-Absolute error and relative error have a little bit different on calculation but the difference really makes an essential change. The absolute error will be influenced by the sample size but relative error can show the real error without huge bias.
+Absolute error and relative error are calculated in slightly different ways, but that small difference leads to an important change in interpretation. Absolute error is influenced by sample size, while relative error better reflects the scale of the error itself.
 
 >when used as a measure of precision—is the ratio of the absolute error of a measurement to the measurement being taken. In other words, this type of error is relative to the size of the item being measured. RE is expressed as a percentage and has no units.
 
@@ -26,7 +26,7 @@ absolute error = |p̂−p|
 >The difference between the measured or inferred value of a quantity x_0 and its actual value x.
 
 
-Let's create a table to save 14*5 results of our simulation first.
+First, let's create a table to store the 14*5 simulation results.
 ```{r}
 n <- rep(NA, 14)
 for(i in 1:14){n[i] <- 2^(i+1)}
@@ -34,7 +34,7 @@ T <- matrix(NA,14,5)
 p <- c(0.01,0.05,0.10,0.25,0.5)
 ```
 
-Then generate 1 or 0 randomly for 1000 times for each situation and calculate the absolute error.
+Then we randomly generate 1s and 0s 10,000 times for each setting and calculate the absolute error.
 ```{r}
 for(x in 1:length(p)){
   for(y in 1:length(n)){
@@ -52,7 +52,7 @@ Change the y-scale to log_10.
 T <- log10(T)
 ```
 
-In the end, plot the graph to show the relationship between p and absolute error.
+Finally, we plot the graph to show the relationship between p and absolute error.
 ```{r}
 plot(T[,5],xlim=c(0,14),ylim=range(T),col="red",type="b",xaxt="n",xlab="N(log_2 scale)",ylab="Absolute Error",pch=16, lwd=3)
 lines(T[,2],col="purple",type="b",pch=16, lwd=3)
@@ -69,13 +69,13 @@ text(1,T[1,],lname_p,pos=2,cex=0.6)
 ```
 ![](https://i.loli.net/2019/12/22/6yheRBQ3HIMnDcd.png)
 
-Absolute error is just the absolute value of the value you have the minus expected value. In this simulation, you calculated the absolute error 10000 times and get the mean value of them in every situation. When we transfer the y scale to log_10, it is obvious that the x & y have a linear connection. The p is higher, the absolute error is bigger.
+Absolute error is the absolute difference between the observed value and the expected value. In this simulation, we calculate the absolute error 10,000 times and take its mean for each setting. After transforming the y-axis to log_10, it is clear that x and y have a linear relationship. The larger p is, the larger the absolute error becomes.
 
 # Relative Error
 Relative error = |p̂−p|/p.
 
-Then do the same thing as before but when we calculate the error, use absolute error divide by p-value.
-Plot the graph too.
+Then we do the same thing as before, but when calculating the error, we divide the absolute error by the p-value.
+We plot this graph as well.
 
 ```{r}
 n <- rep(NA, 14)
@@ -111,4 +111,4 @@ text(1,T2[1,],lname_p,pos=2,cex=0.6)
 ```
 ![](https://i.loli.net/2019/12/22/lryCYGkREIN6dWx.png)
 
-Again, compare with absolute error, if you want to calculate relative error, the only thing you need to do is use the absolute error divided by p, the value you have. This process keeps the influence of the value size and focuses on the error itself. When we change the y scale into log_10, the xy relationship is also linear. But the bigger p we have, the smaller relative error we get.
+Compared with absolute error, relative error is calculated by dividing the absolute error by p, the expected value. This process accounts for the scale of the value and focuses on the error itself. When we transform the y-axis to log_10, the x-y relationship is also linear. However, the larger p is, the smaller the relative error becomes.

@@ -1,7 +1,7 @@
 ---
 layout:     post
-title:      K-Means based Anomalous Email Detection in PySpark
-subtitle:   Anomaly detection for emails based on Minhash and K-Means, implemented by PySpark and Colab.
+title:      K-Means-Based Anomalous Email Detection in PySpark
+subtitle:   Anomaly detection for emails based on MinHash and K-Means, implemented with PySpark and Colab
 date:       2021-05-05
 author:     Zekun
 header-img: img/kmeans-anomaly-detection/bg-email.png
@@ -15,11 +15,11 @@ tags:
 ---
 
 
-K-Means is known as a common unsupervised learning clustering method. But in fact, K-Means algorithm can be applied to more scenarios. This time, I will use a K-Means-based approach to complete anomaly detection for text-based email content.
+K-Means is known as a common unsupervised learning clustering method. But in fact, the K-Means algorithm can be applied to more scenarios. In this post, I will use a K-Means-based approach to complete anomaly detection for text-based email content.
 
-All the data manipulation and modeling processes involved in this approach will be fully implemented based on [PySpark-3.1.1](https://spark.apache.org/docs/latest/api/python/index.html).  Considering the demand when facing large amount of text data and the high time complexity of K-Means class algorithm, the Spark-based practice can effectively improve the processing power and running speed. To facilitate the reproduction and reduce all kinds of problems caused by the construction of Spark environment, all the contents can be done in the notebook in [Google Colab](https://colab.research.google.com/notebooks/intro.ipynb).
+All the data manipulation and modeling processes involved in this approach will be fully implemented based on [PySpark-3.1.1](https://spark.apache.org/docs/latest/api/python/index.html). Considering the demand of working with large amounts of text data and the high time complexity of K-Means-class algorithms, Spark-based practice can effectively improve processing power and running speed. To make reproduction easier and reduce problems caused by setting up a Spark environment, everything can be done in a notebook in [Google Colab](https://colab.research.google.com/notebooks/intro.ipynb).
 
-The data I used is [Insider Threat Test Dataset](https://resources.sei.cmu.edu/library/asset-view.cfm?assetid=508099) from Carnegie Mellon University, which the CERT Division provides, collects synthetic insider threat test datasets that provide both background and malicious actor synthetic data. It contains 1000 users, 17 months long. Please download the dataset from [CMU kilthub](https://kilthub.cmu.edu/articles/dataset/Insider_Threat_Test_Dataset/12841247/1) and unzip them. Then put the CSV files into the folder `./data/` under the same folder of the notebook.
+The data I used is the [Insider Threat Test Dataset](https://resources.sei.cmu.edu/library/asset-view.cfm?assetid=508099) from Carnegie Mellon University, provided by the CERT Division. It contains synthetic insider threat test data with both background and malicious actor activity. It includes 1000 users and spans 17 months. Please download the dataset from [CMU Kilthub](https://kilthub.cmu.edu/articles/dataset/Insider_Threat_Test_Dataset/12841247/1) and unzip it. Then put the CSV files into the folder `./data/` under the same folder as the notebook.
 
 For more background on this data, please see the paper, Bridging the Gap: [A Pragmatic Approach to Generating Insider Threat Data](https://ieeexplore.ieee.org/document/6565236).
 
@@ -27,19 +27,19 @@ For more background on this data, please see the paper, Bridging the Gap: [A Pra
 
 ## Method overview
 
-1. Split text to the word list
+1. Split text into word lists
 2. Remove stop words
-3. Generate word count vector
-4. Reduce dimension by MinHash
-5. Find the appropriate centroid for each obs by K-Means
+3. Generate word count vectors
+4. Reduce dimensionality by MinHash
+5. Find the appropriate centroid for each observation by K-Means
 6. Calculate the distance
 7. Sort the distance
 
-If you want to accelerate the manipulation process, you can skip all of the `dataframe.show()` part.
+If you want to accelerate the manipulation process, you can skip all of the `dataframe.show()` calls.
 
 ## Build environment
 
-Since Colab does not have PySpark module installed, we need to install PySpark and configure the related environment first.
+Since Colab does not have the PySpark module installed, we need to install PySpark and configure the related environment first.
 
 
 ```python
@@ -59,7 +59,7 @@ drive.mount('/content/drive')
 ```
 
 
-Please locate to the location where this notebook is saved.
+Please navigate to the location where this notebook is saved.
 
 
 ```python
@@ -70,7 +70,7 @@ os.chdir(cur_path)
 ```
 
 
-Start Spark session and then we can check the configuration details.
+Start a Spark session, and then we can check the configuration details.
 
 
 ```python
@@ -125,7 +125,7 @@ from pyspark.mllib.stat import KernelDensity
 
 ## Load data
 
-The **email.csv** file size is about 1GB and contains 2.6 million emails. Since we are only working on the email content this time, we can just read the contents of that file.
+The **email.csv** file is about 1GB and contains 2.6 million emails. Since we are only working on the email content this time, we can just read the content of that file.
 
 
 ```python
@@ -167,7 +167,7 @@ email.show(5)
 
 ## Extract word-vector
 
-First, we need to split the email content into lists according to words, and then remove common meaningless words, aka "Stop words". The list of stop words is provided by PySpark. Sometimes, we can also use [`n-grams`](https://web.stanford.edu/~jurafsky/slp3/3.pdf) to get a more representative list of phrases.
+First, we need to split the email content into lists of words, and then remove common meaningless words, also known as "stop words". The list of stop words is provided by PySpark. Sometimes, we can also use [`n-grams`](https://web.stanford.edu/~jurafsky/slp3/3.pdf) to get a more representative list of phrases.
 
 
 ```python
@@ -213,7 +213,7 @@ wordsData.show()
 
 The function `CountVectorizer` can convert a collection of text documents to vectors of token counts. It can produce sparse representations for the documents over the vocabulary.
 
-We choose 1000 as the vocabulary dimension under consideration. Of course, if the device allows, we can choose a larger dimension to obtain stronger representation ability.
+We choose 1000 as the vocabulary size under consideration. Of course, if the device allows, we can choose a larger dimension to obtain stronger representation ability.
 
 
 ```python
@@ -224,8 +224,8 @@ model = cv.fit(wordsData)
 wordsCV = model.transform(wordsData)
 ```
 
-Since the MinHash algorithm used in the later steps cannot handle the all-0 vector, we need to remove it in this step.
-Of course, if the content of an email generates an all-0 vector as a result, it means that the content of that email is also anomalous. Therefore, the emails removed in this step also need to be treated as anomalous emails.
+Since the MinHash algorithm used in the later steps cannot handle an all-0 vector, we need to remove it in this step.
+Of course, if the content of an email generates an all-0 vector, it means that the content of that email is also anomalous. Therefore, the emails removed in this step also need to be treated as anomalous emails.
 
 
 ```python
@@ -277,9 +277,9 @@ wordsCV.show()
 
 ## Dimension reduction by MinHash
 
-In this step, we reduce the dimensionality of the features used by using the MinHash algorithm, while ensuring that the similarity between the email is maintained. Also, it converts the sparse features into dense features.
+In this step, we reduce the dimensionality of the features by using the MinHash algorithm while ensuring that the similarity between emails is maintained. It also converts sparse features into dense features.
 
-For more details about the MinHash algorithm, there is an good [explanation](https://www.cs.utah.edu/~jeffp/teaching/cs5955/L5-Minhash.pdf) from Utah University.
+For more details about the MinHash algorithm, there is a good [explanation](https://www.cs.utah.edu/~jeffp/teaching/cs5955/L5-Minhash.pdf) from the University of Utah.
 
 ```python
 mh = MinHashLSH(inputCol="features", outputCol="hashes", numHashTables=20)
@@ -325,7 +325,7 @@ wordsHash.show()
 id_hash = wordsHash.select('id', 'hashes')
 ```
 
-Since the features generated by the `MinHashLSH` function are a 20-dimensional list which is composed of 20 DenseVectors, we need to convert it to a flat 20-dimensional DenseVector.
+Since the features generated by the `MinHashLSH` function are a 20-dimensional list composed of 20 DenseVectors, we need to convert it to a flat 20-dimensional DenseVector.
 
 $
 [DenseVector, DenseVector, ..., DenseVector] \rightarrow DenseVector[...]
@@ -457,11 +457,11 @@ id_hash.show()
     only showing top 20 rows
     
 
-Now the column `features` formed as the DenseVector we want.
+Now the column `features` has the DenseVector format we want.
 
 ## Rescale data 
 
-At the same time, we can find that the values in the column `features` we obtained are very large, which is not conducive to subsequent steps such as model training. Therefore, we need to use Scaler to scale them down to a suitable size.
+At the same time, we can find that the values in the column `features` are very large, which is not suitable for subsequent steps such as model training. Therefore, we need to use Scaler to scale them down to a suitable size.
 
 
 ```python
@@ -505,7 +505,7 @@ id_hash_scaled.show()
     only showing top 20 rows
     
 
-This step may cost several minutes.
+This step may take several minutes.
 
 ```python
 id_hash_scaled = id_hash_scaled.select('id','scaledFeatures')
@@ -542,7 +542,7 @@ id_hash_scaled.show()
 
 ## Save & Retrieve data
 
-The amount of data was simply too large to be handled by Colab during the modeling process and caused a disconnection of its Java back-end server. Therefore, we only extract a portion of the data for demonstration. Now I only randomly sampled 0.1% of the original data. 
+The amount of data was simply too large to be handled by Colab during the modeling process and caused a disconnection from its Java backend server. Therefore, we only extract a portion of the data for demonstration. Here, I randomly sampled only 0.1% of the original data.
 
 
 ```python
@@ -584,7 +584,7 @@ id_hash_sub_split.show()
     
 
 
-Also, the data was stored and then retrieved for manipulation to speed up the subsequent modeling process.
+Also, the data was stored and then retrieved to speed up the subsequent modeling process.
 
 
 ```python
@@ -593,7 +593,7 @@ id_hash_sub_split.write.csv('./data/id_hash_sub_split.csv', header = True, mode 
 
 
 
-Now, we need to retrieve the previously saved data and perform the modeling operation. If the runtime was ever interrupted after the previous step, you need to run the Build environment section at the beginning of the notebook.
+Now, we need to retrieve the previously saved data and perform the modeling operation. If the runtime is interrupted after the previous step, you need to run the Build environment section at the beginning of the notebook.
 
 
 ```python
@@ -674,13 +674,13 @@ id_hash_sub.show()
     
 
 
-As you can see, the data we have now is totally same with the one before **Save & Retrieve data** step. Therefore, if your device(assigned Colab resource) is powerful enough, you can skip this step.
+As you can see, the data we have now is exactly the same as the data before the **Save & Retrieve data** step. Therefore, if your device (assigned Colab resource) is powerful enough, you can skip this step.
 
 
 
 ## K-Means Modeling
 
-Now we need to train the K-Means model. And determine the most suitable number of clustering categories.
+Now we need to train the K-Means model and determine the most suitable number of clusters.
 
 
 ```python
@@ -750,7 +750,7 @@ plt.show()
     
 
 
-Based on the variation of Silhouette with squared euclidean distance with k in the above figure, according to the elbow principle, we can consider 5 as the most appropriate number of categories that can bring the maximum classification gain with as few categories as possible.
+Based on the variation of Silhouette with squared Euclidean distance across k in the above figure, and according to the elbow principle, we can consider 5 the most appropriate number of clusters. It brings the maximum classification gain with as few clusters as possible.
 
 
 ```python
@@ -845,9 +845,9 @@ results.show()
     only showing top 20 rows
     
 
-The few data points farthest from their corresponding clustering centers are the anomalous emails we are looking for.
+The data points farthest from their corresponding clustering centers are the anomalous emails we are looking for.
 
-In addition, we can also get a better visual of the distance distribution by drawing the image of the KDE probability distribution for each distance. According to this, we can determine the appropriate distance threshold as the criterion for classifying anomalies.
+In addition, we can also get a better view of the distance distribution by drawing the KDE probability distribution for each distance. Based on this, we can determine the appropriate distance threshold as the criterion for classifying anomalies.
 
 
 ```python
@@ -877,9 +877,9 @@ plt.show()
 
 ## Example of anomalous email
 
-Based on the above steps, we obtain the list of emails sorted by anomaly degree.
+Based on the above steps, we obtain the list of emails sorted by anomaly score.
 
-For the obtained list of abnormal emails, we can take out the content of that email and review it.
+For the obtained list of anomalous emails, we can take out the content of an email and review it.
 
 
 ```python
@@ -920,17 +920,17 @@ targetEmail.collect()[0]['content']
 
 
 
-We can see that the first abnormal email in the list is an email containing non-sense content. This shows that our algorithm is really effective in finding anomalous emails in the huge volume of emails.
+We can see that the first anomalous email in the list is an email containing nonsense content. This shows that our algorithm is effective in finding anomalous emails in a huge volume of emails.
 
 
 So **why do we need to cluster before calculating the distance to the centroid?** In other words, why can't we just use the full email-generated vector as one cluster to find outliers?
 
-Because emails often have multiple types, such as official notifications, work schedules, personal matters, and so on. If all emails are treated as one class, then in the high-dimensional Euclidean space formed by the features, an anomaly cannot be successfully distinguished if it does not belong to any class but is in between multiple classes.
+Because emails often have multiple types, such as official notifications, work schedules, personal matters, and so on. If all emails are treated as one class, then in the high-dimensional Euclidean space formed by the features, an anomaly cannot be successfully distinguished if it does not belong to any class but is between multiple classes.
 
 ![clusters](https://github.com/waittim/waittim.github.io/raw/master/img/kmeans-anomaly-detection/cluster.png)
 
 
-**P.S.** In addition to the classical K-Means algorithm used in the previous section, the Bisecting KMeans algorithm described below can also be used as an alternative when we have high requirements on the running time of the algorithm.
+**P.S.** In addition to the classical K-Means algorithm used in the previous section, the Bisecting KMeans algorithm described below can also be used as an alternative when we have strict requirements for running time.
 
 
 ```python
@@ -970,6 +970,3 @@ results.show()
     +--------------------+--------------------+----------+
     only showing top 20 rows
     
-
-
-

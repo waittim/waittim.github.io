@@ -19,25 +19,25 @@ tags:
 *From [Wikipedia-Roulette](https://en.wikipedia.org/wiki/Roulette)*
 
 ---
-This time we will talk about a kind of simplified Roulette, which won't be influenced by the number on roulette but only be divided into two parts, win or lose.
+In this post, we will look at a simplified version of roulette. Instead of modeling each number on the wheel, we divide each play into only two outcomes: win or lose.
 
-To play the game successfully and avoid owing an unrealistic debt, we need to set some parameters at first. These parameters will be saved in a state list.
+To play the game safely and avoid unrealistic debt, we first need to set several parameters. These parameters will be stored in a state list.
 
-Parameter | Type | Explaination
+Parameter | Type | Explanation
 ---|---|---
 B | number | the budget
-W | number | the budget threshold for successfully stoping
+W | number | the budget threshold for stopping successfully
 L | number | the maximum number of plays
 M | number | the casino wager limit
 plays | integer | the number of plays executed
 previous_wager | number | the wager in the previous play (0 at first play)
-previous_win | TRUE/FALSE | indicator if the previous play was a win (TRUE at first play)
+previous_win | TRUE/FALSE | indicator of whether the previous play was a win (TRUE at first play)
 
 # Function Setup
 
 ## One Play
 
-In order to use pipes "%>%" in code, we need to import the package first.
+To use the `%>%` pipe in the code, we need to import the package first.
 ```{r,results='hide'}
 library(dplyr)
 ```
@@ -69,7 +69,7 @@ Then, let's define the process of one play.
 }
 ```
 
-When the player runs out of the money or win enough money or play enough times, we need to stop the game by setting up a stop function.
+When the player runs out of money, wins enough money, or reaches the play limit, we need to stop the game with a stop function.
 ```{r}
 stop_play <- function(state){
   if(state$B <= 0) return(TRUE)
@@ -81,7 +81,7 @@ stop_play <- function(state){
 
 ## Multiple Plays
 
-Next, we need to play the game under our rules as a series. The function will output a budget list to record the money value after every play.
+Next, we simulate the game under these rules as a series of plays. The function returns a budget vector that records the balance after each play.
 ```{r}
 one_series <- function(
     B = 200
@@ -117,7 +117,7 @@ one_series <- function(
 }
 ```
 
-Then we can get the final result of this series of play.
+Then we can get the final result of a series of plays.
 ```{r}
 # helper function
 get_last <- function(x) x[length(x)]
@@ -126,7 +126,7 @@ get_series <- function(x) x
 
 # Simulation
 
-In order to figure out the generalized result, we need to repeat the process for a huge number of times then try to find out the distribution and other characteristics of results.
+To understand the overall behavior, we need to repeat the process many times and examine the distribution and other characteristics of the results.
 ```{r}
 # Simulation
 walk_out_money <- rep(NA, 1000)
@@ -146,7 +146,7 @@ mean(walk_out_money - 200)
 
 # Compare
 
-In this graph, we can see how the budget changes during one series.
+This graph shows how the budget changes during one series.
 ```{r}
 budget_list <- one_series(B = 200, W = 300, L = 1000, M = 100) %>% get_series
 plot(budget_list, type="l", xlim=c(0,500), ylim=c(0,300), xlab="play number", ylab="earning money", main="budget series",col="red")
@@ -165,10 +165,10 @@ lines(budget_list, col="purple")
 ```
 ![](https://i.loli.net/2019/12/22/4kcjYL5KFvSeA9Q.png)
 
-Parameter | Type | Explaination
+Parameter | Type | Explanation
 ---|---|---
 B | number | the budget
-W | number | the budget threshold for successfully stoping
+W | number | the budget threshold for stopping successfully
 L | number | the maximum number of plays
 M | number | the casino wager limit
 
@@ -188,7 +188,7 @@ plot(earning_series,xlab="Budget",ylab="mean earning rate", main="How Budget inf
 ```
 ![](https://i.loli.net/2019/12/22/YBcaSpgdhf7nmwi.png)
 
-## Change the budget threshold for successfully stoping
+## Change the budget threshold for stopping successfully
 
 When W changes, what is the mean earning?
 ```{r}
@@ -200,7 +200,7 @@ for(j in seq_along(walk_out_money)){
 }
 earning_series[W] <- mean(walk_out_money - 200)
 }
-plot(earning_series,xlab="successfully stoping number",ylab="mean earning", main="How successfully stoping influence earning?")
+plot(earning_series,xlab="successfully stopping threshold",ylab="mean earning", main="How does the stopping threshold influence earnings?")
 ```
 ![](https://i.loli.net/2019/12/22/wn2qDzCjXlxSGIY.png)
 
@@ -238,7 +238,7 @@ plot(earning_series,xlab="casino wager limit",ylab="mean earning", main="How cas
 
 ## Play times
 
-Next, we can save the times that the game played before walkout then find out the characteristics.
+Next, we can save the number of plays before the player walks out, then examine its characteristics.
 ```{r}
 get_times <- function(x) length(x)
 walk_out_times <- rep(NA, 10000)
@@ -253,6 +253,6 @@ hist(walk_out_times, breaks = 100)
 ```{r}
 mean(walk_out_times)
 ```
-The mean of walk out time is 203.0846.
+The mean number of plays before walking out is 203.0846.
 
-The limitation of simulation is obvious. It is a black box actually. We can not use it as we proof it by mathematical method. We don’t know why it happened and how it happened, so we can only change the parameter to try to understand the process. By the way, it is not a precise result. Every time we get an answer, it will change a little bit next time.
+The limitation of simulation is obvious: it is essentially a black box. We cannot use it as a mathematical proof. We do not know exactly why or how the result happened, so we can only change the parameters and try to understand the process. The result is also not perfectly precise; every run will produce a slightly different answer.

@@ -1,7 +1,7 @@
 ---
 layout:     post
-title:      Tutorial for compiling NCNN with WASM
-subtitle:   The second step to deploy a deep learning model in the browser.
+title:      Tutorial for Compiling NCNN with WASM
+subtitle:   The second step to deploying a deep learning model in the browser
 date:       2020-11-15
 author:     Zekun
 header-img: img/headers/post-bg-code.jpg
@@ -15,15 +15,15 @@ tags:
 
 The content of this tutorial is an extension of the [Tutorial for compiling NCNN library](/2020/11/10/build-ncnn/).
 
-When we successfully compile the NCNN library normally, we can use the tools in it to convert our models into NCNN format models (`*.param` and `*.bin`). This model can be used for various mobile terminal deployments.
+After we successfully compile the NCNN library normally, we can use its tools to convert our models into NCNN-format models (`*.param` and `*.bin`). This model can be used for various mobile deployments.
 
-But when we need to deploy the model in a webpage, we need to compile the model and the C++ program that calls it into WebAssembly format. Before compiling the program, we must first compile the NCNN library into the form of WebAssembly.
+But when we need to deploy the model on a web page, we need to compile the model and the C++ program that calls it into WebAssembly format. Before compiling the program, we must first compile the NCNN library into WebAssembly form.
 
-The content of this article is the specific steps for compiling the NCNN library into WebAssembly. The following steps have been tested on **Ubuntu 18.04**.
+This article covers the specific steps for compiling the NCNN library into WebAssembly. The following steps have been tested on **Ubuntu 18.04**.
 
 ## Install Node.js
 
-Before starting, we need to install the latest version of node.js as a dependency in the environment. You can find the installation tutorial on its official [Github](https://github.com/nodejs/help/wiki/Installation). I chose its recommended installation location.
+Before starting, we need to install the latest version of Node.js as a dependency in the environment. You can find the installation tutorial on its official [GitHub](https://github.com/nodejs/help/wiki/Installation). I chose its recommended installation location.
 
 ```bash
 VERSION=v14.15.1
@@ -32,7 +32,7 @@ sudo mkdir -p /usr/local/lib/nodejs
 sudo tar -xJvf node-$VERSION-$DISTRO.tar.xz -C /usr/local/lib/nodejs
 ```
 
-This step is to extract the nodejs package to the recommended location. Next, run `~/.profile` in terminal, and paste the content below to the end of the pop-up file.
+This step extracts the Node.js package to the recommended location. Next, open `~/.profile` in the terminal, and paste the content below at the end of the file.
 
 ```bash
 # Nodejs
@@ -41,14 +41,14 @@ DISTRO=linux-x64
 export PATH=/usr/local/lib/nodejs/node-$VERSION-$DISTRO/bin:$PATH
 ```
 
-Run `. ~/.profile` in terminal to refresh the profile.
+Run `. ~/.profile` in the terminal to refresh the profile.
 
 
-After the installation is over, you can run `node -v` in terminal to check whether the installation is successful.
+After the installation is complete, you can run `node -v` in the terminal to check whether the installation was successful.
 
 ## Build NCNN with WASM
 
-First, let's clone the NCNN repository. This folder should be **different** from the one we used before(in the previous article), because they have different usage.
+First, let's clone the NCNN repository. This folder should be **different** from the one we used before (in the previous article), because they have different purposes.
 
 ```bash
 git clone https://github.com/Tencent/ncnn.git
@@ -69,14 +69,14 @@ Install and activate it.
 ./emsdk activate latest
 ```
 
-Then, return to the parent folder(master of ncnn), set the emsdk as a source.
+Then, return to the parent folder (the root of ncnn) and source emsdk.
 
 ```bash
 cd ..
 source emsdk/emsdk_env.sh
 ```
 
-Observe the output of the terminal here, you will find that the currently used nodejs is a built-in library in emsdk, and its version is old. Therefore, we need to re-add the latest version of nodejs that we installed before to the path.
+Look at the terminal output here. You will find that the currently used Node.js is a built-in library in emsdk, and its version is old. Therefore, we need to re-add the latest version of Node.js that we installed before to the path.
 
 ```bash
 export PATH=/usr/local/lib/nodejs/node-v14.15.1-linux-x64/bin:$PATH
@@ -96,19 +96,19 @@ If you are compiling for a browser that supports experimental WebAssembly featur
 cmake -DCMAKE_TOOLCHAIN_FILE=../emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake -DNCNN_SIMPLEOMP=ON -DNCNN_BUILD_TESTS=ON ..
 ```
 
-If it is compiled for browsers such as Safari in iOS without SIMD SSE2, replace it with the following code.
+If you are compiling for browsers such as Safari on iOS without SIMD or SSE2, replace it with the following code.
 
 ```bash
 cmake -DCMAKE_TOOLCHAIN_FILE=../emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake -DNCNN_OPENMP=OFF -DNCNN_SIMPLEOMP=OFF -DNCNN_RUNTIME_CPU=OFF -DNCNN_SSE2=OFF -DNCNN_AVX2=OFF -DNCNN_BUILD_TESTS=ON ..
 ```
 
-Then start make.
+Then run make.
 
 ```bash
 make
 ```
 
-After the make ends, use the built-in test case of NCNN to check whether the compilation is successful.
+After make finishes, use the built-in NCNN test cases to check whether the compilation was successful.
 
 With SIMD SSE2:
 
@@ -122,17 +122,17 @@ Without SIMD SSE2:
 TESTS_EXECUTABLE_LOADER=node ctest --output-on-failure -j 2
 ```
 
-If all the tests are passed, generate the install file.
+If all the tests pass, generate the install files.
 
 ```bash
 make install
 ```
 
-So far, the NCNN with WebAssembly has been compiled, and the next step is to introduce its usage.
+So far, NCNN with WebAssembly has been compiled, and the next step is to introduce its usage.
 
 ## Compile C++ code
 
-First, we need to write a C++ program that calls the NCNN model. The relevant files I have written have been uploaded in the facemask-detection repository, and I will compile it based on this.
+First, we need to write a C++ program that calls the NCNN model. The relevant files I wrote have been uploaded to the facemask-detection repository, and I will compile the program based on those files.
 
 Clone it to the specified folder.
 
@@ -153,15 +153,15 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fopenmp -s USE_PTHREADS=1
 And change `target_link_libraries(yolo ncnn pthread)` to be `target_link_libraries(yolo ncnn)`.
 
 
-Next, create an empty folder named ncnn in it, and copy the two files under `build/install/` under ncnn master to this ncnn folder.
+Next, create an empty folder named ncnn in it, and copy the two files under `build/install/` in the ncnn root folder to this ncnn folder.
 
 ```bash
 mkdir ncnn
 ```
 
-Copy the emsdk folder under ncnn master and paste it to the master folder of facemask-detection.
+Copy the emsdk folder under the ncnn root folder and paste it into the root folder of facemask-detection.
 
-At this time, I recommend to use `node -v` to ensure that the version of nodejs is correct.
+At this time, I recommend using `node -v` to ensure that the Node.js version is correct.
 
 Finally, use emsdk to compile.
 
@@ -171,7 +171,7 @@ emmake make
 ```
 
 After compiling, you can get `yolo.js`, `yolo.wasm`,
-`yolo.worker.js`. These are the files needed to call WASM format functions in the JavaScript environment.
+and `yolo.worker.js`. These are the files needed to call WASM-format functions in the JavaScript environment.
 
 ------
 
@@ -189,7 +189,7 @@ find_package(ncnn REQUIRED)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -s FORCE_FILESYSTEM=1 -s INITIAL_MEMORY=256MB -s EXIT_RUNTIME=1")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s FORCE_FILESYSTEM=1 -s INITIAL_MEMORY=256MB -s EXIT_RUNTIME=1")
-set(CMAKE_EXECUTBLE_LINKER_FLAGS "${CMAKE_EXECUTBLE_LINKER_FLAGS} -s FORCE_FILESYSTEM=1 -s INITIAL_MEMORY=256MB -s EXIT_RUNTIME=1")
+set(CMAKE_EXECUTABLE_LINKER_FLAGS "${CMAKE_EXECUTABLE_LINKER_FLAGS} -s FORCE_FILESYSTEM=1 -s INITIAL_MEMORY=256MB -s EXIT_RUNTIME=1")
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fopenmp -s USE_PTHREADS=1 -s PTHREAD_POOL_SIZE=15")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fopenmp -s USE_PTHREADS=1 -s PTHREAD_POOL_SIZE=15")
@@ -197,7 +197,7 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fopenmp -s USE_PTHREADS=1
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -sEXPORTED_FUNCTIONS=['_yolo_ncnn'] --preload-file ${CMAKE_CURRENT_SOURCE_DIR}/assets@.")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -sEXPORTED_FUNCTIONS=['_yolo_ncnn'] --preload-file ${CMAKE_CURRENT_SOURCE_DIR}/assets@.")
-set(CMAKE_EXECUTBLE_LINKER_FLAGS "${CMAKE_EXECUTBLE_LINKER_FLAGS} -sEXPORTED_FUNCTIONS=['_yolo_ncnn'] --preload-file ${CMAKE_CURRENT_SOURCE_DIR}/assets@.")
+set(CMAKE_EXECUTABLE_LINKER_FLAGS "${CMAKE_EXECUTABLE_LINKER_FLAGS} -sEXPORTED_FUNCTIONS=['_yolo_ncnn'] --preload-file ${CMAKE_CURRENT_SOURCE_DIR}/assets@.")
 
 
 add_executable(yolo yolo.cpp)
