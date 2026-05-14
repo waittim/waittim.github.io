@@ -1,0 +1,15 @@
+{% assign comments_provider = site.comments.provider | default: "" %}
+{% if comments_provider == "utterances" and site.comments.utterances.repo %}
+<div class="comment">
+    <script src="https://utteranc.es/client.js"
+            repo="{{ site.comments.utterances.repo }}"
+            issue-term="{{ site.comments.utterances.issue_term | default: 'pathname' }}"
+{% if site.comments.utterances.label %}
+            label="{{ site.comments.utterances.label }}"
+{% endif %}
+            theme="{{ site.comments.utterances.theme | default: 'github-light' }}"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+{% endif %}
