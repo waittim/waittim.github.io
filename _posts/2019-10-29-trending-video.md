@@ -4,7 +4,7 @@ title:      What makes a trending video?
 subtitle:   An analysis of trending YouTube videos
 date:       2019-10-29
 author:     Zekun, Ali, Mingli
-header-img: img/trending-video/post-youtube.jpg
+header-img: img/headers/2019-10-29-trending-video.jpg
 catalog: true
 tags:
     - YouTube
@@ -53,7 +53,7 @@ A trending video can be identified by three major measures:
 
 Likes | Views | Comments
 --- | --- | ---
-![](https://github.com/waittim/waittim.github.io/raw/master/img/trending-video/1.png "dislikes & likes") | ![](https://github.com/waittim/waittim.github.io/raw/master/img/trending-video/2.png "views") | ![](https://github.com/waittim/waittim.github.io/raw/master/img/trending-video/3.png "comments")
+![]({{ "/img/posts/2019-10-29-trending-video/1.png" | relative_url }} "dislikes & likes") | ![]({{ "/img/posts/2019-10-29-trending-video/2.png" | relative_url }} "views") | ![]({{ "/img/posts/2019-10-29-trending-video/3.png" | relative_url }} "comments")
 
 Upon looking at the distribution of likes, dislikes, views, and comments of the trending YouTube videos, we can see that most trending YouTube videos have a total of:
 1. **1,000,000** views
@@ -66,7 +66,7 @@ We will be looking at the number of videos being posted and the number of views 
 
 #### Best month
 
-![](https://github.com/waittim/waittim.github.io/raw/master/img/trending-video/4.png "best month")
+![]({{ "/img/posts/2019-10-29-trending-video/4.png" | relative_url }} "best month")
 
 The **lowest** number of trending videos are posted in the months of **June** to **October**.
 
@@ -76,7 +76,7 @@ The best time to post a video would be **April** and **May**, as they show the *
 
 #### Best day of the week
 
-![](https://github.com/waittim/waittim.github.io/raw/master/img/trending-video/5.png "Best day of the week")
+![]({{ "/img/posts/2019-10-29-trending-video/5.png" | relative_url }} "Best day of the week")
 
 Most trending videos are posted from **Tuesday** through **Friday**. Thursday and Friday see the highest number of trending videos, with Friday showing the highest number of views.
 
@@ -86,8 +86,8 @@ However, there might be an extremely small chance that a video that you post on 
 
 #### Best time of day
 
-![](https://github.com/waittim/waittim.github.io/raw/master/img/trending-video/6.png "Best time of day 1")
-![](https://github.com/waittim/waittim.github.io/raw/master/img/trending-video/7.png "Best time of day 2")
+![]({{ "/img/posts/2019-10-29-trending-video/6.png" | relative_url }} "Best time of day 1")
+![]({{ "/img/posts/2019-10-29-trending-video/7.png" | relative_url }} "Best time of day 2")
 
 We see the highest number of trending videos being posted around **8AM to 5PM** with the peak time from **9AM to 1PM**. (CST)
 
@@ -102,7 +102,7 @@ The best time to post a video would be around **8AM to 11AM**. However, there is
 
 “Rows of description” are defined by the number of rows it takes to give the description of the video.
 
-![](https://github.com/waittim/waittim.github.io/raw/master/img/trending-video/8.png "Rows of description")
+![]({{ "/img/posts/2019-10-29-trending-video/8.png" | relative_url }} "Rows of description")
 
 Most trending YouTube videos have **1 - 3 rows** of description only and videos with **1 row of description** see the highest number of views. Keeping a simple description of the video may be what attracts or loses a viewer.
 
@@ -110,7 +110,7 @@ However, we see a spike in the number of views at around 20 rows of description.
 
 #### Number of tags
 
-![](https://github.com/waittim/waittim.github.io/raw/master/img/trending-video/9.png "Number of tagshttps://i.postimg.cc/dVgyLwBB/image.png")
+![]({{ "/img/posts/2019-10-29-trending-video/9.png" | relative_url }} "Number of tagshttps://i.postimg.cc/dVgyLwBB/image.png")
 
 There are a large number of trending videos with no tags, but they see a lower number of views. Videos with **3 to 20** tags see a higher number of views. Most people uploading videos choose to add tags within this range.
 
@@ -120,7 +120,7 @@ We can also see that adding more tags outside of this range resulted in a declin
 
 Number of Uppercase Letters | Length of Title  
 --- | ---
-![](https://github.com/waittim/waittim.github.io/raw/master/img/trending-video/10.png "Number of Uppercase Letters") | ![](https://github.com/waittim/waittim.github.io/raw/master/img/trending-video/11.png "Length of Title")
+![]({{ "/img/posts/2019-10-29-trending-video/10.png" | relative_url }} "Number of Uppercase Letters") | ![]({{ "/img/posts/2019-10-29-trending-video/11.png" | relative_url }} "Length of Title")
 
 The greatest number of views appeared on videos where the title had between **1 and 15** uppercase letters. Most uploaders chose to stay within this range.
 
@@ -130,7 +130,7 @@ The highest number of views appeared on videos where the title was less than **5
 
 #### Categorical analysis
 
-![](https://github.com/waittim/waittim.github.io/raw/master/img/trending-video/12.png "Categorical analysis")
+![]({{ "/img/posts/2019-10-29-trending-video/12.png" | relative_url }} "Categorical analysis")
 Categories of **Entertainment** and **Music** have the highest number of trending videos. However, Music has a higher number of views as compared to Entertainment.
 
 Film and animation has a lower number of trending videos compared with Entertainment but has comparable views.
@@ -141,7 +141,7 @@ If you are a **musician** or an **entertainer**, your videos are more likely to 
 
 If the L/D ratio is less than 1, more people disliked the video. If greater than 1, more people liked the video. If equal to 1, an equal number of people liked and disliked the video. A video is **controversial** when the L/D ratio is less than 1 or equal to 1.   
 
-![](https://github.com/waittim/waittim.github.io/raw/master/img/trending-video/13.png "Likes/Dislikes ratio")
+![]({{ "/img/posts/2019-10-29-trending-video/13.png" | relative_url }} "Likes/Dislikes ratio")
 
 If L/D = **10-100** we see **the highest views**.
 
@@ -162,7 +162,7 @@ For this problem we can classify our videos into four distinct categories:
 3. **Highly Popular :** 100,000 < views < 1 Million
 4. **Hyper Popular :** views > 1 Million
 
-![](https://github.com/waittim/waittim.github.io/raw/master/img/trending-video/14.png "Sentiment Analysis 1")
+![]({{ "/img/posts/2019-10-29-trending-video/14.png" | relative_url }} "Sentiment Analysis 1")
 
 From this, we can see that very popular to hyper popular trending videos have positive sentiments in their descriptions, tags, and channel titles at around **70%**.
 
@@ -172,7 +172,7 @@ This is consistent with our analysis of Likes/Dislikes ratio. It shows that a vi
 
 ## Conclusions
 
-![](https://github.com/waittim/waittim.github.io/raw/master/img/trending-video/15.png "breakdown")
+![]({{ "/img/posts/2019-10-29-trending-video/15.png" | relative_url }} "breakdown")
 
 Knowing the components of a trending YouTube video can provide insight into what a trending video looks like and how to recognize it, but **human behavior is unpredictable** and there will always be outliers.
 

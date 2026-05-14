@@ -12,10 +12,10 @@ tags:
     - Keynote
 ---
 
-![Visualization cheat sheet](https://github.com/waittim/waittim.github.io/raw/master/img/posts/visual-cheetsheet.png "Visualization cheat sheet")
+![Visualization cheat sheet]({{ "/img/posts/2019-09-13-visualization-cheatsheet/visual-cheetsheet.png" | relative_url }} "Visualization cheat sheet")
 
 Created by **Zekun Wang**
 
 Based on **Storytelling With Data**
 
-Download: [PDF version](https://github.com/waittim/waittim.github.io/raw/master/gallery/Visualizations%20cheatsheet.pdf)
+Download: [PDF version]({{ "/gallery/Visualizations%20cheatsheet.pdf" | relative_url }})

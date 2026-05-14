@@ -17,7 +17,7 @@ tags:
 
 The process of getting IP address information is based on [GeoIP2 Databases](https://www.maxmind.com/en/geoip2-databases). I used the [MaxMind GeoIP2 Python API](https://geoip2.readthedocs.io/en/latest/) for IP information queries. The GitHub page for the API is [GeoIP2-python](https://github.com/maxmind/GeoIP2-python).
 
-You need to download [GeoLite2-City.mmdb](https://github.com/waittim/waittim.github.io/raw/master/gallery/GeoLite2-City.mmdb) as the data source and install the **geoip2** module before you can use it.
+You need to download [GeoLite2-City.mmdb]({{ "/gallery/GeoLite2-City.mmdb" | relative_url }}) as the data source and install the **geoip2** module before you can use it.
 
 For complete information, see [MaxMind - GeoIP2 Downloadable Databases](https://dev.maxmind.com/geoip/geoip2/downloadable/).
 
