@@ -8,6 +8,8 @@ header-img: img/kmeans-anomaly-detection/bg-email.png
 catalog: true
 tags:
     - Anomaly Detection
+    - Machine Learning
+    - Text Analysis
     - K-Means
     - Project
     - Python

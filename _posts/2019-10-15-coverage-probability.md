@@ -8,6 +8,7 @@ header-img: img/headers/prob7-coverage.jpg
 catalog: true
 tags:
     - Probability
+    - Statistics
     - Simulation
     - R
     - MLE

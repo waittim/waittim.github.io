@@ -9,6 +9,8 @@ catalog: true
 tags:
     - NCNN
     - Deep Learning
+    - Model Deployment
+    - Tutorial
     - C++
     - WebAssembly
 ---

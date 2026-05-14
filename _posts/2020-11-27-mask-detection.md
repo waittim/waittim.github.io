@@ -9,10 +9,13 @@ catalog: true
 tags:
     - Deep Learning
     - Object Detection
+    - Model Deployment
     - Project
+    - NCNN
     - Python
     - C++
     - JavaScript
+    - WebAssembly
 ---
 
 **[facemask-detection.com](https://facemask-detection.com/)** 👈👈

@@ -8,7 +8,7 @@ header-img: img/headers/post-visualizations-cheatsheet.png
 catalog: true
 tags:
     - Visualization
-    - Cheat sheet
+    - Cheat Sheet
     - Keynote
 ---
 

@@ -8,6 +8,8 @@ header-img: img/h1b/post-h1b.jpeg
 catalog: true
 tags:
     - H1B
+    - Career
+    - Data Science
     - EDA
     - Project
     - R

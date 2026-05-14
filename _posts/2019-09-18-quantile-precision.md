@@ -8,6 +8,7 @@ header-img: img/headers/prob5-quantile.jpeg
 catalog: true
 tags:
     - Probability
+    - Statistics
     - Simulation
     - R
 ---

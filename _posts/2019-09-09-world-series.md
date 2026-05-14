@@ -8,6 +8,7 @@ header-img: img/headers/prob3-worldseries.jpg
 catalog: true
 tags:
     - Probability
+    - Statistics
     - Simulation
     - R
 ---

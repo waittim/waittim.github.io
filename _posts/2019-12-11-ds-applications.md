@@ -8,6 +8,7 @@ header-img: img/headers/post-ds-application.jpg
 catalog: true
 tags:
     - Career
+    - Data Science
     - Talk
 ---
 # Slides

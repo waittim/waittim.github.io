@@ -9,10 +9,13 @@ catalog: true
 tags:
     - Deep Learning
     - Object Detection
+    - Model Deployment
     - Project
+    - NCNN
     - Python
     - C++
     - JavaScript
+    - WebAssembly
 ---
 
 The paper has been published on [arXiv](https://arxiv.org/abs/2101.00784).

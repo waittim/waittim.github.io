@@ -8,6 +8,7 @@ header-img: img/headers/prob10-power&sample.jpg
 catalog: true
 tags:
     - Probability
+    - Statistics
     - Simulation
     - R
     - Correlation

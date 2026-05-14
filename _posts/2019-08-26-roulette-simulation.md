@@ -8,6 +8,7 @@ header-img: img/headers/prob1-roulette.jpg
 catalog: true
 tags:
     - Probability
+    - Statistics
     - Simulation
     - R
 ---

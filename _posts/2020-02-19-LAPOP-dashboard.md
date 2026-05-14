@@ -8,6 +8,8 @@ header-img: img/headers/post-lapop-dashborad.jpg
 catalog: true
 tags:
     - Dashboard
+    - Visualization
+    - Project
     - R
     - Shiny
 ---

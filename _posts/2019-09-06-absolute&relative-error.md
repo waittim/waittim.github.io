@@ -8,6 +8,7 @@ header-img: img/headers/prob2-error.jpeg
 catalog: true
 tags:
     - Probability
+    - Statistics
     - Simulation
     - R
 ---

@@ -8,6 +8,7 @@ header-img: img/headers/prob4-home-advantage.jpg
 catalog: true
 tags:
     - Probability
+    - Statistics
     - Simulation
     - R
 ---
