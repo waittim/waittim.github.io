@@ -8,6 +8,7 @@ header-img: img/headers/prob5-quantile.jpeg
 catalog: true
 tags:
     - Probability
+    - Statistics
     - Simulation
     - R
 ---
@@ -15,9 +16,9 @@ tags:
 
 # Introduction
 
-The median is an important quantity in data analysis. It represents the middle value of the data distribution. Estimates of the median, however, have a degree of uncertainty because (a) the estimates are calculated from a finite sample and (b) the data distribution of the underlying data is generally unknown. One important role of a data scientist is to quantify and to communicate the degree of uncertainty in his or her data analysis.
+The median is an important quantity in data analysis. It represents the middle value of a data distribution. Estimates of the median, however, have a degree of uncertainty because (a) they are calculated from a finite sample and (b) the underlying data distribution is generally unknown. One important role of a data scientist is to quantify and communicate the degree of uncertainty in an analysis.
 
-This time, we are going to find out what can make our sample distribution more precise during the simulation.
+In this post, we will use simulation to find which quantiles of a distribution can be estimated more precisely.
 
 ```{r}
 library(tidyverse)
@@ -26,16 +27,16 @@ library(reshape2)
 
 # Standard Normal Distribution
 
-First, we need to set up the initial parameters. For every simulation process, we will generate 200 values base on the standard normal distribution, and we will generate them for 5000 times.
+First, we need to set up the initial parameters. For every simulation process, we will generate 200 values based on the standard normal distribution, and we will repeat the process 5,000 times.
 
-Therefore, set the sample size as 200, the test number is 5000.
+Therefore, set the sample size to 200 and the number of tests to 5,000.
 
 ```{r}
 sample_size <- 200
 test_num <- 5000
 ```
 
-Then let's create a function to find out the quantile values of each test and output them as sequences.
+Then let's create a function to find the quantile values for each test and output them as sequences.
 ```{r}
 find_quantile_value <- function(fn,sample_size, quantile_position){
   sample <- fn(sample_size)
@@ -44,8 +45,8 @@ find_quantile_value <- function(fn,sample_size, quantile_position){
 }
 ```
 
-In order to store the values of each quantile, we can create a data frame. For there are 19 quantiles and 5000 tests, the data frame should be a 5000*19 table.
-Then use for-loop traverse each test and each quantile.
+To store the values of each quantile, we can create a data frame. Since there are 19 quantiles and 5,000 tests, the data frame should be a 5000*19 table.
+Then use a for loop to traverse each test and each quantile.
 ```{r}
 sml_results <- as.data.frame(matrix(NA, nrow = test_num, ncol = 19))
 
@@ -56,7 +57,7 @@ for(i in 1:nrow(sml_results)){
 }
 ```
 
-Now we need to find the middle 95% length of the distributions of each quantile value.
+Now we need to find the length of the middle 95% interval for the distribution of each quantile value.
 ```{r}
 length_list <- rep(NA,ncol(sml_results))
 for(q in 1:ncol(sml_results)){
@@ -66,7 +67,7 @@ for(q in 1:ncol(sml_results)){
 
 ```
 
-Save the data we got before into a data frame and plot them.
+Save the data obtained above into a data frame and plot it.
 ```{r}
 length_df <- as.data.frame(matrix(ncol = 2, nrow = length(length_list)))
 names(length_df) <- c("quantile_position","mid95_length")
@@ -83,7 +84,7 @@ ggplot(length_df,aes(x=quantile_position,y=mid95_length))+
 ```
 ![](https://i.postimg.cc/J0jRCrkY/prob5-s1.png)
 
-as we can see, when the quantile is approaching 50%, the length is going lower. It means that when the quantile is approaching 50%, simulation error is lower. It means when the quantile is 50%, it has the best precision.
+As we can see, when the quantile approaches 50%, the length decreases. This means the simulation error is lower near the 50% quantile. In other words, the 50% quantile has the best precision.
 
 In other words, when the quantile is 50%, the median has the tightest sampling distribution.
 
@@ -99,14 +100,14 @@ ggplot(length_d_df, aes(x=density,y=mid95_length))+
 ```
 ![](https://i.postimg.cc/9QLChND2/prob5-s2.png)
 
-In this graph, we can find when density is bigger, the simulation error is lower.
+In this graph, we can see that when density is higher, the simulation error is lower.
 
 
 # Exponential Distribution
 
 Distribution 2 is the exponential distribution with rate = 1.
 
-As we did before, calculate the values of each quantile and each test then plot the graph.
+As we did before, calculate the values for each quantile and each test, then plot the graph.
 
 ```{r}
 
@@ -138,12 +139,12 @@ ggplot(length_df,aes(x=quantile_position,y=mid95_length))+
 ```
 ![](https://i.postimg.cc/cCtNMsh4/prob5-e1.png)
 
-For this exponential distribution, when quantile is bigger, the error of simulation is bigger.
+For this exponential distribution, as the quantile increases, the simulation error also increases.
 
-In other words, when the quantile is 5%, the median has the tightest sampling distribution.
+In other words, the 5% quantile has the tightest sampling distribution.
 
 
-And when the Density is higher, the error is smaller.
+And when the density is higher, the error is smaller.
 
 ```{r}
 length_d_df <- length_df %>%
@@ -174,7 +175,7 @@ df3 <- function(x){
 }
 ```
 
-And just like we did in previous chunks, plot the middle 95% length of the quantiles.
+And just like we did in previous chunks, plot the length of the middle 95% interval for the quantiles.
 
 ```{r}
 for(i in 1:nrow(sml_results)){
@@ -204,9 +205,9 @@ ggplot(length_df,aes(x=quantile_position,y=mid95_length))+
 ```
 ![](https://i.postimg.cc/rwjFpwYv/prob5-m31.png)
 
-Definitely, when the quantile is 40%, the median has the tightest sampling distribution.
+When the quantile is 40%, it has the tightest sampling distribution.
 
-We don’t have the qf3 function, therefore we need to use the pf3 function to calculate the values when their counterpart quantile is set. And the other part is the same as previous chunks.
+We do not have the qf3 function, so we need to use the pf3 function to calculate the values for each corresponding quantile. The rest is the same as in the previous chunks.
 
 
 ```{r}
@@ -240,7 +241,7 @@ rf4 <- function(N){
 }
 ```
 
-As previous chunks, we can plot the length of each quantile.
+As in previous chunks, we can plot the length of each quantile.
 
 ```{r}
 for(i in 1:nrow(sml_results)){
@@ -271,9 +272,9 @@ ggplot(length_df,aes(x=quantile_position,y=mid95_length))+
 ![](https://i.postimg.cc/YSyr1y7R/prob5-m41.png)
 
 
-Definitely, when the quantile is 5% or 95%, the median has the tightest sampling distribution.
+When the quantile is 5% or 95%, the sampling distribution is the tightest.
 
-Base on the rf4 function we had, we can write the pf4 and df4 functions. After that, use the method we used to plot the graph.
+Based on the rf4 function we already have, we can write the pf4 and df4 functions. After that, we use the same method to plot the graph.
 ```{r}
 rf4 <- function(N){
   G <- sample(0:1, N, replace = TRUE)
@@ -308,9 +309,9 @@ ggplot(length_d_df, aes(x=density,y=mid95_length))+
 
 # Other Tests
 
-In this part, we will focus on the situations that when sample size becomes 400, 800 and 1600.
+In this part, we will focus on situations where the sample size becomes 400, 800, and 1600.
 
-Now use a for loop to generate all of the data given different sample sizes.
+Now use a for loop to generate all the data for different sample sizes.
 ```{r}
 sample_size <- c(400,800,1600)
 test_num <- 5000
@@ -339,7 +340,7 @@ for(n in seq_along(sample_size)){
 }
 ```
 
-Then plot the graph of different sample sizes and compare them.
+Then plot the graphs for different sample sizes and compare them.
 ```{r}
 length_df %>%
   melt(id = "quantile_position") %>%
@@ -368,6 +369,6 @@ length_df %>%
 ```
 ![](https://i.postimg.cc/J4cRThmG/prob5-o2.png)
 
-Definitely, when the sample size is bigger, the error of simulation will be smaller.
+When the sample size is larger, the simulation error becomes smaller.
 
-In a word, when you have more simulation test, when the test number is increasing, the length will be smaller, which means the error of simulation is less than before.
+In summary, as the sample size increases, the length becomes smaller, which means the simulation error is lower than before.

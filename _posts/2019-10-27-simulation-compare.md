@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      Simulation method comparison
+title:      Simulation Method Comparison
 subtitle:   Probability and Statistical Inference - 08
 date:       2019-10-27
 author:     Zekun
@@ -8,6 +8,7 @@ header-img: img/headers/prob8-simulation.jpg
 catalog: true
 tags:
     - Probability
+    - Statistics
     - Simulation
     - R
     - Method of Moments
@@ -17,7 +18,7 @@ tags:
 
 
 
-# Situation description
+# Situation Description
 
 This time, I will perform a 2 × 4 × 2 factorial simulation study to compare the coverage probability of various methods of calculating **90%** confidence intervals. The three factors in the experiment are:
 
@@ -40,7 +41,7 @@ Other settings in the experiment that will not change are:
 
 ## Data generation function
 
-Set up data generate a function that can generate the data based on normal distribution or gamma distribution. The distribution will be defined by the parameter “dist”. The default parameter of the gamma distribution is shape=1.4 and scale=3.
+Set up a data-generation function that can generate data from either a normal distribution or a gamma distribution. The distribution is defined by the parameter “dist”. The default parameters of the gamma distribution are shape=1.4 and scale=3.
 
 ```{r}
 generate_data <- function(N, dist, sh=1.4, sc=3){
@@ -55,23 +56,23 @@ generate_data <- function(N, dist, sh=1.4, sc=3){
 
 ## Confidence interval estimation function
 
-Then define the function for calculating the confidence interval, which can estimate the distribution by method of moment with normal distribution, method of moment with gamma distribution, kernel density distribution, and bootstrap. At the same time, the function can use the function defined by “par.int” to calculate the parameter we want. The details will be introduced in the chunk.
+Then define the function for calculating the confidence interval. It can estimate the distribution by the method of moments with a normal distribution, the method of moments with a gamma distribution, kernel density estimation, or bootstrap. At the same time, the function can use the function defined by “par.int” to calculate the parameter we want. The details are introduced in the chunk.
 ```{r}
 estimate.ci <- function(data, mod, par.int, R=10, smoo=0.3){
   # data: input data
   # mod: define the estimation method and the distribution.
   #      (MMnorm: method of moment with normal distribution,
   #       MMgamma: method of moment with gamma distribution,
-  #       KDE: kernal density distribution,
+  #       KDE: kernel density distribution,
   #       Boot: bootstrap)
-  # par.int: the function what can get the parameter we want for the estimated distribution
+  # par.int: the function that can get the parameter we want for the estimated distribution
 
   N <- length(data) # save N as the number of the inputted data
-  sum.measure <- get(par.int) # make charactor can be used as function
+  sum.measure <- get(par.int) # make a character value usable as a function
 
 
   if(mod=="MMnorm"){
-    # use method of moment with normal distribution to estimate
+    # use the method of moments with a normal distribution to estimate
 
     mm.mean <- mean(data) # get the original mean of data
     mm.sd <- sd(data) # get the original standard deviation of data
@@ -89,33 +90,33 @@ estimate.ci <- function(data, mod, par.int, R=10, smoo=0.3){
       }
     }
     return(quantile(samp.dist, c(0.05, 0.95)))
-    # the output will be the 95% confidence interval of needed distribution
+    # the output will be the 95% confidence interval of the target distribution
 
   }else if(mod=="MMgamma"){
-    # use method of moment with gamma distribution to estimate
+    # use the method of moments with a gamma distribution to estimate
 
     mm.shape <- mean(data)^2/var(data)
     # get the original shape parameter of data
     mm.scale <- var(data)/mean(data)
     # get the original scale parameter of data
 
-    #create a N*R array to reserve the gamma distributions
+    # create an N*R array to store the gamma distributions
     sim.data <- array(rgamma(length(data)*R, shape=mm.shape, scale=mm.scale), dim=c(N, R))
-    # use the function called by par.int for each column and reserve the results as a distribution
+    # use the function called by par.int for each column and store the results as a distribution
     samp.dist <- apply(sim.data, 2, FUN=sum.measure)
     return(quantile(samp.dist, c(0.05, 0.95)))
-    # the output will be the 95% confidence interval of needed distribution
+    # the output will be the 95% confidence interval of the target distribution
 
   }else if(mod=="KDE"){
-    # use kernal density estimation
+    # use kernel density estimation
 
     ecdfstar <- function(t, data, smooth=smoo){
         # use pnorm function which has sd=smoo on the outer product of t and data.
         # t[i] is the quantile, data[j] is the mean for pnorm.
-        # in other words, calculate the persentage under quantile "t" of distribution "data"
+        # in other words, calculate the percentage under quantile "t" of distribution "data"
         outer(t, data, function(a,b){ pnorm(a, b, smooth)}) %>%
         rowMeans
-        # then count the mean of each row, AKA, the mean persentage under quantile "t"
+        # then count the mean of each row, AKA, the mean percentage under quantile "t"
     }
 
     # create a 1 column data frame with a sequence from min-sd to max+sd of the data with break=0.01
@@ -125,22 +126,22 @@ estimate.ci <- function(data, mod, par.int, R=10, smoo=0.3){
     )
 
     tbl$p <- ecdfstar(tbl$x, data, smoo)
-    # add a new column called p reserve the result of ecdfstar function
+    # add a new column called p to store the result of the ecdfstar function
     tbl <- tbl[!duplicated(tbl$p),]
-    # remove all of rows which contain the duplicated value in column "p".
+    # remove all rows that contain duplicated values in column "p".
 
     qkde <- function(ps, tbl){
       # convert "ps" to a factor with the break as column "p" in "tbl" data frame
       rows <- cut(ps, tbl$p, labels = FALSE)
       tbl[rows, "x"]
-      # return the part of column "x" which match the rows number factor
+      # return the part of column "x" that matches the row-number factor
     }
 
     U <- runif(N*R) # create a uniform distribution with the size=N*R
 
-    # reserve the result of qkde as a N*R matrix
+    # store the result of qkde as an N*R matrix
     sim.data <- array(qkde(U,tbl), dim=c(N, R))
-    # use the function called by par.int for each column and reserve the results as a distribution
+    # use the function called by par.int for each column and store the results as a distribution
     samp.dist <- apply(sim.data, 2, sum.measure)
 
     return(quantile(samp.dist, c(0.05, 0.95), na.rm=TRUE))
@@ -149,9 +150,9 @@ estimate.ci <- function(data, mod, par.int, R=10, smoo=0.3){
   }else if(mod=="Boot"){
     # use bootstrap
 
-    # get random sample with size=N from the data R times, reserve the result as a N*R matrix
+    # get random samples with size=N from the data R times, and store the result as an N*R matrix
     sim.data <- array(sample(data, N*R, replace=TRUE), dim=c(N,R))
-    # use the function called by par.int for each column and reserve the results as a distribution
+    # use the function called by par.int for each column and store the results as a distribution
     samp.dist <- apply(sim.data, 2, sum.measure)
 
     return(quantile(samp.dist, c(0.05, 0.95), na.rm=TRUE))
@@ -160,9 +161,9 @@ estimate.ci <- function(data, mod, par.int, R=10, smoo=0.3){
 }
 ```
 
-## Destination capture function
+## Target capture function
 
-Create a function to justify that is the confidence interval matches the requirement. When the result is TRUE, return 1.
+Create a function to determine whether the confidence interval matches the requirement. When the result is TRUE, return 1.
 ```{r}
 capture_par <- function(ci, true.par){
   1*(ci[1] < true.par & true.par < ci[2])
@@ -172,37 +173,37 @@ capture_par <- function(ci, true.par){
 
 # Simulation
 
-## Calculation prepare
+## Calculation Preparation
 
-Now we can set the size of distribution N is 201. When use gamma distribution, we will use the shape 1.4 and scale 3.
+Now we can set the sample size N to 201. When using the gamma distribution, we use shape 1.4 and scale 3.
 ```{r}
 N <- 201
 shape.set <- 1.4
 scale.set <- 3
 ```
 
-Define the capture destinations.
+Define the target values for coverage.
 ```{r}
 true.norm.med <- qnorm(0.5)
 true.norm.min <- mean(apply(array(rnorm(N*10000), dim=c(N, 10000)),2,min))
 true.gamma.med <- qgamma(0.5, shape = shape.set, scale=scale.set)
 true.gamma.min <- mean(apply(array(rgamma(N*10000, shape=shape.set, scale=scale.set), dim=c(N, 10000)),2,min))
 ```
-For the standard min of distribution part, we expand the data size for 10000 times and get the mean min value as the standard min.
+For the standard minimum of the distribution, we expand the data size 10,000 times and use the mean minimum value as the true minimum.
 
-Create a table called "simsettings" to reserve the results of each estimation method and the target parameter.
+Create a table called "simsettings" to store the results of each estimation method and the target parameter.
 ```{r}
 simsettings <- expand.grid(dist=c("norm", "gamma"), model=c("MMnorm", "MMgamma", "KDE", "Boot"), par.int=c("median", "min"), cov.prob=NA,  stringsAsFactors = FALSE, KEEP.OUT.ATTRS = FALSE)
 ```
 
-Add a new column to reserve the capture destinations.
+Add a new column to store the target values.
 ```{r}
 simsettings$truth <- c(true.norm.med, true.gamma.med, true.norm.med, true.gamma.med, true.norm.med, true.gamma.med, true.norm.med, true.gamma.med, true.norm.min, true.gamma.min, true.norm.min, true.gamma.min, true.norm.min, true.gamma.min, true.norm.min, true.gamma.min)
 ```
 
 ## Calculation
 
-Base on the "simsettings" table, calculate the capture probabilities and reserve them in the table.
+Based on the "simsettings" table, calculate the coverage probabilities and store them in the table.
 ```{r}
 for(k in c(1:2,4:10,12:16)){
   dist1 <- simsettings[k,1]
@@ -248,8 +249,8 @@ simsettings
 ## 16 gamma    Boot     min     0.57  0.07277036
 ```
 
-Definitely, for the method of moment part, when the data distribution matches the model distribution (e.g. norm - MMnorm, gamma - MMgamma), the capture probabilities are more than 90%. When the distributions do not match with each other, the results will be close to 0% or NA.
+For the method of moments, when the data distribution matches the model distribution (e.g. norm - MMnorm, gamma - MMgamma), the coverage probabilities are more than 90%. When the distributions do not match each other, the results are close to 0% or NA.
 
-And for kernel density estimation, when we need to get the median of the distributions, the results are pretty good as close to 100%. But when we need to get the min of the distributions, the capture probabilities of normal and gamma are really different. For the normal distribution, it works well, but for gamma distribution, it is about 37%. The reason might be that gamma distribution is a skewed distribution.
+For kernel density estimation, when we need to estimate the median of the distributions, the results are quite good and close to 100%. But when we need to estimate the minimum of the distributions, the coverage probabilities for normal and gamma are very different. For the normal distribution, it works well, but for the gamma distribution, it is about 37%. The reason might be that the gamma distribution is skewed.
 
-For the bootstrap part, the results are not as good as others. When we want to get the median of the distributions, the capture probabilities are just about 90%. And when it comes to min of the distributions, the probabilities become 50%. Obviously, it is because selecting a sample randomly is too difficult to get the min point every time.
+For the bootstrap method, the results are not as good as the others. When we want to estimate the median of the distributions, the coverage probabilities are only about 90%. When it comes to the minimum of the distributions, the probabilities drop to about 50%. This is probably because random sampling makes it difficult to capture the minimum point every time.

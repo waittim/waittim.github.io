@@ -5,12 +5,6 @@ description: "Hey, this is Zekun."
 header-img: "img/ui/icon.jpg"
 ---
 
-<!-- Language Selector -->
-<!-- <select class="sel-lang" onchange= "onLanChange(this.options[this.options.selectedIndex].value)">
-    <option value="0" selected> 中文 Chinese </option>
-    <option value="1"> 英文 English </option>
-</select> -->
-
 <!-- Chinese Version -->
 <div class="zh post-container">
 
@@ -29,7 +23,7 @@ header-img: "img/ui/icon.jpg"
 
     <p>My GitHub page is <a href="https://github.com/waittim">GitHub·Zekun Wang</a>.</p>
 
-    <p>This blog is created by <a href="https://pages.github.com/">GitHub Pages</a> and <a href="http://jekyll.com.cn/">Jekyll</a> . Thanks for the help form <a href="https://github.com/qiubaiying">GitHub·BY</a>. </p>
+    <p>This blog is created by <a href="https://pages.github.com/">GitHub Pages</a> and <a href="https://jekyllrb.com/">Jekyll</a>. Thanks for the help from <a href="https://github.com/qiubaiying">GitHub·BY</a>.</p>
 
     <p></p>
 
@@ -37,79 +31,17 @@ header-img: "img/ui/icon.jpg"
 
     <ul>
       <li><a href="https://github.com">GitHub</a></li>
-      <li><a href="http://jekyll.com.cn/">jekyll</a></li>
+      <li><a href="https://jekyllrb.com/">Jekyll</a></li>
       <li><a href="https://pages.github.com/">GitHub Pages</a></li>
       <li><a href="https://www.linkedin.com/in/zekun-wang/">Zekun Wang (LinkedIn)</a></li>
     </ul>
 </div>
 
-<!-- English Version -->
-<!-- <div class="en post-container">
-    <blockquote><p>Yet another iOS Developer. <br>
-    Yet another Life-long Student.</p></blockquote>
-
-    <p>Hi, I am <strong>Baiying Qiu</strong>，you can call me <strong>BY</strong>. I am an iOS software engineer and currently working in Xiamen</p>
-
-    <p>This is my personal blog, through making Github Pages and Jekyll.My GitHub  👉 <a href="http://github.com/qiubaiying">Github·BY</a>.</p>
-
-    <p>I am a sports enthusiast, I like fitness, running and boxing.</p>
-
-    <h5>Talks</h5>
-
-    <ul>
-    <li><a href="https://github.com">GitHub</a></li>
-    <li><a href="http://jekyll.com.cn/">jekyll</a></li>
-    <li><a href="https://pages.github.com/">GitHub Pages</a></li>
-    <li><a href="https://qiubaiying.github.io">BY</a></li>
-    </ul>
-</div> -->
-
-<!-- Handle Language Change -->
-<script type="text/javascript">
-    // get nodes
-    var $zh = document.querySelector(".zh");
-    var $en = document.querySelector(".en");
-    var $select = document.querySelector("select");
-
-    // bind hashchange event
-    window.addEventListener('hashchange', _render);
-
-    // handle render
-    function _render(){
-        var _hash = window.location.hash;
-        // en
-        if(_hash == "#en"){
-            $select.selectedIndex = 1;
-            $en.style.display = "block";
-            $zh.style.display = "none";
-        // zh by default
-        }else{
-            // not trigger onChange, otherwise cause a loop call.
-            $select.selectedIndex = 0;
-            $zh.style.display = "block";
-            $en.style.display = "none";
-        }
-    }
-
-    // handle select change
-    function onLanChange(index){
-        if(index == 0){
-            window.location.hash = "#zh"
-        }else{
-            window.location.hash = "#en"
-        }
-    }
-
-    // init
-    _render();
-</script>
-
-
 <!-- Gitalk 评论 start  -->
 {% if site.gitalk.enable %}
 <!-- Gitalk link  -->
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-<script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk@1/dist/gitalk.min.js"></script>
 
 <div id="gitalk-container"></div>
     <script type="text/javascript">

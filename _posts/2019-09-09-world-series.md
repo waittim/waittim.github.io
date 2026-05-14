@@ -8,11 +8,12 @@ header-img: img/headers/prob3-worldseries.jpg
 catalog: true
 tags:
     - Probability
+    - Statistics
     - Simulation
     - R
 ---
 
-Import the package at the very first.
+First, import the package.
 
 ```{r}
 library(tidyverse)
@@ -29,7 +30,7 @@ In this blog, we are going to calculate the probability of several questions abo
 
 First, we need to define some parameters.
 
-Parameter | Explaination
+Parameter | Explanation
 ---|---|---
 P<sub>B</sub> | In any given game, the probability that the Braves win
 P<sub>Y</sub> = 1 - P<sub>B</sub> | in any given game, the probability that the Yankees win
@@ -37,13 +38,13 @@ P<sub>Y</sub> = 1 - P<sub>B</sub> | in any given game, the probability that the 
 # Questions
 ### 1. What is the probability that the Braves win the World Series given that P<sub>B</sub>=0.55?
 
-First,we need to set the value of P<sub>B</sub> and P<sub>Y</sub>.
+First, we need to set the values of P<sub>B</sub> and P<sub>Y</sub>.
 ```{r}
 PB <- 0.55
 PY <- 1- PB
 ```
 
-Create a function to calculate the probability of a win. The win is defined as win 4 times in 7 games.
+Create a function to calculate the probability of winning the series. A series win is defined as winning 4 games in a best-of-7 series.
 ```{r}
 calc_prob <- function(p){
   pnbinom(3, 4, p)
@@ -55,13 +56,13 @@ Now calculate the probability given that P<sub>B</sub>=0.55.
 calc_prob(PB)
 ```
 
-Obviously, when the P<sub>B</sub> is 0.55, the probability that Braves win the World Series is 0.608.
+When P<sub>B</sub> is 0.55, the probability that the Braves win the World Series is 0.608.
 
 
 
 
 ### 2. What is the probability that the Braves win the World Series given that P<sub>B</sub>=x?
-Now the P<sub>B</sub> is not defined yet, so we should assume the x could be any number between 0.5 to 1.
+Now P<sub>B</sub> is not fixed, so we assume x can be any number between 0.5 and 1.
 
 First, we need to generate a series of P<sub>B</sub> and the probability results.
 ```{r}
@@ -69,7 +70,7 @@ PBseries <- seq(0.5, 1, 0.01)
 win_prob <- rep(NA, length(PBseries))
 ```
 
-Now use the function we used before to calculate the probability given every P<sub>B</sub>.
+Now use the function from before to calculate the probability for every P<sub>B</sub>.
 ```{r}
 for(i in 1:length(win_prob)){
   win_prob[i] <- calc_prob(PBseries[i])
@@ -88,14 +89,14 @@ plot(x = PBseries,
 ```
 ![](https://i.loli.net/2019/12/22/Bh7NjCIcKU2Myab.png)
 
-As we can see, in this graph, when P<sub>B</sub> is increasing, the probability that the Braves win the World Series is increasing too. In fact, when we change the x scale to 0.0-1.0, we will find the line looks like a logistic curve.
+As we can see from this graph, when P<sub>B</sub> increases, the probability that the Braves win the World Series also increases. In fact, when we change the x-axis scale to 0.0-1.0, the line looks like a logistic curve.
 
 
 
 
 ### 3. Suppose one could change the World Series to be best-of-9 or some other best-of-X series. What is the shortest series length so that P(Braves win World Series|P<sub>B</sub>=0.55) ≥ 0.8?
 
-As same as the first question, the P<sub>B</sub> needs to be 0.55. And now the game series length is not certain. Definitely, the series length should be an odd number.
+As in the first question, P<sub>B</sub> needs to be 0.55. Now the series length is uncertain. The series length should be an odd number.
 ```{r}
 PB <- 0.55
 series_length <- seq(1, 999, 2)
@@ -104,12 +105,12 @@ series_length <- seq(1, 999, 2)
 Now we need to create a function to calculate the probability when the series length is a parameter.
 ```{r}
 calc_prob_sl <- function(sl){
-  win_threshhold <- ceiling(sl/2)
-  pnbinom(win_threshhold - 1, win_threshhold, 0.55)
+  win_threshold <- ceiling(sl/2)
+  pnbinom(win_threshold - 1, win_threshold, 0.55)
 }
 ```
 
-In the end, given every series length, calculate the probability that the Braves win World Series. When the probability is equal to or more than 0.8, stop running and give the series length value and the probability.
+Finally, for each series length, calculate the probability that the Braves win the World Series. When the probability is at least 0.8, stop the loop and return the series length and the probability.
 ```{r}
 for(i in 1:length(series_length)){
   pb_win <- calc_prob_sl(series_length[i])
@@ -122,13 +123,13 @@ shortest
 p_shortest
 ```
 
-Now we get the shortest series length. It should be 71. In that situation, the probability that the Braves win World Series is about 0.802.
+Now we have the shortest series length. It should be 71. In that situation, the probability that the Braves win the World Series is about 0.802.
 
 
 ### 4. What is the shortest series length so that P(Braves win World Series|P<sub>B</sub>= x) ≥ 0.8? This will be a figure (see below) with P<sub>B</sub> on the x-axis and series length is the y-axis.
-Now the P<sub>B</sub> has not defined again, so we should assume the x could be any number between 0.51 to 1.
+Now P<sub>B</sub> is not fixed again, so we assume x can be any number between 0.51 and 1.
 
-First, we need to generate a series of P<sub>B</sub> and a series to save the length results given different P<sub>B</sub>. But the way, we also need a series of the possible series length we will test. Now the ceiling is 9999. If it's not enough, we can set a bigger limitation.
+First, we need to generate a sequence of P<sub>B</sub> values and a vector to save the length results for different P<sub>B</sub> values. In addition, we need a sequence of possible series lengths to test. The upper limit is 9999. If that is not enough, we can set a larger limit.
 ```{r}
 PBseries <- seq(0.51, 1, 0.01)
 length_record <- rep(NA, length(PBseries))
@@ -136,11 +137,11 @@ series_length <- seq(1, 9999, 2)
 ```
 
 
-In order to calculate the probability that the Braves win the WS, we need a new function with 2 input, because both of the series length and P<sub>B</sub> are variables.
+To calculate the probability that the Braves win the World Series, we need a new function with two inputs because both the series length and P<sub>B</sub> are variables.
 ```{r}
 calc_prob_sl_p <- function(sl,pb){
-  win_threshhold <- ceiling(sl/2)
-  pnbinom(win_threshhold - 1, win_threshhold, pb)
+  win_threshold <- ceiling(sl/2)
+  pnbinom(win_threshold - 1, win_threshold, pb)
 }
 ```
 
@@ -157,7 +158,7 @@ for(j in 1:length(PBseries)){
 }
 ```
 
-We have already got the shortest series length given different P<sub>B</sub>. Let's draw the figure to show the relationship between them.
+We have now obtained the shortest series length for different P<sub>B</sub> values. Let's draw a figure to show the relationship between them.
 ```{r}
 plot(x = PBseries,
      y = length_record,
@@ -168,13 +169,13 @@ plot(x = PBseries,
 ```
 ![](https://i.loli.net/2019/12/22/jA2LkzaNK5tF6OB.png)
 
-in this graph, when P<sub>B</sub> is increasing, the shortest series length, when the probability that the Braves win the World Series is more than 0.8, is approaching 1. When the P<sub>B</sub> is bigger than 0.8, the shortest series length is 1.
+In this graph, as P<sub>B</sub> increases, the shortest series length required for the Braves to win the World Series with probability greater than 0.8 approaches 1. When P<sub>B</sub> is greater than 0.8, the shortest series length is 1.
 
 
 
 ### 5. Calculate P( P<sub>B</sub>=0.55|Braves lose 3 games before winning a 4th game) under the assumption that either  P<sub>B</sub>=0.55 or  P<sub>B</sub>=0.45. Explain your solution.
 
-According to Conditional probability formula, we can get:
+According to the conditional probability formula, we can get:
 
 $$
 P(A|B)=\frac{P(A)P(B)}{P(B)}  \to  P(A)P(B)=P(A|B)P(B)\\
@@ -188,7 +189,7 @@ As a result, P( P<sub>B</sub>=0.55|Braves lose 3 games before winning a 4th game
 
 P(P<sub>B</sub>=0.55) = 0.5
 
-Then use *dnbinom()* calculate P(Braves lose 3 games before winning a 4th game) and P(Braves lose 3 games before winning a 4th game|P<sub>B</sub>=0.55):
+Then use *dnbinom()* to calculate P(Braves lose 3 games before winning a 4th game) and P(Braves lose 3 games before winning a 4th game|P<sub>B</sub>=0.55):
 ```{r}
 (dnbinom(3,4,0.45)+dnbinom(3,4,0.55))/2
 dnbinom(3,4,0.55)

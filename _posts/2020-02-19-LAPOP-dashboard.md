@@ -1,28 +1,30 @@
 ---
 layout:     post
 title:      LAPOP Data Dashboard
-subtitle:   A dashboard prototype based on Shiny R
+subtitle:   A dashboard prototype built with Shiny R
 date:       2020-02-19
 author:     Zekun
 header-img: img/headers/post-lapop-dashborad.jpg
 catalog: true
 tags:
     - Dashboard
+    - Visualization
+    - Project
     - R
     - Shiny
 ---
 
-This project is designed a data visualization dashboard to help non-professional users for Latin American Public Opinion Project (LAPOP).
+This project is a data visualization dashboard designed to help non-professional users explore the Latin American Public Opinion Project (LAPOP).
 
-Due to copyright issues and confidentiality agreements, the dashboard shown with randomly generated data based on real data formats.
+Due to copyright issues and confidentiality agreements, the dashboard is shown with randomly generated data based on the real data format.
 
 **How to use it?**
 
-1. Select the country and year you want to analyze (multiple choices) to obtain key figures and visualizations of the overall situation of the interviewee.
-2. Select the topics and questions you want to analyze in detail, and obtain key figures and visualization results and time series visualization images for a single problem.
-3. Select topics and questions for cross-analysis to get visual results of cross-analysis.
+1. Select the countries and years you want to analyze (multiple choices) to obtain key figures and visualizations of the overall situation of the respondents.
+2. Select the topics and questions you want to analyze in detail, and obtain key figures, visualization results, and time-series visualizations for a single question.
+3. Select topics and questions for cross-analysis to get visual results for cross-analysis.
 
-![demo-home.png](https://github.com/waittim/waittim.github.io/raw/master/img/posts/lapop-dashboard.png)
+![demo-home.png]({{ "/img/posts/2020-02-19-lapop-dashboard/lapop-dashboard.png" | relative_url }})
 
 **[Click here to open the dashboard](https://zekun.shinyapps.io/LAPOP-shiny-dashboard/)**
 

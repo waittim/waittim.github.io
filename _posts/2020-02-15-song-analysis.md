@@ -15,7 +15,7 @@ tags:
 
 <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vT8PsgoYD97P7ZvBxpVM3aCGnxX7A5_3o_ep7CqbsbGbuq7-MWdeCIRbNUvqfyJYuRliseB9j0DuqeE/embed?start=false&loop=true&delayms=3000" frameborder="0" width="700" height="423" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 
-This article mainly introduces the full picture of a data analysis pipeline by showing the simple data import, feature engineering, and exploratory data analysis processes. The data used this time is relatively clean, so basically no data cleaning has been performed except for the analysis part of this article.
+This article introduces the full picture of a data analysis pipeline by showing simple data import, feature engineering, and exploratory data analysis processes. The data used here is relatively clean, so almost no data cleaning is required beyond the analysis steps in this article.
 
 The entire working process is divided into three parts: 10-read-in, 20-feature-engineering, 30-exploratory-data-analysis.
 
@@ -33,18 +33,18 @@ library(wordcloud2)
 library(RColorBrewer)
 ```
 
-Library introduction (The parts used in this pipeline):
+Library introduction (the parts used in this pipeline):
 
-  - **readxl**: read in data in Excel file.
-  - **tidyverse**: help manage the data frame in tidy sentences.
+  - **readxl**: read data from Excel files.
+  - **tidyverse**: help manage data frames with tidy syntax.
   - **janitor**: clean the column names.
   - **ggplot2**: create plots.
-  - **tidytext**: import stop words data for text analysis and get word
-    sentiment dictionary.
-  - **wordcloud2**: create word cloud graph.
-  - **RColorBrewer**: set color palette for graphes.
+  - **tidytext**: import stop words for text analysis and get word-level
+    sentiment dictionaries.
+  - **wordcloud2**: create word cloud graphs.
+  - **RColorBrewer**: set color palettes for graphs.
 
-#### Read in raw data and make the column names.
+#### Read in raw data and clean the column names.
 
 ```{r}
 for(i in seq(2000,2009,1)){
@@ -57,11 +57,11 @@ for(i in seq(2000,2009,1)){
 }
 ```
 
-In this Excel file, the data of different years was divided into sub-tables, therefore, I need to read in them one by one.
+In this Excel file, the data for different years is divided into worksheets, so I need to read them one by one.
 
-And the column names in each table were not in the first row but in the second row. So I removed the first row and transferred the second row to be the column names. Then, I used the `clean_names()` function to make the names lowercase without blank space.
+The column names in each table are not in the first row but in the second row. So I removed the first row and transferred the second row to be the column names. Then, I used the `clean_names()` function to make the names lowercase without spaces.
 
-The function `assign` can help me use different names to reserve the data.
+The function `assign` helps me use different names to store the data.
 
 After that, I merged all of the data.
 
@@ -70,7 +70,7 @@ df <-
   bind_rows(df_2000, df_2001, df_2002, df_2003, df_2004, df_2005, df_2006, df_2007, df_2008, df_2009)
 ```
 
-Import the stop words for text analysis in the EDA part.
+Import the stop words for text analysis in the EDA section.
 
 ```{r}
 data("stop_words")
@@ -78,7 +78,7 @@ data("stop_words")
 
 ## 20-feature-engineering
 
-This data set is clean enough and I don’t need to clean the data as normal.
+This dataset is clean enough that I do not need to clean the data in the usual way.
 
 Basic feature engineering on raw merged data:
 
@@ -103,19 +103,19 @@ df <- df %>%
          )
 ```
 
-In this chunk, I only need to make all of the columns have the right data
+In this chunk, I only need to make all of the columns have the correct data
 type.
 
-**Hint:** In the date part, because Excel save the date by count the
-distance between the date and 1900-01-01, the date columns in the raw
-data are the days. I need to transfer them to be the real date. The
-`origin` attribute should be 1900-01-01, but due to 1900-leap-year-bug
-of Excel, use 1899-12-30 can get the right answer.
+**Hint:** For the date part, Excel saves dates by counting the
+distance between the date and 1900-01-01, so the date columns in the raw
+data are day counts. I need to transform them into real dates. The
+`origin` attribute should be 1900-01-01, but due to Excel's 1900 leap-year bug,
+using 1899-12-30 gives the correct answer.
 
 ## 30-exploratory-data-analysis
 
-In this part, I will answer the following questions to finish the
-exploratory data analysis(EDA) part.
+In this part, I will answer the following questions to complete the
+exploratory data analysis (EDA) section.
 
 #### What percent of songs that chart never make the Top 10?
 
@@ -255,8 +255,8 @@ df %>%
 
 #### What was the most commonly used word in a song title for the decade 2000-2009?
 
-For this question, due to there are many special symbols in the song
-title, I need to clean the special patterns in the title.
+For this question, because there are many special symbols in the song
+titles, I need to clean the special patterns in the titles.
 
 ```{r}
 title_df <- df["song_title"]
@@ -282,14 +282,14 @@ title_df$song_title <- gsub(pattern = "#", replacement =" ", title_df$song_title
 title_df$song_title <- gsub(pattern = " +", replacement =" ", title_df$song_title)
 ```
 
-Then make the data frame become list, which can help the following
+Then convert the data frame into a list, which can help the following
 steps.
 
 ```{r}
 title_list <- title_df[["song_title"]]
 ```
 
-Split all of the title into scattered words.
+Split all titles into individual words.
 
 ```{r}
 title_words <- data.frame()
@@ -373,7 +373,7 @@ wordcloud2(head(word_count,100),
            color = "#125FA0")
 ```
 
-<iframe src="/gallery/song-wordcloud.html" frameborder="0" width="700" height="423" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+<iframe src="{{ "/gallery/song-wordcloud/" | relative_url }}" frameborder="0" width="700" height="423" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 
 
 #### Sentiment analysis of titles
@@ -399,7 +399,7 @@ df_sentiments_filtered <- df_sentiments %>%
   arrange(desc(n))
 ```
 
-After removed the stop word, I counted the number of each word in the titles.
+After removing the stop words, I counted the number of each word in the titles.
 
 ```{r}
 df_sentiments_filtered %>%
@@ -411,7 +411,7 @@ df_sentiments_filtered %>%
 
 ![](https://i.postimg.cc/hPqWrqhc/unnamed-chunk-19-1.png)
 
-And we can also count what is the percentage of positive words in the
+And we can also calculate the percentage of positive words in the
 words that have sentiments.
 
 ```{r}
@@ -446,7 +446,7 @@ df %>%
     ##   <chr>                  <int>
     ## 1 JACKSON, JANET            39
 
-And there are the songs belong to this artist.
+These are the songs belonging to this artist.
 
 ```{r}
 df %>%
@@ -514,9 +514,9 @@ df %>%
 
 #### Solo men, solo women, groups for the decade 2000-2009 - design a graphic that shows the distribution of songs hitting \#1
 
-The solo artists have their full name in the data by the format as
-“LastName, FirstName”, as a result, we can tell whether the data is a
-single person name by the presence of a comma.
+The solo artists have their full names in the data in the format
+“LastName, FirstName”. As a result, we can tell whether the data is a
+single person's name by the presence of a comma.
 
 ```{r}
 df %>%
@@ -535,7 +535,7 @@ df %>%
     ## 2 solo           84
 
 Actually, there is no built-in pie chart function in `ggplot2`. But we
-can use bar chart function then twisting the y-axis to the polar
+can use a bar chart and then transform the y-axis to the polar
 coordinate system to create a pie chart.
 
 ```{r}
@@ -598,7 +598,7 @@ df %>%
 
 ![](https://i.postimg.cc/ncY8SwQ7/unnamed-chunk-29-1.png)
 
-#### What song spent the most time on the charts in the decade 2000-2009)
+#### What song spent the most time on the charts in the decade 2000-2009?
 
 ```{r}
 df %>%
@@ -614,7 +614,7 @@ df %>%
     ## 2 BEFORE HE CHEATS                UNDERWOOD, CARRIE      2007            57
     ## 3 GLAMOROUS                       FERGIE featuring LUDA… 2007            50
 
-Actually, TIME OF YOUR LIFE (GOOD RIDDANCE) never be the top 1. A sad
+Actually, TIME OF YOUR LIFE (GOOD RIDDANCE) never reached No. 1. A sad
 story.
 
 #### Is there a correlation between weeks spent on the chart and weeks at \#1?

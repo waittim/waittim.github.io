@@ -8,19 +8,21 @@ header-img: img/headers/post-deep-brain.jpg
 catalog: true
 tags:
     - Deep Learning
+    - Model Conversion
     - Python
     - Keras
+    - TensorFlow
 ---
 
-In the process of completing the mask detection project recently, I tried to convert Darknet into a Keras model. In other words, to convert the `.cfg` file and the `.weights` file into a `.h5` file. 
+While working on the mask detection project recently, I tried to convert a Darknet model into a Keras model. In other words, I needed to convert the `.cfg` file and the `.weights` file into a `.h5` file.
 
-There are actually some ready-made codes online to complete this process, such as [YAD2K](https://github.com/allanzelener/YAD2K) and [keras-yolo3](https://github.com/qqwweee/keras-yolo3). However, the most recent update of these repository was at least three years ago. The Keras used is an older version. The new version of Keras has been embedded in TensorFlow 2.0. 
+There is already some ready-made code online to complete this process, such as [YAD2K](https://github.com/allanzelener/YAD2K) and [keras-yolo3](https://github.com/qqwweee/keras-yolo3). However, the most recent updates to these repositories were at least three years ago. The Keras version used there is older, while the new version of Keras has been embedded in TensorFlow 2.0.
 
-Secondly, during the converting, I met a issue called `buffer is too small for requested array`. After check the transformation process, I found it cannot handle group convolutional layers. 
+Secondly, during the conversion, I encountered an issue called `buffer is too small for requested array`. After checking the transformation process, I found that it could not handle grouped convolutional layers.
 
-Therefore, after referring to the relevant information on the Internet, I modified the `convert.py` to be based on TensorFlow 2.0 and able to deal with group in convolutional layers.
+Therefore, after referring to the relevant information on the Internet, I modified `convert.py` to be based on TensorFlow 2.0 and able to handle grouped convolutional layers.
 
-Regarding the modification of the grouped convolutional layer, the main part of the code is as follows:
+For the modification of the grouped convolutional layer, the main part of the code is as follows:
 
 ```python
         groups = int(block['groups']) if 'groups' in block else 1
@@ -41,7 +43,7 @@ Regarding the modification of the grouped convolutional layer, the main part of 
 
 ```
 
-The entire code of the `convert.py` is as follows:
+The entire code of `convert.py` is as follows:
 
 ```python
 import os
@@ -196,7 +198,7 @@ class DarkNetParser(object):
 
         # (out_dim, in_dim, height, width)
 
-        # We would like to set these to Tensorflow order:
+        # We would like to set these to TensorFlow order:
 
         # (height, width, in_dim, out_dim)
 
@@ -356,15 +358,15 @@ if __name__ == '__main__':
 
 ```
 
-Please save the code and rename it to `convert.py`. Usage is the same as in keras-yolo3:
+Please save the code as `convert.py`. Usage is the same as in keras-yolo3:
 
 ```bash
 python convert.py -w yolov3.cfg yolov3.weights model_data/yolov3.h5
 ```
 
-This time, no buffer issue.
+This time, there is no buffer issue.
 
 
 
 --- 
-*Note: Thanks to the articles "[模型转换[yolov3模型在keras与darknet之间转换]](https://www.cnblogs.com/shouhuxianjian/p/10567201.html)" for the help.*
+*Note: Thanks to the article "[模型转换[yolov3模型在keras与darknet之间转换]](https://www.cnblogs.com/shouhuxianjian/p/10567201.html)" for the help.*
