@@ -18,4 +18,4 @@ Created by **Zekun Wang**
 
 Based on **Storytelling With Data**
 
-Download: [PDF version]({{ "/gallery/Visualizations%20cheatsheet.pdf" | relative_url }})
+Download: [PDF version]({{ "/downloads/visualizations-cheatsheet.pdf" | relative_url }})

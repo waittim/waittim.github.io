@@ -76,7 +76,7 @@ We wanted to look at how the number of applications differed per state over the 
 Here we can see that the states of California, Texas, New York, Michigan, Georgia, Pennsylvania, Florida, and Illinois are the states with the highest number of applications. The number of applicants is seen to increase over time (from 2015 to 2017) for Washington, Virginia and North Carolina. States that have the lowest number of applicants are Montana, Wyoming and South Dakota.
 
 
-<iframe src="/gallery/h1b-map.html" frameborder="0" width="700" height="435" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+<iframe src="{{ "/gallery/h1b-map/" | relative_url }}" frameborder="0" width="700" height="435" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 
 # STEM
 
@@ -189,7 +189,7 @@ The worksite regulations implemented in 2015 can cause problems for consulting c
 
 #### Nationwide Overview
 
-<iframe src="/gallery/h1b-map-data.html" frameborder="0" width="700" height="435" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+<iframe src="{{ "/gallery/h1b-map/data.html" | relative_url }}" frameborder="0" width="700" height="435" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 
 This is an incomplete but interesting cartographic analysis (Fig. 14). The first thing we can see, however, is that the largest number of applications in data-related roles are coming from (starting from the West Coast to the East) Washington, California, Texas, Illinois, Georgia, Florida, New York, New Jersey, and Massachusetts.
 
