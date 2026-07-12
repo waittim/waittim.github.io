@@ -6,15 +6,15 @@ date:       2026-07-12
 author:     Zekun  
 header-img: img/headers/2026-07-12-memory-custodian.png  
 catalog: true  
-tags:  
-    - Coding Agent  
-    - AI  
-    - Developer Tools  
-    - CLI  
+tags:
+    - Coding Agent
+    - AI
+    - Developer Tools
+    - CLI
     - LLM
     - Skill
-- Project
-
+    - Project
+    - Memory
 ---
 
 When working with coding agents such as Codex, Claude Code, Gemini CLI, or similar tools, one problem appears again and again:
@@ -27,7 +27,7 @@ That works for a while, but it does not scale.
 
 Over time, `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, and other instruction files become bloated. They mix durable project knowledge with temporary task guidance. They are hard to review, hard to keep current, and easy for agents to overload into context.
 
-**MemoryCustodian is designed to solve this problem by giving coding agents durable, repo-native project memory.**
+**[MemoryCustodian](https://github.com/waittim/MemoryCustodian) is designed to solve this problem by giving coding agents durable, repo-native project memory.**
 
 ---
 
