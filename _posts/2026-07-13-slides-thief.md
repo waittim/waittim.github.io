@@ -23,6 +23,8 @@ The problem comes later. Those photos are often skewed, rotated, surrounded by b
 
 [Slides Thief](https://github.com/waittim/Slides-Thief) is a browser-based tool that turns photographed presentation slides into clean, perspective-corrected PDF pages.
 
+**Live Web App:** [slidesthief.com](https://slidesthief.com/)
+
 Its goal is simple:
 
 > **Capture slides. Straighten them. Keep them readable.**
@@ -49,11 +51,7 @@ Slides Thief helps convert those messy photos into a readable, organized PDF tha
 
 ## Web App: Local Processing in Your Browser
 
-For most users, the easiest way to use Slides Thief is the web app:
-
-https://slidesthief.com/
-
-No installation is required. Open the page, import your photos, correct the slides, and export a PDF.
+For most users, the easiest way to use Slides Thief is the web app. It runs locally in your browser and requires no installation.
 
 ### Key Features
 
