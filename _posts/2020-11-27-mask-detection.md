@@ -16,6 +16,7 @@ tags:
     - C++
     - JavaScript
     - WebAssembly
+    - Web Application
 ---
 
 **[facemask-detection.com](https://facemask-detection.com/)** 👈👈

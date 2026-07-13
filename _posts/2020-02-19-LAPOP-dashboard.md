@@ -12,6 +12,7 @@ tags:
     - Project
     - R
     - Shiny
+    - Web Application
 ---
 
 This project is a data visualization dashboard designed to help non-professional users explore the Latin American Public Opinion Project (LAPOP).
