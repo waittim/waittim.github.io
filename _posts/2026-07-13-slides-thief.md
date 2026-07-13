@@ -51,7 +51,7 @@ Slides Thief helps convert those messy photos into a readable, organized PDF tha
 
 For most users, the easiest way to use Slides Thief is the web app:
 
-https://www.zekun.blog/Slides-Thief/
+https://slidesthief.com/
 
 No installation is required. Open the page, import your photos, correct the slides, and export a PDF.
 
@@ -119,7 +119,7 @@ Internal chart lines, audience members, strong reflections, or dark slide backgr
 
 You can try Slides Thief directly in your browser:
 
-[Open the Web App](https://www.zekun.blog/Slides-Thief/)
+[Open the Web App](https://slidesthief.com/)
 
 The source code is available on GitHub:
 
