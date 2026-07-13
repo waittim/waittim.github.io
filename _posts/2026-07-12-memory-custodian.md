@@ -113,7 +113,7 @@ docs/memory/
 
 Each file has a specific role.
 
-`brief.md` is the short current summary of the project. It is the default file agents read before substantial work.
+`brief.md` is the short current summary of the project. It is the default file agents read before substantial work. After initialization, `brief.md` is not immediately a trusted finished artifact — it is a scaffold that should be curated from authoritative sources such as the README, architecture notes, package metadata, and core source files before it is considered ready.
 
 `decisions.md` records confirmed project and architecture decisions.
 
@@ -138,6 +138,8 @@ For example:
 This is the core design principle behind MemoryCustodian:
 
 > Memory can grow; context must stay small.
+
+Initialization gives you a starting scaffold, not a finished memory system. Before relying on project memory, the `brief.md` should be curated from authoritative project files. MemoryCustodian's `status` and `check` commands help catch uncurated briefs, so teams do not accidentally preserve generated placeholders as durable project context.
 
 ---
 
@@ -194,10 +196,11 @@ Before substantial planning, implementation, debugging, or review, a capable age
 
 1. Read `docs/memory/manifest.md`
 2. Read `docs/memory/brief.md`
-3. Identify the current task type
-4. Load only the files allowed by the manifest and relevant to the task
-5. Respect `do-not-use.md` before proposing plans or implementations
-6. Update or propose memory changes after meaningful decisions, repeated corrections, or rejected approaches
+3. If `brief.md` is still a generated scaffold, curate it from authoritative project files before relying on it
+4. Identify the current task type
+5. Load root decisions, constraints, do-not-use, matched areas, rules, profiles, or preferences only when relevant
+6. Respect `do-not-use.md` and tombstones
+7. Write concise, scoped memory updates after meaningful decisions or repeated corrections
 
 The user should not need to manually run a memory read command before every task. The CLI exists for setup, inspection, maintenance, and deterministic operations.
 
@@ -260,6 +263,18 @@ Add a durable decision:
 memory-custodian add "We chose manifest-first loading." --type decision
 ```
 
+For subsystem-specific knowledge, write the decision into a matched area instead of the root decision log:
+
+```bash
+memory-custodian add "Persist sync retry backoff." --type decision --area sync --reason "Keep retries bounded across launches."
+```
+
+MemoryCustodian now encourages concise decision entries. A decision should usually fit within about 120 tokens, including its title, decision, and reason. Longer entries should be rewritten, split, or moved into constraints, area context, or source documentation. Use `--allow-long` only after confirming that shortening or splitting would lose essential meaning:
+
+```bash
+memory-custodian add "..." --type decision --allow-long
+```
+
 Forget an outdated or unwanted memory topic:
 
 ```bash
@@ -271,6 +286,18 @@ Compact accumulated memory candidates:
 ```bash
 memory-custodian compact
 memory-custodian compact --apply
+```
+
+Review an over-budget memory file:
+
+```bash
+memory-custodian compact --target decisions.md
+```
+
+Decision compaction is treated as semantic maintenance, not simple chronological trimming. Before archiving old decisions, shorten long entries, merge duplicates, mark superseded choices, and move subsystem-specific knowledge into matched area files. Age-based decision archival requires explicit confirmation:
+
+```bash
+memory-custodian compact --target decisions.md --apply --archive-oldest
 ```
 
 The CLI is not meant to replace the agent workflow. It exists to make memory operations explicit, inspectable, and repeatable.
@@ -309,7 +336,7 @@ Its solution is intentionally simple:
 
 - Store memory as Markdown in the repository
 - Keep platform instruction files thin
-- Use a manifest to route task-specific context
+- Use a manifest to route both task-specific and scope-specific context
 - Load only what is relevant
 - Make updates deliberate
 - Keep memory inspectable, diffable, and portable
