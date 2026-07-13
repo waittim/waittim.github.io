@@ -2,9 +2,9 @@
 layout:     post  
 title:      MemoryCustodian Skill - Project Memory for Coding Agents  
 subtitle:   Durable memory. Minimal context.  
-date:       2026-07-12  
+date:       2026-07-01  
 author:     Zekun  
-header-img: img/headers/2026-07-12-memory-custodian.png  
+header-img: img/headers/2026-07-01-memory-custodian.png  
 catalog: true  
 tags:
     - Coding Agent
