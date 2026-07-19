@@ -17,25 +17,6 @@ tags:
     - Memory
 ---
 
----
-
-layout:     post
-title:      "Give Coding Agents Durable Project Memory Without Bloated Context"
-subtitle:   "How MemoryCustodian keeps project knowledge local, reviewable, and selectively loaded across sessions and agents."
-date:       2026-07-01
-author:     Zekun
-header-img: img/headers/2026-07-01-memory-custodian.png
-catalog: true
-tags:
-- Coding Agent
-- AI
-- Developer Tools
-- CLI
-- LLM
-- Skill
-- Project
-- Memory
---------
 
 Coding agents are becoming better at writing code, tracing bugs, and navigating unfamiliar repositories.
 
