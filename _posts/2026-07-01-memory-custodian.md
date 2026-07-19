@@ -1,5 +1,4 @@
 ---
-
 layout:     post  
 title:      MemoryCustodian Skill - Project Memory for Coding Agents  
 subtitle:   Durable memory. Minimal context.  
@@ -15,8 +14,7 @@ tags:
     - LLM
     - Skill
     - Project
-- Memory
-
+    - Memory
 ---
 
 Coding agents are becoming better at writing code, tracing bugs, and navigating unfamiliar repositories.
