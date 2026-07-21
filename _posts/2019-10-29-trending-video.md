@@ -3,7 +3,7 @@ layout:     post
 title:      What makes a trending video?
 subtitle:   An analysis of trending YouTube videos
 date:       2019-10-29
-author:     Zekun, Ali, Mingli
+author:     Zekun Wang, Ali, Mingli
 header-img: img/headers/2019-10-29-trending-video.jpg
 catalog: true
 tags:

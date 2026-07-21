@@ -3,7 +3,7 @@ layout:     post
 title:      Visualization Cheat Sheet
 subtitle:   A quick reference for efficient data visualization
 date:       2019-09-13
-author:     Zekun
+author:     Zekun Wang
 header-img: img/headers/post-visualizations-cheatsheet.png
 catalog: true
 tags:

@@ -3,7 +3,7 @@ layout:     post
 title:      "Slides Thief - Turn Photographed Presentation Slides into Clean PDFs"
 subtitle:   "Just take photos of the slides, they are yours now."
 date:       2026-07-13
-author:     Zekun
+author:     Zekun Wang
 header-img: img/headers/post-bg-rwd.jpg
 catalog: true
 tags:

@@ -3,7 +3,7 @@ layout:     post
 title:      Tutorial for Compiling the NCNN Library
 subtitle:   The first step to deploying a deep learning model
 date:       2020-11-10
-author:     Zekun
+author:     Zekun Wang
 header-img: img/headers/post-deep-brain.jpg
 catalog: true
 tags:

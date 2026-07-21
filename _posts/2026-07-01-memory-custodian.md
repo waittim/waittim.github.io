@@ -3,7 +3,11 @@ layout:     post
 title:      "MemoryCustodian: Durable Project Memory for Coding Agents"
 subtitle:   "Memory can grow; context must stay small."
 date:       2026-07-01
-author:     Zekun
+updated:    2026-07-21
+author:     Zekun Wang
+description: "MemoryCustodian gives coding agents durable, reviewable project memory using repo-native Markdown, Git history, and task-specific context routing."
+image: /img/headers/2026-07-01-memory-custodian.png
+series: MemoryCustodian Design Series
 header-img: img/headers/post-bg-data-center.jpeg
 catalog: true
 tags:
@@ -19,6 +23,10 @@ tags:
 
 **MemoryCustodian Design Series · Part 1 of 3**  
 **Overview** · [Technical Design](/2026/07/20/memory-custodian-tech-design/) · [Safe Forgetting](/2026/07/21/memory-custodian-safe/)
+
+## What Is MemoryCustodian?
+
+MemoryCustodian is a repo-native memory protocol and CLI for coding agents. It stores durable project decisions and constraints in plain Markdown, keeps their history in Git, and loads only the files relevant to the current task.
 
 Coding agents are getting better at writing code, tracing bugs, and navigating unfamiliar repositories.
 
@@ -332,6 +340,27 @@ MemoryCustodian is not a smarter black box.
 It is a disciplined way to help coding agents carry a project forward instead of repeatedly relearning it.
 
 > **Record the decision once. Let every future session inherit it.**
+
+## Key Takeaways
+
+* Project memory should preserve decisions and constraints, not entire conversations.
+* Durable memory and active context are separate concerns.
+* Markdown and Git keep agent memory portable, inspectable, and reviewable.
+* Manifest-based routing keeps the context for each task intentionally small.
+
+## Frequently Asked Questions
+
+### Does MemoryCustodian work across coding agents?
+
+Yes. Its durable memory is plain Markdown stored in the repository, so the same project knowledge can be used by Codex, Claude Code, Gemini CLI, and other agents that can read repository files.
+
+### Why not put everything in one instruction file?
+
+A single growing file makes every task pay the context cost of every stored decision. MemoryCustodian keeps platform instructions thin and routes task-specific memory through a manifest.
+
+### Does MemoryCustodian require a hosted database or embeddings?
+
+No. Routine operation is local and repo-native. The design favors transparent files and deterministic structure over a proprietary storage or retrieval layer.
 
 * [Watch the demo](https://www.youtube.com/watch?v=mYKzzATlOPw)
 * [Install MemoryCustodian](https://github.com/waittim/MemoryCustodian)

@@ -3,7 +3,7 @@ layout:     post
 title:      Think Strategically and Get Jobs - H1B Visa Analysis
 subtitle:   Helping international data science students strategize their job search
 date:       2019-12-12
-author:     Zekun, Yasi, Yilin, Ali
+author:     Zekun Wang, Yasi, Yilin, Ali
 header-img: img/headers/2019-12-12-h1b-analysis.jpeg
 catalog: true
 tags:

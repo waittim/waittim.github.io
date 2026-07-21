@@ -1,0 +1,26 @@
+# Zekun Wang
+
+Zekun Wang builds AI agents, evaluation systems, browser-based AI, and local-first developer tools.
+
+## Main topics
+
+- AI agents and coding agents
+- LLM evaluation
+- Agent memory
+- Browser-based AI
+- Local-first software
+- Developer tools
+
+## Selected work
+
+- MemoryCustodian overview: https://www.zekun.blog/2026/07/01/memory-custodian/
+- Why project memory should be plain text and repo-native: https://www.zekun.blog/2026/07/20/memory-custodian-tech-design/
+- Designing memory that can safely forget: https://www.zekun.blog/2026/07/21/memory-custodian-safe/
+- Slides Thief: https://www.zekun.blog/2026/07/13/slides-thief/
+- Browser-based medical imaging AI: https://www.zekun.blog/2023/04/10/paper-browser-based-medical-imaging-ai/
+
+## About
+
+- https://www.zekun.blog/about/
+- GitHub: https://github.com/waittim
+- LinkedIn: https://www.linkedin.com/in/zekun-wang/

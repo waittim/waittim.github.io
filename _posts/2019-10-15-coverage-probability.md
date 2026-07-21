@@ -3,7 +3,7 @@ layout:     post
 title:      Coverage Probability of MLE
 subtitle:   Probability and Statistical Inference - 07
 date:       2019-10-15
-author:     Zekun
+author:     Zekun Wang
 header-img: img/headers/prob7-coverage.jpg
 catalog: true
 tags:

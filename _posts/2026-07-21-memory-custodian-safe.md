@@ -3,7 +3,11 @@ layout: post
 title: Designing Memory That Can Safely Forget
 subtitle: Persistent project memory is trustworthy only when forgetting is explicit, previewable, and bounded.
 date: 2026-07-21
-author: Zekun
+updated: 2026-07-21
+author: Zekun Wang
+description: "A design for safe agent-memory deletion using explicit forgetting modes, previews, semantic entries, and precomputed multi-file plans."
+image: /img/headers/post-bg-memory-disk.jpg
+series: MemoryCustodian Design Series
 header-img: img/headers/post-bg-memory-disk.jpg
 catalog: true
 tags:
@@ -20,9 +24,11 @@ tags:
 **MemoryCustodian Design Series · Part 3 of 3**  
 [Overview](/2026/07/01/memory-custodian/) · [Technical Design](/2026/07/20/memory-custodian-tech-design/) · **Safe Forgetting**
 
-*For developers building reviewable deletion and mutation workflows over durable agent memory.*
+## What Makes Agent Memory Safe to Forget?
 
-*Implementation details in this article reflect MemoryCustodian v0.9.x.*
+Safe forgetting makes deletion intent explicit, previews the complete semantic effect before writing, and plans every affected file as one mutation. It removes whole memory entries rather than matching text fragments and reports honestly when execution is incomplete.
+
+*For developers building reviewable deletion and mutation workflows over durable agent memory. Implementation details in this article reflect MemoryCustodian v0.9.x.*
 
 Most memory systems are judged by what they can retain.
 
@@ -484,6 +490,27 @@ Durable memory can influence engineering work long after the interaction that cr
 A trustworthy system should therefore be conservative about destroying them.
 
 > **A memory system is not mature when it can remember everything. It is mature when it can forget the right thing without damaging what should remain.**
+
+## Key Takeaways
+
+* Forgetting is a governed state transition, not a generic string deletion.
+* Soft, hard, and purge modes represent meaningfully different outcomes.
+* Users should review the semantic effect and all affected files before mutation.
+* Complete entries, recovery material, and honest partial-failure reports protect the memory that remains.
+
+## Frequently Asked Questions
+
+### What is the difference between soft, hard, and purge forgetting?
+
+Soft forgetting removes active guidance while retaining topic-bearing evidence. Hard forgetting removes the topic from active guidance and replaces it with a generic guard. Purge also searches and removes the topic from managed archives.
+
+### Does purge erase the topic everywhere?
+
+No. It removes the topic from active and archived memory managed by MemoryCustodian. It cannot erase prior Git commits, forks, clones, backups, caches, external chats, or exported copies.
+
+### Why preview a forgetting operation?
+
+A preview lets a person or agent verify the intended outcome, semantic entry boundaries, and every affected file before destructive writes begin. It also creates a clear basis for recovery if execution is interrupted.
 
 * [Start with the series overview](/2026/07/01/memory-custodian/)
 * [Read Part 2: Why Project Memory Should Be Plain Text and Repo-Native](/2026/07/20/memory-custodian-tech-design/)

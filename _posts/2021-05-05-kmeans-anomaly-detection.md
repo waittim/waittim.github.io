@@ -3,7 +3,7 @@ layout:     post
 title:      K-Means-Based Anomalous Email Detection in PySpark
 subtitle:   Anomaly detection for emails based on MinHash and K-Means, implemented with PySpark and Colab
 date:       2021-05-05
-author:     Zekun
+author:     Zekun Wang
 header-img: img/headers/2021-05-05-kmeans-anomaly-detection.png
 catalog: true
 tags:

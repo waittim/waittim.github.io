@@ -3,7 +3,7 @@ layout:     post
 title:      How to Get Information from an IP Address?
 subtitle:   Note - geoip2 module introduction
 date:       2020-07-20
-author:     Zekun
+author:     Zekun Wang
 header-img: img/headers/post-python.jpg
 catalog: true
 tags:

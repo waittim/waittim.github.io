@@ -4,7 +4,10 @@
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
     <meta name="google-site-verification" content="NSuSSEIi39jKPcsGcrgrsE3Ytz6UuDJMYbOIIOqqRLw" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="{{ site.description | escape }}">
+    {% assign page_description = page.description | default: page.subtitle | default: page.excerpt | default: site.description | strip_html | normalize_whitespace | truncate: 160 %}
+    {% assign page_title = page.title | default: site.SEOTitle %}
+    {% assign social_image = page.image | default: page.header-img | default: site.default_image %}
+    <meta name="description" content="{{ page_description | escape }}">
     <meta name="keywords"  content="{{ site.keyword | escape }}">
     <meta name="theme-color" content="{{ site.chrome-tab-theme-color }}">
     
@@ -18,6 +21,73 @@
     
     <!-- Canonical URL -->
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
+    <link rel="alternate" type="application/rss+xml" title="{{ site.title | escape }}" href="{{ '/feed.xml' | absolute_url }}">
+
+    <!-- Social and article metadata -->
+    <meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
+    <meta property="og:title" content="{{ page_title | escape }}">
+    <meta property="og:description" content="{{ page_description | escape }}">
+    <meta property="og:url" content="{{ page.url | replace:'index.html','' | absolute_url }}">
+    <meta property="og:image" content="{{ social_image | absolute_url }}">
+    <meta property="og:site_name" content="{{ site.title | escape }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ page_title | escape }}">
+    <meta name="twitter:description" content="{{ page_description | escape }}">
+    <meta name="twitter:image" content="{{ social_image | absolute_url }}">
+    {% if page.layout == 'post' %}
+    <meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}">
+    <meta property="article:modified_time" content="{{ page.updated | default: page.date | date_to_xmlschema }}">
+    <meta property="article:author" content="{{ page.author | default: 'Zekun Wang' | escape }}">
+    {% endif %}
+
+    <!-- Machine-readable site and author identity -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "{{ '/' | absolute_url }}#website",
+          "url": "{{ '/' | absolute_url }}",
+          "name": {{ site.title | jsonify }},
+          "description": {{ site.description | jsonify }},
+          "publisher": { "@id": "{{ '/' | absolute_url }}#zekun-wang" }
+        },
+        {
+          "@type": "Person",
+          "@id": "{{ '/' | absolute_url }}#zekun-wang",
+          "name": "Zekun Wang",
+          "url": "{{ '/' | absolute_url }}",
+          "image": "{{ site.sidebar-avatar | absolute_url }}",
+          "sameAs": [
+            "https://github.com/waittim",
+            "https://www.linkedin.com/in/zekun-wang/"
+          ],
+          "knowsAbout": ["AI agents", "LLM evaluation", "Agent memory", "Developer tools", "Browser-based AI", "Local-first software"]
+        }{% if page.layout == 'post' %},
+        {
+          "@type": "BlogPosting",
+          "@id": "{{ page.url | absolute_url }}#article",
+          "mainEntityOfPage": "{{ page.url | absolute_url }}",
+          "headline": {{ page.title | jsonify }},
+          "description": {{ page_description | jsonify }},
+          "image": "{{ social_image | absolute_url }}",
+          "datePublished": "{{ page.date | date_to_xmlschema }}",
+          "dateModified": "{{ page.updated | default: page.date | date_to_xmlschema }}",
+          "author": {% if page.author == 'Zekun Wang' %}{ "@id": "{{ '/' | absolute_url }}#zekun-wang" }{% else %}{ "@type": "Person", "name": {{ page.author | default: 'Zekun Wang' | jsonify }} }{% endif %},
+          "publisher": { "@id": "{{ '/' | absolute_url }}#zekun-wang" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "{{ page.url | absolute_url }}#breadcrumb",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ '/' | absolute_url }}" },
+            { "@type": "ListItem", "position": 2, "name": {{ page.title | jsonify }}, "item": "{{ page.url | absolute_url }}" }
+          ]
+        }{% endif %}
+      ]
+    }
+    </script>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="{{ "/css/bootstrap.min.css" | relative_url }}">

@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# ChatGPT Search is allowed; model-training crawl is not.
+User-agent: GPTBot
+Disallow: /
+
+Sitemap: https://www.zekun.blog/sitemap.xml

@@ -3,7 +3,7 @@ layout:     post
 title:      LAPOP Data Dashboard
 subtitle:   A dashboard prototype built with Shiny R
 date:       2020-02-19
-author:     Zekun
+author:     Zekun Wang
 header-img: img/headers/post-lapop-dashborad.jpg
 catalog: true
 tags:

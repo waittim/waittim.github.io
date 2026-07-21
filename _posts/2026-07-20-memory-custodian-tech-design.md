@@ -3,7 +3,11 @@ layout: post
 title: "Why Project Memory Should Be Plain Text and Repo-Native"
 subtitle: "Durable coding-agent memory should live with the code, survive the tool, and load only when relevant."
 date: 2026-07-20
-author: Zekun
+updated: 2026-07-21
+author: Zekun Wang
+description: "Why durable coding-agent memory should use repo-native Markdown, Git review, manifest routing, and semantic entry boundaries."
+image: /img/headers/post-bg-computer-storage.jpeg
+series: MemoryCustodian Design Series
 header-img: img/headers/post-bg-computer-storage.jpeg
 catalog: true
 tags:
@@ -21,9 +25,11 @@ tags:
 **MemoryCustodian Design Series · Part 2 of 3**  
 [Overview](/2026/07/01/memory-custodian/) · **Technical Design** · [Safe Forgetting](/2026/07/21/memory-custodian-safe/)
 
-*For developers designing durable context and memory protocols for coding agents.*
+## Why Use Plain Text for Project Memory?
 
-*Implementation details in this article reflect MemoryCustodian v0.9.x.*
+Plain-text, repo-native memory remains readable without the original tool, travels with the code, participates in ordinary review, and works across agent platforms. A manifest can then activate only the memory relevant to a task instead of loading the repository’s full history.
+
+*For developers designing durable context and memory protocols for coding agents. Implementation details in this article reflect MemoryCustodian v0.9.x.*
 
 Code tells an agent what a system does.
 
@@ -449,6 +455,27 @@ The project remembers more.
 The agent loads less.
 
 And the reasoning behind the code remains somewhere future developers and future agents can actually inspect.
+
+## Key Takeaways
+
+* Project memory should belong to the repository rather than one agent provider or conversation.
+* Markdown offers portable storage; Git adds review, attribution, and history.
+* A manifest separates everything the project remembers from what a task needs now.
+* Semantic entries should remain complete when context is selected or shortened.
+
+## Frequently Asked Questions
+
+### Why not use a vector database for coding-agent memory?
+
+Vector retrieval is useful at larger knowledge scales, but it adds infrastructure and can obscure why a particular memory was activated. For a curated set of project decisions and constraints, explicit Markdown files and manifest routing make ownership and behavior easier to inspect.
+
+### Is Markdown structured enough for reliable memory?
+
+Yes, when the system defines file roles, semantic entry boundaries, validation rules, routing, and context budgets. Plain text keeps that structure visible rather than eliminating it.
+
+### What is the difference between storage and context?
+
+Storage is the full set of durable project knowledge. Context is the smaller subset intentionally loaded for one task. Treating them separately lets memory grow without forcing every agent session to read all of it.
 
 * [Read Part 3: Designing Memory That Can Safely Forget](/2026/07/21/memory-custodian-safe/)
 * [View the implementation on GitHub](https://github.com/waittim/MemoryCustodian)

@@ -3,7 +3,7 @@ layout:     post
 title:      Darknet to Keras - Model Transformation
 subtitle:   New version based on TensorFlow 2.0
 date:       2020-10-25
-author:     Zekun
+author:     Zekun Wang
 header-img: img/headers/post-deep-brain.jpg
 catalog: true
 tags:

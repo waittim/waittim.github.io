@@ -3,7 +3,7 @@ layout:     post
 title:      Cashbox Magazine Song Chart Analysis
 subtitle:   A simple example of a data analysis pipeline
 date:       2020-02-15
-author:     Zekun
+author:     Zekun Wang
 header-img: img/headers/post-song-analysis.jpeg
 catalog: true
 tags:

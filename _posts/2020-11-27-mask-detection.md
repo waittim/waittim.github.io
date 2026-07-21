@@ -3,7 +3,7 @@ layout:     post
 title:      Super-Fast In-Browser Face Mask Detection
 subtitle:   Open the web page, and you have it!
 date:       2020-11-27
-author:     Zekun
+author:     Zekun Wang
 header-img: img/headers/2020-11-27-mask-detection.jpg
 catalog: true
 tags:

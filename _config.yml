@@ -1,26 +1,28 @@
 # Site settings
 title: Zekun Blog
-SEOTitle: Zekun Wang's Blog | Data Science
+SEOTitle: Zekun Blog — AI Agent Systems & LLM Evaluation
 header-img: img/ui/bg-ice.jpg
+default_image: /img/ui/home-bg-o.jpg
 email: zekun.wang.us@gmail.com
-description: "Across the Great Wall, we can reach every corner in the world"
-keyword: "ZW, Zekun Blog, 王泽坤的博客, zekunwang, 王泽坤, data science, DS, machine learning"
+description: "Building and evaluating AI-powered products, agent systems, and local-first developer tools."
+keyword: "Zekun Wang, 王泽坤, AI agents, LLM evaluation, coding agents, agent memory, developer tools, browser AI, local-first software"
 url: "https://www.zekun.blog"          # your host, for absolute URL
 baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
 github_repo: "https://github.com/waittim/waittim.github.io.git" # you code repository
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: "Zekun Wang"
+sidebar-about-description: "Building AI agent systems that can be evaluated, improved, and trusted."
 sidebar-avatar: /img/ui/Zekun_Wang_icon.jpeg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 
 # SNS settings
-RSS: false
+RSS: true
 # weibo_username:
 zhihu_username:
 github_username: waittim
+linkedin_username: zekun-wang
 facebook_username:
 jianshu_username:
 #twitter_username:
@@ -49,6 +51,7 @@ anchorjs: true                          # if you want to customize anchor. check
 # from PR#40, to support local preview for Jekyll 3.0
 plugins:
   - jekyll-paginate
+  - jekyll-sitemap
 
 
 

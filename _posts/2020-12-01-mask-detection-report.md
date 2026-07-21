@@ -3,7 +3,7 @@ layout:     post
 title:      WearMask - Face Mask Detection Project Details
 subtitle:   Low-cost solution for small businesses and public places
 date:       2020-12-01
-author:     Zekun
+author:     Zekun Wang
 header-img: img/headers/2020-12-01-mask-detection-report.jpg
 catalog: true
 tags:
