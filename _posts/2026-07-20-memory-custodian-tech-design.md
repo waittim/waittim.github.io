@@ -4,7 +4,7 @@ title: "Why Project Memory Should Be Plain Text and Repo-Native"
 subtitle: "Durable coding-agent memory should live with the code, survive the tool, and load only when relevant."
 date: 2026-07-20
 author: Zekun
-header-img: img/headers/2026-07-01-memory-custodian.png
+header-img: img/headers/post-bg-computer-storage.jpeg
 catalog: true
 tags:
     - Coding Agents
@@ -13,6 +13,8 @@ tags:
     - Software Architecture
     - Markdown
     - Local-First
+    - AI
+    - Agent
 ---
 
 Code tells an agent what a system does.

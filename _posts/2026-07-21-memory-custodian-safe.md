@@ -4,19 +4,20 @@ title: Designing Memory That Can Safely Forget
 subtitle: Persistent memory is only trustworthy when deletion is deliberate, bounded, and reviewable.
 date: 2026-07-21
 author: Zekun
-header-img: img/headers/2026-07-01-memory-custodian.png
+header-img: img/headers/post-bg-memory-disk.jpg
 catalog: true
 tags:
-- Coding Agent
-- Agent Memory
-- AI Safety
-- Developer Tools
-- Local First
-- Data Governance
-- Software Architecture
-- Project
+    - Coding Agent
+    - Agent Memory
+    - AI Safety
+    - Developer Tools
+    - Local First
+    - Data Governance
+    - Software Architecture
+    - Project
+    - AI
+    - Agent
 ---
-
 
 Most memory systems are judged by what they can retain.
 
@@ -26,13 +27,9 @@ Those questions matter. But a durable memory system should also be judged by wha
 
 A project decision may become obsolete. A constraint may no longer apply. A rejected approach may deserve reconsideration. An entry may have been promoted too early, written too broadly, or preserved without enough context.
 
-Once memory becomes durable, forgetting is no longer a simple text-editing operation.
+Once memory becomes durable, forgetting is no longer a simple text-editing operation. Removing the wrong line can change the meaning of the content around it. Deleting an active decision while retaining its archived copy may leave the project in an ambiguous state. Replacing a removed entry with a detailed tombstone may preserve the very topic that was supposed to disappear. Updating several files independently can produce a partially mutated repository that matches none of the user’s intended outcomes.
 
-Removing the wrong line can change the meaning of the content around it. Deleting an active decision while retaining its archived copy may leave the project in an ambiguous state. Replacing a removed entry with a detailed tombstone may preserve the very topic that was supposed to disappear. Updating several files independently can produce a partially mutated repository that matches none of the user’s intended outcomes.
-
-A trustworthy project-memory system must therefore do more than store and retrieve information.
-
-It must govern how memory changes.
+A trustworthy project-memory system must therefore do more than store and retrieve information. It must govern how memory changes.
 
 [MemoryCustodian](https://github.com/waittim/MemoryCustodian) approaches this problem through four related design choices:
 
@@ -61,17 +58,11 @@ This creates a fundamental asymmetry:
 
 A generic delete command cannot express every forgetting intention safely.
 
-When a user says “forget this,” they may mean:
-
-* Stop applying this guidance, but retain evidence that it was deliberately removed
-* Remove the guidance and stop preserving its subject in active tombstones
-* Remove the topic from all active and archived memory managed by the system
+When a user says “forget this,” they may mean that the active guidance should stop while evidence of its deliberate removal remains. They may instead want both the guidance and its subject removed from active managed memory. In the strongest case, they may want the topic removed from all active and archived memory managed by the system.
 
 These requests have different semantic outcomes.
 
-Treating them as equivalent forces the system into one of two bad defaults.
-
-It may delete too little: the active entry disappears, but archived copies, topic-bearing tombstones, or generated metadata remain. The system claims to have forgotten something while continuing to preserve it elsewhere.
+Treating them as equivalent forces the system into one of two bad defaults. It may delete too little: the active entry disappears, but archived copies, topic-bearing tombstones, or generated metadata remain. The system claims to have forgotten something while continuing to preserve it elsewhere.
 
 Or it may delete too much: every trace disappears immediately, including useful governance context that would have prevented the same obsolete or rejected idea from quietly returning.
 
@@ -121,18 +112,11 @@ A soft forget can remove the active decision while leaving a tombstone such as:
   Do not restore it without explicit review.
 ```
 
-The tombstone still contains the topic.
-
-That is intentional.
+The tombstone still contains the topic. That is intentional.
 
 Soft forgetting prioritizes continuity. It records that the project stopped applying a particular memory and that restoring it should require an explicit decision.
 
-This mode is appropriate when:
-
-* The active guidance should stop
-* The removal itself should remain visible
-* The project wants protection against accidental reintroduction
-* Retaining the subject of the removed memory is acceptable
+This mode is appropriate when the active guidance should stop, the removal itself should remain visible, and retaining the subject of the removed memory is acceptable.
 
 ### Hard forgetting
 
@@ -161,14 +145,7 @@ Do not reconstruct or restore it without explicit user direction.
 
 The guard preserves the governance boundary without preserving the forgotten subject.
 
-This mode is appropriate when:
-
-* The active guidance should stop
-* Topic-bearing tombstones should not remain
-* A generic warning against reconstruction is still useful
-* Managed archives do not need to be rewritten
-
-Hard forgetting is stronger than soft forgetting, but it is still not a complete managed-memory purge. Archived copies remain outside the scope of the operation.
+This mode is appropriate when the active guidance should stop, topic-bearing tombstones should not remain, and a generic warning against reconstruction is still useful. Managed archives remain outside the scope of the operation.
 
 ### Purge
 
@@ -180,28 +157,11 @@ Conceptually, it means:
 
 > Remove this topic from the active and archived memory managed by MemoryCustodian.
 
-A purge may examine:
+A purge may examine confirmed decisions, active constraints, rejected approaches, inbox candidates, managed archives, earlier soft-forget tombstones, and related generated records. It is therefore not a single-file edit but a repository-level mutation.
 
-* Confirmed decisions
-* Active constraints
-* Rejected approaches
-* Inbox candidates
-* Managed archives
-* Earlier soft-forget tombstones
-* Related generated records
+Purge is appropriate when the topic should disappear from active managed memory, earlier topic-bearing tombstones should disappear, and archived managed copies should also be searched and removed.
 
-This is no longer a single-file edit. It is a repository-level mutation.
-
-Purge is appropriate when:
-
-* The topic should disappear from active managed memory
-* Earlier topic-bearing tombstones should disappear
-* Archived managed copies should also be searched and removed
-* The caller understands the limits of repository-scoped deletion
-
-Those limits matter.
-
-A purge can govern MemoryCustodian-managed files. It cannot claim to erase prior Git commits, remote forks, backups, existing clones, editor caches, provider-side records, or conversation histories outside the repository.
+Those limits matter. A purge can govern MemoryCustodian-managed files. It cannot claim to erase prior Git commits, remote forks, backups, existing clones, editor caches, provider-side records, or conversation histories outside the repository.
 
 A trustworthy deletion model must state both what it can remove and what remains outside its control.
 
@@ -213,9 +173,7 @@ Deletion is one of the easiest operations to describe and one of the hardest to 
 
 That makes immediate mutation a poor default.
 
-MemoryCustodian therefore separates planning from application.
-
-A command such as:
+MemoryCustodian therefore separates planning from application. A command such as:
 
 ```bash
 memory-custodian forget "legacy deployment note" --mode soft
@@ -223,14 +181,7 @@ memory-custodian forget "legacy deployment note" --mode soft
 
 first produces a plan. It does not immediately change the repository.
 
-The caller can inspect:
-
-* Which files contain candidate matches
-* Which complete entries would be removed
-* Which tombstones would be created, preserved, replaced, or deleted
-* Which archives would be affected
-* Whether any match is ambiguous
-* Whether the selected mode produces the intended outcome
+The caller can inspect which files contain candidate matches, which complete entries would be removed, which tombstones would be created or changed, which archives would be affected, and whether any match is ambiguous.
 
 Only an explicit apply operation performs the mutation:
 
@@ -240,7 +191,7 @@ memory-custodian forget "legacy deployment note" \
   --apply
 ```
 
-This separation distinguishes two different decisions:
+This separates two different decisions:
 
 1. What should happen?
 2. Should the prepared plan now be executed?
@@ -280,9 +231,7 @@ docs/memory/archive/2026-06.md
 No files have been modified.
 ```
 
-The purpose of preview is not merely to ask for confirmation.
-
-It is to make the proposed state transition inspectable.
+The purpose of preview is not merely to ask for confirmation. It is to make the proposed state transition inspectable.
 
 > **The caller should be able to disagree with the plan before the first write occurs.**
 
@@ -294,15 +243,11 @@ Consider:
 memory-custodian forget "Go" --mode soft
 ```
 
-`Go` might refer to the programming language, a product name, a heading, a package, or a common verb appearing throughout unrelated prose.
-
-Automatically applying such a match would create unacceptable deletion risk.
+`Go` might refer to the programming language, a product name, a heading, a package, or a common verb appearing throughout unrelated prose. Automatically applying such a match would create unacceptable deletion risk.
 
 A safe system should recognize short or broad topics, surface the risk, and require an additional acknowledgment before applying the plan. The extra step is not a complete semantic safety mechanism. It is an explicit signal that the caller accepts a wider matching surface.
 
-This kind of friction is not accidental inconvenience.
-
-It is part of making destructive behavior visible.
+This kind of friction is not accidental inconvenience. It is part of making destructive behavior visible.
 
 The same preview-first principle can extend beyond forgetting to other high-impact memory operations, including compaction, protocol migration, archive movement, route restructuring, bulk renaming, and scaffold replacement.
 
@@ -316,9 +261,7 @@ The broader rule is simple:
 
 Memory stored in Markdown is not a collection of independent lines.
 
-A decision may include a heading, a selected direction, supporting reasoning, nested bullets, scope limitations, examples, and references to related constraints.
-
-Together, those elements form one semantic entry.
+A decision may include a heading, a selected direction, supporting reasoning, nested bullets, scope limitations, examples, and references to related constraints. Together, those elements form one semantic entry.
 
 Consider:
 
@@ -353,9 +296,7 @@ The command may have succeeded syntactically while failing semantically.
 
 > **Safety requires preserving the boundaries that carry meaning.**
 
-MemoryCustodian therefore treats complete semantic entries as the minimum unit for mechanical mutation.
-
-If a match belongs to a structured entry, the preview should identify the entire affected unit. The heading, reasoning, nested content, and scope should remain attached to one another.
+MemoryCustodian therefore treats complete semantic entries as the minimum unit for mechanical mutation. If a match belongs to a structured entry, the preview should identify the entire affected unit. The heading, reasoning, nested content, and scope should remain attached to one another.
 
 This follows the same design principle used when loading memory into context: a scoped decision should not be truncated into a broader, misleading fragment. Forgetting applies that rule to mutation. The system should remove complete meaning, not matching tokens.
 
@@ -371,9 +312,7 @@ migration utilities for compatibility.
 
 Suppose the user asks to forget `SQLite`.
 
-Removing only the matching word would produce damaged prose. Removing the entire paragraph would discard unrelated information about migration utilities and compatibility.
-
-The correct result requires understanding and rewriting the paragraph.
+Removing only the matching word would produce damaged prose. Removing the entire paragraph would discard unrelated information about migration utilities and compatibility. The correct result requires understanding and rewriting the paragraph.
 
 That is a semantic task, not a deterministic deletion.
 
@@ -390,15 +329,9 @@ The operation should stop before the first write.
 
 Refusing an ambiguous mutation is not a failure of automation. It is evidence that the system recognizes the limits of mechanical editing.
 
-A trustworthy tool should distinguish between:
+A trustworthy tool should distinguish between complete entries it can remove safely, structured regions it can transform predictably, and ambiguous prose that requires semantic review.
 
-* Complete entries it can remove safely
-* Structured regions it can transform predictably
-* Ambiguous prose that requires semantic review
-
-String matching can locate candidates.
-
-It cannot, by itself, decide which surrounding meaning should survive.
+String matching can locate candidates. It cannot, by itself, decide which surrounding meaning should survive.
 
 ---
 
@@ -406,37 +339,11 @@ It cannot, by itself, decide which surrounding meaning should survive.
 
 Many forgetting operations affect more than one file.
 
-A soft forget might:
-
-1. Remove an entry from `decisions.md`
-2. Add a tombstone to `do-not-use.md`
-3. Preserve an archived copy
-4. Record operation metadata
-
-A hard forget might also:
-
-5. Locate an earlier topic-bearing soft tombstone
-6. Replace it with a generic guard
-
-A purge might additionally:
-
-7. Search managed archives
-8. Remove archived entries
-9. Remove prior tombstones
-10. Update archive references or generated indexes
+A soft forget might remove an entry from `decisions.md`, add a tombstone to `do-not-use.md`, preserve an archived copy, and record operation metadata. A hard forget may also need to find an earlier topic-bearing tombstone and replace it with a generic guard. A purge may additionally search managed archives, remove archived entries, delete earlier tombstones, and update archive references or generated indexes.
 
 These steps form one logical state transition.
 
-If the system edits each file independently, an error can leave the repository in a state that matches none of the intended modes.
-
-For example:
-
-* The active decision is removed
-* The tombstone is not created
-* The archived copy remains
-* The command exits with an error
-
-The project has neither completed a soft forget nor preserved its original state.
+If the system edits each file independently, an error can leave the repository in a state that matches none of the intended modes. The active decision might be removed while the tombstone is never created, or the archived copy might remain after the command claims to have completed a purge.
 
 Multi-file memory operations are transactions in disguise.
 
@@ -462,15 +369,7 @@ Apply bounded mutations
 Revalidate and report
 ```
 
-Before writing, the system should determine:
-
-* Every file that may change
-* Every complete entry that will be removed
-* Every tombstone that will be created, replaced, or deleted
-* Every archive that will be searched or modified
-* Every validation that must pass
-* Whether any target requires a manual rewrite
-* Whether the current protocol and file structure are supported
+Before writing, the system should determine every file that may change, every complete entry that will be removed, every tombstone that will be created or replaced, every archive that will be searched, and every validation that must pass. It should also identify whether any target requires a manual rewrite or uses an unsupported file structure.
 
 A hard-forget plan might look like:
 
@@ -503,49 +402,11 @@ No writes have occurred.
 
 Only after the plan is complete and valid should the mutation begin.
 
-Preflight validation removes an important class of partial failures.
+Preflight validation removes an important class of partial failures. If a four-file operation encounters a malformed fourth file, validating during execution would allow the first three files to change before the problem is discovered. Validating the complete plan first allows the system to stop without modifying anything.
 
-Consider a four-file operation where the fourth file is malformed.
+This does not eliminate every possible runtime failure. A disk can become unavailable, permissions can change, or a process can be interrupted after writing begins. But it converts the most preventable failures from problems discovered after mutation into problems discovered before execution.
 
-Without complete-plan validation:
-
-1. File one is changed
-2. File two is changed
-3. File three is changed
-4. File four fails validation
-5. The operation stops
-
-The repository is now partially updated.
-
-With preflight validation:
-
-1. All four targets are inspected
-2. The malformed file is detected
-3. The operation stops
-4. No files have changed
-
-This does not eliminate every possible runtime failure. A disk can become unavailable, permissions can change, or a process can be interrupted after writing begins.
-
-But it changes the most preventable failures from:
-
-> We discovered the problem after modifying the repository.
-
-to:
-
-> We discovered the problem before the operation began.
-
-When recovery material is appropriate, it should be created before destructive mutation.
-
-A safe sequence is:
-
-1. Build the complete plan
-2. Validate every target
-3. Create required recovery material
-4. Apply bounded file changes
-5. Revalidate the resulting structure
-6. Report the exact outcome
-
-An archive created after deletion is not a reliable recovery mechanism if the operation fails between the delete and archive steps.
+When recovery material is appropriate, it should be created before destructive mutation. An archive created after deletion is not a reliable recovery mechanism if the operation fails between the delete and archive steps.
 
 The recovery path must exist before the action that may require recovery.
 
@@ -553,20 +414,11 @@ The recovery path must exist before the action that may require recovery.
 
 ## Be Honest About Failure and Erasure Boundaries
 
-Even a carefully planned filesystem operation cannot promise perfect atomicity in every environment.
+Even a carefully planned filesystem operation cannot guarantee perfect atomicity in every environment. Storage may become unavailable, permissions may change, a file may be modified externally, or the process may be interrupted after one write succeeds and before the next begins.
 
-Unexpected failures may still occur:
+A trustworthy tool should report the repository’s actual state rather than hide partial completion behind a generic error. If only part of a mutation succeeds, the result should identify which files changed, which planned steps remain incomplete, where recovery material was written, and whether the resulting memory structure still passes validation.
 
-* Storage becomes unavailable
-* Permissions change
-* A file is externally modified
-* A process is interrupted
-* A rename fails
-* Disk capacity is exhausted
-
-A trustworthy tool should not hide that possibility behind a generic error.
-
-If only part of a mutation completes, the report should explain the actual repository state:
+For example:
 
 ```text
 The mutation completed partially.
@@ -583,64 +435,25 @@ The repository does not fully reflect the requested hard-forget state.
 Review the saved plan and recovery archive before continuing.
 ```
 
-The caller needs to know:
-
-* Which files changed
-* Which files did not change
-* Which planned replacements were applied
-* Which steps remain incomplete
-* Where recovery material was written
-* Whether the final memory structure passes validation
-
-“Operation failed” is not enough when some writes may already have occurred.
+The important information is not merely that the command failed. The user needs to know whether the active decision is already gone, whether the intended tombstone exists, and whether the repository currently represents any valid forgetting mode.
 
 The same honesty is required when describing deletion scope.
 
-The word “purge” can imply stronger guarantees than a repository-local tool can provide.
+The word `purge` can imply universal erasure, but MemoryCustodian operates within a defined project boundary. It can remove active managed entries, managed archives, managed tombstones, and generated memory metadata stored within the configured repository structure.
 
-MemoryCustodian can govern:
+It cannot erase information from prior Git commits, remote forks, existing clones, backups, caches, CI artifacts, model-provider systems, external conversation histories, screenshots, or exported copies.
 
-* Active managed memory
-* Managed archives
-* Managed tombstones
-* Generated memory metadata
-* Repository files inside its configured scope
+A purge therefore means:
 
-It cannot guarantee removal from:
+> Remove the topic from the active and archived memory managed by MemoryCustodian.
 
-* Prior Git commits
-* Remote repositories and forks
-* Existing clones
-* Filesystem backups
-* Editor or operating-system caches
-* CI artifacts
-* Terminal history
-* Model-provider records
-* Conversation histories outside the repository
-* Screenshots and exported copies
+It does not mean that the topic has ceased to exist everywhere.
 
-A purge removes the topic from MemoryCustodian’s managed-memory boundary.
+This limitation should be part of the product model rather than buried in a disclaimer. Trust depends on describing deletion power accurately.
 
-It is not a claim of universal erasure.
+The boundary between semantic and deterministic work must also remain explicit. A human or agent decides which topic should be removed, which scope applies, and whether soft, hard, or purge matches the desired outcome. It must also determine whether similarly worded entries refer to the same concept and whether an ambiguous paragraph should be rewritten rather than deleted.
 
-This distinction should be part of the product model rather than hidden in a disclaimer.
-
-Trust grows when a system describes its power accurately.
-
-It also grows when the system refuses to invent the user’s intent.
-
-The user or agent must decide:
-
-* Which topic should be removed
-* Which scope applies
-* Whether soft, hard, or purge matches the desired outcome
-* Whether similarly worded entries refer to the same concept
-* Whether an ambiguous paragraph should be rewritten
-* Whether the removal conflicts with current project policy
-
-The CLI can then locate candidates, group complete entries, build the multi-file plan, validate the structure, create recovery material, apply approved changes, and report the result.
-
-The semantic and deterministic responsibilities remain separate:
+The CLI then performs the work that can be enforced mechanically: locating candidates, grouping complete entries, building the multi-file plan, validating structure, creating recovery material, applying approved changes, and reporting the final state.
 
 > **Humans and agents govern meaning. Deterministic tooling governs execution.**
 
@@ -650,51 +463,23 @@ The semantic and deterministic responsibilities remain separate:
 
 A memory system that can only accumulate information will eventually become less reliable.
 
-Old decisions remain active after their assumptions change. Temporary workarounds become permanent rules. Contradictions multiply. Rejected approaches remain blocked after the reasons for rejecting them disappear. Unwanted information continues influencing future work because there is no safe mechanism for retiring it.
+Old decisions remain active after their assumptions change. Temporary workarounds become permanent rules. Contradictions multiply. Rejected approaches remain blocked even after the reasons for rejecting them disappear. Unwanted information continues influencing future work because there is no safe mechanism for retiring it.
 
 At that point, more memory produces less trust.
 
-Safe forgetting is part of maintaining durable memory.
+Safe forgetting is part of maintaining durable memory. It allows a project to retire obsolete guidance, remove incorrect entries, narrow overbroad decisions, reconsider rejected approaches deliberately, and keep future agent context aligned with the project as it exists now.
 
-It allows a project to:
+Forgetting is not the opposite of persistence. It is the process that prevents persistence from becoming accidental permanence.
 
-* Retire obsolete guidance
-* Remove incorrect entries
-* Narrow overbroad decisions
-* Reconsider rejected approaches deliberately
-* Separate active policy from historical records
-* Remove topics from managed archives when necessary
-* Keep future agent context aligned with the current project
+That process should be explicit about intent, previewable before execution, bounded by semantic structure, and planned across every affected file. When a change cannot be performed mechanically without damaging meaning, the system should stop and require review. When execution fails partially, it should report the actual state. When deletion reaches the edge of the managed repository, it should state that boundary honestly.
 
-Forgetting is not the opposite of persistence.
-
-It is the process that prevents persistence from becoming accidental permanence.
-
-A mature project-memory system should therefore make several guarantees.
-
-Forgetting intentions should be explicit. Soft, hard, and purge should produce predictable and visibly different outcomes.
-
-Destructive changes should be preview-first. The caller should understand the complete semantic effect before any file is modified.
-
-Memory should be changed at semantic boundaries. Headings, reasoning, nested content, and scope limitations should remain attached to the entries they explain.
-
-Ambiguous prose should require semantic review. A tool should stop rather than performing a confident-looking edit that damages unrelated meaning.
-
-Multi-file changes should be planned as one operation. Every affected target should be known and validated before the first write.
-
-Recovery should be prepared before destructive execution, and partial failures should be reported precisely.
-
-Finally, deletion boundaries should be honest. Managed-memory purge is a bounded repository operation, not universal erasure.
-
-These constraints make forgetting more deliberate and less automatic.
+These constraints make forgetting slower than a generic string deletion.
 
 That is intentional.
 
-Durable memory can influence future engineering work long after the interaction that created it. A system should not destroy that memory casually merely because it happens to be stored in Markdown.
+Durable memory can influence engineering work long after the interaction that created it. The fact that the memory is stored in Markdown does not make it disposable. Plain-text entries can still carry high-impact project policy, product constraints, and architectural reasoning.
 
-The safer default is not to treat plain text as disposable.
-
-It is to recognize that plain-text memory can carry high-impact project policy.
+A trustworthy system should therefore be conservative about destroying them.
 
 > **A memory system is not mature when it can remember everything. It is mature when it can forget the right thing without damaging what should remain.**
 
