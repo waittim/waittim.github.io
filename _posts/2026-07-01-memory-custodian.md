@@ -17,11 +17,8 @@ tags:
     - Agent
 ---
 
-> **MemoryCustodian Design Series · Part 1 of 3**
->
-> 1. **MemoryCustodian: Durable Project Memory for Coding Agents**
-> 2. [Why Project Memory Should Be Plain Text and Repo-Native](/2026/07/20/memory-custodian-tech-design/)
-> 3. [Designing Memory That Can Safely Forget](/2026/07/21/memory-custodian-safe/)
+**MemoryCustodian Design Series · Part 1 of 3**  
+**Overview** · [Technical Design](/2026/07/20/memory-custodian-tech-design/) · [Safe Forgetting](/2026/07/21/memory-custodian-safe/)
 
 Coding agents are getting better at writing code, tracing bugs, and navigating unfamiliar repositories.
 
@@ -164,64 +161,15 @@ The repository may accumulate more knowledge over time, while the active context
 
 ---
 
-## Go Deeper
+## Before and After MemoryCustodian
 
-MemoryCustodian’s design is explored in two companion articles:
-
-- **[Why Project Memory Should Be Plain Text and Repo-Native](/2026/07/20/memory-custodian-tech-design/)**  
-  Markdown, Git review, manifest routing, and semantic boundaries.
-
-- **[Designing Memory That Can Safely Forget](/2026/07/21/memory-custodian-safe/)**  
-  Soft, hard, and purge semantics; preview-first mutation; and multi-file safety.
-
----
-
-## Before MemoryCustodian
-
-A typical long-running coding-agent workflow looks like this:
-
-```text
-A new session starts.
-
-The agent reads the repository.
-
-It proposes a previously rejected architecture.
-
-You explain the old decision again.
-
-You restate the project constraints.
-
-You add another paragraph to an instruction file.
-
-The same discussion returns in a later session.
-```
-
-Different tools may also receive different versions of the project context.
-
-Codex knows one set of rules. Claude Code knows another. A teammate’s environment contains neither. Important decisions remain tied to a particular conversation or local setup.
-
----
-
-## After MemoryCustodian
-
-The project records durable knowledge once.
-
-Before beginning substantial work, the agent:
-
-1. Reads the project manifest
-2. Identifies the current task category
-3. Loads the relevant memory files
-4. Respects active decisions, constraints, and rejected paths
-5. Proposes memory updates only when new knowledge deserves to persist
-
-The result is a shared project memory that can survive across:
-
-* Separate agent sessions
-* Different coding-agent platforms
-* Different developer machines
-* Individual and team workflows
-* Pull-request review
-* Version-control history
+| Without project memory | With MemoryCustodian |
+|---|---|
+| Each session reconstructs old decisions | Decisions are recovered from the repository |
+| Rejected approaches return | Tombstones preserve rejected paths |
+| Instruction files keep growing | Bootstrap files stay thin |
+| Every task receives the same context | The manifest loads task-relevant memory |
+| Context differs across agents | Agents share one repo-native authority |
 
 The memory belongs to the repository—not to a single chat window or proprietary memory store.
 

@@ -18,11 +18,12 @@ tags:
     - Agent
 ---
 
-> **MemoryCustodian Design Series · Part 2 of 3**
->
-> 1. [MemoryCustodian: Durable Project Memory for Coding Agents](/2026/07/01/memory-custodian/)
-> 2. **Why Project Memory Should Be Plain Text and Repo-Native**
-> 3. [Designing Memory That Can Safely Forget](/2026/07/21/memory-custodian-safe/)
+**MemoryCustodian Design Series · Part 2 of 3**  
+[Overview](/2026/07/01/memory-custodian/) · **Technical Design** · [Safe Forgetting](/2026/07/21/memory-custodian-safe/)
+
+*For developers designing durable context and memory protocols for coding agents.*
+
+*Implementation details in this article reflect MemoryCustodian v0.9.x.*
 
 Code tells an agent what a system does.
 
@@ -437,15 +438,7 @@ It may be the one developers can still understand after the original demo is ove
 
 A durable system should make it easy to answer where the memory is stored, which entries affected a task, why a decision was recorded, who changed it, whether it can be reviewed or reverted, and what happens when the original tooling is no longer available.
 
-Plain Markdown provides visible storage.
-
-Git provides review, attribution, and history.
-
-The manifest provides explicit context routing.
-
-Semantic boundaries prevent deterministic tools from pretending to understand meaning.
-
-The CLI provides validation and predictable execution.
+Plain Markdown provides visible storage; Git provides review, attribution, and history; the manifest provides explicit context routing; and semantic boundaries separate language-model judgment from deterministic CLI execution.
 
 Together, these choices create a system that is intentionally ordinary at the storage layer and disciplined at the workflow layer.
 

@@ -17,11 +17,12 @@ tags:
     - Agent
 ---
 
-> **MemoryCustodian Design Series · Part 3 of 3**
->
-> 1. [MemoryCustodian: Durable Project Memory for Coding Agents](/2026/07/01/memory-custodian/)
-> 2. [Why Project Memory Should Be Plain Text and Repo-Native](/2026/07/20/memory-custodian-tech-design/)
-> 3. **Designing Memory That Can Safely Forget**
+**MemoryCustodian Design Series · Part 3 of 3**  
+[Overview](/2026/07/01/memory-custodian/) · [Technical Design](/2026/07/20/memory-custodian-tech-design/) · **Safe Forgetting**
+
+*For developers building reviewable deletion and mutation workflows over durable agent memory.*
+
+*Implementation details in this article reflect MemoryCustodian v0.9.x.*
 
 Most memory systems are judged by what they can retain.
 
@@ -270,18 +271,16 @@ A decision may include a heading, a selected direction, supporting reasoning, ne
 Consider:
 
 ```markdown
-- Do not use SQLite for the current session store.
-  - Existing files must remain human-readable.
-  - The current data model does not require relational queries.
-  - This restriction does not apply to future analytics storage.
+- Do not use the legacy deployment token in new environments.
+  - Existing installations still require a migration path.
+  - This restriction does not apply to local development.
 ```
 
 A naïve line-based deletion might remove only the first line:
 
 ```markdown
-  - Existing files must remain human-readable.
-  - The current data model does not require relational queries.
-  - This restriction does not apply to future analytics storage.
+  - Existing installations still require a migration path.
+  - This restriction does not apply to local development.
 ```
 
 The remaining content is structurally broken. The reasoning has lost the statement it was intended to explain.
@@ -289,9 +288,8 @@ The remaining content is structurally broken. The reasoning has lost the stateme
 A different deletion might remove only the final scope limitation:
 
 ```markdown
-- Do not use SQLite for the current session store.
-  - Existing files must remain human-readable.
-  - The current data model does not require relational queries.
+- Do not use the legacy deployment token in new environments.
+  - Existing installations still require a migration path.
 ```
 
 This version still looks valid, but its meaning has changed. Future agents may interpret the restriction as more permanent or more general than the project intended.
@@ -309,14 +307,14 @@ Not every match can be handled mechanically.
 A topic may appear inside an ordinary paragraph:
 
 ```markdown
-The first prototype used SQLite, but after testing several storage approaches,
-the project moved toward human-readable files while retaining some of the old
-migration utilities for compatibility.
+The first prototype reused the legacy deployment token, but after testing several
+auth approaches, the project moved toward short-lived credentials while retaining
+some of the old migration utilities for compatibility.
 ```
 
-Suppose the user asks to forget `SQLite`.
+Suppose the user asks to forget `legacy deployment token`.
 
-Removing only the matching word would produce damaged prose. Removing the entire paragraph would discard unrelated information about migration utilities and compatibility. The correct result requires understanding and rewriting the paragraph.
+Removing only the matching phrase would produce damaged prose. Removing the entire paragraph would discard unrelated information about migration utilities and compatibility. The correct result requires understanding and rewriting the paragraph.
 
 That is a semantic task, not a deterministic deletion.
 
