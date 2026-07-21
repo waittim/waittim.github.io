@@ -3,7 +3,10 @@ layout:     post
 title:      "Slides Thief - Turn Photographed Presentation Slides into Clean PDFs"
 subtitle:   "Just take photos of the slides, they are yours now."
 date:       2026-07-13
+updated:    2026-07-21
 author:     Zekun Wang
+description: "Slides Thief is a browser-based tool that turns photographed presentation slides into perspective-corrected images and clean PDFs, with all processing performed locally."
+image: /img/posts/2026-07-13-slides-thief/ui.png
 header-img: img/headers/post-bg-rwd.jpg
 catalog: true
 tags:
@@ -15,6 +18,7 @@ tags:
     - Client-Side App
     - Productivity Tool
     - Project
+    - Local-First
 ---
 
 We have all done it: sitting at an angle in a classroom, academic talk, tech sharing session, or trade show, quickly taking photos of presentation slides before they disappear.

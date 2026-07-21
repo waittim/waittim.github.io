@@ -1,0 +1,7 @@
+{% if site.elsewhere %}
+<hr>
+<h5>ELSEWHERE</h5>
+<ul class="list-inline elsewhere-list">
+    {% for item in site.elsewhere %}<li><a href="{{ item.href }}">{{ item.title }}</a></li>{% endfor %}
+</ul>
+{% endif %}

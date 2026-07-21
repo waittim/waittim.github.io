@@ -4,6 +4,15 @@
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
     <meta name="google-site-verification" content="NSuSSEIi39jKPcsGcrgrsE3Ytz6UuDJMYbOIIOqqRLw" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% if site.ga4_measurement_id %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.ga4_measurement_id }}"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', '{{ site.ga4_measurement_id }}');
+    </script>
+    {% endif %}
     {% assign page_description = page.description | default: page.subtitle | default: page.excerpt | default: site.description | strip_html | normalize_whitespace | truncate: 160 %}
     {% assign page_title = page.title | default: site.SEOTitle %}
     {% assign social_image = page.image | default: page.header-img | default: site.default_image %}
@@ -57,14 +66,20 @@
           "@type": "Person",
           "@id": "{{ '/' | absolute_url }}#zekun-wang",
           "name": "Zekun Wang",
-          "url": "{{ '/' | absolute_url }}",
+          "url": "{{ '/about/' | absolute_url }}",
           "image": "{{ site.sidebar-avatar | absolute_url }}",
           "sameAs": [
             "https://github.com/waittim",
             "https://www.linkedin.com/in/zekun-wang/"
           ],
           "knowsAbout": ["AI agents", "LLM evaluation", "Agent memory", "Developer tools", "Browser-based AI", "Local-first software"]
-        }{% if page.layout == 'post' %},
+        }{% if page.url == '/about/' %},
+        {
+          "@type": "ProfilePage",
+          "@id": "{{ '/about/' | absolute_url }}#profile",
+          "url": "{{ '/about/' | absolute_url }}",
+          "mainEntity": { "@id": "{{ '/' | absolute_url }}#zekun-wang" }
+        }{% endif %}{% if page.layout == 'post' %},
         {
           "@type": "BlogPosting",
           "@id": "{{ page.url | absolute_url }}#article",
@@ -74,8 +89,11 @@
           "image": "{{ social_image | absolute_url }}",
           "datePublished": "{{ page.date | date_to_xmlschema }}",
           "dateModified": "{{ page.updated | default: page.date | date_to_xmlschema }}",
-          "author": {% if page.author == 'Zekun Wang' %}{ "@id": "{{ '/' | absolute_url }}#zekun-wang" }{% else %}{ "@type": "Person", "name": {{ page.author | default: 'Zekun Wang' | jsonify }} }{% endif %},
-          "publisher": { "@id": "{{ '/' | absolute_url }}#zekun-wang" }
+          "author": {% if page.authors %}[
+            {% for author in page.authors %}{% if author.name == 'Zekun Wang' %}{ "@id": "{{ '/' | absolute_url }}#zekun-wang" }{% else %}{ "@type": "Person", "name": {{ author.name | jsonify }}{% if author.url %}, "url": {{ author.url | absolute_url | jsonify }}{% endif %} }{% endif %}{% unless forloop.last %},{% endunless %}{% endfor %}
+          ]{% elsif page.author == 'Zekun Wang' %}{ "@id": "{{ '/' | absolute_url }}#zekun-wang" }{% else %}{ "@type": "Person", "name": {{ page.author | default: 'Zekun Wang' | jsonify }} }{% endif %},
+          "publisher": { "@id": "{{ '/' | absolute_url }}#zekun-wang" },
+          "isPartOf": { "@id": "{{ '/' | absolute_url }}#website" }
         },
         {
           "@type": "BreadcrumbList",

@@ -4,6 +4,13 @@ title:      Social inequality and cultural factors impact the awareness and reac
 subtitle:   PNAS Nexus
 date:       2025-02-01
 author:     Zhuoren Jiang, Xiaozhong Liu, Yangyang Kang, Changlong Sun, Yong-Yeol Ahn, Johan Bollen
+authors:
+    - name: Zhuoren Jiang
+    - name: Xiaozhong Liu
+    - name: Yangyang Kang
+    - name: Changlong Sun
+    - name: Yong-Yeol Ahn
+    - name: Johan Bollen
 header-img: img/headers/post-bg-unix-linux.jpg
 catalog: true
 tags:

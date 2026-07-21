@@ -83,17 +83,22 @@ comments:
 # Baidu Analytics
 # ba_track_id: b50bf2b12b5338a1845e33832976fd68
 
-# Google Analytics
-ga_track_id: 'UA-154878163-1'            # Format: UA-xxxxxx-xx
-ga_domain: auto               # 默认的是 auto, 这里我是自定义了的域名，你如果没有自己的域名，需要改成auto
+# Google Analytics 4
+ga4_measurement_id: 'G-Z19ZNE4PP1'
 
 
 
 
 
-# Featured Tags
-featured-tags: true                     # 是否使用首页标签
-featured-condition-size: 2              # 相同标签数量大于这个数，才会出现在首页
+# Current topics are curated independently from historical post counts.
+featured-tags: false
+current_topics:
+  - Coding Agents
+  - Agent Memory
+  - Developer Tools
+  - Local-First
+  - Computer Vision
+  - Web Application
 
 
 
@@ -103,13 +108,13 @@ service-worker: true
 
 
 
-# Friends
-friends: [
-    {
-        title: "Data Science | Vanderbilt",
-        href: "https://www.vanderbilt.edu/datascience/"
-    },{
-        title: "LinkedIn | Zekun Wang",
-        href: "https://www.linkedin.com/in/zekun-wang/"
-    }
-]
+# Elsewhere
+elsewhere:
+  - title: GitHub
+    href: https://github.com/waittim
+  - title: LinkedIn
+    href: https://www.linkedin.com/in/zekun-wang/
+  - title: MemoryCustodian
+    href: https://github.com/waittim/MemoryCustodian
+  - title: Slides Thief
+    href: https://slidesthief.com/

@@ -18,6 +18,7 @@ tags:
     - WebAssembly
     - Web Application
     - AI
+    - Local-First
 ---
 
 **[facemask-detection.com](https://facemask-detection.com/)** 👈👈
