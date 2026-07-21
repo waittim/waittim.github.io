@@ -93,9 +93,8 @@ ga4_measurement_id: 'G-Z19ZNE4PP1'
 # Current topics are curated independently from historical post counts.
 featured-tags: false
 current_topics:
-  - Coding Agents
-  - Agent Memory
-  - Developer Tools
+  - Agent
+  - AI
   - Local-First
   - Computer Vision
   - Web Application
