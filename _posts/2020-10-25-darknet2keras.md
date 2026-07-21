@@ -12,6 +12,7 @@ tags:
     - Python
     - Keras
     - TensorFlow
+    - AI
 ---
 
 While working on the mask detection project recently, I tried to convert a Darknet model into a Keras model. In other words, I needed to convert the `.cfg` file and the `.weights` file into a `.h5` file.

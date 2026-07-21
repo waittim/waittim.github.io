@@ -12,6 +12,7 @@ tags:
     - Model Deployment
     - Tutorial
     - C++
+    - AI
 ---
 
 This is a tutorial for compiling the NCNN library. The content comes from my attempts to complete the Mask-Detection project, so the process is based on the Yolo-Fastest model. I hope it will help readers deploy the model, and also help me quickly rebuild the environment in the future.

@@ -17,6 +17,7 @@ tags:
     - JavaScript
     - WebAssembly
     - Web Application
+    - AI
 ---
 
 **[facemask-detection.com](https://facemask-detection.com/)** 👈👈

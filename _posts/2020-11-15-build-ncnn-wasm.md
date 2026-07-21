@@ -13,6 +13,7 @@ tags:
     - Tutorial
     - C++
     - WebAssembly
+    - AI
 ---
 
 The content of this tutorial is an extension of the [Tutorial for compiling NCNN library](/2020/11/10/build-ncnn/).
