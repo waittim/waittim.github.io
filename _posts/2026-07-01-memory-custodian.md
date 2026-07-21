@@ -7,16 +7,19 @@ author:     Zekun
 header-img: img/headers/post-bg-data-center.jpeg
 catalog: true
 tags:
-    - Coding Agent
+    - Coding Agents
     - Agent Memory
-    - AI
     - Developer Tools
+    - Software Architecture
+    - Local-First
     - CLI
-    - Local First
-    - Markdown
-    - Project
-    - Agent
 ---
+
+> **MemoryCustodian Design Series · Part 1 of 3**
+>
+> 1. **MemoryCustodian: Durable Project Memory for Coding Agents**
+> 2. [Why Project Memory Should Be Plain Text and Repo-Native](/2026/07/20/memory-custodian-tech-design/)
+> 3. [Designing Memory That Can Safely Forget](/2026/07/21/memory-custodian-safe/)
 
 Coding agents are getting better at writing code, tracing bugs, and navigating unfamiliar repositories.
 
@@ -159,6 +162,18 @@ The repository may accumulate more knowledge over time, while the active context
 
 ---
 
+## Go Deeper
+
+MemoryCustodian’s design is explored in two companion articles:
+
+- **[Why Project Memory Should Be Plain Text and Repo-Native](/2026/07/20/memory-custodian-tech-design/)**  
+  Markdown, Git review, manifest routing, and semantic boundaries.
+
+- **[Designing Memory That Can Safely Forget](/2026/07/21/memory-custodian-safe/)**  
+  Soft, hard, and purge semantics; preview-first mutation; and multi-file safety.
+
+---
+
 ## Before MemoryCustodian
 
 A typical long-running coding-agent workflow looks like this:
@@ -212,29 +227,9 @@ The memory belongs to the repository—not to a single chat window or proprietar
 
 ## Review Memory Like Code
 
-A project decision may influence months of future work.
+MemoryCustodian stores project memory as ordinary Markdown so changes remain visible, diffable, and reviewable in Git.
 
-That decision should be visible.
-
-MemoryCustodian uses ordinary Markdown because project memory should be:
-
-* Human-readable
-* Easy to edit
-* Diffable in Git
-* Reviewable in pull requests
-* Reversible
-* Portable across tools
-* Available offline
-
-A team can see when a constraint was introduced. A developer can challenge an outdated decision. A rejected approach can be deliberately reconsidered rather than silently disappearing inside an opaque retrieval system.
-
-MemoryCustodian does not require a separate memory service or retrieval stack for routine use.
-
-It works with tools developers already understand:
-
-> **Files, folders, Markdown, and Git.**
-
-The simplicity is not a limitation of the product. It is part of the product.
+The architectural reasoning behind this choice—including manifest routing and the boundary between semantic judgment and deterministic enforcement—is explored in the [technical design article](/2026/07/20/memory-custodian-tech-design/).
 
 ---
 
@@ -266,146 +261,56 @@ The goal is:
 
 ## Agents Decide Meaning; the CLI Enforces Structure
 
-Determining whether a statement is a decision, constraint, idea, or rejected approach requires semantic judgment.
-
-Consider this candidate:
-
-```text
-Consider encrypting exported notes with a user-provided passphrase.
-```
-
-Is it a confirmed requirement?
-
-A possible future feature?
-
-A security constraint?
-
-A speculative idea?
-
-A deterministic script cannot reliably answer that from keywords alone.
-
-MemoryCustodian keeps the boundary clear:
-
-* The agent or user decides what the information means
-* The CLI validates and applies the operation safely
-
-The agent handles interpretation, scope, confidence, overlap, and contradictions.
-
-The CLI handles deterministic work such as route resolution, structural validation, exact duplicate detection, context budgets, previews, and bounded file updates.
-
-> **The agent understands meaning. The CLI enforces the resulting operation safely.**
-
-This makes the system conservative by design. Memory is curated rather than accumulated automatically.
-
----
-
-## Durable Memory Without Permanent Full-Context Loading
-
-Many approaches to persistent agent context appear to require a tradeoff:
-
-* Keep more memory and increase context usage
-* Keep context small and lose continuity
-
-MemoryCustodian separates stored memory from active context.
-
-The repository may contain decisions, constraints, subsystem notes, rejected paths, preferences, and archived material.
-
-A single task does not need all of them.
-
-For example, a planning task might load:
-
-```text
-manifest.md
-brief.md
-decisions.md
-constraints.md
-do-not-use.md
-```
-
-A user-facing writing task might load:
-
-```text
-manifest.md
-brief.md
-preferences.md
-```
-
-A task scoped to one component might load only:
-
-```text
-manifest.md
-brief.md
-areas/payments.md
-```
-
-The exact routes belong to the project and remain visible in `manifest.md`.
-
-This also keeps platform-specific instruction files thin. `AGENTS.md`, `CLAUDE.md`, and similar files only need to point the agent toward the shared memory protocol instead of duplicating the project’s entire history.
+Deciding whether a statement is a decision, constraint, idea, or rejected approach requires semantic judgment, so the agent (or user) decides what the information means while the CLI validates and applies the operation safely. This keeps memory curated rather than accumulated automatically. How that boundary works—and why it makes the system conservative by design—is covered in the [technical design article](/2026/07/20/memory-custodian-tech-design/).
 
 ---
 
 ## A 60-Second Start
 
-MemoryCustodian requires Python 3.10 or later.
+The simplest way to begin is to let your coding agent install and initialize MemoryCustodian for you:
 
-Clone the repository:
-
-```bash
-git clone https://github.com/waittim/MemoryCustodian.git
-cd MemoryCustodian
+```text
+Install the MemoryCustodian skill from
+https://github.com/waittim/MemoryCustodian,
+then initialize it for this project.
 ```
 
-Initialize memory in a project:
+You can also install it directly for your platform:
+
+* Codex local marketplace
+* Claude Code plugin
+* Gemini Agent Skill
+* Source checkout / CLI
+
+However you install it, the entry point after installation is the same:
 
 ```bash
-scripts/memory-custodian init \
+memory-custodian init \
   --project-root /path/to/project \
   --agent all
 ```
 
-Check the generated memory structure:
+The initializer creates a scaffold rather than pretending to understand the repository automatically. Review the generated files, then curate `brief.md`, decisions, constraints, and rejected approaches from authoritative project information.
 
-```bash
-scripts/memory-custodian check \
-  --project-root /path/to/project
-```
-
-Inspect the context selected for a planning task:
-
-```bash
-scripts/memory-custodian read \
-  --project-root /path/to/project \
-  --task planning
-```
-
-The initializer creates a scaffold rather than pretending to understand the repository automatically.
-
-Review the generated files, then curate `brief.md`, decisions, constraints, and rejected approaches from authoritative project information.
-
-Once initialized, the project itself becomes the source of durable agent context.
+For the current per-platform installation steps, see the [README](https://github.com/waittim/MemoryCustodian). Once initialized, the project itself becomes the source of durable agent context.
 
 ---
 
 ## Try the NightNotes Example
 
-Clone MemoryCustodian and inspect the included demo:
-
-```bash
-git clone https://github.com/waittim/MemoryCustodian.git
-cd MemoryCustodian
-```
+The MemoryCustodian repository ships with the demo under `examples/nightnotes-video-demo`.
 
 Validate the NightNotes memory:
 
 ```bash
-scripts/memory-custodian check \
+memory-custodian check \
   --project-root examples/nightnotes-video-demo
 ```
 
 Read the planning context:
 
 ```bash
-scripts/memory-custodian read \
+memory-custodian read \
   --project-root examples/nightnotes-video-demo \
   --task planning
 ```
@@ -479,7 +384,8 @@ It is a disciplined way to help coding agents carry a project forward instead of
 > **Record the decision once. Let every future session inherit it.**
 
 * [Watch the demo](https://www.youtube.com/watch?v=mYKzzATlOPw)
-* [View the project on GitHub](https://github.com/waittim/MemoryCustodian)
-* [Try the NightNotes example](https://github.com/waittim/MemoryCustodian/tree/main/examples/nightnotes-video-demo)
+* [Install MemoryCustodian](https://github.com/waittim/MemoryCustodian)
+* [Read the technical design](/2026/07/20/memory-custodian-tech-design/)
+* [Read the memory governance design](/2026/07/21/memory-custodian-safe/)
 
 **Durable memory. Minimal context.**

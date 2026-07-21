@@ -11,11 +11,16 @@ tags:
     - Agent Memory
     - Developer Tools
     - Software Architecture
-    - Markdown
     - Local-First
-    - AI
-    - Agent
+    - Markdown
+    - Git
 ---
+
+> **MemoryCustodian Design Series · Part 2 of 3**
+>
+> 1. [MemoryCustodian: Durable Project Memory for Coding Agents](/2026/07/01/memory-custodian/)
+> 2. **Why Project Memory Should Be Plain Text and Repo-Native**
+> 3. [Designing Memory That Can Safely Forget](/2026/07/21/memory-custodian-safe/)
 
 Code tells an agent what a system does.
 
@@ -387,6 +392,8 @@ The difference is that the structure remains visible.
 
 Humans and agents can inspect both the stored knowledge and the rules used to activate it.
 
+The same semantic boundaries must also govern deletion and mutation, which the [next article](/2026/07/21/memory-custodian-safe/) explores in detail.
+
 ---
 
 ## Visible Memory, Explicit Routing
@@ -448,7 +455,8 @@ The agent loads less.
 
 And the reasoning behind the code remains somewhere future developers and future agents can actually inspect.
 
-* [View MemoryCustodian on GitHub](https://github.com/waittim/MemoryCustodian)
-* [Explore the NightNotes example](https://github.com/waittim/MemoryCustodian/tree/main/examples/nightnotes-video-demo)
+* [Read Part 3: Designing Memory That Can Safely Forget](/2026/07/21/memory-custodian-safe/)
+* [View the implementation on GitHub](https://github.com/waittim/MemoryCustodian)
+* [Return to the series overview](/2026/07/01/memory-custodian/)
 
 **Visible memory. Explicit routing. Project-owned context.**

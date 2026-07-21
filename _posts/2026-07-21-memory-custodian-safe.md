@@ -1,23 +1,25 @@
 ---
 layout: post
 title: Designing Memory That Can Safely Forget
-subtitle: Persistent memory is only trustworthy when deletion is deliberate, bounded, and reviewable.
+subtitle: Persistent project memory is trustworthy only when forgetting is explicit, previewable, and bounded.
 date: 2026-07-21
 author: Zekun
 header-img: img/headers/post-bg-memory-disk.jpg
 catalog: true
 tags:
-    - Coding Agent
+    - Coding Agents
     - Agent Memory
-    - AI Safety
     - Developer Tools
-    - Local First
-    - Data Governance
     - Software Architecture
-    - Project
-    - AI
-    - Agent
+    - Local-First
+    - Data Governance
 ---
+
+> **MemoryCustodian Design Series · Part 3 of 3**
+>
+> 1. [MemoryCustodian: Durable Project Memory for Coding Agents](/2026/07/01/memory-custodian/)
+> 2. [Why Project Memory Should Be Plain Text and Repo-Native](/2026/07/20/memory-custodian-tech-design/)
+> 3. **Designing Memory That Can Safely Forget**
 
 Most memory systems are judged by what they can retain.
 
@@ -298,7 +300,7 @@ The command may have succeeded syntactically while failing semantically.
 
 MemoryCustodian therefore treats complete semantic entries as the minimum unit for mechanical mutation. If a match belongs to a structured entry, the preview should identify the entire affected unit. The heading, reasoning, nested content, and scope should remain attached to one another.
 
-This follows the same design principle used when loading memory into context: a scoped decision should not be truncated into a broader, misleading fragment. Forgetting applies that rule to mutation. The system should remove complete meaning, not matching tokens.
+This follows the same design principle used when loading memory into context, described in the [technical design article](/2026/07/20/memory-custodian-tech-design/): a scoped decision should not be truncated into a broader, misleading fragment. Forgetting applies that rule to mutation. The system should remove complete meaning, not matching tokens.
 
 Not every match can be handled mechanically.
 
@@ -483,7 +485,8 @@ A trustworthy system should therefore be conservative about destroying them.
 
 > **A memory system is not mature when it can remember everything. It is mature when it can forget the right thing without damaging what should remain.**
 
-* [View MemoryCustodian on GitHub](https://github.com/waittim/MemoryCustodian)
-* [Explore the NightNotes example](https://github.com/waittim/MemoryCustodian/tree/main/examples/nightnotes-video-demo)
+* [Start with the series overview](/2026/07/01/memory-custodian/)
+* [Read Part 2: Why Project Memory Should Be Plain Text and Repo-Native](/2026/07/20/memory-custodian-tech-design/)
+* [View the implementation on GitHub](https://github.com/waittim/MemoryCustodian)
 
 **Deliberate forgetting. Reviewable change. Bounded memory.**
