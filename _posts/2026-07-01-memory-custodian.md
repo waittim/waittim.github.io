@@ -1,21 +1,21 @@
 ---
-layout: post
-title: "MemoryCustodian: Durable Project Memory for Coding Agents"
-subtitle: "Memory can grow; context must stay small."
-date: 2026-07-01
-author: Zekun
+layout:     post
+title:      "MemoryCustodian: Durable Project Memory for Coding Agents"
+subtitle:   "Memory can grow; context must stay small."
+date:       2026-07-01
+author:     Zekun
 header-img: img/headers/2026-07-01-memory-custodian.png
 catalog: true
 tags:
-- Coding Agent
-- Agent Memory
-- AI
-- Developer Tools
-- CLI
-- Local First
-- Markdown
-- Project
----------
+    - Coding Agent
+    - Agent Memory
+    - AI
+    - Developer Tools
+    - CLI
+    - Local First
+    - Markdown
+    - Project
+---
 
 Coding agents are getting better at writing code, tracing bugs, and navigating unfamiliar repositories.
 
