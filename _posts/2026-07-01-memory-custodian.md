@@ -13,6 +13,8 @@ tags:
     - Software Architecture
     - Local-First
     - CLI
+    - AI
+    - Agent
 ---
 
 > **MemoryCustodian Design Series · Part 1 of 3**

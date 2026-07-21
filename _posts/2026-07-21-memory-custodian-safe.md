@@ -13,6 +13,8 @@ tags:
     - Software Architecture
     - Local-First
     - Data Governance
+    - AI
+    - Agent
 ---
 
 > **MemoryCustodian Design Series · Part 3 of 3**

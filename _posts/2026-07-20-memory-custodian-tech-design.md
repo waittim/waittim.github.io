@@ -14,6 +14,8 @@ tags:
     - Local-First
     - Markdown
     - Git
+    - AI
+    - Agent
 ---
 
 > **MemoryCustodian Design Series · Part 2 of 3**
