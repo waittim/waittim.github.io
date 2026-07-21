@@ -1089,16 +1089,6 @@ img::-moz-selection {
 .page-fullscreen footer .copyright a:hover {
   color: #ddd;
 }
-.about-page .about-lede {
-  margin-bottom: 32px;
-  font-size: 24px;
-  line-height: 1.55;
-}
 .about-page h2 {
   margin-top: 48px;
-}
-@media only screen and (max-width: 767px) {
-  .about-page .about-lede {
-    font-size: 21px;
-  }
 }
