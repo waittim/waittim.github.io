@@ -19,6 +19,7 @@ tags:
     - Web Application
     - AI
     - Local-First
+    - Computer Vision
 ---
 
 **[facemask-detection.com](https://facemask-detection.com/)** 👈👈

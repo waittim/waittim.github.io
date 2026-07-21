@@ -18,6 +18,7 @@ tags:
     - WebAssembly
     - AI
     - Local-First
+    - Computer Vision
 ---
 
 The paper has been published on [arXiv](https://arxiv.org/abs/2101.00784).
