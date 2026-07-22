@@ -36,7 +36,7 @@ Game location | No advantage | Advantage
 ATL | *P<sub>B</sub>* | *P<sub>B</sub><sup>H</sup> = P<sub>B</sub> $\times$ 1.1*
 NYC | *P<sub>B</sub>* | *P<sub>B</sub><sup>A</sup> = 1 - (1 - P<sub>B</sub>)$\times$ 1.1*
 
-```{r}
+```r
 library(dplyr)
 library(data.table)
 ```
@@ -47,20 +47,20 @@ Now let's look at the questions.
 ## 1. Compute analytically the probability that the Braves win the World Series when the sequence of game locations is {NYC, NYC, ATL, ATL, ATL, NYC, NYC}. Calculate the probability with and without home-field advantage when *P<sub>B</sub> = 0.55*. What is the difference in probabilities?
 
 First, load the *.csv* file that contains the possible outcomes we need to calculate. This represents the data we will generate later.
-```{r}
+```r
 # Get all possible outcomes
 apo <- fread("all-possible-world-series-outcomes.csv")
 ```
 
 
 We also need to define a sequence of game locations. This time, the sequence should be {NYC, NYC, ATL, ATL, ATL, NYC, NYC}. Since the Braves are based in Atlanta, we use 1 to represent Atlanta and 0 to represent NYC.
-```{r}
+```r
 # Home field indicator
 hfi <- c(0,0,1,1,1,0,0) #{NYC, NYC, ATL, ATL, ATL, NYC, NYC}
 ```
 
 Now we use 0.55 to define *P<sub>B</sub>* and generate the other probabilities from *P<sub>B</sub>* as described above.
-```{r}
+```r
 # P_B
 pb <- 0.55
 advantage_multiplier <- 1.1 # Set = 1 for no advantage
@@ -69,7 +69,7 @@ pba <- 1 - (1 - pb) * advantage_multiplier
 ```
 
 In this part, we use the parameters defined above. In every row of the data.table, we use the probabilities influenced by home-field advantage to calculate the overall probability of each situation.
-```{r}
+```r
 # Calculate the probability of each possible outcome
 apo[, p := NA_real_] # Initialize new column in apo to store prob
 for(i in 1:nrow(apo)){
@@ -87,7 +87,7 @@ for(i in 1:nrow(apo)){
 ```
 
 Then we output the probability that the Braves win the World Series with home-field advantage.
-```{r}
+```r
 # Probability of overall World Series outcomes
 p_home <- purrr::flatten_dbl(apo[, sum(p), overall_outcome][1,2])
 p_home
@@ -95,7 +95,7 @@ p_home
 The probability is `r p_home`.
 
 Then we can calculate the probability when there is no home field advantage.
-```{r}
+```r
 p_nohome <- 1 - pbinom(3, 7, 0.55)
 p_nohome
 ```
@@ -108,7 +108,7 @@ The probability is `r p_nohome`. When home-field advantage exists, the probabili
 In this part, we will use simulation to test the probability.
 
 Given the location sequence, we use different winning probabilities for the head-to-head games and randomly generate the result of each game. By repeating this process 100,000 times, we can approximate the probability with home-field advantage.
-```{r}
+```r
 set.seed(314)
 sml_list_h <- rep(NA, 100000)
 for (i in seq_along(sml_list_h)){
@@ -125,7 +125,7 @@ mean_sml_h
 Now we can get the approximate solution, `r mean_sml_h`, which is a little different from `r p_home`.
 
 Now, let's simulate the situation without home-field advantage. This is easy because we only need to set p_win to a constant value.
-```{r}
+```r
 set.seed(314)
 sml_list_nh <- rep(NA, 100000)
 for (i in seq_along(sml_list_nh)){
@@ -150,7 +150,7 @@ $$|p̂−p|$$
 Relative error =
 $$|p̂−p|/p$$.
 
-```{r}
+```r
 abs_error_h <- abs(mean(sml_list_h) - p_home)
 rel_error_h <- abs(mean(sml_list_h) - p_home)/mean(sml_list_h)
 abs_error_h
@@ -158,7 +158,7 @@ rel_error_h
 ```
 Therefore, given home-field advantage the absolute error is `r abs_error_h`. The relative error is `r rel_error_h`.
 
-```{r}
+```r
 abs_error_nh <- abs(mean(sml_list_nh) - p_nohome)
 rel_error_nh <- abs(mean(sml_list_nh) - p_nohome)/mean(sml_list_nh)
 abs_error_nh
@@ -176,7 +176,7 @@ The process is similar to the answer of question 1.
 We can create some lists to save the different *P<sub>B</sub>* values, the probabilities of winning the World Series with or without home-field advantage, and the difference between these two situations for different *P<sub>B</sub>* values.
 
 Then given every *P<sub>B</sub>*, calculate these values every time.
-```{r}
+```r
 pb_list <- seq(0,1,0.01)
 ph_win_list <- seq_along(pb_list)
 pnh_win_list <- ph_win_list
@@ -209,7 +209,7 @@ for (p in seq_along(pb_list)) {
 ```
 
 Then, plot a graph to show the relationship between *P<sub>B</sub>* and differences.
-```{r}
+```r
 plot(x= pb_list, y=diff_list)
 ```
 
@@ -236,7 +236,7 @@ Unfortunately, none of the listed functions can fit the graph well.
 ## Bonus 2. Does the difference in probabilities (with vs without home-field advantage) depend on the advantage factor? (The advantage factor in PBH and PBA is the 1.1 multiplier that results in a 10% increase for the home team.)
 
 In this question, the process is similar to Bonus 1. We only need to change the sequence values from *P<sub>B</sub>* to the home-field advantage factor and set *P<sub>B</sub>* as a constant (0.55). Therefore, we will use *ha_list* to save the sequence.
-```{r}
+```r
 ha_list <- seq(1,2,0.01)
 ph_win_list <- seq_along(ha_list)
 pnh_win_list <- ph_win_list
@@ -269,7 +269,7 @@ for (p in seq_along(ha_list)) {
 ```
 
 Let's look at the graph. When the home-field advantage factor increases, the difference in probabilities between the with- and without-home-field-advantage scenarios also increases.
-```{r}
+```r
 plot(x= ha_list, y=diff_list2)
 ```
 ![](https://i.postimg.cc/rmhHPvs0/prob4-b2.png)

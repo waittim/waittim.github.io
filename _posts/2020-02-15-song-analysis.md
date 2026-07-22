@@ -24,7 +24,7 @@ The entire working process is divided into three parts: 10-read-in, 20-feature-e
 
 #### Import libraries.
 
-```{r}
+```r
 library(readxl)
 library(tidyverse)
 library(janitor)
@@ -47,7 +47,7 @@ Library introduction (the parts used in this pipeline):
 
 #### Read in raw data and clean the column names.
 
-```{r}
+```r
 for(i in seq(2000,2009,1)){
   df <- read_excel("Analysis Exercise.xls", sheet = as.character(i))
   names(df) <- df[1,]
@@ -66,14 +66,14 @@ The function `assign` helps me use different names to store the data.
 
 After that, I merged all of the data.
 
-```{r}
+```r
 df <-
   bind_rows(df_2000, df_2001, df_2002, df_2003, df_2004, df_2005, df_2006, df_2007, df_2008, df_2009)
 ```
 
 Import the stop words for text analysis in the EDA section.
 
-```{r}
+```r
 data("stop_words")
 ```
 
@@ -83,7 +83,7 @@ This dataset is clean enough that I do not need to clean the data in the usual w
 
 Basic feature engineering on raw merged data:
 
-```{r}
+```r
 df <- df %>%
   mutate(weeks_at_number_1 = as.integer(weeks_at_number_1),
          weeks_top_10 = as.integer(weeks_top_10),
@@ -122,7 +122,7 @@ exploratory data analysis (EDA) section.
 
 For all years:
 
-```{r}
+```r
 never_top10 <- df %>%
   filter(weeks_top_10 == 0)
 nrow(never_top10)/nrow(df)
@@ -132,7 +132,7 @@ nrow(never_top10)/nrow(df)
 
 Time series:
 
-```{r}
+```r
 never_top10_year <- df %>%
   filter(weeks_top_10 == 0) %>%
   group_by(year) %>%
@@ -155,7 +155,7 @@ never_top10_year %>%
 
 #### What were the top 10 songs of the decade 2000-2009?
 
-```{r}
+```r
 df %>%
   arrange(desc(total_points)) %>%
   select(song_title, artist, year, total_points) %>%
@@ -180,7 +180,7 @@ df %>%
 
 (Who were the top 10 artists of the decade 2000-2009?)
 
-```{r}
+```r
 df %>%
   group_by(artist) %>%
   summarise(sum_total_points = sum(total_points, na.rm = TRUE)) %>%
@@ -210,7 +210,7 @@ Beatles” has various meanings according to different interpretations.
 However, we can try to give some directions by analyzing the number of
 songs on the chart and the mean point of the songs on the chart of each artist.
 
-```{r}
+```r
 df %>%
   group_by(artist) %>%
   summarise(song_number = n()) %>%
@@ -232,7 +232,7 @@ df %>%
     ##  9 MAYER, JOHN                  12
     ## 10 NELLY                        12
 
-```{r}
+```r
 df %>%
   group_by(artist) %>%
   summarise(mean_total_points = mean(total_points)) %>%
@@ -259,7 +259,7 @@ df %>%
 For this question, because there are many special symbols in the song
 titles, I need to clean the special patterns in the titles.
 
-```{r}
+```r
 title_df <- df["song_title"]
 title_df <- title_df %>% mutate(song_title = str_to_lower(song_title))
 title_df$song_title <- gsub(pattern = "\\(", replacement =" ", title_df$song_title)
@@ -286,13 +286,13 @@ title_df$song_title <- gsub(pattern = " +", replacement =" ", title_df$song_titl
 Then convert the data frame into a list, which can help the following
 steps.
 
-```{r}
+```r
 title_list <- title_df[["song_title"]]
 ```
 
 Split all titles into individual words.
 
-```{r}
+```r
 title_words <- data.frame()
 count <- 1
 for (i in title_list) {
@@ -307,7 +307,7 @@ names(title_words) <- "word"
 
 Clean the different forms of the same word.
 
-```{r}
+```r
 title_words <- title_words %>%
   mutate(word = case_when(word == "girls" ~ "girl",
                           word == "angels" ~ "angel",
@@ -335,7 +335,7 @@ title_words <- title_words %>%
 
 Count the number of each word.
 
-```{r}
+```r
 word_count <- title_words %>%
   filter(word != "") %>%
   anti_join(stop_words,by = "word") %>%
@@ -363,7 +363,7 @@ word_count
 
 Generate the word cloud by `wordcloud2` function.
 
-```{r}
+```r
 wordcloud2(head(word_count,100),
            size = 1,
            fontFamily = "Montserrat",
@@ -383,7 +383,7 @@ In order to analyze the sentiment of the words in the titles, I got the
 stop words(meaningless words) dictionary and sentiment dictionary from
 the `tidytext` library.
 
-```{r}
+```r
 sentiments <- get_sentiments("nrc")
 
 df_sentiments <- title_words %>%
@@ -392,7 +392,7 @@ df_sentiments <- title_words %>%
   left_join(sentiments)
 ```
 
-```{r}
+```r
 df_sentiments_filtered <- df_sentiments %>%
   filter(!is.na(sentiment)) %>%
   group_by(sentiment) %>%
@@ -402,7 +402,7 @@ df_sentiments_filtered <- df_sentiments %>%
 
 After removing the stop words, I counted the number of each word in the titles.
 
-```{r}
+```r
 df_sentiments_filtered %>%
   ggplot(aes(x = reorder(sentiment, n, function(n) -n), y = n)) +
   geom_bar(stat = "identity",fill="#125FA0", width = 0.7) +
@@ -415,7 +415,7 @@ df_sentiments_filtered %>%
 And we can also calculate the percentage of positive words in the
 words that have sentiments.
 
-```{r}
+```r
 words_positive <- df_sentiments %>%
   filter(sentiment == "positive") %>%
   group_by(word) %>%
@@ -434,7 +434,7 @@ nrow(words_positive)/nrow(words_all_sentiment)
 
 #### Who spent the most weeks at \#1 for the decade 2000-2009?
 
-```{r}
+```r
 df %>%
   group_by(artist) %>%
   summarise(top1_time_sum = sum(weeks_at_number_1)) %>%
@@ -449,7 +449,7 @@ df %>%
 
 These are the songs belonging to this artist.
 
-```{r}
+```r
 df %>%
   filter(artist == "JACKSON, JANET",
          weeks_at_number_1 != 0) %>%
@@ -469,7 +469,7 @@ df %>%
 
 #### What song spent the most weeks at \#1 for the decade 2000-2009?
 
-```{r}
+```r
 df %>%
   arrange(desc(weeks_at_number_1)) %>%
   select(song_title, artist, year, weeks_at_number_1) %>%
@@ -483,7 +483,7 @@ df %>%
 
 #### What song peaked at \#1 the quickest in the decade 2000-2009?
 
-```{r}
+```r
 df %>%
   filter(weeks_at_number_1 != 0) %>%
   arrange(weeks_to_reach_peak) %>%
@@ -499,7 +499,7 @@ df %>%
 
 #### What song took the longest to reach \#1 in the decade 2000-2009?
 
-```{r}
+```r
 df %>%
   filter(weeks_at_number_1 != 0) %>%
   arrange(desc(weeks_to_reach_peak)) %>%
@@ -519,7 +519,7 @@ The solo artists have their full names in the data in the format
 “LastName, FirstName”. As a result, we can tell whether the data is a
 single person's name by the presence of a comma.
 
-```{r}
+```r
 df %>%
   mutate(solo_group = case_when(str_detect(string = artist, pattern = ",") ~ "solo",
                                 TRUE ~ "group")) %>%
@@ -539,7 +539,7 @@ Actually, there is no built-in pie chart function in `ggplot2`. But we
 can use a bar chart and then transform the y-axis to the polar
 coordinate system to create a pie chart.
 
-```{r}
+```r
 df %>%
   mutate(solo_group = case_when(str_detect(string = artist, pattern = ",") ~ "solo",
                                 TRUE ~ "group")) %>%
@@ -562,7 +562,7 @@ df %>%
 
 #### Solo men, solo women, groups for the decade 2000-2009 - design a graphic that shows the distribution of songs hitting the Top 10
 
-```{r}
+```r
 df %>%
   mutate(solo_group = case_when(str_detect(string = artist, pattern = ",") ~ "solo",
                                 TRUE ~ "group")) %>%
@@ -578,7 +578,7 @@ df %>%
     ## 1 group         318
     ## 2 solo          255
 
-```{r}
+```r
 df %>%
   mutate(solo_group = case_when(str_detect(string = artist, pattern = ",") ~ "solo",
                                 TRUE ~ "group")) %>%
@@ -601,7 +601,7 @@ df %>%
 
 #### What song spent the most time on the charts in the decade 2000-2009?
 
-```{r}
+```r
 df %>%
   arrange(desc(weeks_top_50)) %>%
   select(song_title, artist, year, weeks_top_50) %>%
@@ -620,14 +620,14 @@ story.
 
 #### Is there a correlation between weeks spent on the chart and weeks at \#1?
 
-```{r}
+```r
 cor(x = df[["weeks_at_number_1"]],
     y = df[["weeks_top_50"]])
 ```
 
     ## [1] 0.471703
 
-```{r}
+```r
 df %>%
   ggplot(aes(x=weeks_at_number_1, y=weeks_top_50))+
   geom_jitter(alpha = 0.3, color = "dodgerblue4")+

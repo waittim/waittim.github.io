@@ -43,7 +43,7 @@ Other settings in the experiment that will not change are:
 
 Set up a data-generation function that can generate data from either a normal distribution or a gamma distribution. The distribution is defined by the parameter “dist”. The default parameters of the gamma distribution are shape=1.4 and scale=3.
 
-```{r}
+```r
 generate_data <- function(N, dist, sh=1.4, sc=3){
   if(dist=="norm"){
     rnorm(N)
@@ -57,7 +57,7 @@ generate_data <- function(N, dist, sh=1.4, sc=3){
 ## Confidence interval estimation function
 
 Then define the function for calculating the confidence interval. It can estimate the distribution by the method of moments with a normal distribution, the method of moments with a gamma distribution, kernel density estimation, or bootstrap. At the same time, the function can use the function defined by “par.int” to calculate the parameter we want. The details are introduced in the chunk.
-```{r}
+```r
 estimate.ci <- function(data, mod, par.int, R=10, smoo=0.3){
   # data: input data
   # mod: define the estimation method and the distribution.
@@ -164,7 +164,7 @@ estimate.ci <- function(data, mod, par.int, R=10, smoo=0.3){
 ## Target capture function
 
 Create a function to determine whether the confidence interval matches the requirement. When the result is TRUE, return 1.
-```{r}
+```r
 capture_par <- function(ci, true.par){
   1*(ci[1] < true.par & true.par < ci[2])
 }
@@ -176,14 +176,14 @@ capture_par <- function(ci, true.par){
 ## Calculation Preparation
 
 Now we can set the sample size N to 201. When using the gamma distribution, we use shape 1.4 and scale 3.
-```{r}
+```r
 N <- 201
 shape.set <- 1.4
 scale.set <- 3
 ```
 
 Define the target values for coverage.
-```{r}
+```r
 true.norm.med <- qnorm(0.5)
 true.norm.min <- mean(apply(array(rnorm(N*10000), dim=c(N, 10000)),2,min))
 true.gamma.med <- qgamma(0.5, shape = shape.set, scale=scale.set)
@@ -192,19 +192,19 @@ true.gamma.min <- mean(apply(array(rgamma(N*10000, shape=shape.set, scale=scale.
 For the standard minimum of the distribution, we expand the data size 10,000 times and use the mean minimum value as the true minimum.
 
 Create a table called "simsettings" to store the results of each estimation method and the target parameter.
-```{r}
+```r
 simsettings <- expand.grid(dist=c("norm", "gamma"), model=c("MMnorm", "MMgamma", "KDE", "Boot"), par.int=c("median", "min"), cov.prob=NA,  stringsAsFactors = FALSE, KEEP.OUT.ATTRS = FALSE)
 ```
 
 Add a new column to store the target values.
-```{r}
+```r
 simsettings$truth <- c(true.norm.med, true.gamma.med, true.norm.med, true.gamma.med, true.norm.med, true.gamma.med, true.norm.med, true.gamma.med, true.norm.min, true.gamma.min, true.norm.min, true.gamma.min, true.norm.min, true.gamma.min, true.norm.min, true.gamma.min)
 ```
 
 ## Calculation
 
 Based on the "simsettings" table, calculate the coverage probabilities and store them in the table.
-```{r}
+```r
 for(k in c(1:2,4:10,12:16)){
   dist1 <- simsettings[k,1]
   model1 <- simsettings[k,2]
@@ -226,7 +226,7 @@ for(k in c(1:2,4:10,12:16)){
 # Conclusion
 
 Show the result table.
-```{r}
+```r
 simsettings
 ```
 ```

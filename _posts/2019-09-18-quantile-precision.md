@@ -21,7 +21,7 @@ The median is an important quantity in data analysis. It represents the middle v
 
 In this post, we will use simulation to find which quantiles of a distribution can be estimated more precisely.
 
-```{r}
+```r
 library(tidyverse)
 library(reshape2)
 ```
@@ -32,13 +32,13 @@ First, we need to set up the initial parameters. For every simulation process, w
 
 Therefore, set the sample size to 200 and the number of tests to 5,000.
 
-```{r}
+```r
 sample_size <- 200
 test_num <- 5000
 ```
 
 Then let's create a function to find the quantile values for each test and output them as sequences.
-```{r}
+```r
 find_quantile_value <- function(fn,sample_size, quantile_position){
   sample <- fn(sample_size)
   qtseq <- quantile(sample, seq(0.05,0.95,0.05))
@@ -48,7 +48,7 @@ find_quantile_value <- function(fn,sample_size, quantile_position){
 
 To store the values of each quantile, we can create a data frame. Since there are 19 quantiles and 5,000 tests, the data frame should be a 5000*19 table.
 Then use a for loop to traverse each test and each quantile.
-```{r}
+```r
 sml_results <- as.data.frame(matrix(NA, nrow = test_num, ncol = 19))
 
 for(i in 1:nrow(sml_results)){
@@ -59,7 +59,7 @@ for(i in 1:nrow(sml_results)){
 ```
 
 Now we need to find the length of the middle 95% interval for the distribution of each quantile value.
-```{r}
+```r
 length_list <- rep(NA,ncol(sml_results))
 for(q in 1:ncol(sml_results)){
   quantile_2.5_97.5<- quantile(sml_results[,q], c(0.025, 0.975))
@@ -69,7 +69,7 @@ for(q in 1:ncol(sml_results)){
 ```
 
 Save the data obtained above into a data frame and plot it.
-```{r}
+```r
 length_df <- as.data.frame(matrix(ncol = 2, nrow = length(length_list)))
 names(length_df) <- c("quantile_position","mid95_length")
 length_df[,1] <- seq(0.05,0.95,0.05)
@@ -91,7 +91,7 @@ In other words, when the quantile is 50%, the median has the tightest sampling d
 
 
 Then, we need to transfer the x-axis from quantile to the density values of the original distribution. In this part, it should be a standard normal distribution.
-```{r}
+```r
 length_d_df <- length_df %>%
   mutate(density=dnorm(qnorm(quantile_position)))
 
@@ -110,7 +110,7 @@ Distribution 2 is the exponential distribution with rate = 1.
 
 As we did before, calculate the values for each quantile and each test, then plot the graph.
 
-```{r}
+```r
 
 for(i in 1:nrow(sml_results)){
   for(q in 1:ncol(sml_results)){
@@ -147,7 +147,7 @@ In other words, the 5% quantile has the tightest sampling distribution.
 
 And when the density is higher, the error is smaller.
 
-```{r}
+```r
 length_d_df <- length_df %>%
   mutate(density=dexp(qexp(quantile_position)))
 
@@ -161,7 +161,7 @@ ggplot(length_d_df, aes(x=density,y=mid95_length))+
 # Mixture Distribution 3
 
 Distribution 3 is a mixture distribution defined by these functions.
-```{r}
+```r
 rf3 <- function(N){
   G <- sample(0:2, N, replace = TRUE, prob = c(5,3,2))
   (G==0)*rnorm(N) + (G==1)*rnorm(N,4) + (G==2)*rnorm(N,-4,2)
@@ -178,7 +178,7 @@ df3 <- function(x){
 
 And just like we did in previous chunks, plot the length of the middle 95% interval for the quantiles.
 
-```{r}
+```r
 for(i in 1:nrow(sml_results)){
   for(q in 1:ncol(sml_results)){
     sml_results[i,q] <- find_quantile_value(rf3,sample_size, q)
@@ -211,7 +211,7 @@ When the quantile is 40%, it has the tightest sampling distribution.
 We do not have the qf3 function, so we need to use the pf3 function to calculate the values for each corresponding quantile. The rest is the same as in the previous chunks.
 
 
-```{r}
+```r
 pf3 <- function(x){
   .5*pnorm(x) + .3*pnorm(x,4) + .2*pnorm(x,-4,2)
 }
@@ -235,7 +235,7 @@ ggplot(length_d_df, aes(x=density,y=mid95_length))+
 
 Mixture Distribution 4 is the following mixture distribution.
 
-```{r}
+```r
 rf4 <- function(N){
   G <- sample(0:1, N, replace = TRUE)
   (G==0)*rbeta(N,5,1) + (G==1)*rbeta(N,1,5)
@@ -244,7 +244,7 @@ rf4 <- function(N){
 
 As in previous chunks, we can plot the length of each quantile.
 
-```{r}
+```r
 for(i in 1:nrow(sml_results)){
   for(q in 1:ncol(sml_results)){
     sml_results[i,q] <- find_quantile_value(rf4,sample_size, q)
@@ -276,7 +276,7 @@ ggplot(length_df,aes(x=quantile_position,y=mid95_length))+
 When the quantile is 5% or 95%, the sampling distribution is the tightest.
 
 Based on the rf4 function we already have, we can write the pf4 and df4 functions. After that, we use the same method to plot the graph.
-```{r}
+```r
 rf4 <- function(N){
   G <- sample(0:1, N, replace = TRUE)
   (G==0)*rbeta(N,5,1) + (G==1)*rbeta(N,1,5)
@@ -313,7 +313,7 @@ ggplot(length_d_df, aes(x=density,y=mid95_length))+
 In this part, we will focus on situations where the sample size becomes 400, 800, and 1600.
 
 Now use a for loop to generate all the data for different sample sizes.
-```{r}
+```r
 sample_size <- c(400,800,1600)
 test_num <- 5000
 
@@ -342,7 +342,7 @@ for(n in seq_along(sample_size)){
 ```
 
 Then plot the graphs for different sample sizes and compare them.
-```{r}
+```r
 length_df %>%
   melt(id = "quantile_position") %>%
   ggplot()+
@@ -355,7 +355,7 @@ length_df %>%
 ```
 ![](https://i.postimg.cc/Vkfm2cL4/prob5-o1.png)
 
-```{r}
+```r
 length_df %>%
   mutate(density=dnorm(qnorm(quantile_position))) %>%
   select(-quantile_position) %>%

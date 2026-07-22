@@ -16,7 +16,7 @@ tags:
 
 First, import the package.
 
-```{r}
+```r
 library(tidyverse)
 ```
 
@@ -40,20 +40,20 @@ P<sub>Y</sub> = 1 - P<sub>B</sub> | in any given game, the probability that the 
 ### 1. What is the probability that the Braves win the World Series given that P<sub>B</sub>=0.55?
 
 First, we need to set the values of P<sub>B</sub> and P<sub>Y</sub>.
-```{r}
+```r
 PB <- 0.55
 PY <- 1- PB
 ```
 
 Create a function to calculate the probability of winning the series. A series win is defined as winning 4 games in a best-of-7 series.
-```{r}
+```r
 calc_prob <- function(p){
   pnbinom(3, 4, p)
 }
 ```
 
 Now calculate the probability given that P<sub>B</sub>=0.55.
-```{r}
+```r
 calc_prob(PB)
 ```
 
@@ -66,20 +66,20 @@ When P<sub>B</sub> is 0.55, the probability that the Braves win the World Series
 Now P<sub>B</sub> is not fixed, so we assume x can be any number between 0.5 and 1.
 
 First, we need to generate a series of P<sub>B</sub> and the probability results.
-```{r}
+```r
 PBseries <- seq(0.5, 1, 0.01)
 win_prob <- rep(NA, length(PBseries))
 ```
 
 Now use the function from before to calculate the probability for every P<sub>B</sub>.
-```{r}
+```r
 for(i in 1:length(win_prob)){
   win_prob[i] <- calc_prob(PBseries[i])
 }
 ```
 
 In order to interpret the relationship between P<sub>B</sub> and the probability that the Braves win, we can draw a graph for them.
-```{r}
+```r
 plot(x = PBseries,
      y = win_prob,
      xlim = c(0.5,1),
@@ -98,13 +98,13 @@ As we can see from this graph, when P<sub>B</sub> increases, the probability tha
 ### 3. Suppose one could change the World Series to be best-of-9 or some other best-of-X series. What is the shortest series length so that P(Braves win World Series|P<sub>B</sub>=0.55) ≥ 0.8?
 
 As in the first question, P<sub>B</sub> needs to be 0.55. Now the series length is uncertain. The series length should be an odd number.
-```{r}
+```r
 PB <- 0.55
 series_length <- seq(1, 999, 2)
 ```
 
 Now we need to create a function to calculate the probability when the series length is a parameter.
-```{r}
+```r
 calc_prob_sl <- function(sl){
   win_threshold <- ceiling(sl/2)
   pnbinom(win_threshold - 1, win_threshold, 0.55)
@@ -112,7 +112,7 @@ calc_prob_sl <- function(sl){
 ```
 
 Finally, for each series length, calculate the probability that the Braves win the World Series. When the probability is at least 0.8, stop the loop and return the series length and the probability.
-```{r}
+```r
 for(i in 1:length(series_length)){
   pb_win <- calc_prob_sl(series_length[i])
   if(pb_win >= 0.8){
@@ -131,7 +131,7 @@ Now we have the shortest series length. It should be 71. In that situation, the 
 Now P<sub>B</sub> is not fixed again, so we assume x can be any number between 0.51 and 1.
 
 First, we need to generate a sequence of P<sub>B</sub> values and a vector to save the length results for different P<sub>B</sub> values. In addition, we need a sequence of possible series lengths to test. The upper limit is 9999. If that is not enough, we can set a larger limit.
-```{r}
+```r
 PBseries <- seq(0.51, 1, 0.01)
 length_record <- rep(NA, length(PBseries))
 series_length <- seq(1, 9999, 2)
@@ -139,7 +139,7 @@ series_length <- seq(1, 9999, 2)
 
 
 To calculate the probability that the Braves win the World Series, we need a new function with two inputs because both the series length and P<sub>B</sub> are variables.
-```{r}
+```r
 calc_prob_sl_p <- function(sl,pb){
   win_threshold <- ceiling(sl/2)
   pnbinom(win_threshold - 1, win_threshold, pb)
@@ -147,7 +147,7 @@ calc_prob_sl_p <- function(sl,pb){
 ```
 
 Now, calculate the shortest series length when P<sub>B</sub> is changing. Save the values in *length_record*.
-```{r}
+```r
 for(j in 1:length(PBseries)){
   for(i in 1:length(series_length)){
   pb_win <- calc_prob_sl_p(series_length[i],PBseries[j])
@@ -160,7 +160,7 @@ for(j in 1:length(PBseries)){
 ```
 
 We have now obtained the shortest series length for different P<sub>B</sub> values. Let's draw a figure to show the relationship between them.
-```{r}
+```r
 plot(x = PBseries,
      y = length_record,
      xlim = c(0.5,1),
@@ -191,7 +191,7 @@ As a result, P( P<sub>B</sub>=0.55|Braves lose 3 games before winning a 4th game
 P(P<sub>B</sub>=0.55) = 0.5
 
 Then use *dnbinom()* to calculate P(Braves lose 3 games before winning a 4th game) and P(Braves lose 3 games before winning a 4th game|P<sub>B</sub>=0.55):
-```{r}
+```r
 (dnbinom(3,4,0.45)+dnbinom(3,4,0.55))/2
 dnbinom(3,4,0.55)
 ```
@@ -200,7 +200,7 @@ P(Braves lose 3 games before winning a 4th game) = 0.1516092
 P(Braves lose 3 games before winning a 4th game \| P<sub>B</sub>=0.55) = 0.1667701
 
 P( P<sub>B</sub>=0.55\|Braves lose 3 games before winning a 4th game) = P(Braves lose 3 games before winning a 4th game\|P<sub>B</sub>=0.55) * P(P<sub>B</sub>=0.55) ÷ P(Braves lose 3 games before winning a 4th game)
-```{r}
+```r
 0.1667701 * 0.5 / 0.1516092
 ```
 

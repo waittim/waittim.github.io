@@ -126,8 +126,7 @@ The advantages are summarized as follows:
 
 <br />
 <br />
-<br />
-![products.jpg]({{ "/img/posts/2020-12-01-mask-detection-report/products.jpg" | relative_url }})
+
 
 <font color=gray size=1>
 Reference:<br />

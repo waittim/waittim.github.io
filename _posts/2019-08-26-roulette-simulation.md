@@ -40,12 +40,12 @@ previous_win | TRUE/FALSE | indicator of whether the previous play was a win (TR
 ## One Play
 
 To use the `%>%` pipe in the code, we need to import the package first.
-```{r,results='hide'}
+```r
 library(dplyr)
 ```
 
 Then, let's define the process of one play.
-```{r}
+```r
  one_play <- function(state){
 
     # Wager
@@ -72,7 +72,7 @@ Then, let's define the process of one play.
 ```
 
 When the player runs out of money, wins enough money, or reaches the play limit, we need to stop the game with a stop function.
-```{r}
+```r
 stop_play <- function(state){
   if(state$B <= 0) return(TRUE)
   if(state$plays >= state$L) return(TRUE)
@@ -84,7 +84,7 @@ stop_play <- function(state){
 ## Multiple Plays
 
 Next, we simulate the game under these rules as a series of plays. The function returns a budget vector that records the balance after each play.
-```{r}
+```r
 one_series <- function(
     B = 200
   , W = 300
@@ -120,7 +120,7 @@ one_series <- function(
 ```
 
 Then we can get the final result of a series of plays.
-```{r}
+```r
 # helper function
 get_last <- function(x) x[length(x)]
 get_series <- function(x) x
@@ -129,7 +129,7 @@ get_series <- function(x) x
 # Simulation
 
 To understand the overall behavior, we need to repeat the process many times and examine the distribution and other characteristics of the results.
-```{r}
+```r
 # Simulation
 walk_out_money <- rep(NA, 1000)
 for(j in seq_along(walk_out_money)){
@@ -149,7 +149,7 @@ mean(walk_out_money - 200)
 # Compare
 
 This graph shows how the budget changes during one series.
-```{r}
+```r
 budget_list <- one_series(B = 200, W = 300, L = 1000, M = 100) %>% get_series
 plot(budget_list, type="l", xlim=c(0,500), ylim=c(0,300), xlab="play number", ylab="earning money", main="budget series",col="red")
 budget_list <- one_series(B = 200, W = 300, L = 1000, M = 100) %>% get_series
@@ -177,7 +177,7 @@ M | number | the casino wager limit
 ## Change the budget
 
 When B changes, what is the mean earning?
-```{r}
+```r
 earning_series <- rep(NA,20)
 for(B in seq(100,1000,by=50)){
 walk_out_money <- rep(NA, 1000)
@@ -193,7 +193,7 @@ plot(earning_series,xlab="Budget",ylab="mean earning rate", main="How Budget inf
 ## Change the budget threshold for stopping successfully
 
 When W changes, what is the mean earning?
-```{r}
+```r
 earning_series <- rep(NA,20)
 for(W in seq(100,1000,by=50)){
 walk_out_money <- rep(NA, 10000)
@@ -209,7 +209,7 @@ plot(earning_series,xlab="successfully stopping threshold",ylab="mean earning", 
 ## Change the maximum number of plays
 
 When L changes, what is the mean earning?
-```{r}
+```r
 earning_series <- rep(NA,100)
 for(L in seq(10,1000,by=10)){
 walk_out_money <- rep(NA, 1000)
@@ -225,7 +225,7 @@ plot(earning_series,xlab="maximum number of plays",ylab="mean earning", main="Ho
 ## Change the casino wager limit
 
 When M changes, what is the mean earning?
-```{r}
+```r
 earning_series <- rep(NA,100)
 for(M in seq(10,1000,by=10)){
 walk_out_money <- rep(NA, 1000)
@@ -241,7 +241,7 @@ plot(earning_series,xlab="casino wager limit",ylab="mean earning", main="How cas
 ## Play times
 
 Next, we can save the number of plays before the player walks out, then examine its characteristics.
-```{r}
+```r
 get_times <- function(x) length(x)
 walk_out_times <- rep(NA, 10000)
 for(j in seq_along(walk_out_times)){
@@ -252,7 +252,7 @@ hist(walk_out_times, breaks = 100)
 ```
 ![](https://i.loli.net/2019/12/22/YqzUKQRmIahSVoE.png)
 
-```{r}
+```r
 mean(walk_out_times)
 ```
 The mean number of plays before walking out is 203.0846.

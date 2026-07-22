@@ -26,7 +26,7 @@ Coverage probability is an important operating characteristic of methods for con
 
 The goal of this post is to perform a simulation to calculate the coverage probability of the 95% confidence interval of the median when computed from F<sub>X</sub><sup>mle</sup>.
 
-```{r}
+```r
 library(stats4)
 library(tidyverse)
 ```
@@ -35,14 +35,14 @@ library(tidyverse)
 **Generate a single sample from a standard normal distribution of size N = 201.**
 
 First, let’s set the sample size (N) to 201 and create a sample from a standard normal distribution.
-```{r}
+```r
 N <- 201
 sample1 <- rnorm(201)
 median(sample1)
 ```
 
 Then use the MLE function we learned before.
-```{r}
+```r
 nll <- function(mean, sd) {
   fs <- dnorm(sample1,
               mean = mean,
@@ -60,7 +60,7 @@ fit <- stats4::mle(
 ```
 
 From the MLE result, we can get the estimated mean and standard deviation of the sample distribution above.
-```{r}
+```r
 coef(fit)
 sample1_mean <- coef(fit)[[1]]
 sample1_sd <- coef(fit)[[2]]
@@ -73,7 +73,7 @@ The estimated mean is `r sample1_mean` and the estimated standard deviation is `
 In the previous step, we get a pair of estimated values for the mean and standard deviation. Based on these parameters, we can generate new distributions to simulate the original distribution.
 
 Now we need to get the median of the new distribution. If we repeat the process many times, we can get the sampling distribution of the median for the estimated distribution.
-```{r}
+```r
 median_list <- rep(NA, 500)
 for (i in seq_along(median_list)) {
   median_list[i] <-
@@ -87,7 +87,7 @@ for (i in seq_along(median_list)) {
 **Calculate a 95% confidence interval from the approximated sampling distribution.**
 
 For the median distribution we got in the previous step, we can use the *quantile()* function to get the 95% confidence interval.
-```{r}
+```r
 sample1_quantile95 <- quantile(median_list, c(0.025, 0.975))
 sample1_quantile95
 ```
@@ -97,7 +97,7 @@ sample1_quantile95
 **Now we will explain the concept of coverage probability and calculate it.**
 
 First, create a matrix to save the distributions we are going to generate. Each column is one distribution. Then use the method from the previous steps to generate all the distributions.
-```{r}
+```r
 samples <- matrix(nrow = N, ncol = 1000)
 for (i in 1:ncol(samples)) {
   samples[, i] <- rnorm(N)
@@ -105,7 +105,7 @@ for (i in 1:ncol(samples)) {
 ```
 
 Now create a matrix to save the estimated parameters of each distribution.
-```{r}
+```r
 coef <- matrix(nrow = 2, ncol = ncol(samples))
 for (i in 1:ncol(samples)) {
 
@@ -116,12 +116,12 @@ for (i in 1:ncol(samples)) {
 ```
 
 Now create a matrix to save the 95% confidence intervals.
-```{r}
+```r
 quantile95_list <- matrix(nrow = 2, ncol = ncol(samples))
 ```
 
 For each pair of estimated parameters, create an estimated distribution and then get the median. Repeat this process `r N` times, calculate the 95% confidence interval, and save the interval in the matrix.
-```{r}
+```r
 for (j in 1:ncol(samples)) {
   median_list <- rep(NA, N)
   for (i in seq_along(median_list)) {
@@ -136,7 +136,7 @@ for (j in 1:ncol(samples)) {
 ```
 
 To calculate the coverage probability, we can save all the judgment results in a vector. The coverage probability is the number of successful captures divided by the number of distributions.
-```{r}
+```r
 interest <- rep(NA, ncol(samples))
 for (i in seq_along(interest)) {
   interest[i] <-
@@ -152,7 +152,7 @@ coverage_probability
 ```
 This time, the coverage probability is `r coverage_probability`.
 
-```{r}
+```r
 sum(quantile95_list[2,] < 0)
 sum(quantile95_list[1,] > 0)
 
@@ -162,7 +162,7 @@ sum(quantile95_list[1,] > 0)
 **Perform the simulation.**
 
 To make the results more intuitive, we can use the *geom_linerange()* function in *ggplot* to draw the 95% confidence interval. We set the intervals that did not capture the true mean of the original distribution, 0, as red lines.
-```{r}
+```r
 quantile95_df <- as.data.frame(t(quantile95_list))
 quantile95_df["sample_num"] <- seq(1:ncol(samples))
 quantile95_df["interest"] <- interest

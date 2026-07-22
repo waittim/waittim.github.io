@@ -22,7 +22,7 @@ The researcher will collect both measurements on N individuals. The analysis wil
 
 Power is the probability that the study will end in success when the true underlying correlation has a given value. The code below provides the power calculation for a single combination of N and population correlation.
 
-```{r}
+```r
 set.seed(1122)
 suppressPackageStartupMessages(require(mvtnorm))
 N <- 50
@@ -44,7 +44,7 @@ power <- mean(detect)
 
 For the simulation part, we need to use correlations from 0.8 to 0.95 and the sample size from 25 to 100. Now, let's create a table to save the generated powers.
 
-```{r}
+```r
 corr_list <-  seq(0.8,0.95,0.01)
 N_list <- seq(25,100,25)
 result <- expand.grid(corr=corr_list, N = N_list, power=NA)
@@ -52,7 +52,7 @@ result <- expand.grid(corr=corr_list, N = N_list, power=NA)
 
 Then use a for loop to apply all the correlations and sample sizes and calculate the power values.
 
-```{r}
+```r
 for (j in 1:nrow(result)){
   N <- result[j,2]    #50
   rho <- result[j,1]  #.8
@@ -75,7 +75,7 @@ for (j in 1:nrow(result)){
 
 Transform the table into a data frame and plot the graph.
 
-```{r}
+```r
 result_df <- as.data.frame(result) %>%
   mutate(N=factor(N))
 

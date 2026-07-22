@@ -29,7 +29,7 @@ absolute error = |p̂−p|
 
 
 First, let's create a table to store the 14*5 simulation results.
-```{r}
+```r
 n <- rep(NA, 14)
 for(i in 1:14){n[i] <- 2^(i+1)}
 T <- matrix(NA,14,5)
@@ -37,7 +37,7 @@ p <- c(0.01,0.05,0.10,0.25,0.5)
 ```
 
 Then we randomly generate 1s and 0s 10,000 times for each setting and calculate the absolute error.
-```{r}
+```r
 for(x in 1:length(p)){
   for(y in 1:length(n)){
     TS <- rep(NA,10000)
@@ -50,12 +50,12 @@ for(x in 1:length(p)){
 ```
 
 Change the y-scale to log_10.
-```{r}
+```r
 T <- log10(T)
 ```
 
 Finally, we plot the graph to show the relationship between p and absolute error.
-```{r}
+```r
 plot(T[,5],xlim=c(0,14),ylim=range(T),col="red",type="b",xaxt="n",xlab="N(log_2 scale)",ylab="Absolute Error",pch=16, lwd=3)
 lines(T[,2],col="purple",type="b",pch=16, lwd=3)
 lines(T[,3],col="blue",type="b",pch=16, lwd=3)
@@ -79,7 +79,7 @@ Relative error = |p̂−p|/p.
 Then we do the same thing as before, but when calculating the error, we divide the absolute error by the p-value.
 We plot this graph as well.
 
-```{r}
+```r
 n <- rep(NA, 14)
 for(i in 1:14){n[i] <- 2^(i+1)}
 
