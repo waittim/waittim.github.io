@@ -595,6 +595,33 @@ footer {
 	}
 }
 
+// Inline SVG social icons (replaces Font Awesome stacks)
+.sns-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 2em;
+	height: 2em;
+	font-size: 1.333em;
+	border-radius: 50%;
+	background-color: #333;
+	color: #fff;
+	vertical-align: middle;
+	svg {
+		width: 1em;
+		height: 1em;
+		fill: currentColor;
+		display: block;
+	}
+	.sns-icon__text {
+		font-size: 1em;
+		font-style: normal;
+		font-weight: 600;
+		line-height: 1;
+		.sans-serif;
+	}
+}
+
 // Contact Form Styles
 
 .floating-label-form-group {
@@ -829,13 +856,18 @@ img::-moz-selection {
 .listing-seperator{
 	color:#0085a1;
 	font-size: 21px !important;
-	&::before{
-		margin-right: 5px;
-	}
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
 	@media only screen and (min-width: 768px) {
 		font-size: 20px !important;
 		line-height: 2 !important;
 	}
+}
+.listing-seperator__icon{
+	width: 0.9em;
+	height: 0.9em;
+	flex: 0 0 auto;
 }
 
 // Customize Style for Posts in One-Tag-List
@@ -912,6 +944,7 @@ img::-moz-selection {
 	margin-right: 2px;
 	margin-bottom: 2px;
 	border-radius: 50%;
+	touch-action: manipulation;
 	.icon-bar{
 		width: 18px;
 		border-radius: 0px;

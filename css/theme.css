@@ -216,11 +216,18 @@ img.shadow {
   background-color: var(--color-surface-subtle);
   border-color: var(--color-border);
 }
-footer .fa-stack-2x {
-  color: var(--color-text);
-}
-footer .fa-inverse {
+footer .sns-icon {
+  background-color: var(--color-text);
   color: var(--color-page);
+}
+.sidebar-container .sns-icon {
+  background-color: var(--color-text-secondary);
+  color: var(--color-page);
+}
+.sidebar-container a:hover .sns-icon,
+.sidebar-container a:active .sns-icon,
+.sidebar-container a:focus .sns-icon {
+  background-color: var(--color-accent);
 }
 /* Tables and controls. */
 .table,

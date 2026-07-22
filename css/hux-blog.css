@@ -703,6 +703,36 @@ footer .copyright a:hover,
 footer .copyright a:focus {
   color: #0085A1;
 }
+.sns-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2em;
+  height: 2em;
+  font-size: 1.333em;
+  border-radius: 50%;
+  background-color: #333;
+  color: #fff;
+  vertical-align: middle;
+}
+.sns-icon svg {
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+  display: block;
+}
+.sns-icon .sns-icon__text {
+  font-size: 1em;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1;
+  /* Hux learn from
+     *     TypeIsBeautiful,
+     *     [This Post](http://zhuanlan.zhihu.com/ibuick/20186806) etc.
+	 */
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Arial", "PingFang SC", "Hiragino Sans GB", "STHeiti", "Microsoft YaHei", "Microsoft JhengHei", "Source Han Sans SC", "Noto Sans CJK SC", "Source Han Sans CN", "Noto Sans SC", "Source Han Sans TC", "Noto Sans CJK TC", "WenQuanYi Micro Hei", SimSun, sans-serif;
+  line-height: 1.7;
+}
 .floating-label-form-group {
   font-size: 14px;
   position: relative;
@@ -920,15 +950,20 @@ img::-moz-selection {
 .listing-seperator {
   color: #0085a1;
   font-size: 21px !important;
-}
-.listing-seperator::before {
-  margin-right: 5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
 }
 @media only screen and (min-width: 768px) {
   .listing-seperator {
     font-size: 20px !important;
     line-height: 2 !important;
   }
+}
+.listing-seperator__icon {
+  width: 0.9em;
+  height: 0.9em;
+  flex: 0 0 auto;
 }
 .one-tag-list .tag-text {
   font-weight: 200;
@@ -997,6 +1032,7 @@ img::-moz-selection {
   margin-right: 2px;
   margin-bottom: 2px;
   border-radius: 50%;
+  touch-action: manipulation;
 }
 .navbar-default .navbar-toggle .icon-bar {
   width: 18px;
