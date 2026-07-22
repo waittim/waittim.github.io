@@ -96,13 +96,25 @@ mkdir build && cd build
 If you are compiling for a browser that supports experimental WebAssembly features such as SIMD and SSE2, please use the following code.
 
 ```bash
-cmake -DCMAKE_TOOLCHAIN_FILE=../emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake -DNCNN_SIMPLEOMP=ON -DNCNN_BUILD_TESTS=ON ..
+cmake \
+  -DCMAKE_TOOLCHAIN_FILE=../emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake \
+  -DNCNN_SIMPLEOMP=ON \
+  -DNCNN_BUILD_TESTS=ON \
+  ..
 ```
 
 If you are compiling for browsers such as Safari on iOS without SIMD or SSE2, replace it with the following code.
 
 ```bash
-cmake -DCMAKE_TOOLCHAIN_FILE=../emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake -DNCNN_OPENMP=OFF -DNCNN_SIMPLEOMP=OFF -DNCNN_RUNTIME_CPU=OFF -DNCNN_SSE2=OFF -DNCNN_AVX2=OFF -DNCNN_BUILD_TESTS=ON ..
+cmake \
+  -DCMAKE_TOOLCHAIN_FILE=../emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake \
+  -DNCNN_OPENMP=OFF \
+  -DNCNN_SIMPLEOMP=OFF \
+  -DNCNN_RUNTIME_CPU=OFF \
+  -DNCNN_SSE2=OFF \
+  -DNCNN_AVX2=OFF \
+  -DNCNN_BUILD_TESTS=ON \
+  ..
 ```
 
 Then run make.
@@ -116,7 +128,9 @@ After make finishes, use the built-in NCNN test cases to check whether the compi
 With SIMD SSE2:
 
 ```bash
-TESTS_EXECUTABLE_LOADER=node TESTS_EXECUTABLE_LOADER_ARGUMENTS="--experimental-wasm-simd;--experimental-wasm-threads;--experimental-wasm-bulk-memory" ctest --output-on-failure -j 2
+TESTS_EXECUTABLE_LOADER=node \
+TESTS_EXECUTABLE_LOADER_ARGUMENTS="--experimental-wasm-simd;--experimental-wasm-threads;--experimental-wasm-bulk-memory" \
+ctest --output-on-failure -j 2
 ```
 
 Without SIMD SSE2:

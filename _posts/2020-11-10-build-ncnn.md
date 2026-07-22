@@ -58,7 +58,8 @@ sudo apt install cmake
 The installation of protobuf can be done according to the instructions in its GitHub repository. The key steps are as follows.
 
 ```bash
-sudo apt-get install autoconf automake libtool curl make g++ unzip
+sudo apt-get install \
+  autoconf automake libtool curl make g++ unzip
 ```
 
 Then download the package from its release page:
@@ -84,7 +85,15 @@ Open [https://opencv.org/releases/](https://opencv.org/releases/) and select an 
 Then unzip the package and enter the folder in the terminal. Run the following code to install the dependencies.
 
 ```bash
-sudo apt-get install build-essential libgtk2.0-dev libavcodec-dev libavformat-dev libjpeg.dev libtiff4.dev libswscale-dev libjasper-dev
+sudo apt-get install \
+  build-essential \
+  libgtk2.0-dev \
+  libavcodec-dev \
+  libavformat-dev \
+  libjpeg.dev \
+  libtiff4.dev \
+  libswscale-dev \
+  libjasper-dev
 ```
 
 Create a build folder under this folder, then run cmake.
@@ -92,7 +101,10 @@ Create a build folder under this folder, then run cmake.
 ```bash
 mkdir build
 cd build
-cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/usr/local ..
+cmake \
+  -D CMAKE_BUILD_TYPE=Release \
+  -D CMAKE_INSTALL_PREFIX=/usr/local \
+  ..
 ```
 
 Then start to compile it.
@@ -154,7 +166,9 @@ Now that the dependent libraries have been installed, we will start to compile N
 If you want to use GPU, please install Vulkan as a dependency with the following code.
 
 ```bash
-wget https://sdk.lunarg.com/sdk/download/1.2.154.0/linux/vulkansdk-linux-x86_64-1.2.154.0.tar.gz?Human=true -O vulkansdk-linux-x86_64-1.2.154.0.tar.gz
+wget \
+  "https://sdk.lunarg.com/sdk/download/1.2.154.0/linux/vulkansdk-linux-x86_64-1.2.154.0.tar.gz?Human=true" \
+  -O vulkansdk-linux-x86_64-1.2.154.0.tar.gz
 tar -xf vulkansdk-linux-x86_64-1.2.154.0.tar.gz
 export VULKAN_SDK=$(pwd)/1.2.154.0/x86_64
 ```
@@ -168,7 +182,12 @@ git clone https://github.com/Tencent/ncnn.git
 cd ncnn
 mkdir -p build
 cd build
-cmake -DCMAKE_BUILD_TYPE=Release -DNCNN_VULKAN=ON -DNCNN_SYSTEM_GLSLANG=ON -DNCNN_BUILD_EXAMPLES=ON ..
+cmake \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DNCNN_VULKAN=ON \
+  -DNCNN_SYSTEM_GLSLANG=ON \
+  -DNCNN_BUILD_EXAMPLES=ON \
+  ..
 make
 make install
 ```
@@ -180,7 +199,12 @@ After this, we can start to use various tools in the `ncnn/build/tools` folder t
 For example, you can copy the **.cfg** and .**weights** files of your Darknet model to the **darknet** folder, and use the code to convert it to an NCNN model. The details can be found [here](https://github.com/Tencent/ncnn/tree/master/tools/darknet).
 
 ```bash
-./darknet2ncnn yolo-fastest.cfg best.weights yolo-fastest.param yolo-fastest.bin 1
+./darknet2ncnn \
+  yolo-fastest.cfg \
+  best.weights \
+  yolo-fastest.param \
+  yolo-fastest.bin \
+  1
 ```
 
 After getting **.param** and **.bin**, we can deploy the model to mobile devices or even the browser. The files in `ncnn/build/install` will be used when you need to run your own model.
