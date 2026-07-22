@@ -36,7 +36,8 @@ layout: default
                     <div class="post-heading">
                         <div class="tags">
                             {% for tag in page.tags %}
-                            <a class="tag" href="{{ "/tags/" | relative_url }}#{{ tag }}" title="{{ tag }}">{{ tag }}</a>
+                            {% assign tag_id = tag | slugify %}
+                            <a class="tag" href="{{ "/tags/" | relative_url }}#{{ tag_id }}" title="{{ tag }}">{{ tag }}</a>
                             {% endfor %}
                         </div>
                         <h1>{{ page.title }}</h1>
@@ -105,7 +106,8 @@ layout: default
                     <div class="tags">
                         {% for tag in site.tags %}
                             {% if tag[1].size > site["featured-condition-size"] %}
-                                <a href="{{ "/tags/" | relative_url }}#{{ tag[0] }}" title="{{ tag[0] }}" rel="{{ tag[1].size }}">
+                                {% assign tag_id = tag[0] | slugify %}
+                                <a href="{{ "/tags/" | relative_url }}#{{ tag_id }}" title="{{ tag[0] }}" rel="{{ tag[1].size }}">
                                     {{ tag[0] }}
                                 </a>
                             {% endif %}

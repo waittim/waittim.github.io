@@ -20,7 +20,7 @@
     <meta name="keywords"  content="{{ site.keyword | escape }}">
     <meta name="theme-color" content="{{ site.chrome-tab-theme-color }}">
     
-    <title>{% if page.title %}{{ page.title | escape }} - {{ site.SEOTitle | escape }}{% else %}{{ site.SEOTitle | escape }}{% endif %}</title>
+    <title>{% if page.title %}{{ page.title | escape }} | {{ site.title | escape }}{% else %}{{ site.SEOTitle | escape }}{% endif %}</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{ "/img/ui/favicon.ico" | relative_url }}">
@@ -60,6 +60,7 @@
           "url": "{{ '/' | absolute_url }}",
           "name": {{ site.title | jsonify }},
           "description": {{ site.description | jsonify }},
+          "inLanguage": "en",
           "publisher": { "@id": "{{ '/' | absolute_url }}#zekun-wang" }
         },
         {
@@ -89,6 +90,8 @@
           "image": "{{ social_image | absolute_url }}",
           "datePublished": "{{ page.date | date_to_xmlschema }}",
           "dateModified": "{{ page.updated | default: page.date | date_to_xmlschema }}",
+          "inLanguage": "en"{% if page.tags %},
+          "keywords": {{ page.tags | jsonify }}{% endif %},
           "author": {% if page.authors %}[
             {% for author in page.authors %}{% if author.name == 'Zekun Wang' %}{ "@id": "{{ '/' | absolute_url }}#zekun-wang" }{% else %}{ "@type": "Person", "name": {{ author.name | jsonify }}{% if author.url %}, "url": {{ author.url | absolute_url | jsonify }}{% endif %} }{% endif %}{% unless forloop.last %},{% endunless %}{% endfor %}
           ]{% elsif page.author == 'Zekun Wang' %}{ "@id": "{{ '/' | absolute_url }}#zekun-wang" }{% else %}{ "@type": "Person", "name": {{ page.author | default: 'Zekun Wang' | jsonify }} }{% endif %},

@@ -2,6 +2,8 @@
 
 Zekun Wang builds AI agents, evaluation systems, browser-based AI, and local-first developer tools.
 
+This is Zekun Wang’s personal blog. Unless explicitly stated otherwise, the projects and opinions published here are independent of his work at Indeed.
+
 ## Main topics
 
 - AI agents and coding agents

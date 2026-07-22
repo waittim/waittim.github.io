@@ -28,7 +28,8 @@ layout: default
                 <div class="post-heading">
                     <div class="tags">
                         {% for tag in page.tags %}
-                        <a class="tag" href="{{ "/tags/" | relative_url }}#{{ tag }}" title="{{ tag }}">{{ tag }}</a>
+                        {% assign tag_id = tag | slugify %}
+                        <a class="tag" href="{{ "/tags/" | relative_url }}#{{ tag_id }}" title="{{ tag }}">{{ tag }}</a>
                         {% endfor %}
                     </div>
                     <h1>{{ page.title }}</h1>
