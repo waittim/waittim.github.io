@@ -176,10 +176,12 @@ In this graph, as P<sub>B</sub> increases, the shortest series length required f
 According to the conditional probability formula, we can get:
 
 $$
+\begin{gather*}
 P(A|B)=\frac{P(A)P(B)}{P(B)}  \to  P(A)P(B)=P(A|B)P(B)\\
 P(B|A)=\frac{P(A)P(B)}{P(A)}  \to  P(A)P(B)=P(B|A)P(A)\\
 \to P(A|B)P(B)=P(A)P(B)=P(B|A)P(A)\\
 \to P(A|B)=\frac{P(B|A)P(A)}{P(B)}
+\end{gather*}
 $$
 
 Now P(A) = P(P<sub>B</sub>=0.55), P(B) = P(Braves lose 3 games before winning a 4th game).

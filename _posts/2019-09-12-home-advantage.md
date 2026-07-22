@@ -217,15 +217,16 @@ The relationship between *P<sub>B</sub>* and the difference appears to resemble 
 The format might be a trigonometric function multiplied by another function that approaches 0 at the beginning and end of one period, and otherwise approaches 1. The period should be 1.
 
 There are some examples.
+
 $$
-y = A \cdot sin(B \cdot x + C)
-\\
-y = A \cdot sin(B \cdot x + C) \cdot |D \cdot sin(\pi \cdot x + E)|
-\\
-y = A \cdot sin(B \cdot x + C) \cdot  ( D \cdot sin(\pi \cdot x + E))^2
-\\
+\begin{gather*}
+y = A \cdot \sin(B \cdot x + C)\\
+y = A \cdot \sin(B \cdot x + C) \cdot |D \cdot \sin(\pi \cdot x + E)|\\
+y = A \cdot \sin(B \cdot x + C) \cdot  ( D \cdot \sin(\pi \cdot x + E))^2\\
 y = Ax^3 + Bx^2y + Cxy^2+Dy^3 +Ex^2+Fxy+Gy^2+Hx+Iy+J
+\end{gather*}
 $$
+
 Unfortunately, none of the listed functions can fit the graph well.
 
 
