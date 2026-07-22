@@ -23,18 +23,26 @@
 <!-- Custom Theme JavaScript -->
 <script src="{{ "/js/hux-blog.min.js" | relative_url }}?v={{ site.asset_version }}"></script>
 
-<!-- Service Worker -->
-{% if site.service-worker %}
+<!-- Retire legacy Service Worker -->
 <script type="text/javascript">
-    if(navigator.serviceWorker){
-        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
-        navigator.serviceWorker
-            .register('{{ "/sw.js" | relative_url }}')
-            .then((registration) => {console.log('Service Worker Registered. ', registration)})
-            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
-    }
+    (function () {
+        if (!navigator.serviceWorker) {
+            return;
+        }
+        navigator.serviceWorker.getRegistrations().then(function (registrations) {
+            registrations.forEach(function (registration) {
+                registration.unregister();
+            });
+        });
+        if (window.caches) {
+            caches.keys().then(function (names) {
+                names.forEach(function (name) {
+                    caches.delete(name);
+                });
+            });
+        }
+    })();
 </script>
-{% endif %}
 
 
 <!-- async load function -->
