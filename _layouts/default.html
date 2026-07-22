@@ -6,9 +6,13 @@
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="">
 
+    <a class="skip-link sr-only sr-only-focusable" href="#main-content">Skip to main content</a>
+
     {% include nav.html %}
 
+    <main id="main-content" tabindex="-1">
     {{ content }}
+    </main>
 
     {% include footer.html %}
 

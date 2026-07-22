@@ -102,7 +102,7 @@ current_topics:
 
 
 # Cache-busting for local CSS/JS (bump when shipping asset changes)
-asset_version: "20260722-1"
+asset_version: "20260722-2"
 
 # Progressive Web Apps
 service-worker: true
