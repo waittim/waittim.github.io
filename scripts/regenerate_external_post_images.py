@@ -46,6 +46,11 @@ PALETTE = [
 CAPTURE = "#00809b"
 MISS = "#c45c26"
 MARKER_FACE = "#ffffff"
+# Continuous map for quantile coloring on density scatters (site teal/blue family)
+QUANTILE_CMAP = matplotlib.colors.LinearSegmentedColormap.from_list(
+    "site_quantile",
+    ["#1d3557", "#7eb8c4"],
+)
 
 FIGSIZE = (8.0, 4.8)
 DPI = 160
@@ -216,6 +221,76 @@ def plot_line(
         ax.set_xticks(list(xticks))
         ax.tick_params(axis="x", labelrotation=45)
     finish_axes(ax, title, xlabel, ylabel)
+    return save_chart(path, fig)
+
+
+def plot_density_scatter(
+    dens,
+    lengths,
+    qs,
+    path: Path,
+    *,
+    title: str,
+    xlabel: str = "Density",
+    ylabel: str = "Length of middle 95%",
+) -> tuple[int, int]:
+    """Scatter density vs length; no line — density is not monotone along quantiles for mixtures."""
+    dens = np.asarray(dens, dtype=float)
+    lengths = np.asarray(lengths, dtype=float)
+    qs = np.asarray(qs, dtype=float)
+    fig, ax = new_fig()
+    sc = ax.scatter(
+        dens,
+        lengths,
+        c=qs,
+        cmap=QUANTILE_CMAP,
+        s=48,
+        edgecolors=INK,
+        linewidths=0.6,
+        zorder=3,
+        vmin=float(qs.min()),
+        vmax=float(qs.max()),
+    )
+    cbar = fig.colorbar(sc, ax=ax, pad=0.02, fraction=0.046)
+    cbar.set_label("p-th quantile", color=INK)
+    cbar.outline.set_edgecolor(SPINE)
+    cbar.ax.yaxis.set_tick_params(color=MUTED, labelcolor=MUTED)
+    if LABEL_FP is not None:
+        cbar.ax.yaxis.label.set_fontproperties(LABEL_FP)
+    if BODY_FP is not None:
+        for label in cbar.ax.get_yticklabels():
+            label.set_fontproperties(BODY_FP)
+    finish_axes(ax, title, xlabel, ylabel)
+    return save_chart(path, fig)
+
+
+def plot_multi_density_scatter(
+    series: list[tuple[np.ndarray | list, np.ndarray | list, str]],
+    path: Path,
+    *,
+    title: str,
+    xlabel: str = "Density",
+    ylabel: str = "Length of middle 95%",
+    legend_title: str | None = "Sample size",
+) -> tuple[int, int]:
+    """For unimodal families, sort by density so each series forms one readable curve."""
+    fig, ax = new_fig()
+    for i, (xs, ys, label) in enumerate(series):
+        xs = np.asarray(xs, dtype=float)
+        ys = np.asarray(ys, dtype=float)
+        order = np.argsort(xs)
+        color = PALETTE[i % len(PALETTE)]
+        ax.plot(
+            xs[order],
+            ys[order],
+            marker="o",
+            color=color,
+            label=label,
+            markerfacecolor=MARKER_FACE,
+            markeredgewidth=1.2,
+        )
+    finish_axes(ax, title, xlabel, ylabel)
+    style_legend(ax.legend(title=legend_title, loc="best"))
     return save_chart(path, fig)
 
 
@@ -541,13 +616,12 @@ def regenerate_quantile_precision() -> None:
             xticks=qs,
         )
         update_post_image_dims(slug, stem_q, size, alt_q)
-        size = plot_line(
+        size = plot_density_scatter(
             dens,
             lengths,
+            qs,
             ROOT / f"img/posts/{slug}/{stem_d}",
             title=title_d,
-            xlabel="Density",
-            ylabel="Length of middle 95%",
         )
         update_post_image_dims(slug, stem_d, size, alt_d)
 
@@ -650,12 +724,10 @@ def regenerate_quantile_precision() -> None:
         legend_title="Sample size",
     )
     update_post_image_dims(slug, "prob5-o1.png", size)
-    size = plot_multi_lines(
+    size = plot_multi_density_scatter(
         dens_series,
         ROOT / f"img/posts/{slug}/prob5-o2.png",
         title="Normal middle-95% length by density across sample sizes",
-        xlabel="Density",
-        ylabel="Length of middle 95%",
         legend_title="Sample size",
     )
     update_post_image_dims(slug, "prob5-o2.png", size)

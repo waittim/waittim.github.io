@@ -98,7 +98,7 @@ ggplot(length_d_df, aes(x=density,y=mid95_length))+
   geom_point()+geom_line()+
   labs(title = "Length of middle 95% of normal distribution by density", x= "Density",y="Length")
 ```
-<img class="chart-invert" src="{{ "/img/posts/2019-09-18-quantile-precision/prob5-s2.png" | relative_url }}" alt="Middle 95 percent length versus normal density" width="1258" height="748" loading="lazy" decoding="async">
+<img class="chart-invert" src="{{ "/img/posts/2019-09-18-quantile-precision/prob5-s2.png" | relative_url }}" alt="Middle 95 percent length versus normal density" width="1254" height="748" loading="lazy" decoding="async">
 
 In this graph, we can see that when density is higher, the simulation error is lower.
 
@@ -154,7 +154,7 @@ ggplot(length_d_df, aes(x=density,y=mid95_length))+
   geom_point()+geom_line()+
   labs(title = "Length of middle 95% of exponential distribution by density", x= "Density",y="Length")
 ```
-<img class="chart-invert" src="{{ "/img/posts/2019-09-18-quantile-precision/prob5-e2.png" | relative_url }}" alt="Middle 95 percent length versus exponential density" width="1258" height="748" loading="lazy" decoding="async">
+<img class="chart-invert" src="{{ "/img/posts/2019-09-18-quantile-precision/prob5-e2.png" | relative_url }}" alt="Middle 95 percent length versus exponential density" width="1254" height="748" loading="lazy" decoding="async">
 
 
 # Mixture Distribution 3
@@ -228,7 +228,7 @@ ggplot(length_d_df, aes(x=density,y=mid95_length))+
   geom_point()+geom_line()+
   labs(title = "Length of middle 95% of given mixture distribution 3 by density", x= "Density",y="Length")
 ```
-<img class="chart-invert" src="{{ "/img/posts/2019-09-18-quantile-precision/prob5-m32.png" | relative_url }}" alt="Middle 95 percent length versus density for mixture distribution 3" width="1258" height="748" loading="lazy" decoding="async">
+<img class="chart-invert" src="{{ "/img/posts/2019-09-18-quantile-precision/prob5-m32.png" | relative_url }}" alt="Middle 95 percent length versus density for mixture distribution 3" width="1254" height="748" loading="lazy" decoding="async">
 
 # Mixture Distribution 4
 
@@ -303,7 +303,7 @@ ggplot(length_d_df, aes(x=density,y=mid95_length))+
   geom_point()+geom_line()+
   labs(title = "Length of middle 95% of given mixture distribution 4 by density", x= "Density",y="Length")
 ```
-<img class="chart-invert" src="{{ "/img/posts/2019-09-18-quantile-precision/prob5-m42.png" | relative_url }}" alt="Middle 95 percent length versus density for mixture distribution 4" width="1258" height="748" loading="lazy" decoding="async">
+<img class="chart-invert" src="{{ "/img/posts/2019-09-18-quantile-precision/prob5-m42.png" | relative_url }}" alt="Middle 95 percent length versus density for mixture distribution 4" width="1254" height="748" loading="lazy" decoding="async">
 
 
 
