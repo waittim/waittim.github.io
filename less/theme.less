@@ -62,6 +62,20 @@ body {
   outline: none;
 }
 
+/* Keyboard focus ring — accent token keeps contrast in light and dark. */
+a:focus-visible,
+button:focus-visible,
+.pager a:focus-visible,
+.tags a:focus-visible,
+#tag_cloud a:focus-visible,
+.catalog-toggle:focus-visible,
+.navbar-toggle:focus-visible,
+footer .list-inline a:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
 body,
 .post-preview > a,
 .post-preview > .post-meta > a {
