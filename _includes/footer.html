@@ -107,7 +107,7 @@
 <script src="{{ "/js/bootstrap.min.js" | relative_url }}"></script>
 
 <!-- Custom Theme JavaScript -->
-<script src="{{ "/js/hux-blog.min.js" | relative_url }}"></script>
+<script src="{{ "/js/hux-blog.min.js" | relative_url }}?v={{ site.asset_version }}"></script>
 
 <!-- Service Worker -->
 {% if site.service-worker %}
@@ -139,7 +139,7 @@
 <script>
     // only load tagcloud.js in tag.html
     if($('#tag_cloud').length !== 0){
-        async('{{ "/js/jquery.tagcloud.js" | relative_url }}?v=theme-v1',function(){
+        async('{{ "/js/jquery.tagcloud.js" | relative_url }}?v={{ site.asset_version }}',function(){
             var tagColorScheme = window.matchMedia('(prefers-color-scheme: dark)');
 
             function renderTagCloud(){
