@@ -18,7 +18,9 @@
     {% assign social_image = page.image | default: page.header-img | default: site.default_image %}
     <meta name="description" content="{{ page_description | escape }}">
     <meta name="keywords"  content="{{ site.keyword | escape }}">
-    <meta name="theme-color" content="{{ site.chrome-tab-theme-color }}">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#121416" media="(prefers-color-scheme: dark)">
     
     <title>{% if page.title %}{{ page.title | escape }} | {{ site.title | escape }}{% else %}{{ site.SEOTitle | escape }}{% endif %}</title>
 
@@ -118,6 +120,9 @@
 
     <!-- Pygments Github CSS -->
     <link rel="stylesheet" href="{{ "/css/syntax.css" | relative_url }}">
+
+    <!-- System light/dark theme overrides (must load last) -->
+    <link rel="stylesheet" href="{{ "/css/theme.min.css" | relative_url }}">
 
     <!-- Custom Fonts -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">

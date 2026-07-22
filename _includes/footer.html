@@ -139,12 +139,25 @@
 <script>
     // only load tagcloud.js in tag.html
     if($('#tag_cloud').length !== 0){
-        async('{{ "/js/jquery.tagcloud.js" | relative_url }}',function(){
-            $.fn.tagcloud.defaults = {
-                //size: {start: 1, end: 1, unit: 'em'},
-                color: {start: '#bbbbee', end: '#0085a1'},
-            };
-            $('#tag_cloud a').tagcloud();
+        async('{{ "/js/jquery.tagcloud.js" | relative_url }}?v=theme-v1',function(){
+            var tagColorScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+            function renderTagCloud(){
+                $.fn.tagcloud.defaults = {
+                    // Preserve article-count color encoding without changing tag size.
+                    color: tagColorScheme.matches
+                        ? {start: '#4a416f', end: '#00677d'}
+                        : {start: '#bbbbee', end: '#0085a1'}
+                };
+                $('#tag_cloud a').tagcloud();
+            }
+
+            renderTagCloud();
+            if(tagColorScheme.addEventListener){
+                tagColorScheme.addEventListener('change', renderTagCloud);
+            }else{
+                tagColorScheme.addListener(renderTagCloud);
+            }
         })
     }
 </script>

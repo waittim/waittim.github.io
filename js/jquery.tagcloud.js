@@ -25,7 +25,11 @@
       }
       if (opts.color) {
         // change color to background-color
-        $(this).css({"backgroundColor": tagColor(opts.color, colorIncr, weighting)});
+        var backgroundColor = tagColor(opts.color, colorIncr, weighting);
+        $(this).css({
+          "backgroundColor": backgroundColor,
+          "color": readableTextColor(backgroundColor)
+        });
       }
     });
   };
@@ -71,6 +75,21 @@
       return ref;
     });
     return toHex(rgb);
+  }
+
+  // Pick the higher-contrast foreground for every point in the color scale.
+  function readableTextColor (background) {
+    var channels = toRGB(background).map(function(channel) {
+      channel = channel / 255;
+      return channel <= 0.04045
+        ? channel / 12.92
+        : Math.pow((channel + 0.055) / 1.055, 2.4);
+    });
+    var luminance = (0.2126 * channels[0]) + (0.7152 * channels[1]) + (0.0722 * channels[2]);
+    var lightContrast = 1.05 / (luminance + 0.05);
+    var darkLuminance = 0.014443843596092545; // #202124
+    var darkContrast = (luminance + 0.05) / (darkLuminance + 0.05);
+    return lightContrast >= darkContrast ? "#ffffff" : "#202124";
   }
 
   function compareWeights(a, b)

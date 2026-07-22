@@ -748,7 +748,7 @@ plt.show()
 
 
     
-![png]({{ "/img/posts/2021-05-05-kmeans-anomaly-detection/output_56_0.png" | relative_url }})
+![K-Means silhouette score by cluster count]({{ "/img/posts/2021-05-05-kmeans-anomaly-detection/output_56_0.png" | relative_url }}){: .chart-invert }
     
 
 
@@ -871,7 +871,7 @@ plt.show()
 
 
     
-![png]({{ "/img/posts/2021-05-05-kmeans-anomaly-detection/output_65_0.png" | relative_url }})
+![Kernel density estimate of anomaly distances]({{ "/img/posts/2021-05-05-kmeans-anomaly-detection/output_65_0.png" | relative_url }}){: .chart-invert }
     
 
 
@@ -929,7 +929,7 @@ So **why do we need to cluster before calculating the distance to the centroid?*
 
 Because emails often have multiple types, such as official notifications, work schedules, personal matters, and so on. If all emails are treated as one class, then in the high-dimensional Euclidean space formed by the features, an anomaly cannot be successfully distinguished if it does not belong to any class but is between multiple classes.
 
-![clusters]({{ "/img/posts/2021-05-05-kmeans-anomaly-detection/cluster.png" | relative_url }})
+![Target positioned between three email clusters]({{ "/img/posts/2021-05-05-kmeans-anomaly-detection/cluster.png" | relative_url }}){: .chart-invert }
 
 
 **P.S.** In addition to the classical K-Means algorithm used in the previous section, the Bisecting KMeans algorithm described below can also be used as an alternative when we have strict requirements for running time.

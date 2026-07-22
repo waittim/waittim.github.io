@@ -1,7 +1,7 @@
 {% assign comments_provider = site.comments.provider | default: "" %}
 {% if comments_provider == "utterances" and site.comments.utterances.repo %}
 {% assign comment_issue_number = site.data.comment_issues[page.url] %}
-<div class="comment">
+<div class="comment" id="utterances-comments">
     <script src="https://utteranc.es/client.js"
             repo="{{ site.comments.utterances.repo }}"
 {% if comment_issue_number %}
@@ -12,9 +12,61 @@
 {% if site.comments.utterances.label %}
             label="{{ site.comments.utterances.label }}"
 {% endif %}
-            theme="{{ site.comments.utterances.theme | default: 'github-light' }}"
+            theme="{{ site.comments.utterances.theme | default: 'preferred-color-scheme' }}"
             crossorigin="anonymous"
             async>
+    </script>
+    <script>
+    (function() {
+        var container = document.getElementById('utterances-comments');
+        if (!container) return;
+
+        var utterancesOrigin = 'https://utteranc.es';
+        var colorScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+        function currentTheme() {
+            return colorScheme.matches ? 'github-dark' : 'github-light';
+        }
+
+        function syncTheme(force) {
+            var frame = container.querySelector('iframe.utterances-frame');
+            if (!frame || !frame.contentWindow) return;
+
+            var theme = currentTheme();
+            if (!force && frame.dataset.zekunTheme === theme) return;
+
+            frame.contentWindow.postMessage({
+                type: 'set-theme',
+                theme: theme
+            }, utterancesOrigin);
+            frame.dataset.zekunTheme = theme;
+        }
+
+        function bindFrame() {
+            var frame = container.querySelector('iframe.utterances-frame');
+            if (!frame || frame.dataset.zekunThemeBound === 'true') return;
+
+            frame.dataset.zekunThemeBound = 'true';
+            frame.addEventListener('load', function() {
+                syncTheme(true);
+            });
+            syncTheme(false);
+        }
+
+        var frameObserver = new MutationObserver(bindFrame);
+        frameObserver.observe(container, { childList: true, subtree: true });
+        bindFrame();
+
+        function handleColorSchemeChange() {
+            syncTheme(true);
+        }
+
+        if (colorScheme.addEventListener) {
+            colorScheme.addEventListener('change', handleColorSchemeChange);
+        } else {
+            colorScheme.addListener(handleColorSchemeChange);
+        }
+    })();
     </script>
 </div>
 {% endif %}

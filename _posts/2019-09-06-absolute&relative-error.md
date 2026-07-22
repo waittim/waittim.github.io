@@ -6,6 +6,7 @@ date:       2019-09-06
 author:     Zekun Wang
 header-img: img/headers/prob2-error.jpeg
 catalog: true
+dark_chart_images: invert
 tags:
     - Probability
     - Statistics

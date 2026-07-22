@@ -83,7 +83,22 @@ For most users, the easiest way to use Slides Thief is the web app. It runs loca
 
 The following screenshot shows the main interface of the Slides Thief Web App:
 
-[![Slides Thief Web UI]({{ "/img/posts/2026-07-13-slides-thief/ui.png" | relative_url }} "Slides Thief Web UI")](https://slidesthief.com/)
+<a href="https://slidesthief.com/">
+  <picture>
+    <source
+      srcset="{{ "/img/posts/2026-07-13-slides-thief/ui-dark.png" | relative_url }}"
+      media="(prefers-color-scheme: dark)">
+    <img
+      class="theme-screenshot"
+      src="{{ "/img/posts/2026-07-13-slides-thief/ui.png" | relative_url }}"
+      alt="Slides Thief Web UI"
+      title="Slides Thief Web UI"
+      width="1024"
+      height="620"
+      loading="lazy"
+      decoding="async">
+  </picture>
+</a>
 
 A typical workflow looks like this:
 

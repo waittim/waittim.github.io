@@ -15,7 +15,7 @@
         "build": "bundle exec jekyll build",
         "serve": "bundle exec jekyll serve --livereload",
         "preview": "python3 -m http.server 8020 --directory _site",
-        "build:css": "lessc less/hux-blog.less css/hux-blog.css && cleancss -o css/hux-blog.min.css css/hux-blog.css",
+        "build:css": "lessc less/hux-blog.less css/hux-blog.css && cleancss -o css/hux-blog.min.css css/hux-blog.css && lessc less/theme.less css/theme.css && cleancss -o css/theme.min.css css/theme.css",
         "build:js": "terser js/hux-blog.js --compress --mangle --output js/hux-blog.min.js",
         "build:assets": "npm run build:css && npm run build:js",
         "watch:assets": "chokidar \"less/**/*.less\" \"js/hux-blog.js\" -c \"npm run build:assets\""

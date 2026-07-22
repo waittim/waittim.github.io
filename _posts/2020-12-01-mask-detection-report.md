@@ -64,7 +64,7 @@ However, if these data are used directly for training, the model will be difficu
 
 The code framework used for training is mainly adapted from the YOLOV3 repository from Ultralytics<sup>[9]</sup>. Training was completed on Google Colab, and the results are as follows:
 
-![results](https://github.com/waittim/mask-detector/raw/master/modeling/results.png)
+![Training and validation metrics for the mask detector](https://github.com/waittim/mask-detector/raw/master/modeling/results.png){: .chart-invert }
 
 It can be seen that the model has achieved good training results, and mAP@0.5 is stable above 0.8.
 

@@ -6,6 +6,7 @@ date:       2020-02-15
 author:     Zekun Wang
 header-img: img/headers/post-song-analysis.jpeg
 catalog: true
+dark_chart_images: invert
 tags:
     - EDA
     - Project

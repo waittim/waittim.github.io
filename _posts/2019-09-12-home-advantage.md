@@ -6,6 +6,7 @@ date:       2019-09-12
 author:     Zekun Wang
 header-img: img/headers/prob4-home-advantage.jpg
 catalog: true
+dark_chart_images: invert
 tags:
     - Probability
     - Statistics

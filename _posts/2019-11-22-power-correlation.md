@@ -6,6 +6,7 @@ date:       2019-11-22
 author:     Zekun Wang
 header-img: img/headers/prob10-power&sample.jpg
 catalog: true
+dark_chart_images: invert
 tags:
     - Probability
     - Statistics

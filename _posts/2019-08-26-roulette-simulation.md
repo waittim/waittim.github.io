@@ -6,6 +6,7 @@ date:       2019-08-26
 author:     Zekun Wang
 header-img: img/headers/prob1-roulette.jpg
 catalog: true
+dark_chart_images: invert
 tags:
     - Probability
     - Statistics

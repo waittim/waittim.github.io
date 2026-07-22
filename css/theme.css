@@ -1,0 +1,495 @@
+/*
+ * System color theme
+ *
+ * This file is intentionally loaded after Bootstrap, Hux Blog, and syntax.css.
+ * Keep color decisions here so a future System / Light / Dark control can switch
+ * the token values without rewriting component styles.
+ */
+:root {
+  color-scheme: light dark;
+  --color-page: #ffffff;
+  --color-surface: #ffffff;
+  --color-surface-subtle: #f9f9f9;
+  --color-surface-raised: rgba(255, 255, 255, 0.92);
+  --color-text: #404040;
+  --color-text-secondary: #6b6b6b;
+  --color-text-tertiary: #767676;
+  --color-border: #eeeeee;
+  --color-border-strong: #cccccc;
+  --color-border-control: #767676;
+  --color-link: #337ab7;
+  --color-accent: #00809b;
+  --color-on-accent: #ffffff;
+  --color-code-bg: #f8f8f8;
+  --color-code-border: #cccccc;
+  --color-inline-code-bg: #f5f5f5;
+  --color-inline-code-text: #c7254e;
+  --shadow-raised: 0 1px 6px rgba(0, 0, 0, 0.18);
+  --shadow-image: 0 2px 5px rgba(0, 0, 0, 0.26);
+}
+html,
+body {
+  background-color: var(--color-page);
+  color: var(--color-text);
+}
+body,
+.post-preview > a,
+.post-preview > .post-meta > a {
+  color: var(--color-text);
+}
+a,
+.post-container a,
+footer .copyright a {
+  color: var(--color-link);
+}
+a:hover,
+a:focus,
+.post-container a:hover,
+.post-container a:focus,
+.post-preview > a:hover,
+.post-preview > a:focus,
+.post-preview > .post-meta > a:hover,
+.post-preview > .post-meta > a:focus {
+  color: var(--color-accent);
+}
+blockquote,
+.post-preview > .post-meta,
+.post-container h5,
+.post-container h6,
+.caption,
+.copyright,
+.text-muted {
+  color: var(--color-text-secondary);
+}
+.post-content-preview,
+.sidebar-container {
+  color: var(--color-text-tertiary);
+}
+blockquote {
+  border-left-color: var(--color-border-strong);
+}
+hr {
+  border-color: var(--color-border);
+}
+::selection {
+  color: var(--color-on-accent);
+  background: var(--color-accent);
+}
+::-moz-selection {
+  color: var(--color-on-accent);
+  background: var(--color-accent);
+}
+img.shadow {
+  box-shadow: var(--shadow-image);
+}
+/* Fixed navigation is a page surface; the hero navigation stays unchanged. */
+@media only screen and (min-width: 1170px) {
+  .navbar-custom.is-fixed {
+    background-color: var(--color-surface-raised);
+    border-bottom-color: var(--color-border);
+    box-shadow: var(--shadow-raised);
+  }
+  .navbar-custom.is-fixed .navbar-brand,
+  .navbar-custom.is-fixed .nav li a {
+    color: var(--color-text);
+  }
+  .navbar-custom.is-fixed .navbar-brand:hover,
+  .navbar-custom.is-fixed .navbar-brand:focus,
+  .navbar-custom.is-fixed .nav li a:hover,
+  .navbar-custom.is-fixed .nav li a:focus {
+    color: var(--color-accent);
+  }
+}
+/* On mobile only the opened menu becomes a themed surface. */
+@media only screen and (max-width: 767px) {
+  .navbar-default .navbar-collapse {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+    box-shadow: var(--shadow-raised);
+  }
+  .navbar-custom .navbar-collapse .nav li a {
+    color: var(--color-text);
+  }
+  .navbar-custom .navbar-collapse .nav li a:hover,
+  .navbar-custom .navbar-collapse .nav li a:focus {
+    color: var(--color-accent);
+  }
+}
+/* Sidebar, catalog, tags, and navigation controls. */
+.sidebar-container h5,
+.sidebar-container h5 a {
+  color: var(--color-text-secondary) !important;
+}
+.sidebar-container a {
+  color: var(--color-text-tertiary) !important;
+}
+.sidebar-container a:hover,
+.sidebar-container a:focus,
+.sidebar-container a:active {
+  color: var(--color-accent) !important;
+}
+.sidebar-container .tags a {
+  border-color: var(--color-border-strong);
+}
+.side-catalog .catalog-body .active {
+  background-color: var(--color-surface-subtle);
+}
+.side-catalog .catalog-body .active a,
+.listing-seperator {
+  color: var(--color-accent) !important;
+}
+#tag_cloud a,
+#tag_cloud .tag {
+  color: var(--color-text);
+  background: var(--color-surface-subtle);
+  border: 1px solid var(--color-border);
+}
+#tag_cloud a:hover,
+#tag_cloud .tag:hover,
+#tag_cloud a:focus,
+#tag_cloud .tag:focus,
+#tag_cloud a:active,
+#tag_cloud .tag:active {
+  color: var(--color-on-accent) !important;
+  background-color: var(--color-accent) !important;
+  border-color: var(--color-accent);
+}
+.pager li > a,
+.pager li > span,
+.btn-default {
+  color: var(--color-text);
+  background: var(--color-surface);
+  border-color: var(--color-border-control);
+}
+.pager li > a:hover,
+.pager li > a:focus,
+.btn-default:hover,
+.btn-default:focus {
+  color: var(--color-on-accent);
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+.post-container .pager li > a > span {
+  color: var(--color-text-secondary);
+}
+.post-container .pager li > a:hover > span,
+.post-container .pager li > a:focus > span {
+  color: var(--color-on-accent);
+}
+.pager .disabled > a,
+.pager .disabled > a:hover,
+.pager .disabled > a:focus,
+.pager .disabled > span {
+  color: var(--color-text-secondary);
+  background-color: var(--color-surface-subtle);
+  border-color: var(--color-border);
+}
+footer .fa-stack-2x {
+  color: var(--color-text);
+}
+footer .fa-inverse {
+  color: var(--color-page);
+}
+/* Tables and controls. */
+.table,
+.table th,
+.table td {
+  color: var(--color-text);
+  border-color: var(--color-border) !important;
+}
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: var(--color-surface-subtle);
+}
+.table-hover > tbody > tr:hover {
+  background-color: var(--color-surface-subtle);
+}
+select,
+input,
+textarea,
+.form-control {
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  border-color: var(--color-border-control);
+}
+select {
+  color: var(--color-link);
+}
+select:focus,
+input:focus,
+textarea:focus,
+.form-control:focus {
+  border-color: var(--color-accent);
+  outline-color: var(--color-accent);
+  box-shadow: 0 0 0 1px var(--color-accent);
+}
+.floating-label-form-group,
+form .row:first-child .floating-label-form-group {
+  border-color: var(--color-border);
+}
+.floating-label-form-group-with-focus label {
+  color: var(--color-accent);
+}
+code,
+kbd,
+samp {
+  color: var(--color-inline-code-text);
+  background-color: var(--color-inline-code-bg);
+}
+pre {
+  color: var(--color-text);
+  background-color: var(--color-code-bg);
+}
+code {
+  border: 1px solid var(--color-code-border);
+}
+pre code,
+.highlight pre code {
+  color: inherit;
+  background: transparent;
+  border: 0;
+}
+pre,
+.highlight pre,
+.highlight .hll {
+  background-color: var(--color-code-bg);
+  border-color: var(--color-code-border);
+}
+/* Optional treatment for transparent diagrams that need a stable canvas. */
+.post-container img.theme-surface {
+  padding: 0.5rem;
+  background-color: var(--color-surface);
+}
+/*
+ * Opt-in canvas for plots exported with transparent pixels but authored for a
+ * light background. This preserves axes, labels, legends, and data colors.
+ */
+.post-container img.chart-light {
+  box-sizing: border-box;
+  background-color: #ffffff;
+  border: 1px solid #d0d7de;
+  border-radius: 3px;
+}
+/* Transparent plots whose labels and axes can safely follow page luminance. */
+.post-container img.chart-invert {
+  background: transparent;
+}
+/* Keep light/dark screenshot pairs stable when their source captures differ. */
+.post-container img.theme-screenshot {
+  width: 100%;
+  aspect-ratio: 256 / 155;
+  object-fit: cover;
+  object-position: center;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-page: #121416;
+    --color-surface: #171a1d;
+    --color-surface-subtle: #1c2024;
+    --color-surface-raised: rgba(18, 20, 22, 0.92);
+    --color-text: #e6e8eb;
+    --color-text-secondary: #aeb4bc;
+    --color-text-tertiary: #969da7;
+    --color-border: #2a2f35;
+    --color-border-strong: #4b535d;
+    --color-border-control: #737c87;
+    --color-link: #8ab4f8;
+    --color-accent: #74c7d5;
+    --color-on-accent: #121416;
+    --color-code-bg: #171a1f;
+    --color-code-border: #4b535d;
+    --color-inline-code-bg: #1c2024;
+    --color-inline-code-text: #ff9db0;
+    --shadow-raised: 0 1px 8px rgba(0, 0, 0, 0.45);
+    --shadow-image: 0 2px 8px rgba(0, 0, 0, 0.48);
+  }
+  .post-container img:not(.theme-surface):not(.chart-light):not(.chart-invert) {
+    box-shadow: 0 0 0 1px var(--color-border), var(--shadow-image);
+  }
+  .post-container img.chart-light {
+    border-color: var(--color-border-strong);
+    box-shadow: var(--shadow-image);
+  }
+  .post-container img.chart-invert {
+    filter: invert(1) hue-rotate(180deg);
+    box-shadow: none;
+  }
+  .post-container.chart-images-invert img:not(.no-dark-invert) {
+    filter: invert(1) hue-rotate(180deg);
+    box-shadow: none;
+  }
+  .highlight pre,
+  pre,
+  .highlight .hll {
+    color: #e6edf3;
+    background-color: var(--color-code-bg);
+    border-color: var(--color-code-border);
+  }
+  .highlight .c,
+  .highlight .cm,
+  .highlight .c1,
+  .highlight .cs,
+  .highlight .cp,
+  .highlight .bp {
+    color: #8b949e;
+  }
+  .highlight .err {
+    color: #ffa198;
+    background-color: #3d161b;
+  }
+  .highlight .gd {
+    color: #ffdcd7;
+    background-color: #67060c;
+  }
+  .highlight .gd .x {
+    color: #ffdcd7;
+    background-color: #8e1519;
+  }
+  .highlight .gi {
+    color: #aff5b4;
+    background-color: #033a16;
+  }
+  .highlight .gi .x {
+    color: #aff5b4;
+    background-color: #0f5323;
+  }
+  .highlight .gc {
+    color: #c9d1d9;
+    background-color: #21262d;
+  }
+  .highlight .k,
+  .highlight .kc,
+  .highlight .kd,
+  .highlight .kn,
+  .highlight .kp,
+  .highlight .kr,
+  .highlight .kt {
+    color: #ff7b72;
+  }
+  .highlight .s,
+  .highlight .sb,
+  .highlight .sc,
+  .highlight .sd,
+  .highlight .s1,
+  .highlight .s2,
+  .highlight .se,
+  .highlight .sh,
+  .highlight .si,
+  .highlight .sr,
+  .highlight .sx,
+  .highlight .ss {
+    color: #a5d6ff;
+  }
+  .highlight .m,
+  .highlight .mf,
+  .highlight .mh,
+  .highlight .mi,
+  .highlight .mo,
+  .highlight .il {
+    color: #79c0ff;
+  }
+  .highlight .nf,
+  .highlight .nc,
+  .highlight .ne {
+    color: #d2a8ff;
+  }
+  .highlight .n,
+  .highlight .na,
+  .highlight .nb,
+  .highlight .no,
+  .highlight .ni,
+  .highlight .nn,
+  .highlight .nt,
+  .highlight .nv,
+  .highlight .vc,
+  .highlight .vg,
+  .highlight .vi {
+    color: #e6edf3;
+  }
+  .highlight .o,
+  .highlight .ow {
+    color: #ff7b72;
+  }
+  .highlight .gr,
+  .highlight .gt {
+    color: #ffa198;
+  }
+  .highlight .gh,
+  .highlight .go,
+  .highlight .gp,
+  .highlight .w {
+    color: #8b949e;
+  }
+  .highlight .gu {
+    color: #d2a8ff;
+  }
+  pre::-webkit-scrollbar,
+  .highlight pre::-webkit-scrollbar {
+    height: 10px;
+  }
+  pre::-webkit-scrollbar-thumb,
+  .highlight pre::-webkit-scrollbar-thumb {
+    background: var(--color-border-strong);
+    border: 2px solid var(--color-code-bg);
+    border-radius: 999px;
+  }
+}
+@media print {
+  :root {
+    color-scheme: light;
+    --color-page: #ffffff;
+    --color-surface: #ffffff;
+    --color-surface-subtle: #f6f8fa;
+    --color-text: #000000;
+    --color-text-secondary: #444444;
+    --color-text-tertiary: #555555;
+    --color-border: #cccccc;
+    --color-border-strong: #999999;
+    --color-border-control: #767676;
+    --color-link: #000000;
+    --color-accent: #000000;
+    --color-code-bg: #f6f8fa;
+    --color-code-border: #cccccc;
+    --color-inline-code-bg: #f6f8fa;
+    --color-inline-code-text: #000000;
+  }
+  html,
+  body,
+  article,
+  .post-container {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  .navbar-custom,
+  footer,
+  .comment,
+  .sidebar-container,
+  .side-catalog,
+  .pager,
+  .intro-header .header-mask,
+  .intro-header .tags {
+    display: none !important;
+  }
+  .intro-header {
+    background-image: none !important;
+    background-color: #ffffff !important;
+  }
+  .intro-header .site-heading,
+  .intro-header .post-heading,
+  .intro-header .page-heading,
+  .intro-header .post-heading .meta,
+  .intro-header .post-heading .meta a {
+    color: #000000 !important;
+  }
+  .post-container img {
+    filter: none !important;
+    box-shadow: none !important;
+  }
+  pre,
+  .highlight pre,
+  .highlight .hll,
+  code {
+    color: #000000 !important;
+    background: #f6f8fa !important;
+    border-color: #cccccc !important;
+  }
+}
