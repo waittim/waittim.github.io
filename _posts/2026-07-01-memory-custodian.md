@@ -49,7 +49,7 @@ MemoryCustodian gives coding agents durable project memory using plain Markdown 
 
 Record important knowledge once. Let future sessions, different coding agents, and the rest of the team recover it from the repository.
 
-* [Watch the demo](https://www.youtube.com/watch?v=mYKzzATlOPw)
+* [Watch the demo](#demo)
 * [View MemoryCustodian on GitHub](https://github.com/waittim/MemoryCustodian)
 * [Explore the NightNotes example](https://github.com/waittim/MemoryCustodian/tree/main/examples/nightnotes-video-demo)
 
@@ -361,7 +361,10 @@ A single growing file makes every task pay the context cost of every stored deci
 
 No. Routine operation is local and repo-native. The design favors transparent files and deterministic structure over a proprietary storage or retrieval layer.
 
-* [Watch the demo](https://www.youtube.com/watch?v=mYKzzATlOPw)
+<p id="demo">
+<iframe width="700" height="393" src="https://www.youtube-nocookie.com/embed/mYKzzATlOPw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</p>
+
 * [Install MemoryCustodian](https://github.com/waittim/MemoryCustodian)
 * [Read the technical design](/2026/07/20/memory-custodian-tech-design/)
 * [Read the memory governance design](/2026/07/21/memory-custodian-safe/)
