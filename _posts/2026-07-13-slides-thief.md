@@ -3,7 +3,7 @@ layout:     post
 title:      "Slides Thief - Turn Photographed Presentation Slides into Clean PDFs"
 subtitle:   "Just take photos of the slides—they are yours now."
 date:       2026-07-13
-updated:    2026-07-21
+updated:    2026-07-22
 author:     Zekun Wang
 description: "Slides Thief is a browser-based tool that turns photographed presentation slides into perspective-corrected images and clean PDFs, with all processing performed locally."
 image: /img/posts/2026-07-13-slides-thief/ui.png
@@ -31,7 +31,7 @@ Its goal is simple:
 
 > **Capture slides. Straighten them. Keep them readable.**
 
-Slides Thief can automatically detect slide boundaries, correct perspective distortion, and compile the results into standardized 16:9 or 4:3 PDF pages. When automatic detection is not perfect, you can manually adjust the four corners before exporting.
+Slides Thief can automatically detect slide boundaries, correct perspective distortion, and compile the results into standardized PDF pages. Choose presentation ratios such as 16:9 or 4:3, or paper presets such as A4/A3 and US Letter in landscape or portrait. Paper presets fill margins with white automatically. When automatic detection is not perfect, you can manually adjust the four corners before exporting.
 
 Please use it only for slides you are allowed to photograph, keep, or reference.
 
@@ -66,6 +66,9 @@ For most users, the easiest way to use Slides Thief is the web app. It runs loca
 * **Manual corner adjustment**
   When the automatic result is affected by reflections, complex backgrounds, or partial obstruction, you can drag the four corner handles to fine-tune the correction.
 
+* **Flexible output ratios**
+  Export to 16:9 or 4:3 for presentation-style pages, or to A4/A3 and US Letter in landscape or portrait. Paper presets center the corrected slide on the page and fill the margins with white.
+
 * **Batch PDF export**
   Process multiple slide photos and export them as a single PDF document.
 
@@ -73,7 +76,7 @@ For most users, the easiest way to use Slides Thief is the web app. It runs loca
   In addition to JPG, PNG, and WebP, Slides Thief supports HEIC/HEIF images and converts them in the browser before processing.
 
 * **Clean web interface**
-  The app supports drag-and-drop, dark/light theme behavior, and bilingual interface options.
+  The app supports drag-and-drop, dark/light theme behavior, and a UI in nine languages: Simplified Chinese, Traditional Chinese, English, Spanish, French, German, Japanese, Korean, and Brazilian Portuguese.
 
 ---
 
@@ -95,7 +98,31 @@ A typical workflow looks like this:
    Check each result. If automatic detection misses the real slide boundary, drag the four corner handles to correct it manually.
 
 4. **Export PDF**
-   Choose the target aspect ratio, generate the PDF, and download the final document.
+   Choose the target aspect ratio or paper preset, click **Generate PDF**, then **Download PDF** to save the final document.
+
+---
+
+## Advanced Settings
+
+Open **More settings** in the export panel when you need finer control over the output:
+
+* **Output width and height**
+  Set the pixel dimensions of each corrected page. Height can be left automatic based on the selected ratio.
+
+* **JPEG quality**
+  Adjust compression quality for the flattened slide images inside the PDF.
+
+* **Enhancement modes**
+  Choose how the corrected slide should look before export:
+  * *Original*: no extra processing
+  * *Clean*: mild sharpening and contrast cleanup
+  * *High contrast*: stronger contrast for low-light photos
+  * *Black & white*: scan-style monochrome output
+
+* **Fill color**
+  Customize the background color around the corrected slide. Paper presets default to white margins.
+
+You can also rename the PDF before download. All of these options are processed locally in the browser, just like the core correction workflow.
 
 ---
 
