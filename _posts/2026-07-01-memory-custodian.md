@@ -11,14 +11,13 @@ series: MemoryCustodian Design Series
 header-img: img/headers/post-bg-data-center.jpeg
 catalog: true
 tags:
-    - Coding Agents
+    - Agent
     - Agent Memory
     - Developer Tools
     - Software Architecture
     - Local-First
     - CLI
     - AI
-    - Agent
 ---
 
 **MemoryCustodian Design Series · Part 1 of 3**  

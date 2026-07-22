@@ -7,7 +7,6 @@ author:     Zekun Wang
 header-img: img/headers/prob8-simulation.jpg
 catalog: true
 tags:
-    - Probability
     - Statistics
     - Simulation
     - R

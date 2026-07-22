@@ -8,7 +8,6 @@ header-img: img/headers/prob3-worldseries.jpg
 catalog: true
 dark_chart_images: invert
 tags:
-    - Probability
     - Statistics
     - Simulation
     - R

@@ -20,7 +20,7 @@ tags:
     - Paper
     - Medical Image Processing
     - Machine Learning
-    - Web Development
+    - Web Application
     - Clinical Data Privacy
     - AI
     - Local-First

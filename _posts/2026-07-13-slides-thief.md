@@ -11,11 +11,9 @@ header-img: img/headers/post-bg-rwd.jpg
 catalog: true
 tags:
     - Computer Vision
-    - Image Processing
     - Web Application
     - JavaScript
     - PDF Generation
-    - Client-Side App
     - Productivity Tool
     - Project
     - Local-First

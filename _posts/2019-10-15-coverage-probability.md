@@ -8,7 +8,6 @@ header-img: img/headers/prob7-coverage.jpg
 catalog: true
 dark_chart_images: invert
 tags:
-    - Probability
     - Statistics
     - Simulation
     - R

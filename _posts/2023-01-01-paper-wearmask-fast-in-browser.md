@@ -18,7 +18,6 @@ tags:
     - COVID-19
     - Masked Face
     - Deep Learning
-    - Edge Device
     - Serverless
     - Edge Computing
     - AI

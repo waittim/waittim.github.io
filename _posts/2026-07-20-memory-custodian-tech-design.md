@@ -11,7 +11,7 @@ series: MemoryCustodian Design Series
 header-img: img/headers/post-bg-computer-storage.jpeg
 catalog: true
 tags:
-    - Coding Agents
+    - Agent
     - Agent Memory
     - Developer Tools
     - Software Architecture
@@ -19,7 +19,6 @@ tags:
     - Markdown
     - Git
     - AI
-    - Agent
 ---
 
 **MemoryCustodian Design Series · Part 2 of 3**  

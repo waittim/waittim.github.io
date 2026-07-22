@@ -11,14 +11,13 @@ series: MemoryCustodian Design Series
 header-img: img/headers/post-bg-memory-disk.jpg
 catalog: true
 tags:
-    - Coding Agents
+    - Agent
     - Agent Memory
     - Developer Tools
     - Software Architecture
     - Local-First
     - Data Governance
     - AI
-    - Agent
 ---
 
 **MemoryCustodian Design Series · Part 3 of 3**  

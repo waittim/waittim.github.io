@@ -11,7 +11,6 @@ tags:
     - GeoIP
     - Tutorial
     - Python
-    - IP
 ---
 
 
