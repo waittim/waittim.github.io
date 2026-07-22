@@ -49,6 +49,7 @@ layout: default
     </div>
 </header>
 
+{% comment %}MathJax is opt-in: add `mathjax: true` to post front matter when using $...$ or $$...$$.{% endcomment %}
 {% if page.mathjax %}
 <script>
     window.MathJax = {
