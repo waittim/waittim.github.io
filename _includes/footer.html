@@ -194,15 +194,37 @@
 {% if page.catalog %}
 <script type="text/javascript">
     function generateCatalog (selector) {
-        var P = $('div.post-container'),a,n,t,l,i,c;
+        var P = $('div.post-container'),a,n,t,l,i,c,d,p,r,s;
+        r = $(selector);
+        s = {};
         a = P.find('h1,h2,h3,h4,h5,h6');
         a.each(function () {
             n = $(this).prop('tagName').toLowerCase();
+            d = parseInt(n.substring(1), 10);
             i = "#"+$(this).prop('id');
             t = $(this).text();
-            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            c = $('<a></a>').attr({ href: i, rel: 'nofollow' }).text(t);
             l = $('<li class="'+n+'_nav"></li>').append(c);
-            $(selector).append(l);
+
+            p = d - 1;
+            while (p > 0 && !s[p]) {
+                p--;
+            }
+
+            if (p > 0) {
+                var sublist = s[p].children('.catalog-sublist');
+                if (!sublist.length) {
+                    sublist = $('<ul class="catalog-sublist"></ul>').appendTo(s[p]);
+                }
+                sublist.append(l);
+            } else {
+                r.append(l);
+            }
+
+            for (var level = d; level <= 6; level++) {
+                delete s[level];
+            }
+            s[d] = l;
         });
         return true;    
     }
