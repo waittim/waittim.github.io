@@ -177,7 +177,7 @@ ggplot(quantile95_df) +
   coord_flip() +
   theme_bw()
 ```
-![](https://i.postimg.cc/9MPrGHm9/prob7-1.png)
+<img class="chart-invert" src="{{ "/img/posts/2019-10-15-coverage-probability/coverage-intervals.png" | relative_url }}" alt="Ninety-five percent confidence intervals for the median; rust intervals miss zero" width="1128" height="1420" loading="lazy" decoding="async">
 
 # Step 6: Future work
 **How to change the simulation to learn more about the operating characteristics of the chosen method for constructing the 95% confidence interval.**

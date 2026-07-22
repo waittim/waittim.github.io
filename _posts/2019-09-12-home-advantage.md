@@ -16,8 +16,6 @@ tags:
 
 # Introduction
 
-![WORLD SERIES](https://cdn.technadu.com/wp-content/uploads/2019/05/World-Series-Logo.png)
-
 > In team sports, the term home advantage – also called home ground, home field, home-field advantage, home court, home-court advantage, defender's advantage or home-ice advantage – describes the benefit that the home team is said to gain over the visiting team. This benefit has been attributed to psychological effects supporting fans have on the competitors or referees; to psychological or physiological advantages of playing near home in familiar situations; to the disadvantages away teams suffer from changing time zones or climates, or from the rigors of travel; ... In baseball, in particular, the difference may also be the result of the home team having been assembled to take advantage of the idiosyncrasies of the home ballpark, such as the distances to the outfield walls; most other sports are played in standardized venues.
 *From [Wikipedia - Home advantage](https://en.wikipedia.org/wiki/Home_advantage)*
 
@@ -212,7 +210,7 @@ Then, plot a graph to show the relationship between *P<sub>B</sub>* and the diff
 plot(x= pb_list, y=diff_list)
 ```
 
-![](https://i.postimg.cc/65B70gRL/prob4-b1.png)
+<img class="chart-invert" src="{{ "/img/posts/2019-09-12-home-advantage/diff-vs-pb.png" | relative_url }}" alt="Difference in World Series win probability with versus without home-field advantage across P_B" width="1258" height="748" loading="lazy" decoding="async">
 
 The relationship between *P<sub>B</sub>* and the difference appears to resemble a compound function involving trigonometric functions.
 
@@ -271,4 +269,4 @@ Let's look at the graph. When the home-field advantage factor increases, the dif
 ```r
 plot(x= ha_list, y=diff_list2)
 ```
-![](https://i.postimg.cc/rmhHPvs0/prob4-b2.png)
+<img class="chart-invert" src="{{ "/img/posts/2019-09-12-home-advantage/diff-vs-advantage.png" | relative_url }}" alt="Difference in win probability as the home-field advantage factor increases" width="1258" height="748" loading="lazy" decoding="async">

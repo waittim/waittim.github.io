@@ -68,7 +68,7 @@ xname <- c("4","8","16","32","64","128","256","512","1024","2048","4096","8192",
 axis(1, at=1:14,las=2, lab=xname)
 text(1,T[1,],lname_p,pos=2,cex=0.6)
 ```
-![](https://i.loli.net/2019/12/22/6yheRBQ3HIMnDcd.png)
+<img class="chart-invert" src="{{ "/img/posts/2019-09-06-absolute&relative-error/absolute-error.png" | relative_url }}" alt="Absolute error versus sample size on a log10 scale" width="1258" height="748" loading="lazy" decoding="async">
 
 Absolute error is the absolute difference between the observed value and the expected value. In this simulation, we calculate the absolute error 10,000 times and take its mean for each setting. After transforming the y-axis to log_10, it is clear that x and y have a linear relationship. The larger p is, the larger the absolute error becomes.
 
@@ -110,6 +110,6 @@ lines(T2[,5],col="gray",type="b",pch=16, lwd=3)
 axis(1, at=1:14,las=2, lab=xname)
 text(1,T2[1,],lname_p,pos=2,cex=0.6)
 ```
-![](https://i.loli.net/2019/12/22/lryCYGkREIN6dWx.png)
+<img class="chart-invert" src="{{ "/img/posts/2019-09-06-absolute&relative-error/relative-error.png" | relative_url }}" alt="Relative error versus sample size on a log10 scale" width="1258" height="748" loading="lazy" decoding="async">
 
 Compared with absolute error, relative error is calculated by dividing the absolute error by p, the expected value. This process accounts for the scale of the value and focuses on the error itself. When we transform the y-axis to log_10, the x-y relationship is also linear. However, the larger p is, the smaller the relative error becomes.

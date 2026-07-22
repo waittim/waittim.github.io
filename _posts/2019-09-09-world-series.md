@@ -21,8 +21,6 @@ library(tidyverse)
 
 # Introduction
 
-![WORLD SERIES](https://cdn.technadu.com/wp-content/uploads/2019/05/World-Series-Logo.png)
-
 > The World Series is the annual championship series of Major League Baseball (MLB) in North America, contested since 1903 between the American League (AL) champion team and the National League (NL) champion team. The winner of the World Series championship is determined through a best-of-seven playoff, and the winning team is awarded the Commissioner's Trophy. As the series is played during the fall season in North America, it is sometimes referred to as the Fall Classic.  
 *From [Wikipedia - World Series](https://en.wikipedia.org/wiki/World_Series)*
 
@@ -87,7 +85,7 @@ plot(x = PBseries,
      ylab = "P(Braves win World Series)",
      main = "Probability of winning the World Series")
 ```
-![](https://i.loli.net/2019/12/22/Bh7NjCIcKU2Myab.png)
+<img class="chart-invert" src="{{ "/img/posts/2019-09-09-world-series/win-probability.png" | relative_url }}" alt="Probability that the Braves win the World Series as a function of per-game win probability" width="1258" height="749" loading="lazy" decoding="async">
 
 As we can see from this graph, when P<sub>B</sub> increases, the probability that the Braves win the World Series also increases. In fact, when we change the x-axis scale to 0.0-1.0, the line looks like a logistic curve.
 
@@ -167,7 +165,7 @@ plot(x = PBseries,
      ylab = "Series length",
      main = "Shortest series so that P(Win WS given p)>=0.8")
 ```
-![](https://i.loli.net/2019/12/22/jA2LkzaNK5tF6OB.png)
+<img class="chart-invert" src="{{ "/img/posts/2019-09-09-world-series/shortest-series.png" | relative_url }}" alt="Shortest series length needed for an 80 percent World Series win probability" width="1258" height="749" loading="lazy" decoding="async">
 
 In this graph, as P<sub>B</sub> increases, the shortest series length required for the Braves to win the World Series with probability greater than 0.8 approaches 1. When P<sub>B</sub> is greater than 0.8, the shortest series length is 1.
 

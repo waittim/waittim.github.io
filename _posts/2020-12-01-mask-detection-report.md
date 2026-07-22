@@ -31,14 +31,14 @@ Even after Thanksgiving, the daily increase in cases hit new highs many times. B
 
 The transmission of infectious diseases depends on three elements: the source of infection, the route of transmission, and the susceptible population. Wearing a mask is the most convenient way to cut off the route of transmission. According to the data, if both parties wear masks, even if a social distance of 6 feet is not maintained, the risk of transmission will be reduced from 90% to 1.5%. Therefore, it is necessary to ensure that as many people as possible wear masks in public places.
 
- <img src="{{ "/img/posts/2020-12-01-mask-detection-report/risk-mask-nomask.jpg" | relative_url }}" width = "350" height = "453" alt="risk-mask-nomask" align=center />
+<img src="{{ "/img/posts/2020-12-01-mask-detection-report/risk-mask-nomask.jpg" | relative_url }}" width="350" height="453" alt="Relative transmission risk with and without masks" loading="lazy" decoding="async">
 
 
 The question is, how to do it?
 
 At the entrances of luxury stores and large supermarkets, we can often see staff specifically reminding people to wear masks or setting up mask detection machines. However, it is difficult to find them in small businesses or public facilities. The reason is obvious: hiring someone to remind customers is expensive. In 2019, the average monthly income in the U.S. was approximately $4,365. Setting up professional mask detection equipment can cost $1,000-$4,000. After the pandemic is over, these devices may be useless. Therefore, this is an unaffordable cost for small businesses that are struggling to survive.
 
-![mask-machine-price.jpg]({{ "/img/posts/2020-12-01-mask-detection-report/mask-machine-price.jpg" | relative_url }})
+<img class="chart-invert" src="{{ "/img/posts/2020-12-01-mask-detection-report/mask-machine-price.jpg" | relative_url }}" alt="Commercial mask detection machine price examples" width="1613" height="303" loading="lazy" decoding="async">
 
 Considering that the United States has 30.2 million small businesses<sup>[2]</sup> and a large number of public facilities, it is necessary to find an affordable alternative. This is also the main purpose of this project: to develop a low-cost face mask detection program.
 
@@ -64,7 +64,7 @@ However, if these data are used directly for training, the model will be difficu
 
 The code framework used for training is mainly adapted from the YOLOV3 repository from Ultralytics<sup>[9]</sup>. Training was completed on Google Colab, and the results are as follows:
 
-![Training and validation metrics for the mask detector](https://github.com/waittim/mask-detector/raw/master/modeling/results.png){: .chart-invert }
+<img class="chart-invert" src="{{ "/img/posts/2020-12-01-mask-detection-report/results.png" | relative_url }}" alt="Training and validation metrics for the mask detector" width="1200" height="600" loading="lazy" decoding="async">
 
 It can be seen that the model has achieved good training results, and mAP@0.5 is stable above 0.8.
 

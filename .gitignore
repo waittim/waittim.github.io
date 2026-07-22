@@ -11,6 +11,9 @@ _site/
 .bundle/
 vendor/bundle/
 
+# Local tooling for image regeneration
+.venv-img/
+
 # Node local state
 node_modules/
 npm-debug.log*

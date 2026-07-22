@@ -84,6 +84,6 @@ result_df %>%
   theme_bw()+
   labs(x="Correlation",y="Power")
 ```
-![](https://i.postimg.cc/02c64Qkt/image.png)
+<img class="chart-invert" src="{{ "/img/posts/2019-11-22-power-correlation/power-vs-correlation.png" | relative_url }}" alt="Statistical power versus true correlation for several sample sizes" width="1258" height="748" loading="lazy" decoding="async">
 
 As we can see, as N increases, the power for a given correlation also increases. In other words, when we can collect more samples, the probability that the study will end in success is higher. When the true correlation is higher, the probability is also higher.
