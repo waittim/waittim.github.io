@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "Slides Thief - Turn Photographed Presentation Slides into Clean PDFs"
-subtitle:   "Just take photos of the slides, they are yours now."
+subtitle:   "Just take photos of the slides—they are yours now."
 date:       2026-07-13
 updated:    2026-07-21
 author:     Zekun Wang

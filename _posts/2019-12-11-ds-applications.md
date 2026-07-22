@@ -93,7 +93,7 @@ The significance of inference is that it extracts new information from what is a
 
 The information obtained through visualization and inference is based on existing data, and existing data is usually a description of what happened before.
 
-In actual work, it is not enough to focus on the past. We often need to **make decisions about the future**. At this point, data-based forecasting will become a vital part.
+In actual work, it is not enough to focus on the past. We often need to **make decisions about the future**. At this point, data-based forecasting will become a vital part of the work.
 
 > In the product launch example, we may need to predict the possible sales and profitability of the planned product before the actual launch. According to the forecast results, we can change resource allocation decisions such as product lines and pre-production volume to reduce risks and obtain higher returns.
 

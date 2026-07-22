@@ -74,9 +74,9 @@ We will be looking at the number of videos being posted and the number of views 
 
 ![]({{ "/img/posts/2019-10-29-trending-video/4.png" | relative_url }} "best month")
 
-The **lowest** number of trending videos are posted in the months of **June** to **October**.
+The **lowest** number of trending videos is posted in the months of **June** to **October**.
 
-It also shows that the **highest** number of trending videos are posted in **May**, which also has the highest number of views.
+It also shows that the **highest** number of trending videos is posted in **May**, which also has the highest number of views.
 
 The best time to post a video would be **April** and **May**, as they show the **highest** number of views compared with the number of videos posted. December, March, and February also see a high number of trending videos, but not as many views.
 
@@ -116,7 +116,7 @@ However, we see a spike in the number of views at around 20 rows of description.
 
 #### Number of tags
 
-![]({{ "/img/posts/2019-10-29-trending-video/9.png" | relative_url }} "Number of tagshttps://i.postimg.cc/dVgyLwBB/image.png")
+![]({{ "/img/posts/2019-10-29-trending-video/9.png" | relative_url }} "Number of tags")
 
 There are a large number of trending videos with no tags, but they see a lower number of views. Videos with **3 to 20** tags see a higher number of views. Most people uploading videos choose to add tags within this range.
 
@@ -186,7 +186,7 @@ In general, your video is much more likely to be trending if you are a **musicia
 
 While creating video content, it’s important to keep the idea of **controversy** in mind. This is based on human psychology: people are attracted to anything that grabs attention, and controversy does just that.
 
-However, it’s important to **strike a balance**. You will see the most amount of views and have the highest likelihood of a trending video when you hit the sweet spot between challenging a thought and inciting emotion.
+However, it’s important to **strike a balance**. You will see the most views and have the highest likelihood of a trending video when you hit the sweet spot between challenging a thought and inciting emotion.
 As a content creator, you will have to make sure to keep that in mind while trying to enter an online media market that is highly saturated.
 
 ## Appendix

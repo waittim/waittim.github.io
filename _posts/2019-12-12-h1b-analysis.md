@@ -34,8 +34,8 @@ The H1B visa is a non-immigrant visa that allows companies in the US to hire gra
 
 #### Why is H1B Popular?
 1. For a company in the US, applying for H1B is generally quicker than applying for a US Green Card, so it is popular when companies want to bring in an employee for a longer period.
-2. H1B is open to nationals and citizens of any country, as opposed to other visa types that are only open to people with certain countries of citizenship.
-3. H1B allows holders to stay for three years initially and can be easily extended for three additional years after the first term.
+2. H1B is open to nationals and citizens of any country, as opposed to other visa types that are only open to people from certain countries.
+3. H1B allows holders to stay for three years initially, and the stay can be easily extended for three additional years after the first term.
 4. H1B allows holders to move their status from one company to another and also allows its holders to work part-time and work for multiple employers at the same time.
 5. The main benefit of H1B that attracts a large volume of applicants is the fact that it is a dual-intent visa. This means that it allows its holders to seek permanent residency while under H1B nonimmigrant status.
 
@@ -44,7 +44,7 @@ Despite having a lot of advantages, applying for the H1B comes with its own set 
 
 1. The biggest drawback of H1B is the fact that there is a limit on the number of petitions that are approved each year. Because of the large number of petitions each year, USCIS has chosen to have all petitions entered into a lottery. There is an annual general cap of 65,000, plus 20,000 petitions for applicants with a master’s degree or above.
 This means there is a strong likelihood that for any given year, your petition will not be selected. Once rejected, you will have to wait another year to submit another petition.
-2. Because of its lottery, the deadlines for the H1B applications are very inflexible.
+2. Because of the H1B lottery, the deadlines for the H1B applications are very inflexible.
 3. It is difficult to find an employer that would be willing to sponsor an employee for H1B, as the process can get expensive and is unreliable.
 
 #### H1B Historic Timeline
@@ -65,7 +65,7 @@ To perform this analysis, we combined data sets of 5 different years from 2014 t
 Column Name | Column Description
 --- | ---
 job_title | Job title of the particular H1B application.
-case_status | Certified-withdrawn; Certified; Denied; Withdrawn; Rejected; Invalidated. We filter this data by certified because we only wish to keep the applications that were approved for submission.
+case_status | Certified-withdrawn; Certified; Denied; Withdrawn; Rejected; Invalidated. We filter this data by certified because we only wish to keep the applications that were certified.
 employer_name | Employer through which the H1B application was submitted.
 prevailing_wage | The annual salary of the job in a particular observation.
 year | Year the particular H1B application was submitted.
@@ -87,13 +87,13 @@ Here we can see that the states of California, Texas, New York, Michigan, Georgi
 
 # STEM
 
-Instead of doing an overview of the full dataset, we thought it would be better to first filter by STEM (Science, Technology, Engineering, and Mathematics) related jobs. We expected the majority of the applications to come from STEM, but confirmation was needed.
+Instead of doing an overview of the full dataset, we thought it would be better to first filter by STEM (Science, Technology, Engineering, and Mathematics)-related jobs. We expected the majority of the applications to come from STEM, but confirmation was needed.
 
 The following analysis was done to see the proportion of H1B applicants in STEM fields vs non-STEM fields. This was done using the SOC (Standard Occupational Classification) code associated with each occupation. This was then cross-referenced (left-join) with a list of SOC codes that were considered STEM. We combined this with our analysis of the total number of applicants per year to see if some trends had changed.
 
 ![stem-nonstem]({{ "/img/posts/2019-12-12-h1b-analysis/4.png" | relative_url }} "Figure 2: Number of applications per year. Proportion of STEM and non-STEM H1B Applicants.")
 
-We observed (from Figure. 2) that the number of applications stays high as compared to the yearly cap of 85,000 applications that get approved. The number of applications also keeps increasing each year with only a slight dip in 2017. The changes in the total number of applications don’t seem to affect the proportion of STEM to non-STEM applications each year. This is also very interesting to note as the number of non-STEM jobs available in the United States is much higher than the number of STEM jobs.
+We observed (from Figure 2) that the number of applications stays high as compared to the yearly cap of 85,000 applications that get approved. The number of applications also keeps increasing each year with only a slight dip in 2017. The changes in the total number of applications don’t seem to affect the proportion of STEM to non-STEM applications each year. This is also very interesting to note as the number of non-STEM jobs available in the United States is much higher than the number of STEM jobs.
 
 This disproportionately high number might be attributed to the fact that foreign students with STEM degrees are more likely to pursue STEM fields. The reason for this is that USCIS allows foreign students who pursue a STEM degree during their academic career to stay within the United States for up to three years after they have graduated as opposed to a single year for those of non-STEM backgrounds. This means that during those 3 years, you will have three chances to apply for an H1B and would potentially be eligible to apply for permanent residency.  
 
@@ -129,11 +129,11 @@ Data Analyst | “EDA”, “Visualization”,  “Data aggregation”
 Data Scientist | “Machine learning”, “Model”, “Algorithm”, “A/B testing”
 Data Engineer | “Pipeline”, “Data lake”, “ETL”, “Database”, “Warehouse”
 
-We combined machine learning and deep learning jobs into data science jobs, as they are highly correlated and it also made the following visualizations easier to look at. Since these data points were essentially just combined with another category, we need to note that the number of machine learning/deep learning jobs (with those explicit keywords as titles) have remained very few.
+We combined machine learning and deep learning jobs into data science jobs, as they are highly correlated and it also made the following visualizations easier to look at. Since these data points were essentially just combined with another category, we need to note that the number of machine learning/deep learning jobs (with those explicit keywords as titles) has remained very few.
 
-![]({{ "/img/posts/2019-12-12-h1b-analysis/8.png" | relative_url }} "Figure 6: Data related jobs and their four categories. Business Analysts having the highest number of applications and only going down after 2016.")
+![]({{ "/img/posts/2019-12-12-h1b-analysis/8.png" | relative_url }} "Figure 6: Data-related jobs and their four categories. Business Analysts having the highest number of applications and only going down after 2016.")
 
-Two important things to notice here (Figure 6). Firstly, the total number of jobs for business analysts is much higher than the total number of jobs for other roles. There also seems to be a downward trend in the number of jobs for business analysts after 2016; however, the number of jobs within business analytics remains much higher than the number of jobs in any of the other categories in any of the years. Secondly, the number of jobs for data scientists, analysts and engineers are all showing an upward trend. There appears to be a higher number of jobs for data analysts as compared to data scientists and data engineers. A reason for this is that the role of data scientists only emerged recently and the number of jobs available in the industry has just recently, in the past couple of years, started growing.
+Two important things to notice here (Figure 6). Firstly, the total number of jobs for business analysts is much higher than the total number of jobs for other roles. There also seems to be a downward trend in the number of jobs for business analysts after 2016; however, the number of jobs within business analytics remains much higher than the number of jobs in any of the other categories in any of the years. Secondly, the number of jobs for data scientists, analysts and engineers is showing an upward trend. There appears to be a higher number of jobs for data analysts as compared to data scientists and data engineers. A reason for this is that the role of data scientists only emerged recently and the number of jobs available in the industry has just recently, in the past couple of years, started growing.
 
 #### Prevailing Wages Per Data-Related Job Category
 
@@ -183,14 +183,14 @@ This downward trend is probably linked to IBM’s consulting sector combined wit
 
 #### Other Consulting Companies
 
-It would make sense that other consulting or non-tech companies should show trends similar to IBM, with a decreasing number of applications. This can be seen in both Deloitte and Accenture (Fig. 13 (a) and (b)). Even though Deloitte has been a major employer for data-related roles in the past 5 years, it has shown a sharp decrease in these roles after 2016 (Fig 13 (a)). This decline started before President Trump’s election, around 2015, when stricter regulations were implemented on working offsite on H1B.
+It would make sense that other consulting or non-tech companies should show trends similar to IBM, with a decreasing number of applications. This can be seen in both Deloitte and Accenture (Fig. 13 (a) and (b)). Even though Deloitte has been a major employer for data-related roles in the past 5 years, it has shown a sharp decrease in these roles after 2016 (Fig 13 (a)). This decline started before President Trump’s election, around 2015, when stricter regulations were implemented on working offsite while on H1B.
 
 ![]({{ "/img/posts/2019-12-12-h1b-analysis/19.png" | relative_url }} "Deloitte") | ![]({{ "/img/posts/2019-12-12-h1b-analysis/20.png" | relative_url }} "Accenture")
 a\) Deloitte Consulting | b\) Accenture Consulting
 
 *Figure 13: Consulting companies and the trends in data-related roles*
 
-The worksite regulations implemented in 2015 can cause problems for consulting companies as a lot of consulting work may be off-site in another city and not in the official workplace. Also, consulting companies that deal with U.S. Federal Government might not hire international students as the work might require the workers to be U.S. citizens.
+The worksite regulations implemented in 2015 can cause problems for consulting companies as a lot of consulting work may be off-site in another city and not in the official workplace. Also, consulting companies that deal with the U.S. Federal Government might not hire international students as the work might require the workers to be U.S. citizens.
 
 # Locations for Data-Related Jobs
 
@@ -198,7 +198,7 @@ The worksite regulations implemented in 2015 can cause problems for consulting c
 
 <iframe src="{{ "/gallery/h1b-map/data.html" | relative_url }}" frameborder="0" width="700" height="435" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 
-This is an incomplete but interesting cartographic analysis (Fig. 14). The first thing we can see, however, is that the largest number of applications in data-related roles are coming from (starting from the West Coast to the East) Washington, California, Texas, Illinois, Georgia, Florida, New York, New Jersey, and Massachusetts.
+This is an incomplete but interesting cartographic analysis (Fig. 14). The first thing we can see, however, is that the largest number of applications in data-related roles is coming from (starting from the West Coast to the East) Washington, California, Texas, Illinois, Georgia, Florida, New York, New Jersey, and Massachusetts.
 
 Just because the colors seem similar for certain states in this diagram does not mean that the numbers of data-related H1B applications are the same. They belong to the same interval or are above a certain threshold. The numbers for the major states are as follows:
 1. California - 7,417 applications
@@ -256,21 +256,21 @@ This does not make Tennessee the best state for foreign students who are pursuin
 
 ![]({{ "/img/posts/2019-12-12-h1b-analysis/28.png" | relative_url }} "Figure 13: Proportion of data-related jobs as compared to other jobs")
 
-Figure 13 shows that there has been growth in data-related roles in the past 5 years, with 2018 showing the highest number of applications for data-related roles. This is promising, as it may mean a higher number of data-related roles that will hire and sponsor international students in the years to come.
+Figure 13 shows that there has been growth in data-related roles in the past 5 years, with 2018 showing the highest number of applications for data-related roles. This is promising, as it may mean a higher number of data-related roles for which employers will hire and sponsor international students in the years to come.
 
 # Conclusions
 
 To reiterate, the purpose of this data exploration was to examine trends in H1B visa applications and see how data-related jobs in the United States have changed over the past 5 years. This analysis can be used to help international students pursuing a data-related degree determine what type of jobs they should apply for and where they should consider moving in the future if they want to stay within the United States.
 
-We can gather from our analysis that among the four data-related job titles that we divided our dataset into (business analyst, data analyst, data engineer, and data scientist), the highest number of jobs are available for the business analyst job title or classification. We also note that the salary for this job role is much lower compared with the other data-related jobs. The barrier to entry for this specific role might be much lower compared with other roles. This is because there are many business analyst jobs, and potential employers may be more open to hiring data science students from business backgrounds, as they would be able to perform well in roles associated with business analytics.
+We can gather from our analysis that among the four data-related job titles that we divided our dataset into (business analyst, data analyst, data engineer, and data scientist), the highest number of jobs is available for the business analyst job title or classification. We also note that the salary for this job role is much lower compared with the other data-related jobs. The barrier to entry for this specific role might be much lower compared with other roles. This is because there are many business analyst jobs, and potential employers may be more open to hiring data science students from business backgrounds, as they would be able to perform well in roles associated with business analytics.
 
-In terms of what type of company data scientists should apply for, we find that some big companies such as Google and Apple (shown in the final-report.Rmd), have fewer data-related jobs for international students despite being major tech companies. However, there does seem to be an upward trend in data-related jobs in the tech industry.
+In terms of what type of company data scientists should apply for, we find that some big companies such as Google and Apple (shown in the final-report.Rmd) have fewer data-related jobs for international students despite being major tech companies. However, there does seem to be an upward trend in data-related jobs in the tech industry.
 
 We can also see that consulting companies are harder places to get data-related jobs, as they are more affected by governmental regulations and policies. These positions may be limited to U.S. citizens or permanent residents. It is also cheaper for these companies to hire domestic workers, as consulting roles are not as profitable as purely technical roles and therefore may not need extremely specialized foreign talent.
 
 The location analysis will help international students pursuing a data-related degree find the most probable location they should move to based on the type of data-related role they want to pursue. The best location to find a job in business analytics is in the northeastern states, as they have a large number of finance and insurance companies. However, there is no shortage of business analytics roles, since these are very commonly found in almost every company. Almost every state has a large number of these roles. Nevertheless, it is still important to note that the total number of applications for H1B in business analytics is showing a generally downward trend.
 
-The best location to find a job as a data analyst or in data analytics is the Northeast or the Midwest, as seen from the clusters in the maps that we explored. However, since a large number of job applications come from California, almost all of these roles are plentiful in the state of California. California is also where a large number of specific data scientist and data engineering roles are available, especially in the Bay Area, where many tech companies are located. The state of Washington (Seattle and Redmond area) is also good for finding data engineering and data science jobs because of the presence of Microsoft and Amazon.
+The best location to find a job as a data analyst or in data analytics is the Northeast or the Midwest, as seen from the clusters in the maps that we explored. However, since a large number of job applications come from California, almost all of these roles are plentiful in the state of California. California is also where a large number of specific data scientist and data engineer roles are available, especially in the Bay Area, where many tech companies are located. The state of Washington (Seattle and Redmond area) is also good for finding data engineering and data science jobs because of the presence of Microsoft and Amazon.
 
 Finally, although Tennessee is not the best for international students pursuing data-related roles, there does seem to be a potential for growth since tech giants such as Amazon and Microsoft are creating more opportunities for jobs in the Nashville area in the future.
 

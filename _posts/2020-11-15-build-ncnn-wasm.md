@@ -145,7 +145,7 @@ git clone https://github.com/waittim/facemask-detection.git
 cd facemask-detection
 ```
 
-Note that if you are compiling a version without SIMD and SSE2, please delete the following content in [CMakeLists.txt](https://github.com/waittim/facemask-detection/blob/master/CMakeLists.txt).
+Note that if you are compiling a version without SIMD and SSE2, please delete the following content from [CMakeLists.txt](https://github.com/waittim/facemask-detection/blob/master/CMakeLists.txt).
 
 ```bash
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fopenmp -s USE_PTHREADS=1 -s PTHREAD_POOL_SIZE=15") 
@@ -153,7 +153,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fopenmp -s USE_PTHREADS=1 -s PTHREAD_PO
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fopenmp -s USE_PTHREADS=1 -s PTHREAD_POOL_SIZE=15")
 ```
 
-And change `target_link_libraries(yolo ncnn pthread)` to be `target_link_libraries(yolo ncnn)`.
+And change `target_link_libraries(yolo ncnn pthread)` to `target_link_libraries(yolo ncnn)`.
 
 
 Next, create an empty folder named ncnn in it, and copy the two files under `build/install/` in the ncnn root folder to this ncnn folder.

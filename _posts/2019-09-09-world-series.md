@@ -27,14 +27,14 @@ library(tidyverse)
 > The World Series is the annual championship series of Major League Baseball (MLB) in North America, contested since 1903 between the American League (AL) champion team and the National League (NL) champion team. The winner of the World Series championship is determined through a best-of-seven playoff, and the winning team is awarded the Commissioner's Trophy. As the series is played during the fall season in North America, it is sometimes referred to as the Fall Classic.  
 *From [Wikipedia - World Series](https://en.wikipedia.org/wiki/World_Series)*
 
-In this blog, we are going to calculate the probability of several questions about the Braves and the Yankees in the World Series.
+In this blog, we are going to calculate probabilities for several questions about the Braves and the Yankees in the World Series.
 
 First, we need to define some parameters.
 
 Parameter | Explanation
 ---|---|---
 P<sub>B</sub> | In any given game, the probability that the Braves win
-P<sub>Y</sub> = 1 - P<sub>B</sub> | in any given game, the probability that the Yankees win
+P<sub>Y</sub> = 1 - P<sub>B</sub> | In any given game, the probability that the Yankees win
 
 # Questions
 ### 1. What is the probability that the Braves win the World Series given that P<sub>B</sub>=0.55?
@@ -127,7 +127,7 @@ p_shortest
 Now we have the shortest series length. It should be 71. In that situation, the probability that the Braves win the World Series is about 0.802.
 
 
-### 4. What is the shortest series length so that P(Braves win World Series|P<sub>B</sub>= x) ≥ 0.8? This will be a figure (see below) with P<sub>B</sub> on the x-axis and series length is the y-axis.
+### 4. What is the shortest series length so that P(Braves win World Series|P<sub>B</sub>= x) ≥ 0.8? This will be a figure (see below) with P<sub>B</sub> on the x-axis and series length on the y-axis.
 Now P<sub>B</sub> is not fixed again, so we assume x can be any number between 0.51 and 1.
 
 First, we need to generate a sequence of P<sub>B</sub> values and a vector to save the length results for different P<sub>B</sub> values. In addition, we need a sequence of possible series lengths to test. The upper limit is 9999. If that is not enough, we can set a larger limit.
@@ -185,7 +185,7 @@ P(B|A)=\frac{P(A)P(B)}{P(A)}  \to  P(A)P(B)=P(B|A)P(A)\\
 \to P(A|B)=\frac{P(B|A)P(A)}{P(B)}
 $$
 
-Now the P(A) = P(P<sub>B</sub>=0.55), P(B) = P(Braves lose 3 games before winning a 4th game).
+Now P(A) = P(P<sub>B</sub>=0.55), P(B) = P(Braves lose 3 games before winning a 4th game).
 As a result, P( P<sub>B</sub>=0.55|Braves lose 3 games before winning a 4th game) = P(Braves lose 3 games before winning a 4th game|P<sub>B</sub>=0.55) * P(P<sub>B</sub>=0.55) ÷ P(Braves lose 3 games before winning a 4th game).
 
 P(P<sub>B</sub>=0.55) = 0.5

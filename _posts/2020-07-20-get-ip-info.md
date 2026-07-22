@@ -27,7 +27,7 @@ For complete information, see [MaxMind - GeoIP2 Downloadable Databases](https://
 ```python
 !pip install geoip2
 
-# For Chinese user, you can choose tsinghua mirrors
+# For Chinese users, you can choose the Tsinghua mirror
 
 #!pip install -i https://pypi.tuna.tsinghua.edu.cn/simple geoip2
 ```
@@ -177,4 +177,4 @@ response.traits.network
 #IPv4Network('129.59.80.0/20')
 ```
 
-With this method, you can convert IP address information into an actual address, latitude and longitude, and other information for exploratory data analysis or modeling.
+With this method, you can convert IP address information into actual addresses, latitude and longitude, and other information for exploratory data analysis or modeling.

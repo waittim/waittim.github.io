@@ -176,7 +176,7 @@ M | number | the casino wager limit
 
 ## Change the budget
 
-When B changes, what is the mean earning?
+When B changes, what is the mean earnings?
 ```r
 earning_series <- rep(NA,20)
 for(B in seq(100,1000,by=50)){
@@ -186,13 +186,13 @@ for(j in seq_along(walk_out_money)){
 }
 earning_series[B] <- mean(walk_out_money - B)/B
 }
-plot(earning_series,xlab="Budget",ylab="mean earning rate", main="How Budget influence earning?")
+plot(earning_series,xlab="Budget",ylab="mean earnings rate", main="How does budget influence earnings?")
 ```
 ![](https://i.loli.net/2019/12/22/YBcaSpgdhf7nmwi.png)
 
 ## Change the budget threshold for stopping successfully
 
-When W changes, what is the mean earning?
+When W changes, what is the mean earnings?
 ```r
 earning_series <- rep(NA,20)
 for(W in seq(100,1000,by=50)){
@@ -202,13 +202,13 @@ for(j in seq_along(walk_out_money)){
 }
 earning_series[W] <- mean(walk_out_money - 200)
 }
-plot(earning_series,xlab="successfully stopping threshold",ylab="mean earning", main="How does the stopping threshold influence earnings?")
+plot(earning_series,xlab="successfully stopping threshold",ylab="mean earnings", main="How does the stopping threshold influence earnings?")
 ```
 ![](https://i.loli.net/2019/12/22/wn2qDzCjXlxSGIY.png)
 
 ## Change the maximum number of plays
 
-When L changes, what is the mean earning?
+When L changes, what is the mean earnings?
 ```r
 earning_series <- rep(NA,100)
 for(L in seq(10,1000,by=10)){
@@ -218,13 +218,13 @@ for(j in seq_along(walk_out_money)){
 }
 earning_series[L] <- mean(walk_out_money - 200)
 }
-plot(earning_series,xlab="maximum number of plays",ylab="mean earning", main="How maximum number of plays influence earning?")
+plot(earning_series,xlab="maximum number of plays",ylab="mean earnings", main="How does the maximum number of plays influence earnings?")
 ```
 ![](https://i.loli.net/2019/12/22/qeWF58lmvsfiLdE.png)
 
 ## Change the casino wager limit
 
-When M changes, what is the mean earning?
+When M changes, what is the mean earnings?
 ```r
 earning_series <- rep(NA,100)
 for(M in seq(10,1000,by=10)){
@@ -234,7 +234,7 @@ for(j in seq_along(walk_out_money)){
 }
 earning_series[M] <- mean(walk_out_money - 200)
 }
-plot(earning_series,xlab="casino wager limit",ylab="mean earning", main="How casino wager limit influence earning?")
+plot(earning_series,xlab="casino wager limit",ylab="mean earnings", main="How does the casino wager limit influence earnings?")
 ```
 ![](https://i.loli.net/2019/12/22/1rZdWUg4KsAntqj.png)
 

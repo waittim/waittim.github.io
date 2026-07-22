@@ -76,7 +76,7 @@ Absolute error is the absolute difference between the observed value and the exp
 # Relative Error
 Relative error = |p̂−p|/p.
 
-Then we do the same thing as before, but when calculating the error, we divide the absolute error by the p-value.
+Then we do the same thing as before, but when calculating the error, we divide the absolute error by the true probability *p*.
 We plot this graph as well.
 
 ```r

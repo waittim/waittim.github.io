@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      If home-field advantage exists, how much of an impact does it have on winning the world series?
+title:      If home-field advantage exists, how much of an impact does it have on winning the World Series?
 subtitle:   Probability and Statistical Inference - 04
 date:       2019-09-12
 author:     Zekun Wang
@@ -94,7 +94,7 @@ p_home
 ```
 The probability is `r p_home`.
 
-Then we can calculate the probability when there is no home field advantage.
+Then we can calculate the probability when there is no home-field advantage.
 ```r
 p_nohome <- 1 - pbinom(3, 7, 0.55)
 p_nohome
@@ -171,7 +171,7 @@ Therefore, given no home-field advantage the absolute error is `r abs_error_nh`.
 
 ## Bonus 1. Does the difference in probabilities (with vs without home-field advantage) depend on *P<sub>B</sub>*?
 
-The process is similar to the answer of question 1.
+The process is similar to the answer to question 1.
 
 We can create some lists to save the different *P<sub>B</sub>* values, the probabilities of winning the World Series with or without home-field advantage, and the difference between these two situations for different *P<sub>B</sub>* values.
 
@@ -208,7 +208,7 @@ for (p in seq_along(pb_list)) {
 }
 ```
 
-Then, plot a graph to show the relationship between *P<sub>B</sub>* and differences.
+Then, plot a graph to show the relationship between *P<sub>B</sub>* and the differences.
 ```r
 plot(x= pb_list, y=diff_list)
 ```

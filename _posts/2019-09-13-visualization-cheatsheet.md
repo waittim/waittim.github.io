@@ -12,7 +12,7 @@ tags:
     - Keynote
 ---
 
-![Visualization cheat sheet]({{ "/img/posts/2019-09-13-visualization-cheatsheet/visual-cheetsheet.png" | relative_url }} "Visualization cheat sheet")
+![Visualization cheat sheet]({{ "/img/posts/2019-09-13-visualization-cheatsheet/visual-cheatsheet.png" | relative_url }} "Visualization cheat sheet")
 
 Created by **Zekun Wang**
 

@@ -161,7 +161,7 @@ sum(quantile95_list[1,] > 0)
 # Step 5: Simulation visualization
 **Perform the simulation.**
 
-To make the results more intuitive, we can use the *geom_linerange()* function in *ggplot* to draw the 95% confidence interval. We set the intervals that did not capture the true mean of the original distribution, 0, as red lines.
+To make the results more intuitive, we can use the *geom_linerange()* function in *ggplot* to draw the 95% confidence interval. We set the intervals that did not capture the true median of the original distribution, 0, as red lines.
 ```r
 quantile95_df <- as.data.frame(t(quantile95_list))
 quantile95_df["sample_num"] <- seq(1:ncol(samples))
@@ -180,7 +180,7 @@ ggplot(quantile95_df) +
 ```
 ![](https://i.postimg.cc/9MPrGHm9/prob7-1.png)
 
-# Step 6: Future works
+# Step 6: Future work
 **How to change the simulation to learn more about the operating characteristics of the chosen method for constructing the 95% confidence interval.**
 
 I would choose larger sample sizes to test the process, for example by setting N to 5000 or 10000. I could also calculate other quantiles of the distributions to see whether there are any differences. After that, I might use distributions other than the standard normal distribution, such as gamma or beta distributions.

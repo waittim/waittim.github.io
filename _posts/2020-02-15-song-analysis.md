@@ -37,7 +37,7 @@ library(RColorBrewer)
 Library introduction (the parts used in this pipeline):
 
   - **readxl**: read data from Excel files.
-  - **tidyverse**: help manage data frames with tidy syntax.
+  - **tidyverse**: helps manage data frames with tidy syntax.
   - **janitor**: clean the column names.
   - **ggplot2**: create plots.
   - **tidytext**: import stop words for text analysis and get word-level
@@ -60,7 +60,7 @@ for(i in seq(2000,2009,1)){
 
 In this Excel file, the data for different years is divided into worksheets, so I need to read them one by one.
 
-The column names in each table are not in the first row but in the second row. So I removed the first row and transferred the second row to be the column names. Then, I used the `clean_names()` function to make the names lowercase without spaces.
+The column names in each table are not in the first row but in the second row. So I removed the first row and used the second row as the column names. Then, I used the `clean_names()` function to make the names lowercase without spaces.
 
 The function `assign` helps me use different names to store the data.
 
@@ -208,7 +208,7 @@ Actually, this question is really difficult to answer, because “The
 Beatles” has various meanings according to different interpretations.
 
 However, we can try to give some directions by analyzing the number of
-songs on the chart and the mean point of the songs on the chart of each artist.
+songs on the chart and the mean points of the songs on the chart of each artist.
 
 ```r
 df %>%
@@ -361,7 +361,7 @@ word_count
     ## 10 SONG      14
     ## # … with 1,182 more rows
 
-Generate the word cloud by `wordcloud2` function.
+Generate the word cloud using the `wordcloud2` function.
 
 ```r
 wordcloud2(head(word_count,100),
@@ -380,7 +380,7 @@ wordcloud2(head(word_count,100),
 #### Sentiment analysis of titles
 
 In order to analyze the sentiment of the words in the titles, I got the
-stop words(meaningless words) dictionary and sentiment dictionary from
+stop words (meaningless words) dictionary and sentiment dictionary from
 the `tidytext` library.
 
 ```r
@@ -516,7 +516,7 @@ df %>%
 #### Solo men, solo women, groups for the decade 2000-2009 - design a graphic that shows the distribution of songs hitting \#1
 
 The solo artists have their full names in the data in the format
-“LastName, FirstName”. As a result, we can tell whether the data is a
+“LastName, FirstName”. As a result, we can tell whether an artist entry is a
 single person's name by the presence of a comma.
 
 ```r

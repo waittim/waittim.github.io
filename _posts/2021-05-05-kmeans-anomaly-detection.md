@@ -19,11 +19,11 @@ tags:
 
 K-Means is known as a common unsupervised learning clustering method. But in fact, the K-Means algorithm can be applied to more scenarios. In this post, I will use a K-Means-based approach to complete anomaly detection for text-based email content.
 
-All the data manipulation and modeling processes involved in this approach will be fully implemented based on [PySpark-3.1.1](https://spark.apache.org/docs/latest/api/python/index.html). Considering the demand of working with large amounts of text data and the high time complexity of K-Means-class algorithms, Spark-based practice can effectively improve processing power and running speed. To make reproduction easier and reduce problems caused by setting up a Spark environment, everything can be done in a notebook in [Google Colab](https://colab.research.google.com/notebooks/intro.ipynb).
+All the data manipulation and modeling processes involved in this approach will be fully implemented based on [PySpark-3.1.1](https://spark.apache.org/docs/latest/api/python/index.html). Considering the need to work with large amounts of text data and the high time complexity of K-Means-class algorithms, Spark-based practice can effectively improve processing power and running speed. To make reproduction easier and reduce problems caused by setting up a Spark environment, everything can be done in a notebook in [Google Colab](https://colab.research.google.com/notebooks/intro.ipynb).
 
-The data I used is the [Insider Threat Test Dataset](https://resources.sei.cmu.edu/library/asset-view.cfm?assetid=508099) from Carnegie Mellon University, provided by the CERT Division. It contains synthetic insider threat test data with both background and malicious actor activity. It includes 1000 users and spans 17 months. Please download the dataset from [CMU Kilthub](https://kilthub.cmu.edu/articles/dataset/Insider_Threat_Test_Dataset/12841247/1) and unzip it. Then put the CSV files into the folder `./data/` under the same folder as the notebook.
+The data I used is the [Insider Threat Test Dataset](https://resources.sei.cmu.edu/library/asset-view.cfm?assetid=508099) from Carnegie Mellon University, provided by the CERT Division. It contains synthetic insider threat test data with both background and malicious actor activity. It includes 1000 users and spans 17 months. Please download the dataset from [CMU KiltHub](https://kilthub.cmu.edu/articles/dataset/Insider_Threat_Test_Dataset/12841247/1) and unzip it. Then put the CSV files into the folder `./data/` under the same folder as the notebook.
 
-For more background on this data, please see the paper, Bridging the Gap: [A Pragmatic Approach to Generating Insider Threat Data](https://ieeexplore.ieee.org/document/6565236).
+For more background on this data, please see the paper *Bridging the Gap*: [A Pragmatic Approach to Generating Insider Threat Data](https://ieeexplore.ieee.org/document/6565236).
 
 
 
@@ -35,7 +35,7 @@ For more background on this data, please see the paper, Bridging the Gap: [A Pra
 4. Reduce dimensionality by MinHash
 5. Find the appropriate centroid for each observation by K-Means
 6. Calculate the distance
-7. Sort the distance
+7. Sort by distance
 
 If you want to accelerate the manipulation process, you can skip all of the `dataframe.show()` calls.
 
@@ -215,7 +215,7 @@ wordsData.show()
 
 The function `CountVectorizer` can convert a collection of text documents to vectors of token counts. It can produce sparse representations for the documents over the vocabulary.
 
-We choose 1000 as the vocabulary size under consideration. Of course, if the device allows, we can choose a larger dimension to obtain stronger representation ability.
+We choose 1000 as the vocabulary size under consideration. Of course, if the device allows, we can choose a larger dimension to obtain stronger representational power.
 
 
 ```python
@@ -740,7 +740,7 @@ for k in range(2,10):
 plt.figure()
 k_number = range(2,10)
 plt.plot(k_number,errors)
-plt.xlabel('Number of K')
+plt.xlabel('Value of K')
 plt.ylabel('Silhouette')
 plt.title('K - Silhouette')
 plt.show()
@@ -877,7 +877,7 @@ plt.show()
 
 
 
-## Example of anomalous email
+## Example of an anomalous email
 
 Based on the above steps, we obtain the list of emails sorted by anomaly score.
 

@@ -25,7 +25,7 @@ The paper has been published on [arXiv](https://arxiv.org/abs/2101.00784).
 
 ## Background
 
-Last November, the COVID-19 epidemic in the United States reached a new peak. During Thanksgiving week alone, there were 1,147,489 new cases and 10,279 new deaths.<sup>[1]</sup> These are not just numbers. They mean that 10 thousand families lost their loved ones, and 10 thousand people would never have another Thanksgiving in the future.
+Last November, the COVID-19 epidemic in the United States reached a new peak. During Thanksgiving week alone, there were 1,147,489 new cases and 10,279 new deaths.<sup>[1]</sup> These are not just numbers. They mean that 10 thousand families lost their loved ones, and 10 thousand people would never have another Thanksgiving.
 
 Even after Thanksgiving, the daily increase in cases hit new highs many times. Before the vaccine arrived, we had no way to prevent infection except for wearing masks and maintaining social distance. Even after the successful development of a vaccine, due to factors such as vaccination rates, we still need to recognize that preventing infection will remain part of our lives for a long time.
 
@@ -104,7 +104,7 @@ Therefore, in the end, I chose to continue to look for other solutions.
 
 #### NCNN + WebAssembly
 
-During the exploration process, I found a possibly effective way to implement in-browser operation through the NCNN framework and WebAssembly.
+During the exploration process, I found a possibly effective way to implement in-browser operations through the NCNN framework and WebAssembly.
 
 NCNN is an open-source optimized inference framework for mobile platforms, implemented in pure C++ and without third-party library dependencies.<sup>[16]</sup> Its performance on edge devices is excellent. WebAssembly (abbreviated as WASM) is a low-level language that can run in the browser.<sup>[17]</sup> It is in binary form and is faster than JS. C++ code can be compiled into WASM format. This also means that we can run C++ programs in the browser using this approach. As long as NCNN supports enough operators, we do not need to worry about whether a certain operator has been implemented in JS. Fortunately, NCNN is mature enough and already supports a large number of operators.
 

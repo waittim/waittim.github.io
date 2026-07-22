@@ -145,7 +145,7 @@ make
 ./opencv_example
 ```
 
-If the camera is automatically turned on, and a `hello opencv` appears in the upper left corner of the image captured by the camera, it means that the configuration is successful.
+If the camera is automatically turned on, and `hello opencv` appears in the upper left corner of the image captured by the camera, it means that the configuration is successful.
 
 ## NCNN
 

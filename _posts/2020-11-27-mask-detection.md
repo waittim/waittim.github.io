@@ -49,7 +49,7 @@ Now, you can use it on Android, iOS, Windows, macOS, and Linux systems. For the 
 
 ![webassemblysetting.png]({{ "/img/posts/2020-11-27-mask-detection/webassembly-setting.png" | relative_url }})
 
-**Hint:** The FPS depends on your device CPU.
+**Hint:** The FPS depends on your device's CPU.
 
 ## Why is it so fast?
 
@@ -74,13 +74,13 @@ Therefore, there is no need to worry about privacy leaks or other related issues
 
 ## What's more?
 
-Because only Safari supports WebAssembly under the iOS system, and it does not support parallel computing acceleration methods such as SIMD, the speed will be slower than other platforms.
+Because only Safari supports WebAssembly on iOS, and it does not support parallel computing acceleration methods such as SIMD, the speed will be slower than other platforms.
 
 All in all, it is a free alternative to expensive mask detection machines. You can buy a tablet for $60 and a floor stand for $20 to get similar functions. After this pandemic, these devices can also be used for other purposes.
 
 ![price-eg.jpg]({{ "/img/posts/2020-11-27-mask-detection/price-eg.jpg" | relative_url }})
 
-In such a hard time, I hope this AI can help small businesses that are struggling to persist, so that they can obtain protection similar to luxury shops at a small cost. As long as this tool can protect one more person from COVID-19, it will be enough.
+In such difficult times, I hope this AI can help small businesses that are struggling to persist, so that they can obtain protection similar to luxury shops at a small cost. As long as this tool can protect one more person from COVID-19, it will be enough.
 
 Of course, this project is not mature yet. If you have any suggestions or are willing to contribute to this project, please contact me.
 
@@ -93,7 +93,7 @@ Thank you very much!
 ## Release information 
 **2025.11.20 - 3.0.0**: New UI design and restructured repo.
 
-**2021.01.06 - 2.0.4**: Add feedback function.
+**2021.01.06 - 2.0.4**: Added feedback function.
 
 **2020.12.13 - 2.0.0**: Deployed a new model. It can recognize faces that are not wearing a mask properly (not completely covering nose and mouth). Improved the recognition of faces covered by a mobile phone.
 
@@ -101,6 +101,6 @@ Thank you very much!
 
 **2020.11.30 - 1.0.3**: Added Spanish and Chinese versions.
 
-**2020.11.28 - 1.0.2**: The domain name was changed to facemask-detection.com, which is convenient for users to remember.
+**2020.11.28 - 1.0.2**: The domain name was changed to facemask-detection.com, making it easier for users to remember.
 
 **2020.11.26 - 1.0.1**: The website is officially established.

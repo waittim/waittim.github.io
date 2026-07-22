@@ -189,7 +189,7 @@ true.norm.min <- mean(apply(array(rnorm(N*10000), dim=c(N, 10000)),2,min))
 true.gamma.med <- qgamma(0.5, shape = shape.set, scale=scale.set)
 true.gamma.min <- mean(apply(array(rgamma(N*10000, shape=shape.set, scale=scale.set), dim=c(N, 10000)),2,min))
 ```
-For the standard minimum of the distribution, we expand the data size 10,000 times and use the mean minimum value as the true minimum.
+For the true minimum of the distribution, we expand the data size 10,000 times and use the mean minimum value as the true minimum.
 
 Create a table called "simsettings" to store the results of each estimation method and the target parameter.
 ```r

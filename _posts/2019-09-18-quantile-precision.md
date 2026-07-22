@@ -78,7 +78,7 @@ ggplot(length_df,aes(x=quantile_position,y=mid95_length))+
   geom_point()+geom_line()+
   labs(title = "Length of middle 95% of normal distribution")+
   scale_x_continuous(
-    name = "pth quantile",
+    name = "p-th quantile",
     breaks = seq(0.05, 0.95, 0.05)
   )+
   scale_y_continuous(name = "Length")
@@ -90,7 +90,7 @@ As we can see, when the quantile approaches 50%, the length decreases. This mean
 In other words, when the quantile is 50%, the median has the tightest sampling distribution.
 
 
-Then, we need to transfer the x-axis from quantile to the density values of the original distribution. In this part, it should be a standard normal distribution.
+Then, we need to transform the x-axis from quantile to the density values of the original distribution. In this part, it should be a standard normal distribution.
 ```r
 length_d_df <- length_df %>%
   mutate(density=dnorm(qnorm(quantile_position)))
@@ -132,7 +132,7 @@ ggplot(length_df,aes(x=quantile_position,y=mid95_length))+
   geom_point()+geom_line()+
   labs(title = "Length of middle 95% of exponential distribution")+
   scale_x_continuous(
-    name = "pth quantile",
+    name = "p-th quantile",
     breaks = seq(0.05, 0.95, 0.05)
   )+
   scale_y_continuous(name = "Length")
@@ -199,7 +199,7 @@ ggplot(length_df,aes(x=quantile_position,y=mid95_length))+
   geom_point()+geom_line()+
   labs(title = "Length of middle 95% of given mixture distribution 3")+
   scale_x_continuous(
-    name = "pth quantile",
+    name = "p-th quantile",
     breaks = seq(0.05, 0.95, 0.05)
   )+
   scale_y_continuous(name = "Length")
@@ -265,7 +265,7 @@ ggplot(length_df,aes(x=quantile_position,y=mid95_length))+
   geom_point()+geom_line()+
   labs(title = "Length of middle 95% of given mixture distribution 4")+
   scale_x_continuous(
-    name = "pth quantile",
+    name = "p-th quantile",
     breaks = seq(0.05, 0.95, 0.05)
   )+
   scale_y_continuous(name = "Length")
@@ -349,7 +349,7 @@ length_df %>%
   geom_line(aes(x=quantile_position,y=value,color=variable))+
   labs(title = "Length of middle 95% of normal distribution given different sample sizes", y = "Length")+
   scale_x_continuous(
-    name = "pth quantile",
+    name = "p-th quantile",
     breaks = seq(0.05, 0.95, 0.05)
   )
 ```
@@ -364,7 +364,7 @@ length_df %>%
   geom_line(aes(x=density,y=value,color=variable))+
   labs(title = "Length of middle 95% of normal distribution given different sample sizes", y = "Length")+
   scale_x_continuous(
-    name = "pth quantile",
+    name = "p-th quantile",
     breaks = seq(0.05, 0.95, 0.05)
   )
 ```
