@@ -6,6 +6,7 @@ date:       2019-09-09
 author:     Zekun Wang
 header-img: img/headers/prob3-worldseries.jpg
 catalog: true
+mathjax: true
 dark_chart_images: invert
 tags:
     - Statistics
