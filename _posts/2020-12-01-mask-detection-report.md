@@ -21,7 +21,7 @@ tags:
     - Computer Vision
 ---
 
-The paper has been published on [arXiv](https://arxiv.org/abs/2101.00784).
+The paper has been published in *Electronic Imaging* (2023): [WearMask: Fast in-browser face mask detection with serverless edge computing for COVID-19](https://doi.org/10.2352/EI.2023.35.11.HPCI-229). A preprint is also available on [arXiv](https://arxiv.org/abs/2101.00784). Source code: [browser deployment](https://github.com/waittim/facemask-detection) · [training pipeline](https://github.com/waittim/mask-detector).
 
 ## Background
 
@@ -114,7 +114,7 @@ After completing the core program, I used HTML and CSS to complete the developme
 
 ## Conclusion
 
-In general, the project has achieved its original purpose: providing a low-cost alternative to mask detection equipment. The results have been published at [facemask-detection.com](https://facemask-detection.com/) so users can remember and use it easily.
+In general, the project has achieved its original purpose: providing a low-cost alternative to mask detection equipment. The live demo is at [facemask-detection.com](https://facemask-detection.com/). The open-source code is split across [facemask-detection](https://github.com/waittim/facemask-detection) (browser deployment) and [mask-detector](https://github.com/waittim/mask-detector) (training pipeline).
 
 The advantages are summarized as follows:
 
@@ -122,7 +122,7 @@ The advantages are summarized as follows:
 - **Low cost.** Users can use their idle tablets, iPads, or laptops. Even if the user wants a new one, they can buy a new tablet and its stand for less than $100 and get functions similar to a device that costs thousands of dollars.
 - **High speed.** Because the model size is extremely small, the NCNN framework is optimized for mobile devices, and the final program runs through binary-based WebAssembly, the overall speed is extremely fast. This also means that users can get the smoothest experience.
 - **No privacy issues.** Since the program runs entirely in the browser locally in real time, there is no need to save any content or upload any data to the server, so users do not have to worry about privacy issues.
-- **Multi-language support.** The web page now supports English, Spanish, and Chinese, covering 92% of the US population and 50% of the world population.
+- **Multi-language support.** The UI now supports English, Chinese, Spanish, French, German, Japanese, Portuguese, Korean, Italian, and Russian.
 
 <br />
 <br />
