@@ -39,6 +39,34 @@ For more background on this data, please see the paper *Bridging the Gap*: [A Pr
 6. Calculate the distance
 7. Sort by distance
 
+K-Means partitions points $\{x_i\}$ into $k$ clusters by minimizing within-cluster sum of squares:
+
+$$
+\min_{C_1,\ldots,C_k}
+\sum_{j=1}^{k}\sum_{x\in C_j}
+\lVert x - \mu_j\rVert_2^2,
+\qquad
+\mu_j=\frac{1}{|C_j|}\sum_{x\in C_j}x.
+$$
+
+MinHash is used so that collision rates approximate Jaccard similarity of the sets of tokens with nonzero counts,
+
+$$
+P\bigl(h_{\min}(A)=h_{\min}(B)\bigr)
+=
+J(A,B)
+=
+\frac{|A\cap B|}{|A\cup B|}.
+$$
+
+Anomaly scores are Euclidean distances to the assigned centroid,
+
+$$
+d(x,\mu_{\hat{c}(x)})=\lVert x-\mu_{\hat{c}(x)}\rVert_2,
+$$
+
+with larger $d$ treated as more anomalous. Cluster count $k$ is chosen using the Silhouette score.
+
 If you want to accelerate the manipulation process, you can skip all of the `dataframe.show()` calls.
 
 ## Build environment
@@ -285,7 +313,7 @@ only showing top 20 rows
 
 ## Dimension reduction by MinHash
 
-In this step, we reduce the dimensionality of the features by using the MinHash algorithm while ensuring that the similarity between emails is maintained. It also converts sparse features into dense features.
+In this step, we reduce the dimensionality of the features by using the MinHash algorithm while ensuring that the similarity between emails is maintained. It also converts sparse features into dense features. With $m$ independent MinHash functions, each email is mapped to an $m$-dimensional signature whose pairwise agreement rate estimates Jaccard similarity.
 
 For more details about the MinHash algorithm, there is a good [explanation](https://www.cs.utah.edu/~jeffp/teaching/cs5955/L5-Minhash.pdf) from the University of Utah.
 
@@ -775,7 +803,7 @@ plt.show()
     
 
 
-Based on the variation of Silhouette with squared Euclidean distance across k in the above figure, and according to the elbow principle, we can consider 5 the most appropriate number of clusters. It brings the maximum classification gain with as few clusters as possible.
+Based on the Silhouette scores (squared Euclidean distance) across $k$ in the figure above, $k=5$ is a reasonable choice: after $k=4\to 5$ the silhouette drop flattens relative to the large drop from $k=2\to 3$, so five clusters buy most of the structure without further clear gains. (This is a silhouette-based selection, not the classical within-SS elbow rule.)
 
 
 ```python
@@ -823,7 +851,13 @@ only showing top 20 rows
 </pre>
 </details>
 
-Based on the clustering results obtained from the final model, we can calculate the distance between each data point and its corresponding clustering center.
+Based on the clustering results obtained from the final model, we can calculate the Euclidean distance between each data point and its corresponding clustering center,
+
+$$
+d_i=\bigl\lVert x_i-\mu_{\hat{c}(x_i)}\bigr\rVert_2,
+$$
+
+and rank emails by $d_i$ descending.
 
 
 ```python

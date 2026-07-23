@@ -27,12 +27,34 @@ Overall advantage | Game 1 | Game 2 | Game 3 | Game 4 | Game 5 | Game 6 | Game 7
 Braves | ATL | ATL | NYC | NYC | NYC | ATL | ATL
 Yankees | NYC | NYC | ATL | ATL | ATL | NYC | NYC
 
-Let *P<sub>B</sub>* be the probability that the Braves win a single head-to-head match-up with the Yankees, under the assumption that home-field advantage does not exist. Let *P<sub>B</sub><sup>H</sup>* denote the probability that the Braves win a single head-to-head match-up with the Yankees as the home team (H for home). Let *P<sub>B</sub><sup>A</sup>* denote the probability that the Braves win a single head-to-head match-up as the away team (A for away).
+Let $P_B$ be the probability that the Braves win a single head-to-head match-up with the Yankees, under the assumption that home-field advantage does not exist. Let $P_B^{H}$ denote the probability that the Braves win as the home team, and $P_B^{A}$ the probability that they win as the away team. With advantage factor $a\ge 1$, the linear home boost is
 
-Game location | No advantage | Advantage
+$$
+\tilde P_B^{H} = a\,P_B,
+\qquad
+\tilde P_B^{A} = 1 - a\,(1-P_B),
+$$
+
+then projected back onto a valid probability scale:
+
+$$
+P_B^{H} = \min\bigl(1,\max(0,\tilde P_B^{H})\bigr),
+\qquad
+P_B^{A} = \min\bigl(1,\max(0,\tilde P_B^{A})\bigr).
+$$
+
+Without clipping, both quantities stay in $(0,1)$ only when
+
+$$
+1-\frac{1}{a} \le P_B \le \frac{1}{a}.
+$$
+
+For the default $a=1.1$ this is about $P_B\in[0.091,0.909]$. The main example $P_B=0.55$ lies inside that interval, so clipping does not change it; Bonus scans over wider ranges, so the code always applies `pmin` / `pmax`.
+
+Game location | No advantage | Advantage ($a=1.1$, before clipping)
 ---|---|---
-ATL | *P<sub>B</sub>* | *P<sub>B</sub><sup>H</sup> = P<sub>B</sub> $\times$ 1.1*
-NYC | *P<sub>B</sub>* | *P<sub>B</sub><sup>A</sup> = 1 - (1 - P<sub>B</sub>)$\times$ 1.1*
+ATL | $P_B$ | $\tilde P_B^{H} = 1.1\,P_B$
+NYC | $P_B$ | $\tilde P_B^{A} = 1 - 1.1\,(1-P_B)$
 
 ```r
 library(dplyr)
@@ -62,8 +84,8 @@ Now we use 0.55 to define *P<sub>B</sub>* and generate the other probabilities f
 # P_B
 pb <- 0.55
 advantage_multiplier <- 1.1 # Set = 1 for no advantage
-pbh <- pb * advantage_multiplier
-pba <- 1 - (1 - pb) * advantage_multiplier
+pbh <- pmin(1, pmax(0, pb * advantage_multiplier))
+pba <- pmin(1, pmax(0, 1 - (1 - pb) * advantage_multiplier))
 ```
 
 In this part, we use the parameters defined above. In every row of the data.table, we use the probabilities influenced by home-field advantage to calculate the overall probability of each situation.
@@ -90,14 +112,22 @@ Then we output the probability that the Braves win the World Series with home-fi
 p_home <- purrr::flatten_dbl(apo[, sum(p), overall_outcome][1,2])
 p_home
 ```
-The probability is `r p_home`.
+The probability is given by `p_home`.
 
-Then we can calculate the probability when there is no home-field advantage.
+Then we can calculate the probability when there is no home-field advantage. With constant per-game probability $P_B$,
+
+$$
+P(\text{win WS})
+=
+\sum_{k=4}^{7}\binom{7}{k} P_B^{k}(1-P_B)^{7-k}
+=
+1-F_{\mathrm{Bin}(7,P_B)}(3).
+$$
 ```r
 p_nohome <- 1 - pbinom(3, 7, 0.55)
 p_nohome
 ```
-The probability is `r p_nohome`. When home-field advantage exists, the probability that the Braves win the World Series is lower, `r p_home`, than the probability without home-field advantage. Given *P<sub>B</sub>=0.55*, the difference between the probability of the Braves winning the World Series with home-field advantage and without home-field advantage is `r (p_home-p_nohome)*100` percentage points.
+The probability is given by `p_nohome`. When home-field advantage exists, the probability that the Braves win the World Series is lower (`p_home`) than the probability without home-field advantage. Given *P<sub>B</sub>=0.55*, the difference between the probability of the Braves winning the World Series with home-field advantage and without home-field advantage is `(p_home - p_nohome) * 100` percentage points.
 
 
 
@@ -120,7 +150,7 @@ for (i in seq_along(sml_list_h)){
 mean_sml_h <- mean(sml_list_h)
 mean_sml_h
 ```
-Now we can get the approximate solution, `r mean_sml_h`, which is a little different from `r p_home`.
+Now we can get the approximate solution `mean_sml_h`, which is a little different from `p_home`.
 
 Now, let's simulate the situation without home-field advantage. This is easy because we only need to set p_win to a constant value.
 ```r
@@ -142,27 +172,29 @@ mean_sml_nh
 
 ## 3. What is the absolute and relative error for your simulation in the previous question?
 
-Absolute error =
-$$|p̂−p|$$
+With simulation estimate $\hat{p}$ and analytical value $p$,
 
-Relative error =
-$$|p̂−p|/p$$.
+$$
+\mathrm{AE}=\lvert\hat{p}-p\rvert,
+\qquad
+\mathrm{RE}=\frac{\lvert\hat{p}-p\rvert}{p}.
+$$
 
 ```r
 abs_error_h <- abs(mean(sml_list_h) - p_home)
-rel_error_h <- abs(mean(sml_list_h) - p_home)/mean(sml_list_h)
+rel_error_h <- abs(mean(sml_list_h) - p_home)/p_home
 abs_error_h
 rel_error_h
 ```
-Therefore, given home-field advantage the absolute error is `r abs_error_h`. The relative error is `r rel_error_h`.
+Therefore, given home-field advantage the absolute error is `abs_error_h`. The relative error is `rel_error_h`.
 
 ```r
 abs_error_nh <- abs(mean(sml_list_nh) - p_nohome)
-rel_error_nh <- abs(mean(sml_list_nh) - p_nohome)/mean(sml_list_nh)
+rel_error_nh <- abs(mean(sml_list_nh) - p_nohome)/p_nohome
 abs_error_nh
 rel_error_nh
 ```
-Therefore, given no home-field advantage the absolute error is `r abs_error_nh`. The relative error is `r rel_error_nh`.
+Therefore, given no home-field advantage the absolute error is `abs_error_nh`. The relative error is `rel_error_nh`.
 
 
 
@@ -182,8 +214,8 @@ diff_list <- ph_win_list
 for (p in seq_along(pb_list)) {
   pb <- pb_list[p]
   advantage_multiplier <- 1.1
-  pbh <- pb * advantage_multiplier
-  pba <- 1 - (1 - pb) * advantage_multiplier
+  pbh <- pmin(1, pmax(0, pb * advantage_multiplier))
+  pba <- pmin(1, pmax(0, 1 - (1 - pb) * advantage_multiplier))
 
   pnh_win_list[p] <- 1 - pbinom(3, 7, pb_list[p])
 
@@ -243,8 +275,8 @@ diff_list2 <- ph_win_list
 for (p in seq_along(ha_list)) {
   pb <- 0.55
   advantage_multiplier <- ha_list[p]
-  pbh <- pb * advantage_multiplier
-  pba <- 1 - (1 - pb) * advantage_multiplier
+  pbh <- pmin(1, pmax(0, pb * advantage_multiplier))
+  pba <- pmin(1, pmax(0, 1 - (1 - pb) * advantage_multiplier))
 
   pnh_win_list[p] <- 1 - pbinom(3, 7, 0.55)
 
@@ -267,7 +299,7 @@ for (p in seq_along(ha_list)) {
 }
 ```
 
-Let's look at the graph. When the home-field advantage factor increases, the difference in probabilities between the with- and without-home-field-advantage scenarios also increases.
+Let's look at the graph. When the home-field advantage factor increases, the difference in probabilities between the with- and without-home-field-advantage scenarios also increases. For $P_B=0.55$, clipping binds once $a>1/P_B\approx 1.82$ (home win probability saturates at $1$), which is reflected at the right end of the curve.
 ```r
 plot(x= ha_list, y=diff_list2)
 ```

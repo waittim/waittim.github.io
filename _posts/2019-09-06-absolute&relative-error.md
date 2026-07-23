@@ -6,6 +6,7 @@ date:       2019-09-06
 author:     Zekun Wang
 header-img: img/headers/prob2-error.jpeg
 catalog: true
+mathjax: true
 dark_chart_images: invert
 tags:
     - Statistics
@@ -22,9 +23,21 @@ Absolute error and relative error are calculated in slightly different ways, but
 
 
 ## Absolute Error
-absolute error = |p̂−p|
 
->The difference between the measured or inferred value of a quantity x_0 and its actual value x.
+Let $\hat{p}$ be the sample proportion from a $\mathrm{Binomial}(n,p)$ draw, and let $p$ be the true probability. Absolute error is
+
+$$
+\mathrm{AE} = \bigl|\hat{p} - p\bigr|.
+$$
+
+In the simulation below we report the Monte Carlo mean of this quantity,
+
+$$
+\overline{\mathrm{AE}} = \frac{1}{R}\sum_{r=1}^{R}\bigl|\hat{p}_r - p\bigr|,
+\qquad R = 10{,}000.
+$$
+
+>The difference between the measured or inferred value of a quantity $x_0$ and its actual value $x$.
 
 
 First, let's create a table to store the 14*5 simulation results.
@@ -73,9 +86,16 @@ text(1,T[1,],lname_p,pos=2,cex=0.6)
 Absolute error is the absolute difference between the observed value and the expected value. In this simulation, we calculate the absolute error 10,000 times and take its mean for each setting. After transforming the y-axis to log_10, it is clear that x and y have a linear relationship. The larger p is, the larger the absolute error becomes.
 
 # Relative Error
-Relative error = |p̂−p|/p.
 
-Then we do the same thing as before, but when calculating the error, we divide the absolute error by the true probability *p*.
+Relative error scales absolute error by the true probability $p$:
+
+$$
+\mathrm{RE} = \frac{\bigl|\hat{p} - p\bigr|}{p},
+\qquad
+\overline{\mathrm{RE}} = \frac{1}{R}\sum_{r=1}^{R}\frac{\bigl|\hat{p}_r - p\bigr|}{p}.
+$$
+
+Then we do the same thing as before, but when calculating the error, we divide the absolute error by the true probability $p$.
 We plot this graph as well.
 
 ```r

@@ -6,6 +6,7 @@ date:       2019-10-27
 author:     Zekun Wang
 header-img: img/headers/prob8-simulation.jpg
 catalog: true
+mathjax: true
 tags:
     - Statistics
     - Simulation
@@ -19,11 +20,17 @@ tags:
 
 # Situation Description
 
-This time, I will perform a 2 × 4 × 2 factorial simulation study to compare the coverage probability of various methods of calculating **90%** confidence intervals. The three factors in the experiment are:
+This time, I will perform a $2 \times 4 \times 2$ factorial simulation study to compare the coverage probability of various methods of calculating **$90\%$** confidence intervals. For a CI $[\ell,u]$ and true parameter $\theta_0$,
+
+$$
+\mathrm{Coverage} = P(\ell < \theta_0 < u).
+$$
+
+The three factors in the experiment are:
 
 1.  True, underlying distribution
     -   standard normal
-    -   gamma(shape = 1.4, scale = 3)
+    -   $\mathrm{Gamma}(\mathrm{shape}=1.4,\,\mathrm{scale}=3)$
 2.  Model
     -   method of moments with normal
     -   method of moments with gamma
@@ -33,7 +40,7 @@ This time, I will perform a 2 × 4 × 2 factorial simulation study to compare th
     -   sample min (1st order statistic)
     -   median
 Other settings in the experiment that will not change are:
--   Sample size, *N* = 201
+-   Sample size, $N = 201$
 -   *Outside the loop* estimation
 
 # Define functions
@@ -56,6 +63,21 @@ generate_data <- function(N, dist, sh=1.4, sc=3){
 ## Confidence interval estimation function
 
 Then define the function for calculating the confidence interval. It can estimate the distribution by the method of moments with a normal distribution, the method of moments with a gamma distribution, kernel density estimation, or bootstrap. At the same time, the function can use the function defined by “par.int” to calculate the parameter we want. The details are introduced in the chunk.
+
+Under method of moments for a normal model, match the first two sample moments:
+
+$$
+\hat\mu = \bar{x},\qquad \hat\sigma = s.
+$$
+
+For a gamma model parameterized by shape $\alpha$ and scale $\beta$,
+
+$$
+\hat\alpha = \frac{\bar{x}^2}{s^2},\qquad
+\hat\beta = \frac{s^2}{\bar{x}}.
+$$
+
+Each method then draws $R$ replicate samples from the fitted / resampled distribution, computes the target functional (min or median) on each replicate, and returns the empirical $5\%$ and $95\%$ quantiles as a nominal $90\%$ CI.
 ```r
 estimate.ci <- function(data, mod, par.int, R=10, smoo=0.3){
   # data: input data

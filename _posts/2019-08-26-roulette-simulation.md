@@ -6,6 +6,7 @@ date:       2019-08-26
 author:     Zekun Wang
 header-img: img/headers/prob1-roulette.jpg
 catalog: true
+mathjax: true
 dark_chart_images: invert
 tags:
     - Statistics
@@ -21,6 +22,24 @@ tags:
 
 ---
 In this post, we will look at a simplified version of roulette. Instead of modeling each number on the wheel, we divide each play into only two outcomes: win or lose.
+
+On an American roulette wheel there are 18 red pockets out of 38, so a red bet wins with
+
+$$
+P(\text{red}) = \frac{18}{38}.
+$$
+
+The player uses a martingale-style staking rule: after a win the next wager resets to $1$; after a loss it doubles, subject to the casino cap $M$ and the remaining budget $B$:
+
+$$
+w_t = \min\bigl(w_t^{\mathrm{prop}},\, M,\, B\bigr),
+\qquad
+w_t^{\mathrm{prop}} =
+\begin{cases}
+1 & \text{if the previous play won},\\
+2\,w_{t-1} & \text{otherwise}.
+\end{cases}
+$$
 
 To play the game safely and avoid unrealistic debt, we first need to set several parameters. These parameters will be stored in a state list.
 

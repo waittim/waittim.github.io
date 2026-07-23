@@ -29,33 +29,48 @@ In this blog, we are going to calculate probabilities for several questions abou
 
 First, we need to define some parameters.
 
+$$
+P_B = \text{per-game win probability for the Braves},\qquad
+P_Y = 1 - P_B.
+$$
+
 Parameter | Explanation
 ---|---|---
-P<sub>B</sub> | In any given game, the probability that the Braves win
-P<sub>Y</sub> = 1 - P<sub>B</sub> | In any given game, the probability that the Yankees win
+$P_B$ | In any given game, the probability that the Braves win
+$P_Y = 1 - P_B$ | In any given game, the probability that the Yankees win
 
 # Questions
-### 1. What is the probability that the Braves win the World Series given that P<sub>B</sub>=0.55?
+### 1. What is the probability that the Braves win the World Series given that $P_B=0.55$?
 
-First, we need to set the values of P<sub>B</sub> and P<sub>Y</sub>.
+First, we need to set the values of $P_B$ and $P_Y$.
 ```r
 PB <- 0.55
 PY <- 1- PB
 ```
 
-Create a function to calculate the probability of winning the series. A series win is defined as winning 4 games in a best-of-7 series.
+Create a function to calculate the probability of winning the series. A series win is defined as winning 4 games in a best-of-7 series. Equivalently, the number of losses before the 4th win follows a negative binomial law, and
+
+$$
+P(\text{Braves win WS}\mid P_B=p)
+=
+\sum_{k=0}^{3}\binom{3+k}{k}(1-p)^k p^{4}
+=
+P\bigl(X \le 3\bigr),
+$$
+
+where $X$ is the number of losses before the 4th win (R's negative-binomial failures-before-successes convention with $r=4$).
 ```r
 calc_prob <- function(p){
   pnbinom(3, 4, p)
 }
 ```
 
-Now calculate the probability given that P<sub>B</sub>=0.55.
+Now calculate the probability given that $P_B=0.55$.
 ```r
 calc_prob(PB)
 ```
 
-When P<sub>B</sub> is 0.55, the probability that the Braves win the World Series is 0.608.
+When $P_B$ is $0.55$, the probability that the Braves win the World Series is $0.608$.
 
 
 
@@ -172,25 +187,31 @@ In this graph, as P<sub>B</sub> increases, the shortest series length required f
 
 
 
-### 5. Calculate P( P<sub>B</sub>=0.55|Braves lose 3 games before winning a 4th game) under the assumption that either  P<sub>B</sub>=0.55 or  P<sub>B</sub>=0.45. Explain your solution.
+### 5. Calculate $P(P_B=0.55\mid\text{Braves lose 3 games before winning a 4th game})$ under the assumption that either $P_B=0.55$ or $P_B=0.45$. Explain your solution.
 
-According to the conditional probability formula, we can get:
+Let $A=\{P_B=0.55\}$ and let $B$ be the event that the Braves incur exactly 3 losses before their 4th win. Bayes' theorem gives
 
 $$
-\begin{gather*}
-P(A|B)=\frac{P(A)P(B)}{P(B)}  \to  P(A)P(B)=P(A|B)P(B)\\
-P(B|A)=\frac{P(A)P(B)}{P(A)}  \to  P(A)P(B)=P(B|A)P(A)\\
-\to P(A|B)P(B)=P(A)P(B)=P(B|A)P(A)\\
-\to P(A|B)=\frac{P(B|A)P(A)}{P(B)}
-\end{gather*}
+P(A\mid B)=\frac{P(B\mid A)\,P(A)}{P(B)}.
 $$
 
-Now P(A) = P(P<sub>B</sub>=0.55), P(B) = P(Braves lose 3 games before winning a 4th game).
-As a result, P( P<sub>B</sub>=0.55|Braves lose 3 games before winning a 4th game) = P(Braves lose 3 games before winning a 4th game|P<sub>B</sub>=0.55) * P(P<sub>B</sub>=0.55) ÷ P(Braves lose 3 games before winning a 4th game).
+With a uniform prior on the two candidate strengths, $P(A)=1/2$, and by the law of total probability
 
-P(P<sub>B</sub>=0.55) = 0.5
+$$
+P(B)
+=
+\frac12\,P(B\mid P_B=0.55)
++
+\frac12\,P(B\mid P_B=0.45),
+$$
 
-Then use *dnbinom()* to calculate P(Braves lose 3 games before winning a 4th game) and P(Braves lose 3 games before winning a 4th game|P<sub>B</sub>=0.55):
+where each likelihood is a negative-binomial PMF,
+
+$$
+P(B\mid P_B=p)=\binom{6}{3}p^{4}(1-p)^{3}.
+$$
+
+Then use *dnbinom()* to calculate $P(B)$ and $P(B\mid P_B=0.55)$:
 ```r
 (dnbinom(3,4,0.45)+dnbinom(3,4,0.55))/2
 dnbinom(3,4,0.55)

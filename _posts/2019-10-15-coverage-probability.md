@@ -6,6 +6,7 @@ date:       2019-10-15
 author:     Zekun Wang
 header-img: img/headers/prob7-coverage.jpg
 catalog: true
+mathjax: true
 dark_chart_images: invert
 tags:
     - Statistics
@@ -21,9 +22,28 @@ tags:
 >In statistics, maximum likelihood estimation (MLE) is a method of estimating the parameters of a probability distribution by maximizing a likelihood function, so that under the assumed statistical model the observed data is most probable. The point in the parameter space that maximizes the likelihood function is called the maximum likelihood estimate. The logic of maximum likelihood is both intuitive and flexible, and as such the method has become a dominant means of statistical inference.
 *From [Wikipedia - Maximum likelihood estimation](https://en.wikipedia.org/wiki/Maximum_likelihood_estimation)*
 
-Coverage probability is an important operating characteristic of methods for constructing interval estimates, particularly confidence intervals.
+Given i.i.d. observations $x_1,\ldots,x_n$ from a density $f(x\mid\theta)$, the MLE is
 
-The goal of this post is to perform a simulation to calculate the coverage probability of the 95% confidence interval of the median when computed from F<sub>X</sub><sup>mle</sup>.
+$$
+\hat\theta
+=
+\arg\max_{\theta}\, L(\theta)
+=
+\arg\max_{\theta}\, \prod_{i=1}^{n} f(x_i\mid\theta)
+=
+\arg\min_{\theta}\,
+\bigl(-\sum_{i=1}^{n}\log f(x_i\mid\theta)\bigr).
+$$
+
+Under a normal model, $\hat\theta=(\hat\mu,\hat\sigma)$ defines the plugged-in distribution $F_X^{\mathrm{mle}}=N(\hat\mu,\hat\sigma^2)$. The interval for the median constructed below is a **parametric bootstrap / plug-in** interval: draw replicates from $F_X^{\mathrm{mle}}$, compute their sample medians, and take empirical quantiles of that sampling distribution. Coverage probability is an important operating characteristic of methods for constructing interval estimates, particularly confidence intervals. For a nominal $95\%$ CI of a parameter $\theta_0$,
+
+$$
+\mathrm{Coverage}
+=
+P\bigl(\theta_0 \in [\ell,u]\bigr).
+$$
+
+The goal of this post is to perform a simulation to calculate the coverage probability of the $95\%$ confidence interval of the median when computed from $F_X^{\mathrm{mle}}$. For $N(\mu,\sigma^2)$, the MLE of $\mu$ is the sample mean; the MLE of $\sigma$ uses divisor $n$, while R's `sd()` uses $n-1$. Step 1 below calls `stats4::mle`; the repeated experiments in Step 4 use `mean` / `sd` as a close plug-in (for large $N$ the $\sigma$ difference is negligible).
 
 ```r
 library(stats4)
@@ -64,7 +84,7 @@ coef(fit)
 sample1_mean <- coef(fit)[[1]]
 sample1_sd <- coef(fit)[[2]]
 ```
-The estimated mean is `r sample1_mean` and the estimated standard deviation is `r sample1_sd`.
+The estimated mean is `sample1_mean` and the estimated standard deviation is `sample1_sd`.
 
 # Step 2: Approximate median distribution
 **Approximate the sampling distribution of the median, conditional on the estimate of the distribution in the previous step.**
@@ -103,7 +123,7 @@ for (i in 1:ncol(samples)) {
 }
 ```
 
-Now create a matrix to save the estimated parameters of each distribution.
+Now create a matrix to save the estimated parameters of each distribution. Here `mean` / `sd` stand in for the normal plug-in parameters discussed above.
 ```r
 coef <- matrix(nrow = 2, ncol = ncol(samples))
 for (i in 1:ncol(samples)) {
@@ -119,7 +139,7 @@ Now create a matrix to save the 95% confidence intervals.
 quantile95_list <- matrix(nrow = 2, ncol = ncol(samples))
 ```
 
-For each pair of estimated parameters, create an estimated distribution and then get the median. Repeat this process `r N` times, calculate the 95% confidence interval, and save the interval in the matrix.
+For each pair of estimated parameters, create an estimated distribution and then get the median. Repeat this process `N` times, calculate the 95% confidence interval, and save the interval in the matrix.
 ```r
 for (j in 1:ncol(samples)) {
   median_list <- rep(NA, N)
@@ -134,7 +154,14 @@ for (j in 1:ncol(samples)) {
 }
 ```
 
-To calculate the coverage probability, we can save all the judgment results in a vector. The coverage probability is the number of successful captures divided by the number of distributions.
+To calculate the coverage probability, we can save all the judgment results in a vector. With true median $\theta_0=0$ for the standard normal, an interval $[\ell_j,u_j]$ “covers” when $\ell_j \le 0 \le u_j$. The Monte Carlo coverage estimate is
+
+$$
+\widehat{\mathrm{Coverage}}
+=
+\frac{1}{M}\sum_{j=1}^{M}
+\mathbf{1}\{\ell_j \le 0 \le u_j\}.
+$$
 ```r
 interest <- rep(NA, ncol(samples))
 for (i in seq_along(interest)) {
@@ -149,7 +176,7 @@ coverage_probability <- sum(interest) / length(interest)
 sum(interest)
 coverage_probability
 ```
-This time, the coverage probability is `r coverage_probability`.
+This time, the coverage probability is `coverage_probability`.
 
 ```r
 sum(quantile95_list[2,] < 0)

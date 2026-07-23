@@ -567,8 +567,10 @@ def regenerate_home_advantage() -> None:
     diff_list = []
     for pb in pb_list:
         adv = 1.1
+        pbh = float(np.clip(pb * adv, 0.0, 1.0))
+        pba = float(np.clip(1 - (1 - pb) * adv, 0.0, 1.0))
         pnh = 1 - stats.binom.cdf(3, 7, pb)
-        ph = p_at_least_4(pb * adv, 1 - (1 - pb) * adv, hfi)
+        ph = p_at_least_4(pbh, pba, hfi)
         diff_list.append(pnh - ph)
     fig, ax = new_fig()
     ax.plot(pb_list, diff_list, color=ACCENT, lw=2.2)
@@ -583,8 +585,10 @@ def regenerate_home_advantage() -> None:
     diff_list2 = []
     pb = 0.55
     for adv in ha_list:
+        pbh = float(np.clip(pb * adv, 0.0, 1.0))
+        pba = float(np.clip(1 - (1 - pb) * adv, 0.0, 1.0))
         pnh = 1 - stats.binom.cdf(3, 7, pb)
-        ph = p_at_least_4(pb * adv, 1 - (1 - pb) * adv, hfi)
+        ph = p_at_least_4(pbh, pba, hfi)
         diff_list2.append(pnh - ph)
     fig, ax = new_fig()
     ax.plot(ha_list, diff_list2, color=LINK, lw=2.2)

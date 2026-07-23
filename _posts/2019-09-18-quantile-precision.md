@@ -6,6 +6,7 @@ date:       2019-09-18
 author:     Zekun Wang
 header-img: img/headers/prob5-quantile.jpeg
 catalog: true
+mathjax: true
 dark_chart_images: invert
 tags:
     - Statistics
@@ -19,6 +20,27 @@ tags:
 The median is an important quantity in data analysis. It represents the middle value of a data distribution. Estimates of the median, however, have a degree of uncertainty because (a) they are calculated from a finite sample and (b) the underlying data distribution is generally unknown. One important role of a data scientist is to quantify and communicate the degree of uncertainty in an analysis.
 
 In this post, we will use simulation to find which quantiles of a distribution can be estimated more precisely.
+
+For a continuous distribution with density $f$ and CDF $F$, the $p$-th population quantile is $q_p = F^{-1}(p)$. Under standard regularity conditions the sample quantile $\hat{q}_p$ is asymptotically normal with
+
+$$
+\mathrm{Var}(\hat{q}_p) \approx \frac{p(1-p)}{n\,f(q_p)^2},
+$$
+
+so the sampling spread shrinks where $f(q_p)$ is larger. The simulations below do **not** plug into that formula directly. Instead they estimate a nonparametric width of the Monte Carlo sampling distribution of $\hat{q}_p$:
+
+$$
+L_p = \hat{q}_{0.975}^{(\mathrm{MC})} - \hat{q}_{0.025}^{(\mathrm{MC})},
+$$
+
+the length of the middle $95\%$ across $R$ replicated samples of size $n$. If that sampling distribution is roughly normal,
+
+$$
+L_p \approx 2\,z_{0.975}\sqrt{\mathrm{Var}(\hat{q}_p)}
+\approx 3.92\sqrt{\mathrm{Var}(\hat{q}_p)},
+$$
+
+so $L_p$ tracks $\sqrt{\mathrm{Var}(\hat{q}_p)}$ (hence $1/f(q_p)$) up to a constant. Plotting $L_p$ against $p$ or against $f(q_p)$ is therefore a direct check of the same qualitative prediction.
 
 ```r
 library(tidyverse)
