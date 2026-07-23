@@ -9,6 +9,7 @@ description: "MemoryCustodian gives coding agents durable, reviewable project me
 image: /img/headers/2026-07-01-memory-custodian.png
 series: MemoryCustodian Design Series
 series_nav_title: Overview
+series_order: 1
 header-img: img/headers/post-bg-data-center.jpeg
 catalog: true
 tags:

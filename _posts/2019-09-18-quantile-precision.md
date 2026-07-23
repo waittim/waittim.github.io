@@ -9,6 +9,9 @@ header-img: img/headers/prob5-quantile.jpeg
 catalog: true
 mathjax: true
 dark_chart_images: invert
+series: Probability and Statistical Inference
+series_nav_title: Quantile Precision
+series_order: 5
 tags:
     - Statistics
     - Simulation

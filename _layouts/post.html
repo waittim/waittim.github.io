@@ -78,12 +78,14 @@ layout: default
 
 				{{ content }}
 
+                {% include related-posts.html %}
+
                 <hr style="visibility: hidden;">
 
                 <ul class="pager">
                     {% if page.previous.url %}
                     <li class="previous">
-                        <a href="{{ page.previous.url | relative_url }}" data-toggle="tooltip" data-placement="top" title="{{page.previous.title}}">
+                        <a href="{{ page.previous.url | relative_url }}" title="{{page.previous.title}}">
                         Previous<br>
                         <span>{{page.previous.title}}</span>
                         </a>
@@ -91,7 +93,7 @@ layout: default
                     {% endif %}
                     {% if page.next.url %}
                     <li class="next">
-                        <a href="{{ page.next.url | relative_url }}" data-toggle="tooltip" data-placement="top" title="{{page.next.title}}">
+                        <a href="{{ page.next.url | relative_url }}" title="{{page.next.title}}">
                         Next<br>
                         <span>{{page.next.title}}</span>
                         </a>

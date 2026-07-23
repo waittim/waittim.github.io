@@ -7,6 +7,9 @@ author:     Zekun Wang
 description: "Compile NCNN to WebAssembly so deep learning inference can run directly in the browser."
 header-img: img/headers/post-bg-code.jpg
 catalog: true
+series: WearMask Series
+series_nav_title: Build NCNN WASM
+series_order: 5
 tags:
     - NCNN
     - Deep Learning
@@ -18,8 +21,6 @@ tags:
 ---
 
 > **Environment snapshot (Nov 2020).** This tutorial was written and tested against **Ubuntu 18.04**, with dependency versions from that time (notably **Node.js v14.15.1**). Commands and toolchain versions may not work unchanged on current Ubuntu, newer Node, emsdk, or NCNN releases. Prefer the official [ncnn](https://github.com/Tencent/ncnn) and [emsdk](https://github.com/emscripten-core/emsdk) docs when setting up a new environment; keep this post as a historical, project-specific walkthrough.
-
-Part of the **WearMask** deployment path: [Intro](/2020/11/27/mask-detection/) · [Project details](/2020/12/01/mask-detection-report/) · [Paper](/2023/01/01/paper-wearmask-fast-in-browser/) · [Build NCNN](/2020/11/10/build-ncnn/) · Build NCNN WASM (this post)
 
 The content of this tutorial is an extension of the [Tutorial for compiling NCNN library](/2020/11/10/build-ncnn/).
 

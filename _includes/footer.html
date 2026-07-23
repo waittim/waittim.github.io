@@ -14,16 +14,10 @@
     </div>
 </footer>
 
-<!-- jQuery -->
-<script src="{{ "/js/jquery.min.js" | relative_url }}"></script>
-
-<!-- Bootstrap Core JavaScript -->
-<script src="{{ "/js/bootstrap.min.js" | relative_url }}"></script>
-
-<!-- Custom Theme JavaScript -->
+<!-- Theme JavaScript (vanilla; no jQuery/Bootstrap JS) -->
 <script src="{{ "/js/hux-blog.min.js" | relative_url }}?v={{ site.asset_version }}"></script>
 
-<!-- Retire legacy Service Worker -->
+<!-- Retire legacy Service Worker registrations from the old PWA era -->
 <script type="text/javascript">
     (function () {
         if (!navigator.serviceWorker) {
@@ -44,53 +38,10 @@
     })();
 </script>
 
-
-<!-- async load function -->
-<script>
-    function async(u, c) {
-      var d = document, t = 'script',
-          o = d.createElement(t),
-          s = d.getElementsByTagName(t)[0];
-      o.src = u;
-      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-      s.parentNode.insertBefore(o, s);
-    }
-</script>
-
-<!-- jquery.tagcloud.js -->
-<script>
-    // only load tagcloud.js in tag.html
-    if($('#tag_cloud').length !== 0){
-        async('{{ "/js/jquery.tagcloud.js" | relative_url }}?v={{ site.asset_version }}',function(){
-            var tagColorScheme = window.matchMedia('(prefers-color-scheme: dark)');
-
-            function renderTagCloud(){
-                $.fn.tagcloud.defaults = {
-                    // Preserve article-count color encoding without changing tag size.
-                    color: tagColorScheme.matches
-                        ? {start: '#4a416f', end: '#00677d'}
-                        : {start: '#bbbbee', end: '#0085a1'}
-                };
-                $('#tag_cloud a').tagcloud();
-            }
-
-            renderTagCloud();
-            if(tagColorScheme.addEventListener){
-                tagColorScheme.addEventListener('change', renderTagCloud);
-            }else{
-                tagColorScheme.addListener(renderTagCloud);
-            }
-        })
-    }
-</script>
-
 <!-- Baidu Tongji -->
 {% if site.ba_track_id %}
 <script>
-    // dynamic User by Hux
     var _baId = '{{ site.ba_track_id }}';
-
-    // Originial
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
@@ -98,76 +49,5 @@
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
-</script>
-{% endif %}
-
-
-
-<!-- Side Catalog -->
-{% if page.catalog %}
-<script type="text/javascript">
-    function generateCatalog (selector) {
-        var P = $('div.post-container'),a,n,t,l,i,c,d,p,r,s;
-        r = $(selector);
-        s = {};
-        a = P.find('h1,h2,h3,h4,h5,h6');
-        a.each(function () {
-            n = $(this).prop('tagName').toLowerCase();
-            d = parseInt(n.substring(1), 10);
-            i = "#"+$(this).prop('id');
-            t = $(this).text();
-            c = $('<a></a>').attr({ href: i, rel: 'nofollow' }).text(t);
-            l = $('<li class="'+n+'_nav"></li>').append(c);
-
-            p = d - 1;
-            while (p > 0 && !s[p]) {
-                p--;
-            }
-
-            if (p > 0) {
-                var sublist = s[p].children('.catalog-sublist');
-                if (!sublist.length) {
-                    sublist = $('<ul class="catalog-sublist"></ul>').appendTo(s[p]);
-                }
-                sublist.append(l);
-            } else {
-                r.append(l);
-            }
-
-            for (var level = d; level <= 6; level++) {
-                delete s[level];
-            }
-            s[d] = l;
-        });
-        return true;    
-    }
-
-    generateCatalog(".catalog-body");
-
-    // toggle side catalog
-    $(".catalog-toggle").click((function(e){
-        e.preventDefault();
-        $('.side-catalog').toggleClass("fold")
-    }))
-
-    /*
-     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
-     * Fork by Hux to support padding
-     */
-        async("{{ '/js/jquery.nav.js' | relative_url }}", function () {
-        $('.catalog-body').onePageNav({
-            currentClass: "active",
-            changeHash: !1,
-            easing: "swing",
-            filter: "",
-            scrollSpeed: 700,
-            scrollOffset: 0,
-            scrollThreshold: .2,
-            begin: null,
-            end: null,
-            scrollChange: null,
-            padding: 80
-        });
-    });
 </script>
 {% endif %}

@@ -8,6 +8,9 @@ description: "Compare simulation-based estimation approaches including method of
 header-img: img/headers/prob8-simulation.jpg
 catalog: true
 mathjax: true
+series: Probability and Statistical Inference
+series_nav_title: Simulation Compare
+series_order: 7
 tags:
     - Statistics
     - Simulation

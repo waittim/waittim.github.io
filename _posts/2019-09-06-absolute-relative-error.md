@@ -9,6 +9,13 @@ header-img: img/headers/prob2-error.jpeg
 catalog: true
 mathjax: true
 dark_chart_images: invert
+permalink: /2019/09/06/absolute-relative-error/
+redirect_from:
+  - /2019/09/06/absolute&relative-error/
+  - /2019/09/06/absolute&relative-error
+series: Probability and Statistical Inference
+series_nav_title: Absolute vs Relative Error
+series_order: 2
 tags:
     - Statistics
     - Simulation

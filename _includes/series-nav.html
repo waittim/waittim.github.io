@@ -2,11 +2,22 @@
   Auto series nav from front matter:
     series: Series Name
     series_nav_title: Short label (optional; falls back to title)
-  Posts in the same series are ordered by date ascending.
+    series_order: Integer part order (optional; falls back to date)
   Markup reuses site patterns: sidebar-style h5, .tags chips, .pager.
 {% endcomment %}
 {% if page.series %}
-{% assign series_posts = site.posts | where: "series", page.series | sort: "date" %}
+{% assign series_posts = site.posts | where: "series", page.series %}
+{% assign series_has_order = false %}
+{% for p in series_posts %}
+  {% if p.series_order %}
+    {% assign series_has_order = true %}
+  {% endif %}
+{% endfor %}
+{% if series_has_order %}
+  {% assign series_posts = series_posts | sort: "series_order" %}
+{% else %}
+  {% assign series_posts = series_posts | sort: "date" %}
+{% endif %}
 {% assign series_total = series_posts.size %}
 {% if series_total > 1 %}
 {% for p in series_posts %}

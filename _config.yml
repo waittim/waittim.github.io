@@ -43,6 +43,8 @@ exclude:
   - package.json
   - package-lock.json
   - README.md
+  - data
+  - .venv-img
 anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
 
 
@@ -52,6 +54,7 @@ anchorjs: true                          # if you want to customize anchor. check
 plugins:
   - jekyll-paginate
   - jekyll-sitemap
+  - jekyll-redirect-from
 
 
 
@@ -102,7 +105,7 @@ current_topics:
 
 
 # Cache-busting for local CSS/JS (bump when shipping asset changes)
-asset_version: "20260723-8"
+asset_version: "20260723-11"
 
 
 

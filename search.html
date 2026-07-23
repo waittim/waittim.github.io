@@ -1,0 +1,45 @@
+---
+title: Search
+layout: default
+description: Search posts by title, tags, and content.
+header-img: "img/ui/bg-ice.webp"
+---
+
+<header class="intro-header" style="background-image: url('{{ page.header-img | default: site.header-img | prepend: "/" | relative_url }}')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="site-heading">
+                    <h1>{{ page.title }}</h1>
+                    <span class="subheading">{{ page.description }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <form class="site-search"
+                  role="search"
+                  action="{{ "/search/" | relative_url }}"
+                  method="get"
+                  data-search-index="{{ "/search.json" | relative_url }}">
+                <label class="sr-only" for="site-search-input">Search posts</label>
+                <input id="site-search-input"
+                       class="form-control site-search__input"
+                       type="search"
+                       name="q"
+                       placeholder="Search titles, tags, or content…"
+                       autocomplete="off"
+                       autofocus>
+                <p class="site-search__status" id="site-search-status" aria-live="polite"></p>
+            </form>
+
+            <div id="site-search-results" class="site-search__results" hidden></div>
+        </div>
+    </div>
+</div>
+
+<script src="{{ "/js/search.js" | relative_url }}?v={{ site.asset_version }}" defer></script>

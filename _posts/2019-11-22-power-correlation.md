@@ -9,6 +9,9 @@ header-img: img/headers/prob10-power&sample.jpg
 catalog: true
 mathjax: true
 dark_chart_images: invert
+series: Probability and Statistical Inference
+series_nav_title: Power & Correlation
+series_order: 9
 tags:
     - Statistics
     - Simulation

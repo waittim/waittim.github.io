@@ -9,6 +9,9 @@ header-img: img/headers/prob7-coverage.jpg
 catalog: true
 mathjax: true
 dark_chart_images: invert
+series: Probability and Statistical Inference
+series_nav_title: Coverage Probability
+series_order: 6
 tags:
     - Statistics
     - Simulation

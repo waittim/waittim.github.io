@@ -7,6 +7,9 @@ author:     Zekun Wang
 description: "Project details behind WearMask, a low-cost local face mask detection setup for small businesses and public spaces."
 header-img: img/headers/2020-12-01-mask-detection-report.jpg
 catalog: true
+series: WearMask Series
+series_nav_title: Project Details
+series_order: 2
 tags:
     - Deep Learning
     - Object Detection
@@ -23,8 +26,6 @@ tags:
 ---
 
 The paper has been published in *Electronic Imaging* (2023): [WearMask: Fast in-browser face mask detection with serverless edge computing for COVID-19](https://doi.org/10.2352/EI.2023.35.11.HPCI-229). A preprint is also available on [arXiv](https://arxiv.org/abs/2101.00784). Source code: [browser deployment](https://github.com/waittim/facemask-detection) · [training pipeline](https://github.com/waittim/mask-detector).
-
-**WearMask series:** [Intro](/2020/11/27/mask-detection/) · Project details (this post) · [Paper](/2023/01/01/paper-wearmask-fast-in-browser/) · [Build NCNN](/2020/11/10/build-ncnn/) · [Build NCNN WASM](/2020/11/15/build-ncnn-wasm/)
 
 ## Background
 

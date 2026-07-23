@@ -9,6 +9,9 @@ header-img: img/headers/prob4-home-advantage.jpg
 catalog: true
 mathjax: true
 dark_chart_images: invert
+series: Probability and Statistical Inference
+series_nav_title: Home Advantage
+series_order: 4
 tags:
     - Statistics
     - Simulation

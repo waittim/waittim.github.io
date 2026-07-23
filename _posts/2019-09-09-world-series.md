@@ -9,6 +9,9 @@ header-img: img/headers/prob3-worldseries.jpg
 catalog: true
 mathjax: true
 dark_chart_images: invert
+series: Probability and Statistical Inference
+series_nav_title: World Series
+series_order: 3
 tags:
     - Statistics
     - Simulation

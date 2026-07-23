@@ -9,6 +9,9 @@ header-img: img/headers/prob1-roulette.jpg
 catalog: true
 mathjax: true
 dark_chart_images: invert
+series: Probability and Statistical Inference
+series_nav_title: Roulette
+series_order: 1
 tags:
     - Statistics
     - Simulation

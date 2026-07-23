@@ -56,7 +56,53 @@ body {
 #main-content:focus {
   outline: none;
 }
-/* Series nav: same section rhythm as sidebar (hr + h5 + tags + pager). */
+.post-container iframe {
+  max-width: 100%;
+}
+.post-container .embed-responsive {
+  margin: 0 0 1.25em;
+}
+/* Site search */
+.site-search {
+  margin: 0 0 1.5em;
+}
+.site-search__input {
+  height: 44px;
+  font-size: 16px;
+}
+.site-search__status {
+  margin: 0.75em 0 0;
+  color: var(--color-text-secondary);
+  font-size: 0.95em;
+  min-height: 1.4em;
+}
+.site-search__results {
+  margin-top: 0.5em;
+}
+/* Related posts — same section rhythm as sidebar headings */
+.related-posts {
+  margin: 1.5em 0 0.5em;
+}
+.related-posts > h5 {
+  margin: 0 0 0.85em;
+  padding-bottom: 0;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+.related-posts .post-preview {
+  margin-bottom: 0;
+}
+.related-posts .post-title {
+  font-size: 22px;
+  margin-top: 0;
+}
+.related-posts .post-subtitle {
+  font-size: 16px;
+}
 .series-nav {
   margin: 0 0 1.75em;
 }

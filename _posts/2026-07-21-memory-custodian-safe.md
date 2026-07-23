@@ -9,6 +9,7 @@ description: "A design for safe agent-memory deletion using explicit forgetting 
 image: /img/headers/post-bg-memory-disk.jpg
 series: MemoryCustodian Design Series
 series_nav_title: Safe Forgetting
+series_order: 3
 header-img: img/headers/post-bg-memory-disk.jpg
 catalog: true
 tags:

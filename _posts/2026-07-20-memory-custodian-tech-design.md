@@ -9,6 +9,7 @@ description: "Why durable coding-agent memory should use repo-native Markdown, G
 image: /img/headers/post-bg-computer-storage.jpeg
 series: MemoryCustodian Design Series
 series_nav_title: Technical Design
+series_order: 2
 header-img: img/headers/post-bg-computer-storage.jpeg
 catalog: true
 tags:
