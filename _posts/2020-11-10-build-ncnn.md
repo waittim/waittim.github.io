@@ -15,6 +15,10 @@ tags:
     - AI
 ---
 
+> **Environment snapshot (Nov 2020).** This tutorial was written and tested against **Ubuntu 18.04.5**, with dependency versions from that time (notably **protobuf 3.14**). Commands and package versions may not work unchanged on current Ubuntu, macOS, or newer NCNN releases. Prefer the official [ncnn](https://github.com/Tencent/ncnn) build docs when setting up a new environment; keep this post as a historical, project-specific walkthrough.
+
+Part of the **WearMask** deployment path: [Intro](/2020/11/27/mask-detection/) · [Project details](/2020/12/01/mask-detection-report/) · [Paper](/2023/01/01/paper-wearmask-fast-in-browser/) · Build NCNN (this post) · [Build NCNN WASM](/2020/11/15/build-ncnn-wasm/)
+
 This is a tutorial for compiling the NCNN library. The content comes from my attempts to complete the Mask-Detection project, so the process is based on the Yolo-Fastest model. I hope it will help readers deploy the model, and also help me quickly rebuild the environment in the future.
 
 According to the author nihui, the name of NCNN comes from (New/Next or Naive or Neon or Nihui) + CNN. This is the introduction on [its GitHub repository](https://github.com/Tencent/ncnn):

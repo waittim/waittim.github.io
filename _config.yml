@@ -102,7 +102,7 @@ current_topics:
 
 
 # Cache-busting for local CSS/JS (bump when shipping asset changes)
-asset_version: "20260722-6"
+asset_version: "20260723-6"
 
 
 

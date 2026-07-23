@@ -23,6 +23,8 @@ tags:
 
 The paper has been published in *Electronic Imaging* (2023): [WearMask: Fast in-browser face mask detection with serverless edge computing for COVID-19](https://doi.org/10.2352/EI.2023.35.11.HPCI-229). A preprint is also available on [arXiv](https://arxiv.org/abs/2101.00784). Source code: [browser deployment](https://github.com/waittim/facemask-detection) · [training pipeline](https://github.com/waittim/mask-detector).
 
+**WearMask series:** [Intro](/2020/11/27/mask-detection/) · Project details (this post) · [Paper](/2023/01/01/paper-wearmask-fast-in-browser/) · [Build NCNN](/2020/11/10/build-ncnn/) · [Build NCNN WASM](/2020/11/15/build-ncnn-wasm/)
+
 ## Background
 
 Last November, the COVID-19 epidemic in the United States reached a new peak. During Thanksgiving week alone, there were 1,147,489 new cases and 10,279 new deaths.<sup>[1]</sup> These are not just numbers. They mean that 10 thousand families lost their loved ones, and 10 thousand people would never have another Thanksgiving.

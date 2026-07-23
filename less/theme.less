@@ -31,6 +31,12 @@
   --color-inline-code-bg: #f5f5f5;
   --color-inline-code-text: #c7254e;
 
+  /* Foldable cell/output dumps — cooler than code blocks so input vs output separates */
+  --color-fold-bg: #f3f5f7;
+  --color-fold-border: #c5ccd4;
+  --color-fold-summary-hover: #ebedef;
+  --color-fold-pre-bg: #e8ecf0;
+
   --shadow-raised: 0 1px 6px rgba(0, 0, 0, 0.18);
   --shadow-image: 0 2px 5px rgba(0, 0, 0, 0.26);
 }
@@ -351,6 +357,93 @@ pre,
   border-color: var(--color-code-border);
 }
 
+/* Collapsible cell/Spark outputs (e.g. long DataFrame dumps) */
+.post-container details.fold-output {
+  margin: 0.85rem 0 1.35rem;
+  border: 1px solid var(--color-fold-border);
+  border-radius: 4px;
+  background: var(--color-fold-bg);
+  overflow: hidden;
+}
+
+.post-container details.fold-output > summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.85rem;
+  font-size: 13px; /* match Bootstrap pre / code blocks */
+  font-weight: 500;
+  line-height: 1.42857143;
+  color: var(--color-text);
+  background: var(--color-fold-bg);
+  user-select: none;
+}
+
+.post-container details.fold-output > summary::-webkit-details-marker {
+  display: none;
+}
+
+.post-container details.fold-output > summary::before {
+  content: "▸";
+  flex: 0 0 auto;
+  color: var(--color-accent);
+  font-size: 0.95em;
+  line-height: 1;
+}
+
+.post-container details.fold-output[open] > summary::before {
+  content: "▾";
+}
+
+.post-container details.fold-output > summary:hover {
+  background: var(--color-fold-summary-hover);
+}
+
+.post-container details.fold-output > summary:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: -3px;
+}
+
+.post-container details.fold-output .fold-label {
+  flex: 0 1 auto;
+}
+
+.post-container details.fold-output .fold-hint {
+  margin-left: auto;
+  font-weight: 400;
+  font-size: 0.9em;
+  color: var(--color-text-secondary);
+}
+
+.post-container details.fold-output .fold-hint::after {
+  content: "Click to expand";
+}
+
+.post-container details.fold-output[open] .fold-hint::after {
+  content: "Click to collapse";
+}
+
+.post-container details.fold-output > pre.fold-pre {
+  display: block;
+  margin: 0;
+  padding: 0.85rem 1rem;
+  border: 0;
+  border-top: 1px solid var(--color-fold-border);
+  border-radius: 0;
+  overflow: auto;
+  max-height: 28rem;
+  font-size: 13px;
+  line-height: 1.42857143;
+  white-space: pre;
+  word-break: normal;
+  word-wrap: normal;
+  tab-size: 4;
+  color: var(--color-text);
+  background-color: var(--color-fold-pre-bg);
+}
+
 /* Optional treatment for transparent diagrams that need a stable canvas. */
 .post-container img.theme-surface {
   padding: 0.5rem;
@@ -404,6 +497,11 @@ pre,
     --color-code-border: #4b535d;
     --color-inline-code-bg: #1c2024;
     --color-inline-code-text: #ff9db0;
+
+    --color-fold-bg: #1b2026;
+    --color-fold-border: #4a5560;
+    --color-fold-summary-hover: #222830;
+    --color-fold-pre-bg: #151a20;
 
     --shadow-raised: 0 1px 8px rgba(0, 0, 0, 0.45);
     --shadow-image: 0 2px 8px rgba(0, 0, 0, 0.48);
@@ -535,6 +633,11 @@ pre,
     --color-code-border: #cccccc;
     --color-inline-code-bg: #f6f8fa;
     --color-inline-code-text: #000000;
+
+    --color-fold-bg: #f0f2f4;
+    --color-fold-border: #bbbbbb;
+    --color-fold-summary-hover: #e8eaec;
+    --color-fold-pre-bg: #e6e9ed;
   }
 
   html,

@@ -32,6 +32,8 @@ This is **WearMask**, an open-source AI tool that **detects masks super fast**:
 
 Well, let's be serious. This is an AI model running in the browser that can recognize whether people are wearing masks and automatically remind them. The research paper was published in *Electronic Imaging* (2023): [WearMask: Fast in-browser face mask detection with serverless edge computing for COVID-19](https://doi.org/10.2352/EI.2023.35.11.HPCI-229). Source code: [browser deployment](https://github.com/waittim/facemask-detection) · [training pipeline](https://github.com/waittim/mask-detector).
 
+**WearMask series:** Intro (this post) · [Project details](/2020/12/01/mask-detection-report/) · [Paper](/2023/01/01/paper-wearmask-fast-in-browser/) · [Build NCNN](/2020/11/10/build-ncnn/) · [Build NCNN WASM](/2020/11/15/build-ncnn-wasm/)
+
 ![mask-detection-machines.png]({{ "/img/posts/2020-11-27-mask-detection/mask-detection-machines.png" | relative_url }})
 
 Think of those mask detection machines at the entrance of luxury stores; they can remind customers to wear masks. However, most small businesses and local shops cannot pay thousands of dollars to install them. Now, you only need a tablet or laptop, and you can have it! After loading, this model runs completely locally on your device, and no data will be uploaded to the server.
