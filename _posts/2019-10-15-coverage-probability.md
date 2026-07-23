@@ -4,6 +4,7 @@ title:      Coverage Probability of MLE
 subtitle:   Probability and Statistical Inference - 07
 date:       2019-10-15
 author:     Zekun Wang
+description: "Examine the coverage probability of maximum-likelihood confidence intervals through simulation."
 header-img: img/headers/prob7-coverage.jpg
 catalog: true
 mathjax: true

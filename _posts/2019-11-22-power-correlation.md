@@ -4,6 +4,7 @@ title:      Power and Sample Size Calculations for Correlational Studies
 subtitle:   Probability and Statistical Inference - 10
 date:       2019-11-22
 author:     Zekun Wang
+description: "Walk through power and sample-size calculations for correlational studies with simulation checks."
 header-img: img/headers/prob10-power&sample.jpg
 catalog: true
 mathjax: true

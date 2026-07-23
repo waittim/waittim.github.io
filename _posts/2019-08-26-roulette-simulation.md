@@ -4,6 +4,7 @@ title:      Roulette Simulation
 subtitle:   Probability and Statistical Inference - 01
 date:       2019-08-26
 author:     Zekun Wang
+description: "Simulate American-roulette betting with a martingale staking rule in R, and explore how budget, win targets, and table limits shape outcomes."
 header-img: img/headers/prob1-roulette.jpg
 catalog: true
 mathjax: true

@@ -4,6 +4,7 @@ title:      If home-field advantage exists, how much of an impact does it have o
 subtitle:   Probability and Statistical Inference - 04
 date:       2019-09-12
 author:     Zekun Wang
+description: "Estimate how much home-field advantage can shift World Series win probability under different team strengths and schedules."
 header-img: img/headers/prob4-home-advantage.jpg
 catalog: true
 mathjax: true

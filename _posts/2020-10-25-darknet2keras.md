@@ -4,6 +4,7 @@ title:      Darknet to Keras - Model Transformation
 subtitle:   New version based on TensorFlow 2.0
 date:       2020-10-25
 author:     Zekun Wang
+description: "Convert Darknet models to Keras/TensorFlow 2.0 for easier training and deployment workflows."
 header-img: img/headers/post-deep-brain.jpg
 catalog: true
 tags:

@@ -74,6 +74,8 @@ layout: default
                 col-md-10 col-md-offset-1
                 post-container{% if page.dark_chart_images == 'invert' %} chart-images-invert{% endif %}">
 
+				{% include series-nav.html %}
+
 				{{ content }}
 
                 <hr style="visibility: hidden;">

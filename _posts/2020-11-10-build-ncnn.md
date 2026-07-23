@@ -4,6 +4,7 @@ title:      Tutorial for Compiling the NCNN Library
 subtitle:   The first step to deploying a deep learning model
 date:       2020-11-10
 author:     Zekun Wang
+description: "Step-by-step notes on compiling the NCNN library as the first stage of on-device model deployment."
 header-img: img/headers/post-deep-brain.jpg
 catalog: true
 tags:

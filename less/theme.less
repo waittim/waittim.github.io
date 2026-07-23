@@ -68,11 +68,68 @@ body {
   outline: none;
 }
 
+/* Series nav: same section rhythm as sidebar (hr + h5 + tags + pager). */
+.series-nav {
+  margin: 0 0 1.75em;
+}
+
+.series-nav > hr {
+  margin-top: 0;
+}
+
+.series-nav > h5 {
+  margin: 0 0 0.85em;
+  padding-bottom: 0;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+.series-nav .tags {
+  margin-bottom: 0.35em;
+}
+
+.series-nav .tags a,
+.series-nav .tags .tag {
+  color: var(--color-text);
+  background: var(--color-surface-subtle);
+  border: 1px solid var(--color-border);
+  border-radius: 999em;
+  line-height: 24px;
+  font-size: 12px;
+  padding: 0 10px;
+  margin: 0 1px 6px;
+}
+
+.series-nav .tags a:hover,
+.series-nav .tags a:focus,
+.series-nav .tags a:active {
+  color: var(--color-on-accent);
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  text-decoration: none;
+}
+
+.series-nav .tags .series-nav__current {
+  color: var(--color-accent);
+  background: var(--color-surface-subtle);
+  border-color: var(--color-accent);
+  font-weight: 700;
+}
+
+.series-nav .pager {
+  margin-top: 12px !important;
+}
+
 /* Keyboard focus ring — accent token keeps contrast in light and dark. */
 a:focus-visible,
 button:focus-visible,
 .pager a:focus-visible,
 .tags a:focus-visible,
+.series-nav .tags a:focus-visible,
 #tag_cloud a:focus-visible,
 .catalog-toggle:focus-visible,
 .navbar-toggle:focus-visible,
@@ -654,6 +711,7 @@ pre,
   .sidebar-container,
   .side-catalog,
   .pager,
+  .series-nav,
   .intro-header .header-mask,
   .intro-header .tags {
     display: none !important;

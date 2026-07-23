@@ -8,6 +8,7 @@ author:     Zekun Wang
 description: "MemoryCustodian gives coding agents durable, reviewable project memory using repo-native Markdown, Git history, and task-specific context routing."
 image: /img/headers/2026-07-01-memory-custodian.png
 series: MemoryCustodian Design Series
+series_nav_title: Overview
 header-img: img/headers/post-bg-data-center.jpeg
 catalog: true
 tags:
@@ -19,9 +20,6 @@ tags:
     - CLI
     - AI
 ---
-
-**MemoryCustodian Design Series · Part 1 of 3**  
-**Overview** · [Technical Design](/2026/07/20/memory-custodian-tech-design/) · [Safe Forgetting](/2026/07/21/memory-custodian-safe/)
 
 ## What Is MemoryCustodian?
 

@@ -8,6 +8,7 @@ author: Zekun Wang
 description: "A design for safe agent-memory deletion using explicit forgetting modes, previews, semantic entries, and precomputed multi-file plans."
 image: /img/headers/post-bg-memory-disk.jpg
 series: MemoryCustodian Design Series
+series_nav_title: Safe Forgetting
 header-img: img/headers/post-bg-memory-disk.jpg
 catalog: true
 tags:
@@ -19,9 +20,6 @@ tags:
     - Data Governance
     - AI
 ---
-
-**MemoryCustodian Design Series · Part 3 of 3**  
-[Overview](/2026/07/01/memory-custodian/) · [Technical Design](/2026/07/20/memory-custodian-tech-design/) · **Safe Forgetting**
 
 ## What Makes Agent Memory Safe to Forget?
 

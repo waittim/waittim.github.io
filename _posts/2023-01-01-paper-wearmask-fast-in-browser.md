@@ -11,6 +11,7 @@ authors:
     - name: Peter C. Louis
     - name: Lee E. Wheless
     - name: Yuankai Huo
+description: "Paper summary: WearMask brings fast in-browser face mask detection with serverless edge computing for COVID-19."
 header-img: img/headers/post-bg-unix-linux.jpg
 catalog: true
 tags:

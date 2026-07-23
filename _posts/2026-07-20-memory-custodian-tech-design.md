@@ -8,6 +8,7 @@ author: Zekun Wang
 description: "Why durable coding-agent memory should use repo-native Markdown, Git review, manifest routing, and semantic entry boundaries."
 image: /img/headers/post-bg-computer-storage.jpeg
 series: MemoryCustodian Design Series
+series_nav_title: Technical Design
 header-img: img/headers/post-bg-computer-storage.jpeg
 catalog: true
 tags:
@@ -20,9 +21,6 @@ tags:
     - Git
     - AI
 ---
-
-**MemoryCustodian Design Series · Part 2 of 3**  
-[Overview](/2026/07/01/memory-custodian/) · **Technical Design** · [Safe Forgetting](/2026/07/21/memory-custodian-safe/)
 
 ## Why Use Plain Text for Project Memory?
 

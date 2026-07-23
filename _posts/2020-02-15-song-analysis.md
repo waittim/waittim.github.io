@@ -4,6 +4,7 @@ title:      Cashbox Magazine Song Chart Analysis
 subtitle:   A simple example of a data analysis pipeline
 date:       2020-02-15
 author:     Zekun Wang
+description: "An end-to-end data analysis pipeline using Cashbox Magazine song chart history, from cleaning to visualization."
 header-img: img/headers/post-song-analysis.jpeg
 catalog: true
 dark_chart_images: invert

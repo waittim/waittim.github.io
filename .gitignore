@@ -14,6 +14,9 @@ vendor/bundle/
 # Local tooling for image regeneration
 .venv-img/
 
+# Large third-party GeoIP database (download from MaxMind; not shipped with the site)
+data/geoip/*.mmdb
+
 # Node local state
 node_modules/
 npm-debug.log*

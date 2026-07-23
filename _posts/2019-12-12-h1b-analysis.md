@@ -10,6 +10,7 @@ authors:
     - name: Yasi
     - name: Yilin
     - name: Ali
+description: "Analyze H-1B petition data to help international data science students strategize their U.S. job search."
 header-img: img/headers/2019-12-12-h1b-analysis.jpeg
 catalog: true
 dark_chart_images: invert

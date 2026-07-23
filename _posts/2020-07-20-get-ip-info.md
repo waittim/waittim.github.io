@@ -4,6 +4,7 @@ title:      How to Get Information from an IP Address?
 subtitle:   Note - geoip2 module introduction
 date:       2020-07-20
 author:     Zekun Wang
+description: "A short tutorial on looking up IP geolocation with MaxMind GeoLite2 and the Python geoip2 library."
 header-img: img/headers/post-python.jpg
 catalog: true
 tags:
@@ -16,9 +17,9 @@ tags:
 
 The process of getting IP address information is based on [GeoIP2 Databases](https://www.maxmind.com/en/geoip2-databases). I used the [MaxMind GeoIP2 Python API](https://geoip2.readthedocs.io/en/latest/) for IP information queries. The GitHub page for the API is [GeoIP2-python](https://github.com/maxmind/GeoIP2-python).
 
-You need to download [GeoLite2-City.mmdb]({{ "/data/geoip/GeoLite2-City.mmdb" | relative_url }}) as the data source and install the **geoip2** module before you can use it.
+You need to download [GeoLite2-City.mmdb from MaxMind](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data) as the data source and install the **geoip2** module before you can use it. MaxMind requires a free account; place the downloaded file next to your script (or update the path in the examples below).
 
-For complete information, see [MaxMind - GeoIP2 Downloadable Databases](https://dev.maxmind.com/geoip/geoip2/downloadable/).
+For complete information, see [MaxMind - GeoLite2 Free Geolocation Data](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data).
 
 ### Installation
 

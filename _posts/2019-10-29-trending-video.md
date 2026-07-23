@@ -9,6 +9,7 @@ authors:
       url: /about/
     - name: Ali
     - name: Mingli
+description: "Explore patterns in trending YouTube videos and the features associated with rising popularity."
 header-img: img/headers/2019-10-29-trending-video.jpg
 catalog: true
 dark_chart_images: invert

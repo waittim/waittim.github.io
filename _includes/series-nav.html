@@ -1,0 +1,69 @@
+{% comment %}
+  Auto series nav from front matter:
+    series: Series Name
+    series_nav_title: Short label (optional; falls back to title)
+  Posts in the same series are ordered by date ascending.
+  Markup reuses site patterns: sidebar-style h5, .tags chips, .pager.
+{% endcomment %}
+{% if page.series %}
+{% assign series_posts = site.posts | where: "series", page.series | sort: "date" %}
+{% assign series_total = series_posts.size %}
+{% if series_total > 1 %}
+{% for p in series_posts %}
+  {% if p.url == page.url %}
+    {% assign series_index = forloop.index %}
+    {% assign series_index0 = forloop.index0 %}
+  {% endif %}
+{% endfor %}
+{% assign series_prev_i = series_index0 | minus: 1 %}
+{% assign series_next_i = series_index0 | plus: 1 %}
+{% assign series_prev = false %}
+{% assign series_next = false %}
+{% for p in series_posts %}
+  {% if forloop.index0 == series_prev_i %}{% assign series_prev = p %}{% endif %}
+  {% if forloop.index0 == series_next_i %}{% assign series_next = p %}{% endif %}
+{% endfor %}
+<nav class="series-nav" aria-label="{{ page.series | escape }}">
+  <hr>
+  <h5>{{ page.series | escape }} · Part {{ series_index }} of {{ series_total }}</h5>
+  <div class="tags">
+    {% for p in series_posts %}
+    {% assign label = p.series_nav_title | default: p.title %}
+    {% if p.url == page.url %}
+    <span class="tag series-nav__current" aria-current="page">{{ label | escape }}</span>
+    {% else %}
+    <a class="tag" href="{{ p.url | relative_url }}" title="{{ label | escape }}">{{ label | escape }}</a>
+    {% endif %}
+    {% endfor %}
+  </div>
+  {% if series_prev or series_next %}
+  <ul class="pager">
+    {% if series_prev %}
+    <li class="previous">
+      <a href="{{ series_prev.url | relative_url }}" title="{{ series_prev.series_nav_title | default: series_prev.title | escape }}">
+        Previous<br>
+        <span>{{ series_prev.series_nav_title | default: series_prev.title }}</span>
+      </a>
+    </li>
+    {% else %}
+    <li class="previous disabled">
+      <span>Previous<br><span>&nbsp;</span></span>
+    </li>
+    {% endif %}
+    {% if series_next %}
+    <li class="next">
+      <a href="{{ series_next.url | relative_url }}" title="{{ series_next.series_nav_title | default: series_next.title | escape }}">
+        Next<br>
+        <span>{{ series_next.series_nav_title | default: series_next.title }}</span>
+      </a>
+    </li>
+    {% else %}
+    <li class="next disabled">
+      <span>Next<br><span>&nbsp;</span></span>
+    </li>
+    {% endif %}
+  </ul>
+  {% endif %}
+</nav>
+{% endif %}
+{% endif %}

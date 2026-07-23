@@ -14,6 +14,7 @@ authors:
     - name: Kim Sandler
     - name: Bennett A. Landman
     - name: Yuankai Huo
+description: "Paper summary: characterizing browser-based medical imaging AI with serverless edge computing under clinical data constraints."
 header-img: img/headers/post-bg-unix-linux.jpg
 catalog: true
 tags:

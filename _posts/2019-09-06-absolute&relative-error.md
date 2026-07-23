@@ -4,6 +4,7 @@ title:      What’s the difference between Absolute Error and Relative Error?
 subtitle:   Probability and Statistical Inference - 02
 date:       2019-09-06
 author:     Zekun Wang
+description: "Compare absolute and relative error with simulations, and see when each metric better reflects estimation quality."
 header-img: img/headers/prob2-error.jpeg
 catalog: true
 mathjax: true

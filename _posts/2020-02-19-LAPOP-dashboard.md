@@ -4,6 +4,7 @@ title:      LAPOP Data Dashboard
 subtitle:   A dashboard prototype built with Shiny R
 date:       2020-02-19
 author:     Zekun Wang
+description: "A Shiny dashboard prototype for exploring LAPOP survey data with interactive filters and charts."
 header-img: img/headers/post-lapop-dashborad.jpg
 catalog: true
 tags:

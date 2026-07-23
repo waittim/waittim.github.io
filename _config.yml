@@ -1,7 +1,7 @@
 # Site settings
 title: Zekun Blog
 SEOTitle: Zekun Blog — AI Agent Systems & LLM Evaluation
-header-img: img/ui/bg-ice.jpg
+header-img: img/ui/bg-ice.webp
 default_image: /img/ui/home-bg-o.jpg
 email: zekun.wang.us@gmail.com
 description: "Building and evaluating AI-powered products, agent systems, and local-first developer tools."
@@ -13,7 +13,7 @@ github_repo: "https://github.com/waittim/waittim.github.io.git" # you code repos
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
 sidebar-about-description: "Building AI agent systems that can be evaluated, improved, and trusted."
-sidebar-avatar: /img/ui/Zekun_Wang_icon.jpeg      # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-avatar: /img/ui/Zekun_Wang_icon.webp      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 
@@ -102,7 +102,7 @@ current_topics:
 
 
 # Cache-busting for local CSS/JS (bump when shipping asset changes)
-asset_version: "20260723-6"
+asset_version: "20260723-8"
 
 
 

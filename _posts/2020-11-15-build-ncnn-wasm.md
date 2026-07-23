@@ -4,6 +4,7 @@ title:      Tutorial for Compiling NCNN with WASM
 subtitle:   The second step to deploying a deep learning model in the browser
 date:       2020-11-15
 author:     Zekun Wang
+description: "Compile NCNN to WebAssembly so deep learning inference can run directly in the browser."
 header-img: img/headers/post-bg-code.jpg
 catalog: true
 tags:

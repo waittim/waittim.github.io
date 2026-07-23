@@ -4,6 +4,7 @@ title:      WearMask - Face Mask Detection Project Details
 subtitle:   Low-cost solution for small businesses and public places
 date:       2020-12-01
 author:     Zekun Wang
+description: "Project details behind WearMask, a low-cost local face mask detection setup for small businesses and public spaces."
 header-img: img/headers/2020-12-01-mask-detection-report.jpg
 catalog: true
 tags:

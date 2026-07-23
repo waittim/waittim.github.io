@@ -11,6 +11,7 @@ authors:
     - name: Changlong Sun
     - name: Yong-Yeol Ahn
     - name: Johan Bollen
+description: "Paper note on how social inequality and cultural factors shaped awareness and reaction during cryptic pandemic transmission."
 header-img: img/headers/post-bg-unix-linux.jpg
 catalog: true
 tags:

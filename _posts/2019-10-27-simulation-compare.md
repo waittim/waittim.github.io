@@ -4,6 +4,7 @@ title:      Simulation Method Comparison
 subtitle:   Probability and Statistical Inference - 08
 date:       2019-10-27
 author:     Zekun Wang
+description: "Compare simulation-based estimation approaches including method of moments, KDE, and bootstrap."
 header-img: img/headers/prob8-simulation.jpg
 catalog: true
 mathjax: true

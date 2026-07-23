@@ -4,6 +4,7 @@ title:      Which quantiles of a continuous distribution can one estimate with m
 subtitle:   Probability and Statistical Inference - 05
 date:       2019-09-18
 author:     Zekun Wang
+description: "Investigate which quantiles of a continuous distribution can be estimated more precisely from finite samples."
 header-img: img/headers/prob5-quantile.jpeg
 catalog: true
 mathjax: true

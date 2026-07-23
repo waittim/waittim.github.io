@@ -4,6 +4,7 @@ title:      Super-Fast In-Browser Face Mask Detection
 subtitle:   Open the web page, and you have it!
 date:       2020-11-27
 author:     Zekun Wang
+description: "WearMask: a super-fast in-browser face mask detector that runs locally with NCNN and WebAssembly."
 header-img: img/headers/2020-11-27-mask-detection.jpg
 catalog: true
 tags:
