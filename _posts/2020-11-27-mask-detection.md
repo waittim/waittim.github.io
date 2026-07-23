@@ -24,13 +24,13 @@ tags:
 
 **[facemask-detection.com](https://facemask-detection.com/)** 👈👈
 
-This is an AI tool that **detects masks super fast**:
+This is **WearMask**, an open-source AI tool that **detects masks super fast**:
 - No installation or registration.
 - No need to buy expensive devices.
 - You don't even need a continuous internet connection.
 - Most importantly, it is completely **FREE**!
 
-Well, let's be serious. This is an AI model running in the browser that can recognize whether people are wearing masks and automatically remind them.
+Well, let's be serious. This is an AI model running in the browser that can recognize whether people are wearing masks and automatically remind them. The research paper was published in *Electronic Imaging* (2023): [WearMask: Fast in-browser face mask detection with serverless edge computing for COVID-19](https://doi.org/10.2352/EI.2023.35.11.HPCI-229). Source code: [browser deployment](https://github.com/waittim/facemask-detection) · [training pipeline](https://github.com/waittim/mask-detector).
 
 ![mask-detection-machines.png]({{ "/img/posts/2020-11-27-mask-detection/mask-detection-machines.png" | relative_url }})
 
@@ -45,7 +45,7 @@ Now, you can use it on Android, iOS, Windows, macOS, and Linux systems. For the 
 1. [Download](https://www.google.com/chrome/) and launch the latest version of the Chrome browser
 2. Enter *chrome://flags* in the address bar
 3. Enable all *WebAssembly* features
-4. Re-launch Chrome, open the [web page](http://facemask-detection.com/), and allow access to the camera.
+4. Re-launch Chrome, open the [web page](https://facemask-detection.com/), and allow access to the camera.
 
 ![webassemblysetting.png]({{ "/img/posts/2020-11-27-mask-detection/webassembly-setting.png" | relative_url }})
 
@@ -74,7 +74,7 @@ Therefore, there is no need to worry about privacy leaks or other related issues
 
 ## What's more?
 
-Because only Safari supports WebAssembly on iOS, and it does not support parallel computing acceleration methods such as SIMD, the speed will be slower than other platforms.
+The UI supports **10 languages**: English, Chinese, Spanish, French, German, Japanese, Portuguese, Korean, Italian, and Russian. On iOS, only Safari supports WebAssembly well enough for this use case, and acceleration features such as SIMD may still be limited, so the speed will often be slower than on other platforms.
 
 All in all, it is a free alternative to expensive mask detection machines. You can buy a tablet for $60 and a floor stand for $20 to get similar functions. After this pandemic, these devices can also be used for other purposes.
 
@@ -82,7 +82,7 @@ All in all, it is a free alternative to expensive mask detection machines. You c
 
 In such difficult times, I hope this AI can help small businesses that are struggling to persist, so that they can obtain protection similar to luxury shops at a small cost. As long as this tool can protect one more person from COVID-19, it will be enough.
 
-Of course, this project is not mature yet. If you have any suggestions or are willing to contribute to this project, please contact me.
+WearMask is maintained as an open research and demonstration system. If you have any suggestions or are willing to contribute, please open an issue on [GitHub](https://github.com/waittim/facemask-detection) or contact me.
 
 Thank you very much!
 
@@ -90,7 +90,9 @@ Thank you very much!
 
 -------
 
-## Release information 
+## Release information
+**2026.07.23 - 4.0.0**: Telemetry dashboard, light/dark theme, performance mode, and expanded UI to 10 languages.
+
 **2025.11.20 - 3.0.0**: New UI design and restructured repo.
 
 **2021.01.06 - 2.0.4**: Added feedback function.
