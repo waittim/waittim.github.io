@@ -107,6 +107,10 @@
       if (!heading.id) {
         return;
       }
+      // Keep article chrome (series nav / related) out of the side catalog.
+      if (heading.closest(".series-nav, .related-posts, .pager")) {
+        return;
+      }
 
       var level = parseInt(heading.tagName.substring(1), 10);
       var link = document.createElement("a");

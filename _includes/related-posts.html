@@ -1,5 +1,8 @@
 {% comment %}
-  Related posts by shared tags (up to 3). Prefer higher overlap, then newer posts.
+  Related posts by shared tags (up to 3).
+  Prefer higher tag overlap, then newer posts.
+  Skip posts that already appear in the current series nav.
+  Markup matches Tags page one-tag-list / post-preview rhythm.
 {% endcomment %}
 {% if page.tags and page.tags.size > 0 %}
 {% assign max_related = 3 %}
@@ -7,13 +10,13 @@
 {% assign related_urls = "|" %}
 {% assign score_steps = "8,7,6,5,4,3,2,1" | split: "," %}
 
-{% capture related_items %}{% for step in score_steps %}{% assign want = step | plus: 0 %}{% for post in site.posts %}{% if related_count < max_related %}{% unless post.url == page.url %}{% assign url_marker = "|" | append: post.url | append: "|" %}{% unless related_urls contains url_marker %}{% assign shared = 0 %}{% for tag in page.tags %}{% if post.tags contains tag %}{% assign shared = shared | plus: 1 %}{% endif %}{% endfor %}{% if shared == want %}{% assign related_count = related_count | plus: 1 %}{% assign related_urls = related_urls | append: post.url | append: "|" %}<div class="post-preview"><a href="{{ post.url | relative_url }}"><h2 class="post-title">{{ post.title }}</h2>{% if post.subtitle %}<h3 class="post-subtitle">{{ post.subtitle }}</h3>{% endif %}</a><p class="post-meta">{{ post.date | date: "%B %-d, %Y" }}</p></div><hr>{% endif %}{% endunless %}{% endunless %}{% endif %}{% endfor %}{% endfor %}{% endcapture %}
+{% capture related_items %}{% for step in score_steps %}{% assign want = step | plus: 0 %}{% for post in site.posts %}{% if related_count < max_related %}{% unless post.url == page.url %}{% if page.series == nil or post.series != page.series %}{% assign url_marker = "|" | append: post.url | append: "|" %}{% unless related_urls contains url_marker %}{% assign shared = 0 %}{% for tag in page.tags %}{% if post.tags contains tag %}{% assign shared = shared | plus: 1 %}{% endif %}{% endfor %}{% if shared == want %}{% assign related_count = related_count | plus: 1 %}{% assign related_urls = related_urls | append: post.url | append: "|" %}<div class="post-preview"><a href="{{ post.url | relative_url }}"><h2 class="post-title">{{ post.title }}</h2>{% if post.subtitle %}<h3 class="post-subtitle">{{ post.subtitle }}</h3>{% endif %}</a><p class="post-meta">{{ post.date | date: "%B %-d, %Y" }}</p></div><hr>{% endif %}{% endunless %}{% endif %}{% endunless %}{% endif %}{% endfor %}{% endfor %}{% endcapture %}
 
 {% assign related_items_stripped = related_items | strip %}
 {% if related_items_stripped != "" %}
-<section class="related-posts" aria-labelledby="related-posts-heading">
+<section class="related-posts one-tag-list" aria-label="Related">
   <hr>
-  <h5 id="related-posts-heading">Related</h5>
+  <h5>Related</h5>
   {{ related_items }}
 </section>
 {% endif %}

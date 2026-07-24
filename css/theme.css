@@ -79,29 +79,62 @@ body {
 .site-search__results {
   margin-top: 0.5em;
 }
-/* Related posts — same section rhythm as sidebar headings */
+/* Related posts — reuse Tags one-tag-list rhythm under section h5 */
 .related-posts {
-  margin: 1.5em 0 0.5em;
+  margin: 1.25em 0 0.35em;
 }
 .related-posts > h5 {
-  margin: 0 0 0.85em;
+  margin: 0 0 0.15em;
   padding-bottom: 0;
-  color: var(--color-text-secondary);
-  font-size: 14px;
-  font-weight: 700;
+  color: var(--color-text-secondary) !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
   letter-spacing: 0.5px;
   text-transform: uppercase;
   line-height: 1.4;
 }
-.related-posts .post-preview {
-  margin-bottom: 0;
+.post-container .related-posts.one-tag-list > .post-preview {
+  margin-left: 0;
+  padding-right: 8.5rem;
+  min-height: 2.4em;
 }
-.related-posts .post-title {
-  font-size: 22px;
+.post-container .related-posts.one-tag-list > .post-preview > a {
+  color: var(--color-text);
+}
+.post-container .related-posts.one-tag-list > .post-preview > a:hover,
+.post-container .related-posts.one-tag-list > .post-preview > a:focus {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+.post-container .related-posts.one-tag-list .post-title,
+.post-container .related-posts.one-tag-list .post-subtitle {
   margin-top: 0;
+  margin-bottom: 0.15em;
 }
-.related-posts .post-subtitle {
-  font-size: 16px;
+.post-container .related-posts.one-tag-list > .post-preview:first-of-type .post-title {
+  margin-top: 0.55em;
+}
+.post-container .related-posts.one-tag-list > .post-preview > .post-meta {
+  top: 0.7em;
+  bottom: auto;
+  right: 0;
+  font-size: 12px;
+  line-height: 1.2;
+  font-style: italic;
+  color: var(--color-text-tertiary);
+}
+.post-container .related-posts.one-tag-list > hr:last-child {
+  display: none;
+}
+@media only screen and (max-width: 767px) {
+  .post-container .related-posts.one-tag-list > .post-preview {
+    padding-right: 0;
+  }
+  .post-container .related-posts.one-tag-list > .post-preview > .post-meta {
+    position: static;
+    display: block;
+    margin: 0.2em 0 0.55em;
+  }
 }
 .series-nav {
   margin: 0 0 1.75em;
