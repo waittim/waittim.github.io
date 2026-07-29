@@ -3,7 +3,7 @@ layout: post
 title: "Why Project Memory Should Be Plain Text and Repo-Native"
 subtitle: "Durable coding-agent memory should live with the code, survive the tool, and load only when relevant."
 date: 2026-07-20
-updated: 2026-07-21
+updated: 2026-07-23
 author: Zekun Wang
 description: "Why durable coding-agent memory should use repo-native Markdown, Git review, manifest routing, and semantic entry boundaries."
 image: /img/headers/post-bg-computer-storage.jpeg
@@ -21,6 +21,7 @@ tags:
     - Markdown
     - Git
     - AI
+    - Project
 ---
 
 ## Why Use Plain Text for Project Memory?
@@ -55,13 +56,9 @@ Coding agents can reconstruct a surprising amount from source code. They can ins
 
 But inference is not the same as project knowledge.
 
-Consider a storage implementation based on local JSON files. From the code, an agent may infer that the current data model is simple, files are written directly to disk, and no relational database is installed.
+From a local JSON storage implementation, an agent may infer that the data model is simple and that no relational database is installed. It cannot reliably infer that users must be able to inspect those files manually, that routine operation must work offline, that SQLite was already rejected for this session store, or the condition under which that choice should be reconsidered.
 
-It cannot reliably infer that users must be able to inspect and edit those files manually. It may not know that routine operation must work without network access, that SQLite was previously evaluated and rejected, or that the decision applies only to the current session store. It may also miss the condition under which that choice should be reconsidered: for example, if relational queries become a core product requirement.
-
-Those details may matter more to the next implementation task than the current class structure.
-
-Without durable memory, each new conversation begins with partial evidence. An agent may propose an apparently reasonable change that violates an old requirement or repeats an already rejected experiment. The proposal may be technically competent while still being wrong for the project.
+Without durable memory, each new conversation begins with partial evidence. An agent may propose an apparently reasonable change that violates an old requirement or repeats an already rejected experiment.
 
 Conversation history is not a reliable solution. It may be tied to one user, one model provider, one interface, or one agent platform. Another developer may never see it. Another coding agent may not have access to it. It may also contain far more information than the project should preserve.
 
@@ -152,8 +149,6 @@ MemoryCustodian separates stored memory from active context. The repository may 
 
 This distinction also prevents a common failure mode in agent systems: treating persistence as if it automatically implies relevance.
 
-A project may legitimately remember an old deployment constraint, a copywriting preference, a rejected storage engine, and an authentication-specific compatibility rule. None of those entries must appear in every prompt merely because they are worth preserving.
-
 The correct goal is not maximum recall in every interaction.
 
 It is predictable access to the smallest set of project knowledge needed for the current task.
@@ -161,6 +156,8 @@ It is predictable access to the smallest set of project knowledge needed for the
 ---
 
 ## Manifest Routing: Memory Is Not Context
+
+<img class="theme-surface" src="{{ "/img/posts/2026-07-20-memory-custodian-tech-design/gallery-how-it-works.png" | relative_url }}" alt="How MemoryCustodian works: a coding agent reads manifest.md and brief.md, identifies the task type, then loads only task-matched memory into focused context while optional files such as archive stay out by default" title="Manifest routing for task-matched memory" width="1270" height="760" loading="lazy" decoding="async">
 
 Plain text alone does not solve the problem.
 
