@@ -158,4 +158,4 @@ The source code is available on GitHub:
 
 If the tool helps your note-taking or slide-archiving workflow, consider starring the repository or opening an issue with feedback.
 
-For the 2.0 detection architecture—multi-detector candidates, confidence, and batch geometry—see [Slides Thief 2.0: From Rectangle Heuristics to Evidence-Aware Review](/2026/07/29/slides-thief-2-detection/).
+For the 2.0 detection architecture—multi-detector candidates, confidence, and batch geometry—see [Slides Thief 2.0: From Rectangle Heuristics to Evidence-Aware Review](/2026/08/01/slides-thief-2-detection/).

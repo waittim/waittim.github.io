@@ -2,15 +2,15 @@
 layout:     post
 title:      "Slides Thief 2.0: From Rectangle Heuristics to Evidence-Aware Review"
 subtitle:   "A browser-local redesign of boundary detection, confidence, and batch geometry."
-date:       2026-07-29
-updated:    2026-07-29
+date:       2026-08-01
+updated:    2026-08-01
 author:     Zekun Wang
 description: "How Slides Thief 2.0 combines multiple detectors, candidate scoring, local refinement, and batch geometry for more reliable browser-local correction."
 image: /img/posts/2026-07-13-slides-thief/ui.png
 series: Slides Thief Series
 series_nav_title: Detection
 series_order: 2
-header-img: img/headers/2026-07-29-slides-thief-2-detection.jpg
+header-img: img/headers/2026-08-01-slides-thief-2-detection.jpg
 header-mask: 0.7
 catalog: true
 tags:
