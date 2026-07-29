@@ -6,6 +6,7 @@ date:       2020-02-15
 author:     Zekun Wang
 description: "An end-to-end data analysis pipeline using Cashbox Magazine song chart history, from cleaning to visualization."
 header-img: img/headers/post-song-analysis.jpeg
+header-mask: 0.4
 catalog: true
 dark_chart_images: invert
 tags:

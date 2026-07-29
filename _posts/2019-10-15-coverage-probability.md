@@ -16,7 +16,6 @@ tags:
     - Statistics
     - Simulation
     - R
-    - MLE
 ---
 
 

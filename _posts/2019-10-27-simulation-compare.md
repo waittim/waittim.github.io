@@ -15,9 +15,6 @@ tags:
     - Statistics
     - Simulation
     - R
-    - Method of Moments
-    - KDE
-    - Bootstrap
 ---
 
 

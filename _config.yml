@@ -1,6 +1,6 @@
 # Site settings
 title: Zekun Blog
-SEOTitle: Zekun Blog — AI Agent Systems & LLM Evaluation
+SEOTitle: Zekun Blog - AI Agent Systems & LLM Evaluation
 header-img: img/ui/bg-ice.webp
 default_image: /img/ui/home-bg-o.jpg
 email: zekun.wang.us@gmail.com
@@ -105,8 +105,7 @@ current_topics:
 
 
 # Cache-busting for local CSS/JS (bump when shipping asset changes)
-asset_version: "20260723-15"
-
+asset_version: "20260727-05"
 
 
 # Elsewhere

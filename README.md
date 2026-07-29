@@ -1,4 +1,4 @@
-# zekun.blog
+# [zekun.blog](http://zekun.blog)
 
 Personal blog of Zekun Wang.
 
@@ -41,7 +41,7 @@ mise exec -- bundle exec jekyll serve --livereload
 Build the site:
 
 ```sh
-mise exec -- bundle exec jekyll build
+
 ```
 
 Styles and theme scripts are checked in for GitHub Pages. If you change files under `less/` or `js/hux-blog.js`, install Node dependencies and rebuild those assets:
@@ -50,3 +50,4 @@ Styles and theme scripts are checked in for GitHub Pages. If you change files un
 npm install
 npm run build:assets
 ```
+

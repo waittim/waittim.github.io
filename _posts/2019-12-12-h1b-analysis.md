@@ -15,7 +15,6 @@ header-img: img/headers/2019-12-12-h1b-analysis.jpeg
 catalog: true
 dark_chart_images: invert
 tags:
-    - H1B
     - Career
     - Data Science
     - EDA

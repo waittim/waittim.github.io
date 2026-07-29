@@ -12,7 +12,6 @@ tags:
     - Visualization
     - Project
     - R
-    - Shiny
     - Web Application
 ---
 

@@ -60,7 +60,7 @@ layout: default
 
                 <!-- Short About -->
                 <section class="visible-md visible-lg">
-                    <hr><h5><a href="{{ "/about/" | relative_url }}">ABOUT ME</a></h5>
+                    <hr><h5><a href="{{ "/about/" | relative_url }}">About</a></h5>
                     <div class="short-about">
                         {% if site.sidebar-avatar %}
                             <a href="{{ "/about/" | relative_url }}">
@@ -73,7 +73,7 @@ layout: default
                         <!-- SNS Link -->
                         {% include sns-links.html %}
                         {% if site.email %}
-                            <p>✉️ {{site.email}}</p>
+                            <p>{{site.email}}</p>
                         {% endif %}
                     </div>
                 </section>

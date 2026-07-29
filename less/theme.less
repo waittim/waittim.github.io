@@ -22,8 +22,10 @@
   --color-border-strong: #cccccc;
   --color-border-control: #767676;
 
-  --color-link: #337ab7;
+  /* One accent family for links and interactive chrome. */
   --color-accent: #00809b;
+  --color-link: #00809b;
+  --color-link-hover: #006478;
   --color-on-accent: #ffffff;
 
   --color-code-bg: #f8f8f8;
@@ -31,14 +33,15 @@
   --color-inline-code-bg: #f5f5f5;
   --color-inline-code-text: #c7254e;
 
-  /* Foldable cell/output dumps — cooler than code blocks so input vs output separates */
+  /* Foldable cell/output dumps: cooler than code blocks so input vs output separates */
   --color-fold-bg: #f3f5f7;
   --color-fold-border: #c5ccd4;
   --color-fold-summary-hover: #ebedef;
   --color-fold-pre-bg: #e8ecf0;
 
-  --shadow-raised: 0 1px 6px rgba(0, 0, 0, 0.18);
-  --shadow-image: 0 2px 5px rgba(0, 0, 0, 0.26);
+  /* Teal-tinted shadows (not pure black). */
+  --shadow-raised: 0 1px 6px rgba(0, 64, 80, 0.14);
+  --shadow-image: 0 2px 5px rgba(0, 64, 80, 0.2);
 }
 
 html,
@@ -97,7 +100,7 @@ body {
   margin-top: 0.5em;
 }
 
-/* Related posts — reuse Tags one-tag-list rhythm under section h5 */
+/* Related posts: reuse Tags one-tag-list rhythm under section h5 */
 .related-posts {
   margin: 1.25em 0 0.35em;
 }
@@ -108,8 +111,7 @@ body {
   color: var(--color-text-secondary) !important;
   font-size: 14px !important;
   font-weight: 700 !important;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
   line-height: 1.4;
 }
 
@@ -125,7 +127,7 @@ body {
 
 .post-container .related-posts.one-tag-list > .post-preview > a:hover,
 .post-container .related-posts.one-tag-list > .post-preview > a:focus {
-  color: var(--color-accent);
+  color: var(--color-link-hover);
   text-decoration: none;
 }
 
@@ -179,8 +181,7 @@ body {
   color: var(--color-text-secondary);
   font-size: 14px;
   font-weight: 700;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
   line-height: 1.4;
 }
 
@@ -220,7 +221,7 @@ body {
   margin-top: 12px !important;
 }
 
-/* Keyboard focus ring — accent token keeps contrast in light and dark. */
+/* Keyboard focus ring: accent token keeps contrast in light and dark. */
 a:focus-visible,
 button:focus-visible,
 .pager a:focus-visible,
@@ -255,7 +256,14 @@ a:focus,
 .post-preview > a:focus,
 .post-preview > .post-meta > a:hover,
 .post-preview > .post-meta > a:focus {
-  color: var(--color-accent);
+  color: var(--color-link-hover);
+}
+
+.post-container a:hover,
+.post-container a:focus,
+footer .copyright a:hover,
+footer .copyright a:focus {
+  text-decoration: underline;
 }
 
 blockquote,
@@ -312,7 +320,7 @@ img.shadow {
   .navbar-custom.is-fixed .navbar-brand:focus,
   .navbar-custom.is-fixed .nav li a:hover,
   .navbar-custom.is-fixed .nav li a:focus {
-    color: var(--color-accent);
+    color: var(--color-link-hover);
   }
 }
 
@@ -330,7 +338,7 @@ img.shadow {
 
   .navbar-custom .navbar-collapse .nav li a:hover,
   .navbar-custom .navbar-collapse .nav li a:focus {
-    color: var(--color-accent);
+    color: var(--color-link-hover);
   }
 
 }
@@ -339,6 +347,9 @@ img.shadow {
 .sidebar-container h5,
 .sidebar-container h5 a {
   color: var(--color-text-secondary) !important;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-transform: none;
 }
 
 .sidebar-container a {
@@ -348,7 +359,7 @@ img.shadow {
 .sidebar-container a:hover,
 .sidebar-container a:focus,
 .sidebar-container a:active {
-  color: var(--color-accent) !important;
+  color: var(--color-link-hover) !important;
 }
 
 .sidebar-container .tags a {
@@ -366,9 +377,11 @@ img.shadow {
 
 #tag_cloud a,
 #tag_cloud .tag {
+  /* JS paints a frequency ramp; this is the pre-JS fallback. */
   color: var(--color-text);
   background: var(--color-surface-subtle);
-  border: 1px solid var(--color-border);
+  border: none;
+  font-weight: 500;
 }
 
 #tag_cloud a:hover,
@@ -378,8 +391,8 @@ img.shadow {
 #tag_cloud a:active,
 #tag_cloud .tag:active {
   color: var(--color-on-accent) !important;
-  background-color: var(--color-accent) !important;
-  border-color: var(--color-accent);
+  background-color: var(--color-link-hover) !important;
+  border-color: transparent;
 }
 
 .pager li > a,
@@ -627,6 +640,43 @@ pre,
   object-position: center;
 }
 
+/* Floating window captures with transparent margins / soft shadows. */
+.post-container img.theme-chrome {
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Light tactile feedback; gated for reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .pager li > a,
+  .btn-default,
+  .series-nav .tags a,
+  .series-nav .tags .tag,
+  .sidebar-container .tags a,
+  #tag_cloud a,
+  #tag_cloud .tag {
+    transition:
+      transform 0.15s cubic-bezier(0.16, 1, 0.3, 1),
+      background-color 0.15s ease,
+      border-color 0.15s ease,
+      color 0.15s ease;
+  }
+
+  .pager li > a:active,
+  .btn-default:active {
+    transform: translateY(1px) scale(0.98);
+  }
+
+  .post-preview > a > .post-title {
+    transition: color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .navbar-custom .nav li a,
+  .navbar-custom .navbar-brand {
+    transition: color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --color-page: #121416;
@@ -642,8 +692,9 @@ pre,
     --color-border-strong: #4b535d;
     --color-border-control: #737c87;
 
-    --color-link: #8ab4f8;
     --color-accent: #74c7d5;
+    --color-link: #74c7d5;
+    --color-link-hover: #9ad7e2;
     --color-on-accent: #121416;
 
     --color-code-bg: #171a1f;
@@ -656,11 +707,11 @@ pre,
     --color-fold-summary-hover: #222830;
     --color-fold-pre-bg: #151a20;
 
-    --shadow-raised: 0 1px 8px rgba(0, 0, 0, 0.45);
-    --shadow-image: 0 2px 8px rgba(0, 0, 0, 0.48);
+    --shadow-raised: 0 1px 8px rgba(8, 24, 32, 0.55);
+    --shadow-image: 0 2px 8px rgba(8, 24, 32, 0.58);
   }
 
-  .post-container img:not(.theme-surface):not(.chart-light):not(.chart-invert) {
+  .post-container img:not(.theme-surface):not(.chart-light):not(.chart-invert):not(.theme-chrome) {
     box-shadow: 0 0 0 1px var(--color-border), var(--shadow-image);
   }
 

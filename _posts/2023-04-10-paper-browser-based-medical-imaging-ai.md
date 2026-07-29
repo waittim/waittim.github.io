@@ -19,10 +19,8 @@ header-img: img/headers/post-bg-unix-linux.jpg
 catalog: true
 tags:
     - Paper
-    - Medical Image Processing
     - Machine Learning
     - Web Application
-    - Clinical Data Privacy
     - AI
     - Local-First
     - Computer Vision

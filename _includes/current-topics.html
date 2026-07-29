@@ -1,7 +1,7 @@
 {% if site.current_topics %}
 <section>
     <hr class="hidden-sm hidden-xs">
-    <h5><a href="{{ '/tags/' | relative_url }}">CURRENT TOPICS</a></h5>
+    <h5><a href="{{ '/tags/' | relative_url }}">Topics</a></h5>
     <div class="tags">
         {% for topic in site.current_topics %}{% assign topic_id = topic | slugify %}<a href="{{ '/tags/' | relative_url }}#{{ topic_id }}" title="{{ topic }}">{{ topic }}</a>{% endfor %}
     </div>

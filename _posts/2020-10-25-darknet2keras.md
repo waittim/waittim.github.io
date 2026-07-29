@@ -9,10 +9,7 @@ header-img: img/headers/post-deep-brain.jpg
 catalog: true
 tags:
     - Deep Learning
-    - Model Conversion
     - Python
-    - Keras
-    - TensorFlow
     - AI
 ---
 

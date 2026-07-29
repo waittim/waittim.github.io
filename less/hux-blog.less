@@ -75,7 +75,7 @@ br + small.img-hint{
 	margin-top: -40px;
 }
 img.shadow{
-	box-shadow: rgba(0, 0, 0, 0.258824) 0px 2px 5px 0px;
+	box-shadow: rgba(0, 64, 80, 0.22) 0px 2px 5px 0px;
 }
 // Utils Style End
 
@@ -83,8 +83,8 @@ img.shadow{
 select{
 	-webkit-appearance:none;
 	margin-top:15px;
-	color:#337ab7;
-	border-color:#337ab7;
+	color: @brand-primary;
+	border-color: @brand-primary;
 	padding: 0em 0.4em;
 	background: white;
 	&.sel-lang{
@@ -125,8 +125,7 @@ pre code{
 // In the post.
 .post-container{
 	a{
-		color:#337ab7;
-		// different to @brand-primary
+		color: @brand-primary;
 		&:hover,
 		&:focus {
 			color: @brand-primary;
@@ -300,11 +299,10 @@ pre code{
 	.nav {
 		li {
 			a {
-				text-transform: uppercase;
-				font-size: 12px;
+				font-size: 13px;
 				line-height: 20px;
-				font-weight: 800;
-				letter-spacing: 1px;
+				font-weight: 600;
+				letter-spacing: 0.01em;
 				// only highlight in mobile
 				&:active{
 					background: rgba(0,0,0,0.12)
@@ -585,8 +583,7 @@ footer {
 		text-align: center;
 		margin-bottom: 0;
 		a{
-			color:#337ab7;
-			// different to @brand-primary
+			color: @brand-primary;
 			&:hover,
 			&:focus {
 				color: @brand-primary;
@@ -686,10 +683,9 @@ form .row:first-child .floating-label-form-group {
 
 .btn {
 	.sans-serif();
-	text-transform: uppercase;
 	font-size: 14px;
-	font-weight: 800;
-	letter-spacing: 1px;
+	font-weight: 700;
+	letter-spacing: 0.02em;
 	border-radius: 0;
 	padding: 15px 25px;
 }
@@ -718,10 +714,9 @@ form .row:first-child .floating-label-form-group {
 		> a,
 		> span {
 			.sans-serif();
-			text-transform: uppercase;
 			font-size: 13px;
-			font-weight: 800;
-			letter-spacing: 1px;
+			font-weight: 700;
+			letter-spacing: 0.02em;
 			padding: 10px;
 			background-color: white;
 			border-radius: 0;
@@ -827,9 +822,11 @@ img::-moz-selection {
 		line-height: 28px;
 		margin: 0 2px;
 		margin-bottom: 8px;
-		background: #D6D6D6;
+		background: lighten(@brand-primary, 52%);
+		color: @gray-dark;
 		&:hover, &:active{
-			background-color: #0085a1 !important;
+			background-color: darken(@brand-primary, 8%) !important;
+			color: #ffffff !important;
 		}
 	}
 	@media only screen and (min-width: 768px) {
@@ -854,7 +851,7 @@ img::-moz-selection {
 	}
 }
 .listing-seperator{
-	color:#0085a1;
+	color: @brand-primary;
 	font-size: 21px !important;
 	display: inline-flex;
 	align-items: center;

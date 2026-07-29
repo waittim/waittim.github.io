@@ -8,8 +8,6 @@ description: "A short tutorial on looking up IP geolocation with MaxMind GeoLite
 header-img: img/headers/post-python.jpg
 catalog: true
 tags:
-    - Feature Engineering
-    - GeoIP
     - Tutorial
     - Python
 ---

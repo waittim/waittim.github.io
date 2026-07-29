@@ -19,15 +19,33 @@ header-img: "img/ui/tags-bg.webp"
     </div>
 </header>
 
+{% comment %}
+  Sort tags by latest post date (desc), then by post count (desc).
+  String-sortable keys: smaller inv_date / inv_count => newer / more frequent.
+{% endcomment %}
+{%- capture tags_order -%}
+{%- for tag in site.tags -%}
+{%- assign latest_post = tag[1] | first -%}
+{%- assign epoch = latest_post.date | date: "%s" | plus: 0 -%}
+{%- assign inv_date = 2500000000 | minus: epoch -%}
+{%- assign inv_count = 10000 | minus: tag[1].size | prepend: "00000" | slice: -5, 5 -%}
+{{ inv_date }}@@@{{ inv_count }}@@@{{ tag[0] }}{% unless forloop.last %}|||{% endunless %}
+{%- endfor -%}
+{%- endcapture -%}
+{%- assign tags_order = tags_order | split: "|||" | sort -%}
+
 <!-- Main Content -->
 <div class="container">
 	<div class="row">
 		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <!-- 标签云 -->
 			<div id='tag_cloud' class="tags">
-				{% for tag in site.tags %}
-				{% assign tag_id = tag[0] | slugify %}
-				<a href="#{{ tag_id }}" title="{{ tag[0] }}" rel="{{ tag[1].size }}">{{ tag[0] }}</a>
+				{% for entry in tags_order %}
+				{% assign entry_parts = entry | split: "@@@" %}
+				{% assign tag_name = entry_parts[2] %}
+				{% assign tag_posts = site.tags[tag_name] %}
+				{% assign tag_id = tag_name | slugify %}
+				<a href="#{{ tag_id }}" title="{{ tag_name }}" rel="{{ tag_posts.size }}">{{ tag_name }}</a>
 				{% endfor %}
 			</div>
 
@@ -38,14 +56,17 @@ header-img: "img/ui/tags-bg.webp"
             </blockquote>-->
 
             <!-- 标签列表 -->
-			{% for tag in site.tags %}
-			{% assign tag_id = tag[0] | slugify %}
+			{% for entry in tags_order %}
+			{% assign entry_parts = entry | split: "@@@" %}
+			{% assign tag_name = entry_parts[2] %}
+			{% assign tag_posts = site.tags[tag_name] %}
+			{% assign tag_id = tag_name | slugify %}
 			<div class="one-tag-list">
 				<span class="listing-seperator" id="{{ tag_id }}">
                     <svg class="listing-seperator__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.41 11.58l-9-9A2 2 0 0 0 11 2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 .59 1.42l9 9a2 2 0 0 0 2.82 0l7-7a2 2 0 0 0 0-2.84zM5.5 7A1.5 1.5 0 1 1 7 5.5 1.5 1.5 0 0 1 5.5 7z"/></svg>
-                    <span class="tag-text">{{ tag[0] }}</span>
+                    <span class="tag-text">{{ tag_name }}</span>
                 </span>
-				{% for post in tag[1] %}
+				{% for post in tag_posts %}
 				  <!-- <li class="listing-item">
 				  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
 				  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>

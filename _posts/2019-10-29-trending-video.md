@@ -14,7 +14,6 @@ header-img: img/headers/2019-10-29-trending-video.jpg
 catalog: true
 dark_chart_images: invert
 tags:
-    - YouTube
     - EDA
     - Project
     - R

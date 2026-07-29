@@ -6,6 +6,7 @@ date:       2019-12-11
 author:     Zekun Wang
 description: "A talk-oriented look at what data scientists do across a product launch, from framing to decision support."
 header-img: img/headers/post-ds-application.jpg
+header-mask: 0.4
 catalog: true
 tags:
     - Career

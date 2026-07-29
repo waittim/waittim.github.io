@@ -286,7 +286,8 @@
     return lightContrast >= darkContrast ? "#ffffff" : "#202124";
   }
 
-  function renderTagCloud(links, color) {
+  function renderTagCloud(links, color, options) {
+    options = options || {};
     var weights = links.map(function (link) {
       return parseFloat(link.getAttribute("rel")) || 0;
     }).sort(function (a, b) { return a - b; });
@@ -304,7 +305,7 @@
         return Math.round(n + (colorIncr[i] * weighting));
       }));
       link.style.backgroundColor = background;
-      link.style.color = readableTextColor(background);
+      link.style.color = options.textColor || readableTextColor(background);
     });
   }
 
@@ -322,9 +323,14 @@
     var scheme = window.matchMedia("(prefers-color-scheme: dark)");
 
     function paint() {
-      renderTagCloud(links, scheme.matches
-        ? { start: "#4a416f", end: "#00677d" }
-        : { start: "#bbbbee", end: "#0085a1" });
+      // Wider teal ramp by post count. Low weight = soft fill; high = deep accent.
+      // Let readableTextColor pick light/dark type so pale chips stay legible.
+      renderTagCloud(
+        links,
+        scheme.matches
+          ? { start: "#243940", end: "#9ad7e2" }
+          : { start: "#c5e0e6", end: "#005a6e" }
+      );
     }
 
     paint();
