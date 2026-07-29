@@ -7,7 +7,11 @@ updated:    2026-07-22
 author:     Zekun Wang
 description: "Slides Thief is a browser-based tool that turns photographed presentation slides into perspective-corrected images and clean PDFs, with all processing performed locally."
 image: /img/posts/2026-07-13-slides-thief/ui.png
-header-img: img/headers/post-bg-rwd.jpg
+series: Slides Thief Series
+series_nav_title: Overview
+series_order: 1
+header-img: img/headers/2026-07-13-slides-thief.jpg
+header-mask: 0.7
 catalog: true
 tags:
     - Computer Vision
@@ -153,3 +157,5 @@ The source code is available on GitHub:
 [View on GitHub](https://github.com/waittim/Slides-Thief)
 
 If the tool helps your note-taking or slide-archiving workflow, consider starring the repository or opening an issue with feedback.
+
+For the 2.0 detection architecture—multi-detector candidates, confidence, and batch geometry—see [Slides Thief 2.0: From Rectangle Heuristics to Evidence-Aware Review](/2026/07/29/slides-thief-2-detection/).
