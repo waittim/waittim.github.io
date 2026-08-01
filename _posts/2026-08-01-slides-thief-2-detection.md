@@ -28,22 +28,21 @@ tags:
 
 Slides Thief 2.0 replaces a single rectangle heuristic with an evidence-aware detection pipeline.
 
-Instead of trusting the first plausible boundary, several detectors now propose possible quadrilaterals. Slides Thief compares their visual and geometric evidence, refines the strongest result, and marks uncertain pages for review.
+Instead of trusting the first plausible boundary, several detectors propose possible quadrilaterals. Slides Thief compares their evidence, refines the strongest result, and marks uncertain pages for review.
 
-For users, the change is broader than a new detection algorithm:
+For users, the change is broader than a new detector:
 
 * bright and dark slides can both produce valid boundary evidence
 * uncertain and fallback results are easier to find and review
 * photos from the same batch can share a carefully constrained geometry prior
-* source format is separated from PDF page layout
-* 16:10, A4, Letter, and custom source formats extend the workflow beyond presentation slides
-* HEIC conversion, preview failures, large images, filenames, keyboard adjustment, and PDF export are handled more robustly
+* source format is separated from PDF layout, with support for slide and document-shaped sources
+* HEIC conversion, preview failures, large images, filenames, keyboard adjustment, and export are handled more robustly
 
-The complete workflow still runs locally. Photos are decoded, analyzed, corrected, and assembled into a PDF inside the browser without being uploaded to a backend.
+The complete workflow still runs locally: photos are decoded, analyzed, corrected, and assembled into a PDF without being uploaded to a backend.
 
 This article explains why the detector needed a different architecture and how the new design combines automation with explicit human review. For the product overview and usage guide, see [Slides Thief - Turn Photographed Presentation Slides into Clean PDFs](/2026/07/13/slides-thief/).
 
-*For developers building browser-local screen and document correction systems. Implementation details in this article reflect Slides Thief 2.0.0.*
+*For developers building browser-local screen and document correction systems. Implementation details reflect Slides Thief 2.0.0.*
 
 ---
 
@@ -53,21 +52,11 @@ Once four accurate corners are known, correcting a photographed slide is relativ
 
 Finding those four corners is the difficult part.
 
-A sheet of paper often has a visible physical boundary and a predictable relationship with the surface behind it. A presentation screen may have neither.
+A presentation screen may blend gradually into the wall, contain both a physical frame and a smaller visible image, or switch from a bright slide to a dark one between photos. Camera rotation and perspective can also make the screen look far from horizontal or vertical in image coordinates.
 
-A projected image can blend gradually into the wall. A dark slide can be surrounded by a brighter room, while the next slide is nearly white. A display may have both a physical frame and a smaller content area inside it. Camera rotation and perspective can make the screen look far from horizontal, vertical, or even rectangular in image coordinates.
+The slide itself creates competing rectangles: tables, chart borders, code panels, browser windows, and other large layout elements can produce sharper edges than the actual screen boundary.
 
-The slide itself also contains competing shapes:
-
-* tables and chart borders
-* code panels
-* browser windows
-* application frames
-* large rectangular design elements
-
-Some of these internal edges can be sharper than the actual screen boundary.
-
-Real photographs add incomplete evidence. A person may block one side. Glare can erase contrast. A corner may fall outside the photograph. Motion blur, compression, reflections, and uneven exposure weaken different parts of the outline.
+Real photographs add incomplete evidence. A person may block one side, glare may erase contrast, or a corner may fall outside the frame. Motion blur, reflections, compression, and uneven exposure can weaken different parts of the outline.
 
 The detector therefore should not ask:
 
@@ -99,9 +88,7 @@ Score by contrast, area, and aspect ratio
 Return the best result
 ```
 
-This worked well for a common case: a bright projected slide surrounded by a darker room.
-
-Searching for four supporting lines independently also had an advantage over contour-only approaches. The detector could still construct a quadrilateral when the boundary was interrupted and no perfect closed contour existed.
+This worked well for a common case: a bright projected slide surrounded by a darker room. Searching for four supporting lines independently also allowed the detector to recover a quadrilateral when the boundary was interrupted and no perfect closed contour existed.
 
 But the approach embedded several assumptions.
 
@@ -127,8 +114,6 @@ The geometry of the exported PDF page
 
 Suppose a photograph contains a 16:9 slide and the user wants an A4 landscape PDF. The detector should still find the 16:9 source. After correction, that slide can be centered inside an A4 page with margins.
 
-The PDF preference should not encourage the detector to search for an A4-shaped region in the photograph.
-
 Slides Thief 2.0 therefore uses this flow:
 
 ```text
@@ -141,7 +126,7 @@ Rectify it using the source format
 Place the corrected result into the PDF layout
 ```
 
-Source formats now include 16:9, 4:3, 16:10, A4, Letter, and custom ratios. One source format is selected for the batch, while the PDF layout remains a separate choice.
+Source formats include 16:9, 4:3, 16:10, A4, Letter, and custom ratios. One source format is selected for the batch, while the PDF layout remains a separate choice.
 
 This also allows the same workflow to correct photographed document pages without stretching them into an unrelated presentation ratio.
 
@@ -149,13 +134,17 @@ The broader rule is:
 
 > **Recognition should describe the source. Formatting should decide how that result is presented.**
 
+![Source geometry remains separate from PDF layout]({{ "/img/posts/2026-08-01-slides-thief-2-detection/slides-thief-figure-1-source-vs-pdf.svg" | relative_url }})
+
+*Figure 1: Slides Thief detects and rectifies the source geometry before placing the corrected result into the independently selected PDF layout.*
+
 ---
 
 ## Detectors Propose Candidates, Not Answers
 
 The central architectural change in 2.0 is that no individual detector owns the final result.
 
-Each detector proposes one or more quadrilateral candidates. A shared pipeline then validates, scores, deduplicates, and compares them:
+Each detector proposes quadrilateral candidates. A shared pipeline then validates, scores, deduplicates, and compares them:
 
 ```text
 Image
@@ -175,35 +164,35 @@ Local edge refinement
 Confidence and review decision
 ```
 
-This avoids a weakness of sequential fallback systems. If detector A returns a merely plausible result, detector B should still have the opportunity to propose something better.
+This avoids a weakness of sequential fallback systems: a merely plausible result from one method should not prevent another from proposing something better.
 
-Slides Thief currently combines three complementary single-image methods.
+Slides Thief combines three complementary single-image methods.
 
 ### Bidirectional contrast
 
-The contrast detector keeps the strongest idea from the original implementation: a screen boundary often creates a measurable difference between pixels just inside and just outside an edge.
+The contrast detector measures differences between pixels just inside and outside a possible edge. Version 2.0 evaluates both directions, so the interior may be brighter or darker than the exterior and the preferred direction can differ by edge.
 
-Version 2.0 evaluates both directions. The interior may be brighter or darker than the exterior, and the preferred direction can differ from one edge to another.
-
-This makes dark slides on bright walls valid candidates rather than automatic failures.
+Dark slides on bright walls are therefore valid candidates rather than automatic failures.
 
 ### Adaptive masks
 
-The mask detector uses brightness and saturation statistics from the current image to search for a coherent region. It fits possible boundary lines around that region and proposes several nearby quadrilaterals.
+The mask detector uses brightness and saturation statistics to search for a coherent region, fits possible boundary lines around it, and proposes several nearby quadrilaterals.
 
-This method can help when the slide forms a consistent bright or low-saturation area even though its physical outline is weak.
-
-It can also be confused by a bright wall or a large neutral object. For that reason, its output is treated as evidence—not as the final answer.
+It can help when the slide forms a consistent bright or low-saturation region despite a weak physical outline. Because a bright wall or neutral object can produce similar evidence, its output remains a candidate rather than a final answer.
 
 ### Multiscale gradients and line geometry
 
-The third method combines luminance and color-opponent gradients at several image scales.
+The third method combines luminance and color-opponent gradients at several scales.
 
-Smaller scales reduce the influence of text, chart marks, and fine texture while preserving larger structural transitions. Gradient orientation then guides a Hough-style line search, allowing the detector to find long boundaries without assuming that the phone was held level.
+Coarser scales suppress fine slide content while preserving larger structural transitions. Gradient orientation then guides a Hough-style search for long boundaries without assuming that the phone was held level.
 
 The resulting lines are grouped into two dominant direction families. Opposing lines from those families can form rotated or perspective-distorted quadrilateral candidates.
 
 The methods solve different parts of the problem. Reliability comes from comparing them under the same rules.
+
+![Four parallel detector views of the same real presentation photograph]({{ "/img/posts/2026-08-01-slides-thief-2-detection/slides-thief-figure-2-detector-comparison.svg" | relative_url }})
+
+*Figure 2: Different detectors can explain the same photograph differently. Slides Thief keeps these hypotheses separate until they can be compared using shared visual, geometric, and confidence evidence.*
 
 ---
 
@@ -211,7 +200,7 @@ The methods solve different parts of the problem. Reliability comes from compari
 
 A strong line can still be the wrong line.
 
-Slides Thief therefore evaluates evidence along the full length of all four sides. It considers:
+Slides Thief therefore evaluates evidence along all four sides, including:
 
 * edge strength and support
 * continuity and unsupported gaps
@@ -221,13 +210,13 @@ Slides Thief therefore evaluates evidence along the full length of all four side
 * geometric validity
 * source-ratio and area priors
 
-Visual evidence has the strongest influence. Area and source ratio are weak terms in the shared scorer. Separately, the contrast-line generator uses broad ratio bounds to reject extreme hypotheses before ranking. These signals no longer determine the final result by themselves.
+Visual evidence has the strongest influence. Area and source ratio are weak terms in the shared scorer. Separately, the contrast-line generator uses broad ratio bounds to reject extreme hypotheses before ranking.
 
 Invalid geometry is rejected early. A candidate must describe a sufficiently large, convex, non-degenerate quadrilateral that remains within bounded image-relative limits.
 
 Candidates from different detectors are also deduplicated. If contrast, mask, and Hough methods converge on nearly the same boundary, that should count as agreement rather than appear as three competing answers.
 
-After ranking, the strongest candidate is refined locally. Each side can move by a limited amount to find a better-supported edge, but the search is constrained so it cannot jump freely to an internal table or outer display frame.
+After ranking, the strongest candidate is refined locally. Each side can move by a limited amount to find better-supported edges, but the search is constrained so it cannot jump freely to an internal table or outer display frame.
 
 This separates two tasks:
 
@@ -270,9 +259,7 @@ No supported candidate
 → Use an editable fallback frame and require review
 ```
 
-A fallback rectangle is useful because it gives the user a starting point for manual corner adjustment. But it is not presented as a successful automatic detection.
-
-Manual correction is also preserved as a distinct state. Once a user has adjusted a page, later processing should not silently return it to an unresolved automatic state.
+A fallback rectangle remains useful as a starting point for manual corner adjustment, but it is not presented as a successful automatic detection. Manual correction is also preserved as a distinct state rather than being silently replaced by later automatic processing.
 
 This reflects a broader reliability principle:
 
@@ -296,19 +283,20 @@ The prior is never accepted simply because nearby images used the same crop. The
 
 This makes the batch useful without allowing one mistaken result to propagate across every page.
 
+![Reliable batch anchors form a median geometry prior that is refined on an uncertain page]({{ "/img/posts/2026-08-01-slides-thief-2-detection/slides-thief-figure-3-batch-prior.svg" | relative_url }})
+
+*Figure 3: Reliable batch anchors form a median geometry prior, which is mapped to an uncertain page and refined against that page's own edge evidence.*
+
 ---
 
 ## More Than a Detector Update
 
-The detector is the largest architectural change in 2.0, but the surrounding product also became more robust.
+Detection was the largest architectural change in 2.0, but the surrounding workflow also became more robust:
 
-Slides Thief now supports presentation and document source shapes while keeping source format separate from PDF layout. Automatic and manual review states are clearer across the localized interface, and corner handles support keyboard adjustment.
-
-HEIC and HEIF conversion still happens locally, with visible placeholders while conversion is running. Preview errors are isolated per image so one problematic file does not collapse the entire batch.
-
-PDF filenames are sanitized before download. Automatic fill handling can match the corrected content when appropriate, while standard paper layouts retain clean margins and users can still select a custom color.
-
-Detection and PDF export now run in separate workers. Detection uses resized analysis buffers, while export has a separate, larger source-image budget. This keeps the interface responsive and avoids retaining unnecessary full-resolution intermediates.
+* **Broader source formats:** presentation and document shapes now share the same perspective-correction workflow while remaining separate from PDF layout.
+* **Clearer review states:** automatic, review-suggested, and manually adjusted results are easier to distinguish, and corner handles support keyboard adjustment.
+* **More resilient input handling:** HEIC and HEIF conversion remains local, conversion progress is visible, and preview errors are isolated per image.
+* **Safer export behavior:** filenames are sanitized, automatic fill handling works with paper layouts, and detection and PDF export run in separate workers with different image-size budgets.
 
 The detector remains model-free, deterministic, and inspectable. A learned model could eventually join the system as another candidate generator, but it would still need to pass through the same validation, scoring, refinement, and review pipeline.
 
@@ -316,35 +304,31 @@ The detector remains model-free, deterministic, and inspectable. A learned model
 
 ## Measuring the Redesign
 
-A more complicated detector is not automatically a better detector.
+A more complicated detector is not automatically a better one. It may become slower, less predictable, or more likely to produce confident mistakes.
 
-It may become slower, less predictable, or more likely to produce confident mistakes. Slides Thief therefore includes Python and browser benchmarks based on annotated quadrilaterals.
+Slides Thief therefore includes Python and browser benchmarks based on annotated quadrilaterals. The main measurements are normalized corner error, quadrilateral intersection over union, review rate, high-confidence failure rate, and detection latency.
 
-The measurements include normalized corner error, quadrilateral intersection over union, review rate, high-confidence failure rate, and detection latency.
-
-High-confidence failure rate is especially important. A result that is marked for review is inconvenient. A wrong result that appears trustworthy is much more likely to reach the final PDF unnoticed.
+High-confidence failure rate matters especially: a result marked for review is inconvenient, but a wrong result that appears trustworthy is much more likely to reach the final PDF unnoticed.
 
 The current public fixture set contains only three controlled synthetic images. These results are regression signals, not a universal accuracy claim.
 
 On the current three-image CLI regression fixture set:
 
-| Metric | Previous baseline | Slides Thief 2.0 |
-| --- | ---: | ---: |
-| Mean normalized corner error | 0.06833 | 0.00273 |
-| Mean Quad IoU | 0.72576 | 0.98659 |
-| Images with all corners under 1% | 1/3 | 3/3 |
-| High-confidence failures | 1/3 | 0/3 |
-| Runtime P95 | 626.23 ms | 1033.29 ms |
+| Metric                           | Previous baseline | Slides Thief 2.0 |
+| -------------------------------- | ----------------: | ---------------: |
+| Mean normalized corner error     |           0.06833 |          0.00273 |
+| Mean Quad IoU                    |           0.72576 |          0.98659 |
+| Images with all corners under 1% |               1/3 |              3/3 |
+| High-confidence failures         |               1/3 |              0/3 |
+| Runtime P95                      |         626.23 ms |       1033.29 ms |
 
-The browser implementation reaches a mean normalized corner error of `0.00487` and a mean Quad IoU of `0.97777` on the same controlled fixtures, with a P95 detection time of `195.05 ms`.
+The browser implementation reaches a mean normalized corner error of `0.00487`, a mean Quad IoU of `0.97777`, and a P95 detection time of `195.05 ms` on the same fixtures.
 
-The CLI and browser timings come from different runtimes and benchmark harnesses, so they should be read as per-implementation regression measurements rather than a direct speed comparison.
+These fixtures are for regression testing, not production accuracy estimation. CLI and browser timings also come from different runtimes and harnesses, so each should be compared against its own baseline rather than directly against the other.
 
-The added gradient, Hough, scoring, and refinement stages have a measurable runtime cost. The goal is not to hide that tradeoff, but to keep it bounded while reducing known geometric failures and avoiding silent overconfidence.
+The test suite adds difficult-boundary cases: internal grids and fixed-seed image noise must preserve a high-overlap result, while a missing edge or large foreground obstruction must not become a silent success.
 
-The test suite also includes deterministic difficult-boundary cases. Strong internal grids and fixed-seed image noise must preserve a high-overlap result, while a missing edge or large foreground obstruction must not become a silent success.
-
-The next evaluation step is a larger annotated set of real conference rooms, classrooms, documents, reflections, clipped corners, multiple screens, and camera movement.
+The next step is a larger annotated set of real conference rooms, classrooms, documents, reflections, clipped corners, multiple screens, and camera movement.
 
 ---
 
@@ -352,17 +336,9 @@ The next evaluation step is a larger annotated set of real conference rooms, cla
 
 No boundary detector can recover evidence that is not present.
 
-If most of the slide is outside the photograph, several quadrilaterals may be equally plausible. If a person covers an entire side and the scene contains multiple displays, the intended target may require human interpretation.
+If most of a slide is outside the photograph, several quadrilaterals may be equally plausible. If a person covers an entire side and the scene contains multiple displays, the intended target may require human interpretation.
 
-Other difficult conditions include:
-
-* borderless projections with no stable transition
-* severe motion blur or overexposure
-* large reflections
-* curved projection surfaces
-* two adjacent displays
-* large internal panels that resemble the outer boundary
-* dramatic camera movement between every photo
+Other difficult conditions include borderless projections, severe motion blur or overexposure, large reflections, curved projection surfaces, adjacent displays, and large internal panels that resemble the outer boundary.
 
 Batch geometry helps only when the batch contains several reliable anchors. A source-ratio prior helps only when the selected format is correct. Local refinement improves an approximately correct boundary; it cannot turn an unrelated rectangle into the intended target without supporting evidence.
 
@@ -380,11 +356,11 @@ Slides Thief 2.0 asks:
 
 > Which quadrilateral is best supported by the available visual, geometric, and batch evidence—and is that support strong enough to accept without review?
 
-That change is more important than any individual algorithm added to the project.
+That change matters more than any individual algorithm.
 
-Contrast lines, adaptive masks, multiscale gradients, line geometry, local refinement, and batch priors each solve only part of the problem. The system becomes more reliable when those methods can propose alternatives, disagree, expose their evidence, and be compared under the same rules.
+Contrast lines, adaptive masks, multiscale gradients, line geometry, local refinement, and batch priors each solve only part of the problem. Reliability comes from letting those methods propose alternatives, disagree, expose their evidence, and be compared under the same rules.
 
-At the same time, the product has become more flexible. Slides Thief now supports presentation and document formats, separates recognition from PDF layout, handles large and converted images more carefully, and gives uncertainty an explicit place in the workflow.
+The product has also become more flexible: Slides Thief supports presentation and document formats, separates recognition from PDF layout, handles large and converted images more carefully, and gives uncertainty an explicit place in the workflow.
 
 The product goal remains simple:
 
