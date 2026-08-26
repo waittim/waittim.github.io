@@ -88,7 +88,7 @@ The important transition is not from “unknown” to “stored.”
 
 It is from **candidate** to **active**.
 
-![From Observation to Trusted Memory — observations remain candidates until qualifying evidence or confirmation admits them into active project memory.]({{ "/img/posts/2026-08-26-memory-custodian-remember/observation-to-trusted-memory.png" | relative_url }})
+![From Observation to Trusted Memory — observations remain candidates until qualifying evidence or confirmation admits them into active project memory.]({{ "/img/posts/2026-08-26-memory-custodian-remember/observation-to-trusted-memory.jpg" | relative_url }})
 
 *Figure 1. Protocol 0.6 separates preserving an observation from admitting it into trusted project memory.*
 
@@ -144,9 +144,7 @@ That gives memory a lifecycle. Without stable Entry IDs, old project knowledge t
 
 One Subject can legitimately have many active memories. A dependency might have separate policies for adoption, versioning, architecture, compatibility, security, performance, and lifecycle.
 
-Those are different dimensions.
-
-Protocol 0.6 represents them using controlled **Facets**, such as `adoption-policy`, `version-policy`, `architecture`, `behavior`, `compatibility`, `security`, `performance`, `data-model`, `interface`, `workflow`, and `lifecycle`.
+Those are different dimensions, which Protocol 0.6 represents using controlled **Facets**, such as `adoption-policy`, `version-policy`, `architecture`, `behavior`, `compatibility`, `security`, `performance`, `data-model`, `interface`, `workflow`, and `lifecycle`.
 
 ![Stable Identity and Active Ownership — Subject IDs identify the entity, Entry IDs identify claims, while Scope and Facet define the active ownership boundary.]({{ "/img/posts/2026-08-26-memory-custodian-remember/stable-identity-active-ownership.jpg" | relative_url }})
 
