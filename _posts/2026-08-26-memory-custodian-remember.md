@@ -88,7 +88,7 @@ The important transition is not from “unknown” to “stored.”
 
 It is from **candidate** to **active**.
 
-![From Observation to Trusted Memory — observations remain candidates until qualifying evidence or confirmation admits them into active project memory.]({{ "/img/posts/2026-08-26-memory-custodian-remember/observation-to-trusted-memory.jpg" | relative_url }})
+![From Observation to Trusted Memory — observations remain candidates until qualifying evidence or confirmation admits them into active project memory.]({{ "/img/posts/2026-08-26-memory-custodian-remember/observation-to-trusted-memory.svg" | relative_url }})
 
 *Figure 1. Protocol 0.6 separates preserving an observation from admitting it into trusted project memory.*
 
@@ -146,7 +146,7 @@ One Subject can legitimately have many active memories. A dependency might have 
 
 Those are different dimensions, which Protocol 0.6 represents using controlled **Facets**, such as `adoption-policy`, `version-policy`, `architecture`, `behavior`, `compatibility`, `security`, `performance`, `data-model`, `interface`, `workflow`, and `lifecycle`.
 
-![Stable Identity and Active Ownership — Subject IDs identify the entity, Entry IDs identify claims, while Scope and Facet define the active ownership boundary.]({{ "/img/posts/2026-08-26-memory-custodian-remember/stable-identity-active-ownership.jpg" | relative_url }})
+![Stable Identity and Active Ownership — Subject IDs identify the entity, Entry IDs identify claims, while Scope and Facet define the active ownership boundary.]({{ "/img/posts/2026-08-26-memory-custodian-remember/stable-identity-active-ownership.svg" | relative_url }})
 
 *Figure 2. Subject identity stays stable across names, while `Scope + Subject ID + Facet` defines the active ownership boundary.*
 
@@ -270,7 +270,7 @@ It also contains another idea: consider encrypting exported notes with a user-pr
 
 The important part is that those statements do not all have the same authority.
 
-![NightNotes end-to-end example — trusted JSON, offline, standard-library, and no-SQLite memory enters task context through manifest routing while the encryption candidate stays in the inbox.]({{ "/img/posts/2026-08-26-memory-custodian-remember/nightnotes-end-to-end.jpg" | relative_url }})
+![NightNotes end-to-end example — trusted JSON, offline, standard-library, and no-SQLite memory enters task context through manifest routing while the encryption candidate stays in the inbox.]({{ "/img/posts/2026-08-26-memory-custodian-remember/nightnotes-end-to-end.svg" | relative_url }})
 
 *Figure 3. NightNotes routes trusted project memory into the task while keeping the unconfirmed encryption idea preserved but outside normal context.*
 

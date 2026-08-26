@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1448" height="1086" viewBox="0 0 1448 1086" role="img" aria-labelledby="title desc">
+<title id="title">Stable Identity and Active Ownership</title>
+<desc id="desc">A stable Subject branches to entries with Facet and Scope, showing supersession and one active owner for each Scope, Subject ID, and Facet combination.</desc>
+
+<defs>
+  <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+    <path d="M0,0 L12,6 L0,12 z" fill="#1f59c8"/>
+  </marker>
+  <marker id="arrowgray" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+    <path d="M0,0 L12,6 L0,12 z" fill="#717981"/>
+  </marker>
+</defs>
+
+
+<style>
+  .bg { fill: #ffffff; }
+  .title { font: 700 58px -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif; fill:#15191f; }
+  .subtitle { font: 400 30px -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif; fill:#23272e; }
+  .h1 { font: 700 34px -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif; fill:#15191f; }
+  .h2 { font: 700 26px -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif; fill:#15191f; }
+  .body { font: 400 23px -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif; fill:#171b20; }
+  .small { font: 400 20px -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif; fill:#30353c; }
+  .smallblue { font: 400 20px -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif; fill:#1f59c8; }
+  .caption { font: italic 400 20px -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif; fill:#30353c; }
+  .box { fill:#fff; stroke:#1f59c8; stroke-width:2; rx:14; }
+  .softbox { fill:#f5f8ff; stroke:#1f59c8; stroke-width:2; rx:14; }
+  .graybox { fill:#fff; stroke:#6f7780; stroke-width:1.8; rx:14; }
+  .dashbox { fill:#fff; stroke:#1f59c8; stroke-width:2; stroke-dasharray:5 5; rx:14; }
+  .dashgray { fill:#fff; stroke:#7a828a; stroke-width:1.8; stroke-dasharray:5 5; rx:14; }
+  .line { stroke:#1f59c8; stroke-width:3; fill:none; }
+  .dashline { stroke:#1f59c8; stroke-width:2.5; fill:none; stroke-dasharray:5 6; }
+  .dashgrayline { stroke:#717981; stroke-width:2.2; fill:none; stroke-dasharray:6 6; }
+  .pill { fill:#fff; stroke:#1f59c8; stroke-width:1.7; rx:10; }
+  .pillblue { fill:#2b67d5; stroke:#2b67d5; stroke-width:1.5; rx:10; }
+  .pillgray { fill:#e3e3e3; stroke:#d6d6d6; stroke-width:1.2; rx:10; }
+  .pilltext { font: 400 19px -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif; fill:#171b20; }
+  .pilltextwhite { font: 600 19px -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif; fill:#fff; }
+  .blue { fill:#1f59c8; }
+  .muted { fill:#5d6670; }
+</style>
+
+<rect class="bg" x="0" y="0" width="1448" height="1086"/>
+
+<text class="title" x="724" y="82" text-anchor="middle">Stable Identity and Active Ownership</text>
+<text class="subtitle" x="724" y="140" text-anchor="middle">Memory needs identity, not just text.</text>
+
+<rect class="box" x="507" y="188" width="388" height="184"/>
+<text class="h1" x="701" y="246" text-anchor="middle">Subject</text>
+<text class="smallblue" x="701" y="288" text-anchor="middle">MC-SUBJ-...  Library X</text>
+<rect class="pill" x="566" y="315" width="125" height="39"/>
+<text class="pilltext" x="628.5" y="341" text-anchor="middle">library-x</text>
+<rect class="pill" x="718" y="315" width="118" height="39"/>
+<text class="pilltext" x="777" y="341" text-anchor="middle">libx</text>
+
+<path class="dashline" d="M895 264 L988 264"/>
+<text class="caption" x="1015" y="258">What thing are</text>
+<text class="caption" x="1015" y="292">we talking about?</text>
+
+<path class="line" d="M701 372 L701 423"/>
+<path class="line" d="M369 423 L1035 423"/>
+<path class="line" d="M369 423 L369 482" marker-end="url(#arrow)"/>
+<path class="line" d="M701 423 L701 482" marker-end="url(#arrow)"/>
+<path class="line" d="M1035 423 L1035 482" marker-end="url(#arrow)"/>
+
+<!-- Entry A -->
+<rect class="box" x="247" y="483" width="238" height="294"/>
+<text class="h2" x="366" y="545" text-anchor="middle">Entry A</text>
+<text class="body" x="366" y="584" text-anchor="middle">Support v1.x</text>
+<rect class="pill" x="273" y="611" width="186" height="40"/>
+<text class="pilltext" x="366" y="637" text-anchor="middle">Facet: version-policy</text>
+<rect class="pill" x="273" y="661" width="186" height="40"/>
+<text class="pilltext" x="366" y="687" text-anchor="middle">Scope: project</text>
+<rect class="pillgray" x="293" y="721" width="146" height="38"/>
+<text class="pilltext" x="366" y="747" text-anchor="middle">superseded</text>
+
+<!-- Entry B -->
+<rect class="softbox" x="570" y="483" width="264" height="294"/>
+<text class="h2" x="702" y="545" text-anchor="middle">Entry B</text>
+<text class="body" x="702" y="584" text-anchor="middle">Support v2.x</text>
+<rect class="pill" x="603" y="611" width="198" height="40"/>
+<text class="pilltext" x="702" y="637" text-anchor="middle">Facet: version-policy</text>
+<rect class="pill" x="603" y="661" width="198" height="40"/>
+<text class="pilltext" x="702" y="687" text-anchor="middle">Scope: project</text>
+<rect class="pillblue" x="642" y="721" width="120" height="38"/>
+<text class="pilltextwhite" x="702" y="747" text-anchor="middle">active</text>
+
+<!-- Entry C -->
+<rect class="box" x="906" y="483" width="245" height="294"/>
+<text class="h2" x="1028.5" y="545" text-anchor="middle">Entry C</text>
+<text class="body" x="1028.5" y="584" text-anchor="middle">No network calls</text>
+<rect class="pill" x="931" y="611" width="195" height="40"/>
+<text class="pilltext" x="1028.5" y="637" text-anchor="middle">Facet: security</text>
+<rect class="pill" x="931" y="661" width="195" height="40"/>
+<text class="pilltext" x="1028.5" y="687" text-anchor="middle">Scope: backend</text>
+<rect class="pillblue" x="968" y="721" width="121" height="38"/>
+<text class="pilltextwhite" x="1028.5" y="747" text-anchor="middle">active</text>
+
+<path class="line" d="M486 609 L561 609" marker-end="url(#arrow)"/>
+
+<path class="dashline" d="M190 584 L235 584"/>
+<text class="caption" x="42" y="563">What claim are</text>
+<text class="caption" x="42" y="598">we making?</text>
+
+<path class="dashline" d="M1151 653 L1193 653"/>
+<text class="caption" x="1203" y="648">Which dimension?</text>
+<text class="caption" x="1203" y="681">Where does it apply?</text>
+
+<rect class="box" x="392" y="827" width="626" height="171"/>
+<text class="h1" x="705" y="889" text-anchor="middle">Scope + Subject ID + Facet</text>
+<line x1="452" y1="918" x2="958" y2="918" stroke="#8ba8e9" stroke-width="1.8"/>
+<text x="705" y="972" text-anchor="middle"
+      style='font:700 38px -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;fill:#1f59c8'>ONE ACTIVE OWNER</text>
+
+<path class="dashline" d="M1018 890 L1083 890"/>
+<text class="caption" x="1110" y="886">Deterministic</text>
+<text class="caption" x="1110" y="919">conflict boundary</text>
+
+</svg>

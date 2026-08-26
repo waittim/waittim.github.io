@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1448" height="1086" viewBox="0 0 1448 1086" role="img" aria-labelledby="title desc">
+<title id="title">NightNotes: End-to-End Example</title>
+<desc id="desc">Trusted NightNotes project memory routes through manifest.md into task context and a new agent plan, while an unconfirmed encryption idea remains a candidate outside normal task context.</desc>
+
+<defs>
+  <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+    <path d="M0,0 L12,6 L0,12 z" fill="#1f59c8"/>
+  </marker>
+  <marker id="arrowgray" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+    <path d="M0,0 L12,6 L0,12 z" fill="#717981"/>
+  </marker>
+</defs>
+
+
+<style>
+  .bg { fill: #ffffff; }
+  .title { font: 700 58px -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif; fill:#15191f; }
+  .subtitle { font: 400 30px -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif; fill:#23272e; }
+  .h1 { font: 700 34px -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif; fill:#15191f; }
+  .h2 { font: 700 26px -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif; fill:#15191f; }
+  .body { font: 400 23px -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif; fill:#171b20; }
+  .small { font: 400 20px -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif; fill:#30353c; }
+  .smallblue { font: 400 20px -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif; fill:#1f59c8; }
+  .caption { font: italic 400 20px -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif; fill:#30353c; }
+  .box { fill:#fff; stroke:#1f59c8; stroke-width:2; rx:14; }
+  .graybox { fill:#fff; stroke:#6f7780; stroke-width:1.8; rx:14; }
+  .dashbox { fill:#fff; stroke:#1f59c8; stroke-width:2; stroke-dasharray:5 5; rx:14; }
+  .dashgray { fill:#fff; stroke:#7a828a; stroke-width:1.8; stroke-dasharray:5 5; rx:14; }
+  .line { stroke:#1f59c8; stroke-width:3; fill:none; }
+  .dashline { stroke:#1f59c8; stroke-width:2.5; fill:none; stroke-dasharray:5 6; }
+  .dashgrayline { stroke:#717981; stroke-width:2.2; fill:none; stroke-dasharray:6 6; }
+  .pill { fill:#fff; stroke:#1f59c8; stroke-width:1.7; rx:10; }
+  .pillgray { fill:#e3e3e3; stroke:#d6d6d6; stroke-width:1.2; rx:10; }
+  .pilltext { font: 400 19px -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif; fill:#171b20; }
+  .blue { fill:#1f59c8; }
+  .muted { fill:#5d6670; }
+</style>
+
+<rect class="bg" x="0" y="0" width="1448" height="1086"/>
+
+<text class="title" x="724" y="80" text-anchor="middle">NightNotes: End-to-End Example</text>
+<text class="subtitle" x="724" y="137" text-anchor="middle">Recover trusted decisions without promoting uncertain ideas.</text>
+
+<rect class="dashbox" x="53" y="193" width="469" height="670"/>
+<text class="h2" x="287.5" y="239" text-anchor="middle">Project Knowledge</text>
+
+<rect class="dashbox" x="72" y="282" width="426" height="418"/>
+<rect class="pill" x="189" y="265" width="198" height="38"/>
+<text class="pilltext" x="288" y="291" text-anchor="middle" style="fill:#1f59c8;font-weight:600">ACTIVE MEMORY</text>
+
+<!-- Card 1 -->
+<rect class="box" x="86" y="309" width="390" height="84"/>
+<!-- file icon -->
+<path d="M107 323 H151 L165 337 V379 H107 Z" fill="none" stroke="#1f59c8" stroke-width="2.2"/>
+<path d="M151 323 V337 H165" fill="none" stroke="#1f59c8" stroke-width="2.2"/>
+<text x="136" y="357" text-anchor="middle" style='font:600 13px -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;fill:#1f59c8'>JSON</text>
+<text class="body" x="190" y="359">Local JSON persistence</text>
+
+<!-- Card 2 -->
+<rect class="box" x="86" y="408" width="390" height="84"/>
+<!-- wifi off icon -->
+<path d="M114 458 Q132 441 150 458" fill="none" stroke="#1f59c8" stroke-width="2.2"/>
+<path d="M120 450 Q132 439 144 450" fill="none" stroke="#1f59c8" stroke-width="2.2"/>
+<circle cx="132" cy="463" r="4" fill="#1f59c8"/>
+<line x1="111" y1="438" x2="153" y2="480" stroke="#1f59c8" stroke-width="2.6" stroke-linecap="round"/>
+<text class="body" x="190" y="459">Offline operation</text>
+
+<!-- Card 3 -->
+<rect class="box" x="86" y="507" width="390" height="84"/>
+<text x="132" y="561" text-anchor="middle" style='font:400 30px ui-monospace,SFMono-Regular,Menlo,monospace;fill:#1f59c8'>&lt;/&gt;</text>
+<text class="body" x="190" y="558">Standard-library only</text>
+
+<!-- Card 4 -->
+<rect class="box" x="86" y="606" width="390" height="84"/>
+<ellipse cx="132" cy="636" rx="18" ry="8" fill="none" stroke="#1f59c8" stroke-width="2"/>
+<path d="M114 636 L114 661 Q132 671 150 661 L150 636" fill="none" stroke="#1f59c8" stroke-width="2"/>
+<circle cx="146" cy="660" r="9" fill="#fff" stroke="#1f59c8" stroke-width="2"/>
+<path d="M142 656 L150 664 M150 656 L142 664" stroke="#1f59c8" stroke-width="1.8"/>
+<text class="body" x="190" y="657">No SQLite</text>
+
+<!-- candidate -->
+<rect class="graybox" x="72" y="724" width="405" height="100"/>
+<path d="M114 761 q0-20 18-20 q18 0 18 20 v8" fill="none" stroke="#5c6670" stroke-width="2.5"/>
+<rect x="106" y="765" width="52" height="42" rx="8" fill="none" stroke="#5c6670" stroke-width="2.5"/>
+<circle cx="132" cy="786" r="4" fill="#5c6670"/>
+<text class="body" x="190" y="768">Encryption idea</text>
+<text class="smallblue" x="190" y="800">inbox.md</text>
+<rect class="pillgray" x="191" y="808" width="164" height="34"/>
+<text class="pilltext" x="273" y="831" text-anchor="middle" style="font-size:17px">CANDIDATE</text>
+
+<!-- Routing flow -->
+<path class="line" d="M522 516 L610 516" marker-end="url(#arrow)"/>
+<rect class="box" x="611" y="452" width="290" height="140"/>
+<text class="h1" x="756" y="522" text-anchor="middle">manifest.md</text>
+<text class="smallblue" x="756" y="558" text-anchor="middle">routing authority</text>
+
+<path class="line" d="M901 517 L967 517 L967 465 L1044 465" marker-end="url(#arrow)"/>
+<rect class="box" x="1044" y="414" width="288" height="102"/>
+<text class="h1" x="1188" y="479" text-anchor="middle">Task Context</text>
+
+<path class="line" d="M1188 516 L1188 603" marker-end="url(#arrow)"/>
+<rect class="box" x="1044" y="604" width="288" height="104"/>
+<text class="h1" x="1188" y="669" text-anchor="middle">New Agent Plan</text>
+
+<path class="dashline" d="M1188 708 L1188 747"/>
+<text class="smallblue" x="1188" y="781" text-anchor="middle">JSON</text>
+<text class="smallblue" x="1188" y="812" text-anchor="middle">offline</text>
+<text class="smallblue" x="1188" y="843" text-anchor="middle">stdlib-only</text>
+<text class="smallblue" x="1188" y="874" text-anchor="middle">no SQLite</text>
+
+<!-- Candidate branch -->
+<path class="dashgrayline" d="M477 773 L585 773 L585 893" marker-end="url(#arrowgray)"/>
+<text class="caption" x="613" y="817">preserved, but</text>
+<text class="caption" x="613" y="851">not yet policy</text>
+<rect class="dashgray" x="499" y="892" width="185" height="87"/>
+<text class="small" x="591.5" y="928" text-anchor="middle">Not normal</text>
+<text class="small" x="591.5" y="957" text-anchor="middle">task context</text>
+
+</svg>
