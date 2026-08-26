@@ -58,23 +58,15 @@ A statement may be worth preserving without yet being trusted enough to guide fu
 
 Suppose an agent is debugging a storage subsystem. It notices that:
 
-- every current persistence file is JSON;
-- there is no SQLite dependency;
-- the project works offline.
+- every current persistence file is JSON
+- there is no SQLite dependency
+- the project works offline
 
-From those facts, it may infer:
-
-> The project requires JSON-only persistence.
+From those facts, it may infer that the project requires JSON-only persistence.
 
 That inference might be useful, and it may even turn out to be correct. But it is still an inference. Perhaps JSON is only the current implementation; perhaps SQLite was rejected for one subsystem but remains acceptable elsewhere; perhaps the architecture is about to change in an open pull request.
 
-If the agent writes the conclusion directly into durable project memory, something subtle has happened. The next session no longer sees:
-
-> “A previous agent observed a pattern.”
-
-It sees:
-
-> “The project requires JSON.”
+If the agent writes the conclusion directly into durable project memory, something subtle has happened. The next session no longer sees “a previous agent observed a pattern.” It sees “the project requires JSON.”
 
 The observation has become authority.
 
@@ -84,11 +76,11 @@ That transition should not happen accidentally.
 
 Protocol 0.6 makes this boundary explicit. A new formal active memory entry must have qualifying Evidence, which may come from:
 
-- explicit user confirmation;
-- a safe repository-relative source;
-- a project document;
-- a test;
-- an issue or pull request reference.
+- explicit user confirmation
+- a safe repository-relative source
+- a project document
+- a test
+- an issue or pull request reference
 
 By contrast, evidence such as `agent-observed` or `conversation-unconfirmed` can support a **candidate**, but not a new active entry.
 
@@ -114,11 +106,7 @@ Evidence serves a narrower purpose:
 
 > **It answers “why was this admitted?”, not “is this forever true?”**
 
-That distinction matters. The system still needs semantic judgment and lifecycle management. But a new formal memory entry should at least be able to answer:
-
-> Why was this allowed to become active project memory?
-
-That is a much stronger boundary than simply allowing any plausible statement to persist.
+That distinction matters. The system still needs semantic judgment and lifecycle management. But a new formal memory entry should at least be able to answer why it was allowed to become active project memory. That is a much stronger boundary than simply allowing any plausible statement to persist.
 
 ---
 
@@ -126,17 +114,7 @@ That is a much stronger boundary than simply allowing any plausible statement to
 
 Admission solves only the first problem. Even trusted memory becomes unreliable if identity depends only on wording.
 
-Imagine a project initially refers to a dependency as:
-
-> Library X
-
-Later the package is documented as:
-
-> library-x
-
-A developer abbreviates it as:
-
-> libx
+Imagine a project initially calls a dependency `Library X`, later documents it as `library-x`, while a developer abbreviates it as `libx`.
 
 Those three names may refer to one underlying thing—or they may not. A system based only on text therefore has two bad options: treat each spelling as a new entity and accumulate duplicate or conflicting memory, or use fuzzy similarity to guess that they refer to the same thing and risk merging unrelated concepts.
 
@@ -150,13 +128,7 @@ The display name may change.
 
 The identity does not have to.
 
-This lets the system distinguish between:
-
-> what something is called
-
-and:
-
-> what project entity it actually represents.
+This lets the system distinguish between **what something is called** and **what project entity it actually represents**.
 
 MemoryCustodian intentionally does not infer semantic identity from fuzzy names, timestamps, or entry bodies. If two Subjects should be unified, that is an explicit decision.
 
@@ -164,15 +136,9 @@ MemoryCustodian intentionally does not infer semantic identity from fuzzy names,
 
 A Subject identifies the thing; an **Entry ID** identifies a particular memory record about that thing. The distinction matters because project knowledge changes.
 
-Suppose a project has an active decision:
+Suppose a project has an active decision to support Python 3.10+. Months later, the support policy changes. The correct model is not necessarily to erase the old text and pretend it never existed. The new entry can explicitly supersede the previous one, so the system can distinguish an older historical assertion from the current active assertion.
 
-> Support Python 3.10+.
-
-Months later, the support policy changes. The correct model is not necessarily to erase the old text and pretend it never existed. The new entry can explicitly supersede the previous one, so the system can distinguish an older historical assertion from the current active assertion.
-
-That gives memory a lifecycle. Without stable Entry IDs, old project knowledge tends to linger as ambiguous prose. With them, a later entry can explicitly say:
-
-> this replaces that.
+That gives memory a lifecycle. Without stable Entry IDs, old project knowledge tends to linger as ambiguous prose. With them, a later entry can explicitly say that **this replaces that**.
 
 ### Facet: which dimension does the claim govern?
 
@@ -251,14 +217,14 @@ The project ID introduced by Protocol 0.6 helps coordinate mutation locks and di
 
 Memory cannot authorize:
 
-- destructive operations;
-- secret access;
-- external uploads;
-- commits;
-- pushes;
-- merges;
-- releases;
-- privilege escalation.
+- destructive operations
+- secret access
+- external uploads
+- commits
+- pushes
+- merges
+- releases
+- privilege escalation
 
 Project memory can constrain project work. It cannot elevate itself above current instructions, safety rules, or permission boundaries.
 
@@ -272,13 +238,7 @@ Persistent memory also creates a deletion problem. If information can keep influ
 
 MemoryCustodian already distinguishes soft forget, hard forget, and purge. I covered that design in more depth in [Part 3](/2026/07/21/memory-custodian-safe/). v0.10.0 sharpens the boundary around what those operations actually control.
 
-The useful question is not:
-
-> Can the system promise that this information no longer exists anywhere?
-
-It usually cannot.
-
-The useful question is:
+The useful question is not whether the system can promise that the information no longer exists anywhere—it usually cannot. The more useful question is:
 
 > Which managed state can this operation reliably remove?
 
@@ -302,15 +262,13 @@ The same identity model that helps admission also helps erasure. If a dependency
 
 The NightNotes fixture makes the whole model easier to see. The project has several pieces of durable knowledge:
 
-- session persistence should use human-readable local JSON;
-- routine operation must work without network access;
-- routine operation should use only the Python standard library;
-- existing note files should remain human-readable;
-- SQLite should not be introduced for the current session store.
+- session persistence should use human-readable local JSON
+- routine operation must work without network access
+- routine operation should use only the Python standard library
+- existing note files should remain human-readable
+- SQLite should not be introduced for the current session store
 
-It also contains another idea:
-
-> Consider encrypting exported notes with a user-provided passphrase.
+It also contains another idea: consider encrypting exported notes with a user-provided passphrase.
 
 The important part is that those statements do not all have the same authority.
 
@@ -392,11 +350,11 @@ And it turns forgetting into an explicit erasure scope rather than a vague promi
 
 MemoryCustodian v0.10.0 is a step in that direction. The implementation still uses intentionally ordinary primitives:
 
-- Markdown;
-- local files;
-- Git;
-- explicit manifests;
-- a local CLI.
+- Markdown
+- local files
+- Git
+- explicit manifests
+- a local CLI
 
 What has become more structured is the trust model around them.
 
