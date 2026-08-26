@@ -117,23 +117,13 @@ By contrast, evidence such as:
 
 can support a **candidate**, but not a new active entry.
 
-Conceptually:
-
-```text
-Observation
-    ↓
-Candidate
-    ↓
-Evidence / confirmation
-    ↓
-Active project memory
-    ↓
-Future agent context
-```
-
 The important transition is not from “unknown” to “stored.”
 
 It is from **candidate** to **active**.
+
+![From Observation to Trusted Memory — observations remain candidates until qualifying evidence or confirmation admits them into active project memory.]({{ "/img/posts/2026-08-26-memory-custodian-remember/observation-to-trusted-memory.png" | relative_url }})
+
+*Figure 1. Protocol 0.6 separates preserving an observation from admitting it into trusted project memory.*
 
 MemoryCustodian therefore tries to make one thing easy and another deliberately harder:
 
@@ -278,45 +268,11 @@ A dependency might have separate policies for:
 
 Those are different dimensions.
 
-Protocol 0.6 represents them using controlled **Facets**.
+Protocol 0.6 represents them using controlled **Facets**, such as `adoption-policy`, `version-policy`, `architecture`, `behavior`, `compatibility`, `security`, `performance`, `data-model`, `interface`, `workflow`, and `lifecycle`.
 
-Examples include:
+![Stable Identity and Active Ownership — Subject IDs identify the entity, Entry IDs identify claims, while Scope and Facet define the active ownership boundary.]({{ "/img/posts/2026-08-26-memory-custodian-remember/stable-identity-active-ownership.jpg" | relative_url }})
 
-```text
-adoption-policy
-version-policy
-architecture
-behavior
-compatibility
-security
-performance
-data-model
-interface
-workflow
-lifecycle
-```
-
-Now identity can be expressed at a more useful level.
-
-```text
-Subject
-“What thing are we talking about?”
-
-Entry
-“What claim are we making about it?”
-
-Facet
-“What dimension does this claim govern?”
-
-Scope
-“Where does the claim apply?”
-```
-
-The current active owner is determined structurally by:
-
-```text
-Scope + Subject ID + Facet
-```
+*Figure 2. Subject identity stays stable across names, while `Scope + Subject ID + Facet` defines the active ownership boundary.*
 
 That gives the system a deterministic conflict boundary.
 
@@ -348,18 +304,7 @@ MemoryCustodian has always worked from a simple principle:
 
 The distinction becomes clearer when memory is treated as governed authority.
 
-There are now three separate questions:
-
-```text
-Admission
-Can this become trusted memory?
-
-Identity
-What does this memory govern?
-
-Activation
-When should it enter active context?
-```
+There are now three separate questions. Admission asks whether something can become trusted memory. Identity asks what that memory governs. Activation asks when it should enter active context.
 
 For activation, `manifest.md` remains the runtime routing authority.
 
@@ -416,27 +361,7 @@ It does not make concurrency disappear.
 
 ### Preview should describe the state that will actually change
 
-v0.10.0 strengthens mutation safety around a preview-first model.
-
-Conceptually:
-
-```text
-Current memory state
-        ↓
-Build preview
-        ↓
-Plan ID
-        ↓
-Review proposed mutation
-        ↓
-Acquire mutation guard
-        ↓
-Re-read current state
-        ↓
-Rebuild the plan
-        ↓
-Apply only if confirmation is still valid
-```
+v0.10.0 strengthens mutation safety around a preview-first model. The system builds a preview from the current memory state, assigns a plan ID, and waits for review. Only after acquiring a mutation guard does it re-read the current state, rebuild the plan, and apply the change if the confirmation is still valid.
 
 If a target changed after the preview, the old confirmation no longer applies.
 
@@ -489,19 +414,7 @@ The useful question is:
 
 > Which managed state can this operation reliably remove?
 
-For example:
-
-```text
-Managed active memory          ✓
-Managed archive                ✓ with purge
-
-Git history                    ✗
-Existing clones                ✗
-Forks                          ✗
-Backups                        ✗
-Caches                         ✗
-Previously distributed copies  ✗
-```
+Managed active memory is in scope. Managed archive content is also in scope when purge is used. Git history, existing clones, forks, backups, caches, and previously distributed copies are not.
 
 That distinction is more important than it may appear.
 
@@ -543,34 +456,9 @@ It also contains another idea:
 
 The important part is that those statements do not all have the same authority.
 
-Conceptually:
+![NightNotes end-to-end example — trusted JSON, offline, standard-library, and no-SQLite memory enters task context through manifest routing while the encryption candidate stays in the inbox.]({{ "/img/posts/2026-08-26-memory-custodian-remember/nightnotes-end-to-end.jpg" | relative_url }})
 
-```text
-JSON persistence
-    confirmed project decision
-        ↓
-    ACTIVE
-
-offline operation
-    project constraint
-        ↓
-    ACTIVE
-
-standard-library-only operation
-    project constraint
-        ↓
-    ACTIVE
-
-SQLite rejection
-    confirmed rejected approach
-        ↓
-    ACTIVE
-
-encryption idea
-    unconfirmed candidate
-        ↓
-    CANDIDATE
-```
+*Figure 3. NightNotes routes trusted project memory into the task while keeping the unconfirmed encryption idea preserved but outside normal context.*
 
 Now imagine a fresh coding-agent session receives only this prompt:
 
@@ -587,33 +475,6 @@ It does not mention offline operation.
 It does not mention the standard library.
 
 Those constraints already belong to the project.
-
-The expected flow is:
-
-```text
-Trusted memory
-      ↓
-Manifest routing
-      ↓
-JSON
-offline
-stdlib-only
-no SQLite
-      ↓
-Agent plan
-```
-
-Meanwhile:
-
-```text
-Encryption candidate
-      ↓
-Inbox
-      ↓
-Not normal task context
-```
-
-That second path matters as much as the first.
 
 A useful memory system must recover important project knowledge.
 
