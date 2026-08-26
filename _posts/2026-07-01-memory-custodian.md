@@ -342,5 +342,6 @@ No. Routine operation is local and repo-native. The design favors transparent fi
 * [Install MemoryCustodian](https://github.com/waittim/MemoryCustodian)
 * [Read the technical design](/2026/07/20/memory-custodian-tech-design/)
 * [Read the memory governance design](/2026/07/21/memory-custodian-safe/)
+* [Read Part 4: What Should a Coding Agent Be Allowed to Remember?](/2026/08/26/memory-custodian-remember/)
 
 **Durable memory. Minimal context.**

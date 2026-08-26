@@ -496,6 +496,7 @@ No. Repo-native memory inherits the repository’s distribution and retention mo
 
 A preview lets a person or agent verify the intended mode, semantic entry boundaries, affected files, recovery behavior, and erasure boundary before destructive writes begin.
 
+* [Read Part 4: What Should a Coding Agent Be Allowed to Remember?](/2026/08/26/memory-custodian-remember/)
 * [Start with the series overview](/2026/07/01/memory-custodian/)
 * [Read Part 2: Why Project Memory Should Be Plain Text and Repo-Native](/2026/07/20/memory-custodian-tech-design/)
 * [View the implementation on GitHub](https://github.com/waittim/MemoryCustodian)

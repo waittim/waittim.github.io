@@ -473,6 +473,7 @@ Yes, when the system defines file roles, semantic entry boundaries, validation r
 Storage is the full set of durable project knowledge. Context is the smaller subset intentionally loaded for one task. Treating them separately lets memory grow without forcing every agent session to read all of it.
 
 * [Read Part 3: Designing Memory That Can Safely Forget](/2026/07/21/memory-custodian-safe/)
+* [Read Part 4: What Should a Coding Agent Be Allowed to Remember?](/2026/08/26/memory-custodian-remember/)
 * [View the implementation on GitHub](https://github.com/waittim/MemoryCustodian)
 * [Return to the series overview](/2026/07/01/memory-custodian/)
 
