@@ -12,6 +12,7 @@ series: MemoryCustodian Design Series
 series_nav_title: Explainable Routing
 series_order: 5
 header-img: img/headers/post-bg-computer-storage.jpeg
+header-mask: 0.7
 catalog: true
 tags:
 - Agent

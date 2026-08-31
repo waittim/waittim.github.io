@@ -11,6 +11,7 @@ series: MemoryCustodian Design Series
 series_nav_title: Governed Memory
 series_order: 4
 header-img: img/headers/post-bg-hacker.jpg
+header-mask: 0.7
 catalog: true
 tags:
     - Agent

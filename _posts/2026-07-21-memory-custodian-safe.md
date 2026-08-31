@@ -11,6 +11,7 @@ series: MemoryCustodian Design Series
 series_nav_title: Safe Forgetting
 series_order: 3
 header-img: img/headers/post-bg-memory-disk.jpg
+header-mask: 0.7
 catalog: true
 tags:
     - Agent
