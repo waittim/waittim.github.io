@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">NightNotes read explain output in MemoryCustodian v0.11.0</title>
+  <desc id="desc">A single-column terminal-style excerpt matching the v0.11.0 MemoryCustodian read --explain renderer order for the NightNotes planning task in a clean environment with no local overlay. The excerpt ends before the rendered memory file contents.</desc>
+
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="10" stdDeviation="16" flood-color="#020617" flood-opacity="0.16"/>
+    </filter>
+    <style>
+      .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+      .mono { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; }
+      .title { font-size: 40px; font-weight: 700; fill: #020617; }
+      .subtitle { font-size: 19px; fill: #475569; }
+      .term { font-size: 13px; fill: #E2E8F0; }
+      .head { font-size: 14px; font-weight: 700; fill: #F8FAFC; }
+      .muted { fill: #94A3B8; }
+      .blue { fill: #60A5FA; }
+      .green { fill: #86EFAC; }
+      .white { fill: #F8FAFC; }
+      .small { font-size: 15px; fill: #64748B; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="900" fill="#F8FAFC"/>
+
+  <text x="80" y="76" class="sans title">NightNotes: the routing decision is inspectable</text>
+  <text x="80" y="111" class="sans subtitle">A clean-environment v0.11.0 excerpt preserving the actual CLI renderer order.</text>
+
+  <g filter="url(#shadow)">
+    <rect x="80" y="145" width="1440" height="690" rx="24" fill="#020617"/>
+  </g>
+
+  <rect x="80" y="145" width="1440" height="58" rx="24" fill="#0F172A"/>
+  <rect x="80" y="181" width="1440" height="22" fill="#0F172A"/>
+  <circle cx="118" cy="174" r="8" fill="#475569"/>
+  <circle cx="145" cy="174" r="8" fill="#475569"/>
+  <circle cx="172" cy="174" r="8" fill="#475569"/>
+  <text x="800" y="180" text-anchor="middle" class="mono muted" font-size="14">MemoryCustodian v0.11.0 · NightNotes · output excerpt</text>
+
+  <!-- Command -->
+  <text x="118" y="226" class="mono term"><tspan class="blue">$</tspan> scripts/memory-custodian read \</text>
+  <text x="142" y="244" class="mono term">--project-root examples/nightnotes-video-demo \</text>
+  <text x="142" y="262" class="mono term">--task planning \</text>
+  <text x="142" y="280" class="mono term">--explain</text>
+
+  <line x1="118" y1="296" x2="1482" y2="296" stroke="#1E293B"/>
+
+  <!-- Exact single-column output order -->
+  <text x="118" y="318" class="mono head"># Memory Context Pack</text>
+  <text x="118" y="336" class="mono term">Task: <tspan class="blue">planning</tspan></text>
+  <text x="118" y="354" class="mono term">Canonical task: <tspan class="blue">planning</tspan></text>
+  <text x="118" y="372" class="mono term">Paths:</text>
+  <text x="142" y="390" class="mono term">- none supplied</text>
+  <text x="118" y="408" class="mono term">Explicit scope:</text>
+  <text x="142" y="426" class="mono term">- none supplied</text>
+  <text x="118" y="444" class="mono term">Routing completeness: <tspan class="green" font-weight="700">COMPLETE</tspan></text>
+  <text x="118" y="462" class="mono term">Local overlay status: <tspan class="muted">DISABLED</tspan></text>
+
+  <text x="118" y="486" class="mono head">Loaded:</text>
+  <text x="118" y="504" class="mono term">- brief.md</text>
+  <text x="142" y="522" class="mono term">Disposition: <tspan class="green">loaded</tspan></text>
+  <text x="142" y="540" class="mono term">Reason: <tspan class="blue">MC-ROUTE-ALWAYS</tspan></text>
+
+  <text x="118" y="558" class="mono term">- constraints.md</text>
+  <text x="142" y="576" class="mono term">Disposition: <tspan class="green">loaded</tspan></text>
+  <text x="142" y="594" class="mono term">Reason: <tspan class="blue">MC-ROUTE-ALWAYS</tspan></text>
+
+  <text x="118" y="612" class="mono term">- decisions.md</text>
+  <text x="142" y="630" class="mono term">Disposition: <tspan class="green">loaded</tspan></text>
+  <text x="142" y="648" class="mono term">Reason: <tspan class="blue">MC-ROUTE-TASK</tspan></text>
+  <text x="142" y="666" class="mono term">Matching input: task:planning</text>
+
+  <text x="118" y="684" class="mono term">- do-not-use.md</text>
+  <text x="142" y="702" class="mono term">Disposition: <tspan class="green">loaded</tspan></text>
+  <text x="142" y="720" class="mono term">Reason: <tspan class="blue">MC-ROUTE-TASK</tspan></text>
+  <text x="142" y="738" class="mono term">Matching input: task:planning</text>
+
+  <!-- Continue exact order in right-side continuation pane, explicitly marked as continuation
+       to preserve renderer order without pretending the CLI itself uses columns. -->
+  <line x1="780" y1="310" x2="780" y2="802" stroke="#1E293B" stroke-dasharray="4 8"/>
+  <text x="815" y="318" class="mono muted" font-size="12">continued excerpt ↓</text>
+
+  <text x="815" y="346" class="mono head">Skipped optional:</text>
+  <text x="815" y="364" class="mono term">- none</text>
+  <text x="815" y="388" class="mono head">Missing required:</text>
+  <text x="815" y="406" class="mono term">- none</text>
+  <text x="815" y="430" class="mono head">Missing optional:</text>
+  <text x="815" y="448" class="mono term">- none</text>
+  <text x="815" y="472" class="mono head">Invalid:</text>
+  <text x="815" y="490" class="mono term">- none</text>
+
+  <text x="815" y="520" class="mono head">Policy exclusions:</text>
+  <text x="815" y="538" class="mono term">- inbox.md: candidate/maintenance-only;</text>
+  <text x="839" y="556" class="mono term">excluded from normal task context</text>
+  <text x="815" y="574" class="mono term">- archive/: explicit maintenance only;</text>
+  <text x="839" y="592" class="mono term">archive files were not enumerated</text>
+
+  <text x="815" y="622" class="mono head">Incomplete dimensions:</text>
+  <text x="815" y="640" class="mono term">- none</text>
+
+  <text x="815" y="670" class="mono head">Budget omissions:</text>
+  <text x="815" y="688" class="mono term">- none</text>
+
+  <text x="815" y="718" class="mono term">Conflict status: <tspan class="green">CLEAR</tspan></text>
+
+  <rect x="815" y="748" width="610" height="52" rx="12" fill="#0F172A" stroke="#334155"/>
+  <text x="837" y="770" class="sans" font-size="14" fill="#CBD5E1">Excerpt ends here before the CLI renders</text>
+  <text x="837" y="790" class="sans" font-size="14" fill="#CBD5E1">the contents of brief.md, constraints.md, decisions.md, and do-not-use.md.</text>
+
+  <text x="80" y="874" class="sans small">The dashed divider only continues the excerpt within the figure; it is not part of the CLI. “DISABLED” assumes a clean environment with no NightNotes local overlay enabled.</text>
+</svg>

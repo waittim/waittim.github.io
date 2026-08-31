@@ -46,7 +46,6 @@
 
 <rect class="box" x="492" y="188" width="464" height="98"/>
 <text class="h1" x="724" y="252" text-anchor="middle">1. Observation</text>
-
 <path class="line" d="M724 286 L724 342" marker-end="url(#arrow)"/>
 
 <rect class="box" x="492" y="345" width="464" height="116"/>
@@ -64,21 +63,19 @@
 <text class="caption" x="1027" y="424">without granting policy</text>
 
 <path class="line" d="M724 461 L724 516" marker-end="url(#arrow)"/>
-
 <rect class="box" x="492" y="520" width="464" height="112"/>
 <text class="h1" x="724" y="588" text-anchor="middle">3. Evidence / confirmation</text>
 
-<rect class="dashbox" x="1030" y="491" width="328" height="252"/>
-<text class="h2" x="1073" y="542">Eligible for admission</text>
-<text class="body" x="1072" y="590">• user-confirmed</text>
-<text class="body" x="1072" y="628">• repo:</text>
-<text class="body" x="1072" y="666">• doc:</text>
-<text class="body" x="1072" y="704">• test:</text>
-<text class="body" x="1072" y="742">• issue / PR</text>
-<path class="dashline" d="M1030 575 L958 575" marker-end="url(#arrow)"/>
+<rect class="dashbox" x="1030" y="475" width="328" height="280"/>
+<text class="h2" x="1073" y="530">Eligible for admission</text>
+<text class="body" x="1072" y="579">• user-confirmed</text>
+<text class="body" x="1072" y="615">• repo:</text>
+<text class="body" x="1072" y="651">• doc:</text>
+<text class="body" x="1072" y="687">• test:</text>
+<text class="body" x="1072" y="723">• issue / PR</text>
+<path class="dashline" d="M1030 565 L958 565" marker-end="url(#arrow)"/>
 
 <path class="line" d="M724 632 L724 686" marker-end="url(#arrow)"/>
-
 <rect class="box" x="492" y="690" width="464" height="112"/>
 <text class="h1" x="724" y="758" text-anchor="middle">4. Active Memory</text>
 
@@ -87,7 +84,6 @@
 <text class="caption" x="1027" y="826">to guide future work</text>
 
 <path class="line" d="M724 802 L724 858" marker-end="url(#arrow)"/>
-
 <rect class="box" x="492" y="862" width="464" height="122"/>
 <text class="h1" x="724" y="921" text-anchor="middle">5. Agent Context</text>
 <text class="smallblue" x="724" y="959" text-anchor="middle">via manifest routing</text>

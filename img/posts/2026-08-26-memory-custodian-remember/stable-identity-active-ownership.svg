@@ -46,15 +46,14 @@
 
 <rect class="box" x="507" y="188" width="388" height="184"/>
 <text class="h1" x="701" y="246" text-anchor="middle">Subject</text>
-<text class="smallblue" x="701" y="288" text-anchor="middle">MC-SUBJ-...  Library X</text>
+<text class="smallblue" x="701" y="288" text-anchor="middle">MC-SUBJ-… Library X</text>
 <rect class="pill" x="566" y="315" width="125" height="39"/>
 <text class="pilltext" x="628.5" y="341" text-anchor="middle">library-x</text>
 <rect class="pill" x="718" y="315" width="118" height="39"/>
 <text class="pilltext" x="777" y="341" text-anchor="middle">libx</text>
-
-<path class="dashline" d="M895 264 L988 264"/>
-<text class="caption" x="1015" y="258">What thing are</text>
-<text class="caption" x="1015" y="292">we talking about?</text>
+<path class="dashline" d="M895 264 L980 264"/>
+<text class="caption" x="1005" y="258">What thing are</text>
+<text class="caption" x="1005" y="292">we talking about?</text>
 
 <path class="line" d="M701 372 L701 423"/>
 <path class="line" d="M369 423 L1035 423"/>
@@ -62,7 +61,6 @@
 <path class="line" d="M701 423 L701 482" marker-end="url(#arrow)"/>
 <path class="line" d="M1035 423 L1035 482" marker-end="url(#arrow)"/>
 
-<!-- Entry A -->
 <rect class="box" x="247" y="483" width="238" height="294"/>
 <text class="h2" x="366" y="545" text-anchor="middle">Entry A</text>
 <text class="body" x="366" y="584" text-anchor="middle">Support v1.x</text>
@@ -73,7 +71,6 @@
 <rect class="pillgray" x="293" y="721" width="146" height="38"/>
 <text class="pilltext" x="366" y="747" text-anchor="middle">superseded</text>
 
-<!-- Entry B -->
 <rect class="softbox" x="570" y="483" width="264" height="294"/>
 <text class="h2" x="702" y="545" text-anchor="middle">Entry B</text>
 <text class="body" x="702" y="584" text-anchor="middle">Support v2.x</text>
@@ -84,7 +81,6 @@
 <rect class="pillblue" x="642" y="721" width="120" height="38"/>
 <text class="pilltextwhite" x="702" y="747" text-anchor="middle">active</text>
 
-<!-- Entry C -->
 <rect class="box" x="906" y="483" width="245" height="294"/>
 <text class="h2" x="1028.5" y="545" text-anchor="middle">Entry C</text>
 <text class="body" x="1028.5" y="584" text-anchor="middle">No network calls</text>
@@ -96,8 +92,7 @@
 <text class="pilltextwhite" x="1028.5" y="747" text-anchor="middle">active</text>
 
 <path class="line" d="M486 609 L561 609" marker-end="url(#arrow)"/>
-
-<path class="dashline" d="M190 584 L235 584"/>
+<path class="dashline" d="M188 584 L235 584"/>
 <text class="caption" x="42" y="563">What claim are</text>
 <text class="caption" x="42" y="598">we making?</text>
 
@@ -108,11 +103,9 @@
 <rect class="box" x="392" y="827" width="626" height="171"/>
 <text class="h1" x="705" y="889" text-anchor="middle">Scope + Subject ID + Facet</text>
 <line x1="452" y1="918" x2="958" y2="918" stroke="#8ba8e9" stroke-width="1.8"/>
-<text x="705" y="972" text-anchor="middle"
-      style='font:700 38px -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;fill:#1f59c8'>ONE ACTIVE OWNER</text>
-
-<path class="dashline" d="M1018 890 L1083 890"/>
-<text class="caption" x="1110" y="886">Deterministic</text>
-<text class="caption" x="1110" y="919">conflict boundary</text>
+<text x="705" y="972" text-anchor="middle" style='font:700 38px -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;fill:#1f59c8'>ONE ACTIVE OWNER</text>
+<path class="dashline" d="M1018 890 L1078 890"/>
+<text class="caption" x="1100" y="886">Deterministic</text>
+<text class="caption" x="1100" y="919">conflict boundary</text>
 
 </svg>

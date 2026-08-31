@@ -474,6 +474,7 @@ Storage is the full set of durable project knowledge. Context is the smaller sub
 
 * [Read Part 3: Designing Memory That Can Safely Forget](/2026/07/21/memory-custodian-safe/)
 * [Read Part 4: What Should a Coding Agent Be Allowed to Remember?](/2026/08/26/memory-custodian-remember/)
+* [Read Part 5: A Memory System Should Explain What It Did Not Load](/2026/09/15/memory-custodian-explainable-routing/)
 * [View the implementation on GitHub](https://github.com/waittim/MemoryCustodian)
 * [Return to the series overview](/2026/07/01/memory-custodian/)
 

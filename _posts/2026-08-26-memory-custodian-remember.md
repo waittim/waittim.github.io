@@ -410,6 +410,7 @@ It is to preserve the project knowledge that deserves to influence future workâ€
 * [Start with the series overview](/2026/07/01/memory-custodian/)
 * [Read Part 2: Why Project Memory Should Be Plain Text and Repo-Native](/2026/07/20/memory-custodian-tech-design/)
 * [Read Part 3: Designing Memory That Can Safely Forget](/2026/07/21/memory-custodian-safe/)
+* [Read Part 5: A Memory System Should Explain What It Did Not Load](/2026/09/15/memory-custodian-explainable-routing/)
 * [View the implementation on GitHub](https://github.com/waittim/MemoryCustodian)
 
 **Memory should earn persistence.**
