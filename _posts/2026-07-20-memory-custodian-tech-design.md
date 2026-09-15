@@ -231,8 +231,6 @@ MemoryCustodian therefore treats project memory less like an unstructured docume
 
 ## Meaning Belongs to the Agent. Structure Belongs to the CLI.
 
-## Meaning Belongs to the Agent. Structure Belongs to the CLI.
-
 Consider a candidate memory entry:
 
 ```text
