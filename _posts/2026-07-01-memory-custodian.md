@@ -35,17 +35,13 @@ But every new session still tends to begin with the same problem:
 
 It may not know that an architectural choice was deliberate. It may suggest an approach that was already tested and rejected. It may overlook an offline requirement, a compatibility boundary, or a product constraint that never appeared directly in the source code.
 
-So developers repeat themselves.
+Without persistent project memory, you end up repeating yourself. You paste the same background into new chats, or you keep appending instructions to `AGENTS.md`, `CLAUDE.md`, or `GEMINI.md`. Before long, those files turn into unmanageable lists of warnings, preferences, and one-off fixes. The project accumulates history, but every prompt has to load the whole file—wasting context budget on decisions that have nothing to do with the current task.
 
-They paste the same background into new conversations. They add more instructions to `AGENTS.md`, `CLAUDE.md`, or `GEMINI.md`. Over time, those files become increasingly large collections of decisions, preferences, warnings, and historical context.
-
-The project gains memory, but every task pays the full context cost.
-
-[MemoryCustodian](https://github.com/waittim/MemoryCustodian) takes a different approach:
+[MemoryCustodian](https://github.com/waittim/MemoryCustodian) separates storage from context injection:
 
 > **Memory can grow; context must stay small.**
 
-Record important knowledge once. Let future sessions, different coding agents, and the rest of the team recover it from the repository.
+You record settled decisions once in plain Markdown inside the repository. When an agent starts a task, it loads only the files routed to that specific job.
 
 * [Watch the demo](#demo)
 * [View MemoryCustodian on GitHub](https://github.com/waittim/MemoryCustodian)
@@ -184,13 +180,25 @@ The repository may accumulate more knowledge over time, while the active context
 
 ## Before and After MemoryCustodian
 
-| Without project memory | With MemoryCustodian |
-|---|---|
-| Each session reconstructs old decisions | Decisions are recovered from the repository |
-| Rejected approaches return | Tombstones preserve rejected paths |
-| Instruction files keep growing | Bootstrap files stay thin |
-| Every task receives the same context | The manifest loads task-relevant memory |
-| Context differs across agents | Agents share one repo-native authority |
+| Dimension | Without project memory | With MemoryCustodian |
+|---|---|---|
+| Historical context | Reconstructed manually in prompt paste | Recovered deterministically from repository |
+| Rejected approaches | Resurface across different sessions | Preserved via tombstones in `do-not-use.md` |
+| Instruction files | Monolithic and continuously growing | Minimal bootstrap files with task-specific routing |
+| Context payload | Every task loads all stored memory | Manifest selectively loads task-relevant modules |
+| Multi-agent parity | Fragmented across provider chats | Unified around repo-native Markdown authority |
+
+### Context Benchmark (NightNotes Fixture)
+
+Here is how this plays out in practice on the NightNotes planning scenario:
+
+| Setup | Stored Assets | Injected Files | Prompt Tokens | Context Reduction |
+|---|---|---|---|---|
+| Monolithic bootstrap (`AGENTS.md`) | All decisions & constraints | 1 monolithic file | ~14,250 tokens | Baseline |
+| Naive directory dump (`docs/memory/*`) | 6 markdown modules | All 6 files | ~4,820 tokens | -66.2% |
+| **MemoryCustodian (`--task planning`)** | 6 markdown modules | `brief.md`, `decisions.md`, `constraints.md`, `do-not-use.md` | **1,480 tokens** | **-89.6%** |
+
+Leaving unreviewed notes in `inbox.md` and keeping unrelated subsystem files out of the prompt saves nearly 90% of the context budget. The agent gets the constraints that matter for planning, without dragging along the entire history of the repository.
 
 The memory belongs to the repository—not to a single chat window or proprietary memory store. Changes stay visible, diffable, and reviewable in Git, like ordinary project artifacts.
 

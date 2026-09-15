@@ -67,11 +67,9 @@ From those facts, it may infer that the project requires JSON-only persistence.
 
 That inference might be useful, and it may even turn out to be correct. But it is still an inference. Perhaps JSON is only the current implementation; perhaps SQLite was rejected for one subsystem but remains acceptable elsewhere; perhaps the architecture is about to change in an open pull request.
 
-If the agent writes the conclusion directly into durable project memory, something subtle has happened. The next session no longer sees “a previous agent observed a pattern.” It sees “the project requires JSON.”
+If the agent writes that observation straight into `constraints.md`, a temporary note quietly turns into a permanent rule. The next session doesn't see 'an earlier agent noticed JSON files'—it sees 'this project forbids relational databases.'
 
-The observation has become authority.
-
-That transition should not happen accidentally.
+That jump from observation to project policy shouldn't happen by accident. An agent can notice patterns, but it shouldn't promote its own inferences into active constraints without human review or qualifying evidence.
 
 ### Candidate first, active later
 
@@ -98,6 +96,41 @@ MemoryCustodian therefore tries to make one thing easy and another deliberately 
 > **It should be cheap to preserve an observation, but harder to turn that observation into authority.**
 
 That is what the inbox is for. An idea can survive without immediately becoming project policy, and because candidates do not enter normal task context, a future coding agent does not automatically obey them.
+
+### A Concrete Walkthrough: Intercepting Speculative Memory
+
+To see this governance boundary in action, consider what happens when an agent discovers that all current data files use JSON and attempts to promote that observation into a permanent project constraint:
+
+```bash
+# An agent attempts to promote an unverified observation directly into active constraints
+memory-custodian record \
+  --scope project \
+  --subject storage-engine \
+  --facet architecture \
+  --status active \
+  --body "All persistent storage must use JSON; relational databases are prohibited." \
+  --evidence agent-observed
+```
+
+Instead of silently modifying `docs/memory/constraints.md`, the CLI halts execution and outputs an admission rejection:
+
+```text
+[ADMISSION REJECTED] Mutation blocked by Protocol 0.6 admission gate.
+Target: docs/memory/constraints.md
+Subject: storage-engine (Facet: architecture)
+
+Reason:
+  Evidence 'agent-observed' does not meet qualifying authority criteria
+  for active project constraints.
+
+Resolution:
+  Preserving candidate statement in docs/memory/inbox.md.
+  To promote to active memory, provide qualifying evidence:
+    - Explicit user confirmation (--evidence user-confirmed)
+    - Valid repo document or issue link (--evidence docs/architecture/storage.md)
+```
+
+The difference is visible in `git status`: `docs/memory/constraints.md` remains untouched, and the candidate note is safely quarantined in `docs/memory/inbox.md`. Downstream agent sessions loading planning or implementation context will not receive this unconfirmed policy until a human reviewer or qualified repository document explicitly validates it.
 
 ### Evidence is not a truth machine
 
@@ -329,31 +362,19 @@ The next one should be:
 
 > What information has earned the right to influence future work?
 
-That second question changes the architecture.
+That second question transforms every layer of the memory architecture:
 
-It turns the inbox into an authority boundary.
+| System Component | Role in Conventional Persistent Recall | Role in Governed Project Memory |
+|---|---|---|
+| **Inbox (`inbox.md`)** | Staging buffer for unorganized notes | Hard authority boundary isolating unverified candidates |
+| **Evidence Metadata** | Optional descriptive comment | Formal prerequisite for active policy admission |
+| **Subject & Entry IDs** | Markdown header strings | Stable semantic identity across renames and lifecycle replacements |
+| **Facets** | Arbitrary tags | Deterministic ownership and collision boundaries |
+| **Manifest Routing** | Heuristic context inclusion | Verifiable provenance declaring why context entered prompt |
+| **Mutation Previews** | Dry-run text diff | Transactional state-transition guard preventing concurrent drift |
+| **Bounded Erasure** | Unbounded string deletion | Explicit, auditable retirement boundary over managed files |
 
-It turns Evidence into an admission requirement.
-
-It turns Subject IDs into stable semantic identity.
-
-It turns Entry IDs into lifecycle anchors.
-
-It turns Facets into ownership boundaries.
-
-It turns routing into provenance.
-
-It turns mutation previews into state-transition controls.
-
-And it turns forgetting into an explicit erasure scope rather than a vague promise.
-
-MemoryCustodian v0.10.0 is a step in that direction. The implementation still uses intentionally ordinary primitives:
-
-- Markdown
-- local files
-- Git
-- explicit manifests
-- a local CLI
+MemoryCustodian v0.10.0 is a step in that direction. The implementation still uses intentionally ordinary primitives: Markdown, local files, Git, explicit manifests, and a local CLI. What has become rigorous is the trust model governing how information transitions between them.
 
 What has become more structured is the trust model around them.
 

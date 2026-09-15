@@ -26,9 +26,7 @@ tags:
 
 ## What Changed in Slides Thief 2.0?
 
-Slides Thief 2.0 replaces a single rectangle heuristic with an evidence-aware detection pipeline.
-
-Instead of trusting the first plausible boundary, several detectors propose possible quadrilaterals. Slides Thief compares their evidence, refines the strongest result, and marks uncertain pages for review.
+Slides Thief 2.0 replaces a fragile single-rectangle heuristic with an evidence-aware detection pipeline. Rather than prematurely committing to the first plausible boundary, multiple browser-local detectors concurrently propose candidate quadrilaterals. Slides Thief evaluates edge support, scores competing hypotheses, automatically refines high-confidence results, and flags ambiguous pages for manual review.
 
 For users, the change is broader than a new detector:
 
@@ -264,6 +262,23 @@ A fallback rectangle remains useful as a starting point for manual corner adjust
 This reflects a broader reliability principle:
 
 > **When automation cannot justify its result, preserving editability is useful. Pretending completion is not.**
+
+---
+
+## Failure Modes and Graceful Degradation
+
+In real rooms, automatic edge detection runs into messy inputs fast. Projector glare washes out the top border, someone in front stands up or blocks a corner, or you're stuck in an aisle seat taking photos at a sharp 60-degree angle.
+
+Instead of pretending the detector always succeeds, Slides Thief 2.0 treats failure as a first-class state with clear fallback paths:
+
+| Failure Condition | Optical Symptom | Algorithmic Risk | Degradation Path in Slides Thief 2.0 |
+|---|---|---|---|
+| **Severe Specular Glare** | Projector beam washes out top/center boundary contrast | Closed-contour detectors fail to find continuous perimeter | Independent 4-line search bridges the gap; edge-support score drops below threshold, marking page as *Review Suggested* |
+| **Foreground Occlusion** | Audience heads or podium obstruct bottom corners | Corners disappear or snap falsely to silhouettes | Hard convexity checks reject irregular polygons; system injects batch median prior from unoccluded slides |
+| **Extreme Off-Axis Angle (>65°)** | Massive keystone distortion; pixels severely stretched | Projective transform induces extreme interpolation blur | Aspect-ratio and slope sanity filters reject candidate; provides centered editable quadrilateral for manual review |
+| **Low-Contrast Dark Slides** | Dark slide content against dark conference room wall | Gradient magnitude across all color channels approaches noise floor | Detector flags *No Supported Candidate*; presents default 16:9 inner crop frame without claiming detection |
+
+Catching low confidence early prevents the most annoying bug in document capture: a detector that confidently crops the wrong rectangle and forces you to re-do the whole PDF later.
 
 ---
 

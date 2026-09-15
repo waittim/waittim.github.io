@@ -26,21 +26,17 @@ tags:
 
 ## What Makes Agent Memory Safe to Forget?
 
-Safe forgetting makes deletion intent explicit, previews the complete semantic effect before writing, and plans every affected file as one mutation. It removes whole memory entries rather than matching text fragments, respects a clearly defined erasure boundary, and reports honestly when execution is incomplete.
+Deleting memory safely is harder than it sounds. In a repository, editing or deleting text by hand can easily break adjacent rules, leave stale references in other files, or leave behind a descriptive tombstone that re-introduces the very topic you wanted to retire.
+
+MemoryCustodian treats forgetting as an explicit dry-run state change: it previews the exact diff across every affected file before touching disk, operates on complete semantic entries rather than text fragments, and clearly defines the boundaries of what it can and cannot erase.
 
 *For developers building reviewable deletion and mutation workflows over durable agent memory. The CLI examples and three forgetting modes reflect MemoryCustodian v0.9.x. The stronger transaction, recovery, and structured erasure-reporting behaviors described as requirements below represent the design direction for upcoming releases.*
 
-Most memory systems are judged by what they can retain.
+Most memory systems are evaluated primarily by what they can retain: Can they preserve context across sessions? Can they retrieve an old decision? Can they prevent an agent from repeating the same mistake?
 
-Can they preserve context across sessions? Can they retrieve an old decision? Can they prevent an agent from repeating the same mistake?
+Those questions matter. But a durable memory system must also be judged by what it can safely stop retaining. A project decision may become obsolete, a constraint may no longer apply, or an approach previously rejected may deserve fresh reconsideration.
 
-Those questions matter. But a durable memory system should also be judged by what it can safely stop retaining.
-
-A project decision may become obsolete. A constraint may no longer apply. A rejected approach may deserve reconsideration. An entry may have been promoted too early, written too broadly, or preserved without enough context.
-
-Once memory becomes durable, forgetting is no longer a simple text-editing operation. Removing the wrong line can change the meaning around it. Deleting active guidance while retaining another managed copy may leave the project in an ambiguous state. Replacing a removed entry with a detailed tombstone may preserve the topic that was supposed to disappear. Updating several files independently can produce a partially mutated memory store that matches none of the user’s intended outcomes.
-
-A trustworthy project-memory system must therefore do more than store and retrieve information. It must govern how memory changes.
+Once memory becomes durable, forgetting is no longer a simple text-editing operation. Removing the wrong line can subtly invert the meaning of adjacent rules. Deleting active guidance while retaining unmanaged copies creates silent discrepancies, and replacing a removed entry with an overly verbose tombstone may preserve the very topic meant to disappear. A trustworthy project-memory system must therefore do more than store and retrieve information—it must govern how memory state transitions occur.
 
 [MemoryCustodian](https://github.com/waittim/MemoryCustodian) approaches this problem through four related design choices:
 
@@ -57,13 +53,7 @@ Together, these choices treat forgetting as a governed state transition rather t
 
 ## Forgetting Is a Governance Problem
 
-Remembering is usually additive.
-
-A new decision can be added to `decisions.md`. A new constraint can be recorded in `constraints.md`. A rejected approach can be placed in `do-not-use.md`. Existing memory remains intact while the project gains a new entry.
-
-Forgetting is destructive.
-
-It must alter existing information without damaging what should remain. Depending on the request, it may need to remove active guidance, update tombstones, search archived memory, preserve unrelated reasoning, and coordinate changes across several files.
+While remembering is naturally additive—appending a new entry to `decisions.md` or recording an invariant in `constraints.md` without disturbing existing prose—forgetting is inherently destructive. A deletion operation must alter existing knowledge structures without corrupting adjacent context. Depending on user intent, retiring a concept might require revoking active guidance, injecting a tombstone, updating cross-file manifests, and coordinating mutations across several markdown modules simultaneously.
 
 This creates a fundamental asymmetry:
 

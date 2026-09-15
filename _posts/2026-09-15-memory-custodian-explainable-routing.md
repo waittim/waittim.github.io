@@ -27,28 +27,13 @@ tags:
 
 ## A Bounded Context Pack Should Explain Its Omissions
 
-A coding agent starts an implementation task.
+When an agent starts an implementation task and gets four memory files injected into its prompt, the context looks clean and focused.
 
-The project has durable memory: architectural decisions, hard constraints, rejected approaches, subsystem-specific notes, personal workflow preferences, and historical context.
+The trouble is what you can't see: Why those four? Did an important security rule get left out because the task scope was too narrow? Did an API constraint drop because the token budget filled up? And most importantly:
 
-The agent receives four memory files.
+> **Is this context pack complete enough to safely write code?**
 
-That sounds useful.
-
-But four files alone do not answer the more important questions:
-
-* Why these four?
-* Which other modules were considered?
-* Which ones were skipped?
-* Was something required but unavailable?
-* Did the task provide enough scope to decide which subsystem memory should apply?
-* Did a selected module contain an entry that could not fit within the context budget?
-
-And, perhaps most importantly:
-
-> Is this context pack complete enough to rely on before changing the code?
-
-A memory system that can only explain what it loaded is showing half of its decision.
+A memory system that only tells you what it loaded is only telling you half the story.
 
 *For developers building governed context systems for coding agents. Implementation details in this article reflect MemoryCustodian v0.11.0 and Protocol 0.7.*
 

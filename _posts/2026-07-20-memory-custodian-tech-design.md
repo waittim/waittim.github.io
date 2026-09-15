@@ -31,11 +31,7 @@ Plain-text, repo-native memory remains readable without the original tool, trave
 
 *For developers designing durable context and memory protocols for coding agents. Implementation details in this article reflect MemoryCustodian v0.9.x.*
 
-Code tells an agent what a system does.
-
-It rarely tells the agent why the system must stay that way.
-
-A repository may reveal that an application stores data in JSON. It may not reveal why JSON was chosen instead of SQLite. It may show that the application has no external dependencies, but not that offline operation is a product requirement. It may show that an earlier subsystem was removed, but not that the same approach was already tested twice, failed for specific reasons, and should not quietly return.
+Code describes what a system does today, but it rarely explains why the system must remain that way. A repository may reveal that an application stores data in JSON, yet fail to disclose why JSON was chosen over SQLite. It may show that the application has no external dependencies, without recording that offline operation is a non-negotiable product constraint. It may show that an earlier subsystem was removed, but omit the fact that the same approach was already tested twice, failed under specific edge cases, and should not quietly return.
 
 This missing layer is project memory: the decisions behind the code, the constraints that must remain true, the rejected approaches that should not be rediscovered as new ideas, and the context that matters to some tasks but not every task.
 
@@ -287,31 +283,39 @@ Incorrectly loaded memory can be more dangerous than obviously missing memory.
 
 ---
 
-## Routing and Retrieval Solve Different Problems
+## Routing and Retrieval: When Vector Search Wins and Why Invariants Differ
 
-Semantic retrieval is useful when searching large collections of documents.
+Semantic retrieval and vector databases are powerful tools when searching large, unstructured collections of documents. In systems navigating thousands of heterogeneous files, customer support transcripts, or sprawling research archives, embedding-based retrieval and Graph RAG shine. They excel at fuzzy discovery: answering queries where phrasing is unpredictable, entity relationships are loosely defined, and the goal is to discover *what information might be relevant*.
 
-It answers a question such as:
+Manifest routing answers a fundamentally different question:
 
-> What information might be relevant to this query?
+> **What context is strictly required for this supported task category?**
 
-Manifest routing answers a different question:
+That distinction matters because curated project memory has a completely different structural profile from a document corpus:
 
-> What context is required for this supported task category?
+| Dimension | Vector / Semantic Retrieval | Manifest-Based Plain Text Routing |
+|---|---|---|
+| Primary domain | Unstructured document discovery & corpus search | Governed architectural decisions & project constraints |
+| Query paradigm | Probabilistic fuzzy similarity (cosine distance) | Deterministic task category mapping (`manifest.md`) |
+| Edge-case failure | Negations and short constraints drop below top-$k$ | Omissions are explicit and auditable via diagnostics |
+| Infrastructure | Vector database, embedding models, index sync | Plain Markdown files checked directly into Git |
+| Governance | Opaque similarity score thresholds | Git commits, branch review, and line-level diffs |
 
-That distinction matters because curated project memory usually has a different shape from a general document corpus.
+### Why Invariants Break Under Similarity Cutoffs
 
-The important knowledge is often small, high-impact, structurally distinct, and expected to apply predictably. A project may have ten confirmed architectural decisions, five active constraints, and several subsystem-specific notes. The main challenge is not discovering vaguely similar text. It is reliably applying the correct rules.
+Curated project memory is usually small, sharp, and binary: ten confirmed decisions, five hard constraints, and a few subsystem invariants. The problem is not discovering text that feels vaguely related to the prompt; it is reliably enforcing rules that must not be broken.
 
-Similarity-based retrieval can create uncertain boundaries. A short but critical constraint may rank below a longer note. A rejected approach may not share vocabulary with the new proposal. A subsystem decision may be retrieved outside its intended scope. A semantically similar but non-authoritative observation may outrank the confirmed entry.
+Using vector similarity to retrieve project invariants breaks down in three practical ways:
 
-The problem becomes especially serious when retrieval is treated as policy. A low similarity score should not determine whether an offline requirement applies. A top-k cutoff should not decide whether an active architectural tombstone is visible.
+1. **Short negations lose to affirmative descriptions:** A short constraint like *"Never introduce SQLite for session storage"* has very low embedding similarity to a prompt like *"Design a persistent session store with fast lookups."* In practice, embedding models often assign higher cosine similarity to paragraphs explaining how SQLite works than to a short rule forbidding it.
+2. **Fixed top-$k$ cutoffs silently drop policy:** If your retrieval pipeline takes the top 5 chunks, an active constraint ranked 6th because of a lower similarity score simply disappears. The agent violates the project rule not because it reasoned poorly, but because the retrieval step treated a hard rule as a loose suggestion.
+3. **Failures are hard to debug:** When an agent proposes a forbidden design, you cannot easily explain to a teammate why an embedding score landed at 0.72 instead of 0.75 without inspecting vector drift. With manifest routing, file inclusion is deterministic, committed to Git, and visible in a pull request.
 
-Explicit routing does not make semantic search unnecessary in every system. It recognizes that search and policy are different abstractions.
+This does not mean semantic search has no place in developer tooling. It means search and policy solve different problems.
 
-> **Search discovers potentially relevant information. Routing declares required context.**
+> **Search finds candidate text across a large codebase. Routing declares required context across known project boundaries.**
 
-A large research archive may need semantic search. A cross-company knowledge platform may need indexing, permissions, and distributed retrieval. A project’s curated set of decisions and constraints may instead need deterministic activation.
+If you are searching across hundreds of unfamiliar repositories, vector retrieval is great. But inside a single project where continuity and constraints matter, deterministic routing gives coding agents the predictability they actually need.
 
 MemoryCustodian therefore treats project memory less like a document corpus and more like configuration with meaning.
 
