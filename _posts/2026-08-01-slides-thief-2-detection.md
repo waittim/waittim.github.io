@@ -11,7 +11,7 @@ series: Slides Thief Series
 series_nav_title: Detection 2.0
 series_order: 2
 header-img: img/headers/2026-08-01-slides-thief-2-detection.jpg
-header-mask: 0.7
+header-mask: 0.5
 catalog: true
 tags:
 - Computer Vision

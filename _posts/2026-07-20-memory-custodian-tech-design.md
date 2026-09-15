@@ -11,7 +11,7 @@ series: MemoryCustodian Design Series
 series_nav_title: Technical Design
 series_order: 2
 header-img: img/headers/post-bg-computer-storage.jpeg
-header-mask: 0.7
+header-mask: 0.5
 catalog: true
 tags:
     - Agent

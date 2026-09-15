@@ -11,7 +11,7 @@ series: Slides Thief Series
 series_nav_title: Overview
 series_order: 1
 header-img: img/headers/2026-07-13-slides-thief.jpg
-header-mask: 0.7
+header-mask: 0.5
 catalog: true
 tags:
     - Computer Vision

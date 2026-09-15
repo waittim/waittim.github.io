@@ -12,7 +12,7 @@ series: MemoryCustodian Design Series
 series_nav_title: Explainable Routing
 series_order: 5
 header-img: img/headers/post-bg-computer-storage.jpeg
-header-mask: 0.7
+header-mask: 0.5
 catalog: true
 tags:
 - Agent
@@ -55,114 +55,37 @@ The central idea in v0.11.0 is:
 
 ## 1. Persistent Memory Still Has a Selection Problem
 
-Persistent memory solves one problem and immediately creates another.
+Persistent memory solves session amnesia, but it immediately introduces a selection problem.
 
-Suppose a repository remembers all of the following:
+A mature repository accumulates dozens of disparate facts over time: storage subsystems requiring human-readable JSON, authentication compatibility workarounds, deployment provider exclusions, code conventions, rejected state libraries, and personal workflow preferences. While all of these facts may be worth recording, dumping the entire store into every session recreates the very problem memory was meant to solve: bloated prompts where routine tasks waste context on irrelevant background.
 
-* A storage subsystem must remain human-readable.
-* An authentication module has a compatibility workaround.
-* The deployment pipeline must avoid a particular provider.
-* The documentation uses a specific terminology convention.
-* A frontend subsystem rejected one state-management library.
-* A developer personally prefers concise commit summaries.
-
-All of these facts may be worth preserving.
-
-That does not mean all of them belong in every coding task.
-
-Loading the entire memory store into every session would turn durable memory into another oversized instruction file. The repository would remember more, but every task would pay for all of it.
-
-The alternative is routing: preserve a larger body of project knowledge, then activate only a bounded subset for the current task.
-
-That is the distinction behind MemoryCustodian's original design:
+The solution is routing—preserving a large body of project knowledge while activating only a task-specific subset. MemoryCustodian formalizes this separation:
 
 > **Memory is what the project preserves. Context is what the current task receives.**
 
-But once routing exists, the router itself becomes part of the trust boundary.
+Once selective routing exists, however, the router itself becomes part of your correctness boundary. Consider an agent modifying an authentication endpoint. If the project maintains an authentication-specific constraint, but the router omits it because the task was inadequately scoped, the resulting context pack will still look authoritative. The agent follows every loaded instruction faithfully, yet introduces a subtle regression by violating a constraint it was never given.
 
-Imagine an agent modifying an authentication module. The project has an authentication-specific constraint, but the router never loads it because the task was not scoped correctly.
-
-Nothing in the resulting context pack may look obviously wrong.
-
-Every file that was loaded may be valid.
-
-The problem is what is absent.
-
-Partial context can look authoritative. An agent can follow every instruction it received and still violate a decision it never had the opportunity to see.
-
-So selective memory requires more than retrieval.
-
-It requires **selection accountability**.
-
-A useful context system should make it possible to inspect both sides of the result:
-
-> These modules were loaded.
-
-and:
-
-> These modules were not loaded, for these reasons, under these inputs.
-
-That negative evidence matters because omission is often where routing failures hide.
+Selective memory therefore requires more than basic retrieval; it requires **selection accountability**. Developers must be able to inspect both sides of the ledger: which modules were loaded, and exactly why omitted modules were left out. Omission is where silent architectural bugs hide.
 
 ---
 
 ## 2. Routing Should Use Declared Inputs, Not Hidden Guesses
 
-There are many ways a context router could try to determine relevance.
+A context router could attempt to infer relevance in several ways: parsing the prompt for keywords, embedding the task description to compute cosine similarity against stored memories, scanning the working tree to guess the active subsystem, or delegating file selection to an LLM. While probabilistic heuristics are fine for exploratory search, they are too fragile for an architectural routing boundary. If two runs with the same prompt load different constraints because a model interpreted the task differently, debugging regressions becomes guesswork: *Why did an invariant apply on this run, but not on the previous one?*
 
-It could inspect the task description for keywords.
+MemoryCustodian v0.11.0 takes a deterministic approach based entirely on declared inputs:
 
-It could embed the prompt and compare it with stored memories.
+1. **Canonical Task Category:** Declared explicitly (e.g., `planning`, `implementation`, `review`).
+2. **Path Scope:** The files planned, touched, or inspected.
+3. **Explicit Overlays:** Specific rules, profiles, or subsystem areas requested by the caller.
 
-It could scan source code and infer which subsystem seems related.
+Given the same manifest and identical declared inputs, the routing outcome is guaranteed to be reproducible. The router never scans the codebase to guess a subsystem, computes no fuzzy semantic scores, and relies on no background LLM calls to rank rules by perceived relevance. Path patterns activate area modules, task categories activate standard rules, and root constraints automatically form the baseline safety envelope.
 
-It could ask an LLM to choose which memory files "feel relevant."
+A deterministic router does not claim to understand a task better than an intelligent retrieval model. It makes a narrower, auditable guarantee:
 
-Those approaches can be useful in discovery systems.
+> **Given these declared inputs and this manifest, this is the exact context the project configuration requires.**
 
-They are weaker foundations for a governed routing boundary.
-
-If two equivalent routing requests can produce different context because a model interpreted the task differently, developers have a harder time answering a basic debugging question:
-
-> Why did this memory affect this run but not the previous one?
-
-MemoryCustodian v0.11.0 takes a deliberately narrower approach.
-
-Routing is based on declared inputs.
-
-The system receives a canonical task category. It can receive planned or touched paths. It can receive explicitly requested rules, profiles, or areas. The manifest defines how those inputs map to memory modules.
-
-For the same manifest and the same declared routing inputs, the routing result is deterministic.
-
-That means the router does not need to inspect implementation code and guess which area the task belongs to.
-
-It does not need to score natural-language similarity between the prompt and every stored memory.
-
-It does not need an LLM to secretly rank project rules by relevance.
-
-Paths can activate areas through declared path patterns.
-
-Rules can activate through declared tasks or explicit selection.
-
-Profiles remain explicit.
-
-Root constraints remain part of the shared project safety baseline.
-
-The distinction is important.
-
-A deterministic router is not claiming to understand the task better than an intelligent retrieval model.
-
-It is making a smaller claim:
-
-> **Given these declared inputs and this manifest, this is the context the project says should be loaded.**
-
-That claim is easier to inspect, reproduce, test, and review.
-
-It also puts uncertainty in the right place.
-
-If the task has not provided enough scope to choose between path-routed areas, the system should not compensate by silently reading source files and guessing.
-
-It should say that the routing input is incomplete.
+When a task provides insufficient scope to select between path-routed subsystems, the router does not attempt to compensate by guessing. It reports the input as structurally incomplete, putting uncertainty exactly where it belongs.
 
 I covered the broader distinction between routing and retrieval in [Part 2](/2026/07/20/memory-custodian-tech-design/). v0.11.0 makes the omission side of that boundary explicit.
 
@@ -174,363 +97,97 @@ I covered the broader distinction between routing and retrieval in [Part 2](/202
 
 ## 3. Complete Does Not Mean Semantically Correct
 
-The word *complete* can be misleading in a memory system.
+The term *complete* can easily be misunderstood in a memory system.
 
-Suppose a task declares that it will modify:
+Suppose a task declares that it will modify `cli/memory_custodian/read.py`. The manifest contains an area rule matching that path, the canonical task is supported, root constraints exist, and all optional modules resolve without error. At this point, the router marks the routing state as complete.
 
-```text
-cli/memory_custodian/read.py
-```
+Crucially, marking a routing request complete does not prove that every loaded memory is semantically relevant, that the developer chose the right path, or that the memory entries themselves are factually accurate. It establishes something narrower and much more useful:
 
-The manifest has an area whose path matcher covers that file.
+> **The declared routing inputs were sufficient to evaluate the routing policy defined by the manifest.**
 
-The canonical task is supported.
+Protocol 0.7 formalizes this by separating structural completeness from semantic judgment into explicit routing states:
 
-The required root memory exists.
+* `COMPLETE`: The supplied inputs were sufficient to resolve all applicable manifest rules.
+* `INCOMPLETE`: The router lacks the required scope to evaluate policy (e.g., modifying files in a path-routed repository without providing either file paths or an explicit area).
+* `INVALID`: The request or underlying manifest violates the protocol schema.
+* `AMBIGUOUS`: Reserved for versioned fallback policies; the router refuses to guess using natural language.
 
-The applicable optional modules can all be resolved.
-
-The router may now describe the routing input as complete.
-
-But what has actually been proven?
-
-Not that every loaded memory is semantically relevant.
-
-Not that the developer chose the correct path.
-
-Not that the task description is truthful.
-
-Not that the memory itself is factually correct.
-
-Not even that no useful project knowledge exists elsewhere.
-
-What has been established is narrower:
-
-> **The declared routing inputs were sufficient to resolve the routing policy defined by the current manifest.**
-
-MemoryCustodian v0.11.0 separates this structural property from semantic correctness.
-
-Protocol 0.7 defines routing states including `COMPLETE`, `INCOMPLETE`, `AMBIGUOUS`, and `INVALID`.
-
-`COMPLETE` means the supplied valid inputs were sufficient to evaluate the applicable routing policy.
-
-`INCOMPLETE` means the router is missing scope needed to resolve that policy. A common example is substantial work in a project with path-routed areas when the caller supplies neither paths nor an explicit area.
-
-`INVALID` means the routing request or routing metadata violates the protocol rather than merely lacking scope.
-
-`AMBIGUOUS` is reserved in Protocol 0.7 for a future versioned policy or documented compatibility behavior. The current schema does not use it as permission to fall back to natural-language guessing.
-
-This distinction prevents a diagnostic from claiming more than it knows.
-
-A structurally complete routing decision is not proof of semantic relevance.
-
-A skipped module is not proof that the module is irrelevant.
-
-A valid memory entry is not proof that its contents are factually correct.
-
-Those are different layers of uncertainty. Combining them under one vague "confidence" score would make the system harder to reason about.
-
-The router should report what it can actually establish.
-
-Nothing more.
+Separating these concerns keeps diagnostics honest. A structurally complete decision is not proof of relevance, just as a skipped module is not proof of irrelevance. Collapsing these distinct failure modes into a single heuristic confidence score would only obscure why an agent received what it did. The router reports exactly what it can verify.
 
 ---
 
 ## 4. Every Module Needs a Disposition
 
-Consider a context pack that contains:
+When an agent loads `brief.md`, `constraints.md`, `decisions.md`, and `areas/storage.md`, traditional tools simply list those four files. But if the repository also contains `rules/output.md`, `profiles/docs.md`, and `areas/auth.md`, developers face an immediate auditing problem: Why weren't the other modules included? Did their path matchers fail? Was a required module missing from disk? Or was an explicit profile simply not requested?
 
-```text
-brief.md
-constraints.md
-decisions.md
-areas/storage.md
-```
+MemoryCustodian v0.11.0 accounts for every enabled module in the manifest by assigning it an explicit disposition:
 
-A traditional retrieval interface might stop there.
+* `loaded`: Successfully activated and injected into context.
+* `skipped`: Evaluated by policy and intentionally omitted (e.g., path mismatch, unrequested profile).
+* `missing-required`: Required by policy or task baseline, but not found on disk.
+* `missing-optional`: Optional module matched by policy, but not found on disk.
+* `invalid`: The module file or metadata failed protocol validation.
 
-Those are the loaded files.
+"Not loaded" is not a single state. An unrequested profile, an unmatched path pattern, an unresolved task scope, and a missing file on disk represent entirely different failure modes.
 
-But suppose the project also has:
+Instead of relying on unstable log strings, Protocol 0.7 attaches stable machine-readable reason codes to every disposition. This enables CI checks, test suites, and downstream agent integrations to verify routing behavior deterministically without scraping prose:
 
-```text
-rules/output.md
-profiles/docs.md
-areas/auth.md
-areas/frontend.md
-```
+* Humans can inspect: *Why wasn't this module loaded?*
+* Tools can verify: *Which exact routing rule produced this disposition?*
 
-What happened to them?
+### Distinguishing Routing Skips from Budget Omissions
 
-Were they not activated?
+There is another critical absence that traditional retrieval obscures: budget exhaustion.
 
-Did their path matchers fail?
+A module may be correctly selected under the active policy, but one of its entries may exceed the prompt's configured token budget. MemoryCustodian preserves atomic entries—it refuses to truncate markdown sections into broken, misleading snippets. When context budget runs out, full entries are omitted, and v0.11.0 reports them in a dedicated `budget_omissions` diagnostic.
 
-Were they explicit-only modules that were never requested?
-
-Did one match the routing policy but fail to exist?
-
-Was its declaration invalid?
-
-Without that information, the result is difficult to audit.
-
-MemoryCustodian v0.11.0 therefore treats the routing result as more than a list of selected files.
-
-With routing explanation enabled, every enabled module receives a disposition and a stable reason describing how it reached that state.
-
-Protocol 0.7 uses dispositions including:
-
-* `loaded`
-* `skipped`
-* `missing-required`
-* `missing-optional`
-* `invalid`
-
-The exact reason matters.
-
-"Not loaded" is not one condition.
-
-A profile may be skipped because profiles are explicit-only and none was requested.
-
-An area may be skipped because none of the supplied paths matched it.
-
-An area may be unresolved because the task supplied no path scope at all.
-
-A required shared module may be missing from disk.
-
-A declaration may fail protocol validation.
-
-These conditions should not collapse into the same invisible absence.
-
-This is where stable reason codes become useful.
-
-Human-readable prose can improve over time. CLI formatting can change. But a stable machine-readable reason allows tests, agents, integrations, and future tooling to distinguish routing outcomes without scraping explanatory sentences.
-
-The result becomes inspectable at two levels.
-
-Humans can ask:
-
-> Why wasn't this module loaded?
-
-Tools can ask:
-
-> Which exact routing condition produced this disposition?
-
-That makes routing behavior testable rather than merely observable.
-
-### Budget omission is a different question
-
-There is another important kind of absence.
-
-A module may be correctly routed into the context pack, but one of its entries may not fit within the configured context budget.
-
-That is not a routing skip.
-
-The module was selected under the declared routing policy. The system simply could not include every complete entry within the bounded pack.
-
-MemoryCustodian treats semantic entries atomically rather than truncating them into potentially misleading fragments.
-
-v0.11.0 reports those entry-level budget omissions separately from module disposition.
-
-This matters because:
-
-> The router did not select this module.
-
-and:
-
-> The router selected this module, but this complete entry did not fit.
-
-are fundamentally different explanations.
-
-A trustworthy context system should preserve that distinction.
+This keeps two fundamentally different explanations distinct: *The router did not select this module* versus *The router selected this module, but a complete entry exceeded the context budget*. Preserving that distinction is essential for debugging why an agent missed a specific constraint.
 
 ---
 
 ## 5. Strict Routing Before Substantial Work
 
-Inspection and execution do not need the same safety threshold.
+Inspection and execution demand different safety thresholds.
 
-Suppose an implementation task is working in a repository with multiple path-routed areas.
+Suppose an implementation task targets a repository with multiple path-routed areas, but the caller specifies only `task = implementation` without providing file paths or an explicit area. The system can still safely assemble a partial context pack—loading the project brief and root constraints that establish baseline security. While this partial pack is useful for inspection and debugging, allowing an agent to start writing code from it is dangerous: the missing path scope might omit an authentication constraint, storage decision, or deployment rule.
 
-The caller says only:
+To prevent silent failures, MemoryCustodian separates exploratory reads from strict execution gates:
 
-```text
-task = implementation
-```
+* **Non-strict reads (`memory-custodian read --explain`):** Expose available context alongside structured diagnostics detailing which path or area inputs remain unresolved. This helps developers diagnose routing requirements.
+* **Strict routing (`--strict-routing`):** Refuses to produce an active context pack if routing state is `INCOMPLETE`. If a task lacks the scope required to evaluate manifest rules, execution halts.
 
-but provides no planned paths and no explicit area.
+> **Partial context is useful for diagnosis, but it must never silently become sufficient authority for code generation.**
 
-The system may still know enough to provide some shared context.
-
-It can load the project brief.
-
-It can load root constraints that form the project-wide safety baseline.
-
-That partial pack can be useful for inspection.
-
-But should an agent begin changing code from it?
-
-Probably not.
-
-The missing scope could determine whether an authentication constraint, storage decision, frontend rule, or deployment restriction should have been loaded.
-
-So MemoryCustodian distinguishes ordinary inspection from strict routing.
-
-A non-strict `INCOMPLETE` read can expose the safely available context together with structured diagnostics describing what is missing.
-
-That is useful when a developer is trying to understand or repair the routing request.
-
-Strict routing takes a different position.
-
-For substantial work, incomplete scope should stop the workflow rather than silently degrade into partial authority.
-
-The principle is:
-
-> **Partial context may be useful for diagnosis. It should not quietly become sufficient context for implementation.**
-
-This boundary matters for coding agents because they are very good at continuing.
-
-If a tool returns three valid memory files, an agent can easily proceed without asking whether a fourth file was supposed to exist.
-
-A strict routing gate changes that behavior.
-
-Before substantial planning, implementation, artifact generation, or history work that depends on scoped memory, the routing boundary must be sufficiently resolved.
-
-This is not about making the system inflexible.
-
-It is about preventing a dangerous ambiguity:
-
-> No additional memory was needed.
-
-versus:
-
-> The system could not determine whether additional memory was needed.
-
-Those are not the same statement.
-
-Strict routing forces the difference into the open.
+Coding agents are notoriously compliant: if a tool provides three valid constraint files, the agent will cheerfully proceed without questioning whether a fourth was omitted. A strict routing gate stops this failure mode before code is written, ensuring that *“no additional memory was required”* is never confused with *“the system lacked the scope to know if additional memory was required.”*
 
 ---
 
 ## 6. Private Context Without Private Authority
 
-Not every useful memory belongs in Git.
+Not all useful context belongs in Git. Individual developers have personal preferences—concise terminal outputs, local tool paths, or specific testing workflows—that should persist across sessions without polluting the shared repository. Conversely, keeping personal preferences completely untracked creates shadow policies that invisibly alter agent behavior across machines.
 
-A developer may prefer a particular output style.
+MemoryCustodian v0.11.0 addresses this with local overlays. Stored outside the repository and tied to a normalized project path, local memory personalizes the agent’s operating environment without entering version control. To ensure CI reproducibility, passing `--no-local` strips all private overlays, yielding an identical context pack across any environment.
 
-One machine may have a local workflow convention.
+Critically, privacy never grants authority. The precedence model is strictly asymmetric:
 
-A personal profile may be useful across sessions without being appropriate as shared project policy.
+* **Shared project memory governs policy:** Shared constraints, architectural decisions, tombstones, and manifest routing rules always take absolute precedence.
+* **Local overlays customize personal preferences:** A private setting can dictate tone (*"prefer concise explanations before code"*), but it can never override a shared project invariant (*"all migrations must remain deterministic"*).
 
-Putting that information directly into the repository creates unnecessary team-level state.
-
-But keeping it entirely outside the project creates another risk: private memory can become an invisible authority layer that changes what the agent does.
-
-MemoryCustodian v0.11.0 introduces local overlays to make this boundary explicit.
-
-Local memory lives outside the repository.
-
-It is bound to an explicit normalized project root.
-
-A copied repository that happens to share the same public project identity does not automatically inherit the private overlay.
-
-The local state uses private filesystem permissions on supported systems, and `--no-local` can produce a reproducible shared-only context pack.
-
-But privacy does not grant authority.
-
-That is the more important design rule.
-
-Local preferences cannot override shared hard constraints.
-
-They cannot override shared tombstones.
-
-They cannot redefine project routing.
-
-They cannot replace shared project decisions merely because they are closer to the current user.
-
-And local state is not a secret-management system.
-
-The precedence boundary remains asymmetric.
-
-Shared project memory governs the project.
-
-Local memory can personalize behavior inside those boundaries.
-
-For example, a shared project constraint might say:
-
-```text
-All generated migration files must remain deterministic.
-```
-
-A local preference might say:
-
-```text
-Prefer concise explanations before showing code.
-```
-
-Those statements can coexist.
-
-But a local preference saying:
-
-```text
-Ignore the deterministic migration requirement on this machine.
-```
-
-must not become stronger simply because it is private.
-
-This separation lets project memory remain collaborative while still allowing individual workflows.
-
-The local overlay can influence personal operating context.
-
-It cannot privately rewrite what the project has already declared authoritative.
+Local overlays make tooling adaptable to individuals without allowing private configuration to quietly subvert team-level architectural guarantees.
 
 ---
 
-## 7. What the System Still Does Not Claim
+## 7. What the System Does Not Claim
 
-Adding diagnostics creates a temptation to overstate what the system understands.
+Adding diagnostics creates a temptation to overstate what the tooling understands. MemoryCustodian v0.11.0 is explicit about its boundaries:
 
-MemoryCustodian v0.11.0 intentionally avoids several such claims.
+* **No semantic contradiction guessing:** Two rules can logically conflict in prose without sharing a machine-detectable Subject ID or Facet collision. Protocol 0.7 catches exact structural collisions (such as duplicate ownership of `Scope + Subject + Facet`), but it does not claim to parse natural language nuance.
+* **Skipped does not mean irrelevant:** A skipped disposition means only that declared routing inputs did not activate the module. It is a statement about manifest evaluation, not task semantics.
+* **`COMPLETE` is not omniscience:** Completeness confirms that supplied inputs satisfied manifest rules. It does not promise that the resulting pack contains every piece of knowledge that could conceivably help.
+* **Evidence is not a truth engine:** Evidence records answer *why an entry was admitted*, not *whether it is eternally factual*. It makes provenance auditable without pretending to be an infallible fact-checker.
+* **No automatic tie-breaking:** When two active constraints structurally collide, the router does not use heuristics, timestamps, or file ordering to guess a winner. Under strict routing, it halts and demands human resolution.
 
-It does not claim complete natural-language contradiction detection.
-
-Two memories can disagree semantically without sharing a structural identity that deterministic tooling can prove is conflicting.
-
-It does not claim that a skipped module is irrelevant.
-
-A skip means the declared routing policy did not activate that module under the supplied inputs. It is not a semantic judgment about every possible interpretation of the task.
-
-It does not claim that `COMPLETE` means the context pack contains all knowledge that could possibly help.
-
-Completeness describes the declared routing inputs and protocol policy, not omniscient retrieval.
-
-It does not claim that a valid Evidence record proves a memory is factually true.
-
-Evidence makes admission and provenance inspectable. It does not transform the CLI into a fact-checking system.
-
-It does not automatically choose winners between structurally conflicting hard memories.
-
-Protocol 0.7 can detect exact structural conditions such as duplicate ownership of the same `Scope + Subject + Facet`, Subject registry collisions, invalid exception relationships, and inconsistent reconciliation records.
-
-But names, timestamps, prose similarity, Evidence counts, and file order do not automatically become authority.
-
-If selected hard memory remains structurally unresolved, strict substantial reads can reject the pack rather than silently choosing a winner.
-
-Merge-aware review extends the same principle across branches through an explicit, read-only merge-base comparison. It can surface structural collisions and concurrent hard-memory changes for review without claiming to reason over all Git history or automatically decide the correct resolution.
-
-The identity and governance model behind those checks is covered in [Part 4](/2026/08/26/memory-custodian-remember/).
-
-Finally, private local state does not become a stronger policy layer than shared repository memory.
-
-These limitations are not gaps to hide behind a "smart retrieval" label.
-
-They define the trust boundary.
-
-A system becomes easier to reason about when it distinguishes:
-
-* what it can determine mechanically
-* what an agent can interpret semantically
-* what still requires human judgment
+These constraints are not limitations to obscure behind marketing claims. They define the trust boundary: deterministic tools enforce structure and flag ambiguity, language models reason over provided context, and human engineers make the authoritative trade-offs.
 
 ---
 
@@ -593,103 +250,38 @@ memory-custodian read \
   --strict-routing
 ```
 
-Here the path is not evidence that the selected memory is semantically correct.
+Here, passing the target file path provides an explicit routing input rather than probabilistic evidence. The manifest determines which subsystem areas match that path pattern, the CLI evaluates the match, and the explanation reports the resulting dispositions. Under `--strict-routing`, the system verifies that all required scope is present before allowing code generation to start.
 
-It is an explicit routing input.
-
-The manifest declares which areas, if any, that path activates.
-
-The CLI evaluates that declaration.
-
-The explanation exposes the resulting dispositions and reasons.
-
-Strict routing determines whether the resulting pack is structurally approved for substantial work.
-
-No hidden source-code scan is required.
-
-No embedding score becomes authority.
-
-No LLM needs to guess which project area probably matters.
-
-That is the value of deterministic routing.
-
-Not that it knows everything.
-
-That developers can tell exactly what it decided.
+Because routing relies on declared inputs, file selection requires no speculative code scanning, embedding distance thresholds, or LLM guesses. Its value is operational clarity: any engineer or automated test can trace precisely why a rule was injected or omitted.
 
 ---
 
 ## From Memory Retrieval to Context Accountability
 
-Persistent agent memory is often evaluated by recall.
+Most discussions of coding-agent memory focus exclusively on recall: Did the agent remember a prior decision? Did it avoid repeating a rejected design?
 
-Did the system recover the decision?
+While recall matters, production workflows require precision and transparency. A dependable context system must answer what was omitted, whether inputs were sufficient to evaluate policy, whether entries were dropped due to token limits, and whether another developer would get the same result.
 
-Did it remember the constraint?
+Protocol 0.7 addresses this by shifting focus from passive retrieval to **context accountability**:
 
-Did it prevent an old mistake from returning?
+* Deterministic routing from explicit task and scope inputs.
+* Complete module dispositions with stable, machine-readable reason codes.
+* Scope completeness diagnostics paired with strict execution gates.
+* Private local overlays strictly subordinated to shared project constraints.
+* Structural conflict detection across concurrent Git branches.
 
-Those questions matter.
-
-But a selective memory system needs another dimension of trust.
-
-It should also be possible to ask:
-
-* Why was this memory loaded?
-* Why was that module not loaded?
-* Were the routing inputs sufficient?
-* Was an entry omitted because of routing or because of budget?
-* Did private context influence the pack?
-* Was selected hard memory structurally unresolved?
-* Could another developer reproduce the same routing result?
-
-These questions move the system from memory retrieval toward **context accountability**.
-
-That is the larger change in MemoryCustodian v0.11.0.
-
-Protocol 0.7 adds deterministic routing from explicit task and scope inputs, complete module dispositions, stable reason codes, routing completeness diagnostics, strict routing gates, private local overlays with shared-memory precedence, structural conflict review, migration boundaries, and stronger validation.
-
-The release also expands the project's automated coverage from 151 tests to 393 unit, integration, migration, and determinism tests.
-
-But the design principle behind those changes is simpler than the feature list:
-
-> **If a system decides what an agent is allowed to remember for a task, that decision should itself be inspectable.**
-
-A memory system should show what it loaded.
-
-It should show what it skipped.
-
-It should distinguish insufficient routing input from a module that simply did not activate.
-
-It should distinguish routing omission from budget omission.
-
-It should refuse to pretend that structural completeness proves semantic correctness.
-
-And when it does not know enough to route safely, it should be able to say so before an agent begins substantial work.
-
-The goal is not perfect retrieval.
-
-It is a context boundary developers can understand.
+A dependable memory architecture must account for omissions just as rigorously as inclusions. It must distinguish missing scope from inactive modules, separate routing decisions from budget limits, refuse to conflate structural completeness with factual truth, and fail loudly when inputs are insufficient to proceed safely.
 
 ---
 
 ## Key Takeaways
 
-* **Persistent memory and active context are separate problems.** Storing useful knowledge does not mean loading all of it into every task.
-
-* **Deterministic routing should depend on declared task and scope inputs rather than hidden semantic guesses.**
-
-* **`COMPLETE` describes routing sufficiency, not semantic relevance, factual correctness, or perfect recall.**
-
-* **Every enabled module should have an inspectable disposition and reason, while budget omissions should be reported separately.**
-
-* **Strict routing prevents incomplete scope from silently becoming sufficient authority for substantial work.**
-
-* **Private local memory can personalize context without overriding shared project constraints, tombstones, decisions, rules, or routing authority.**
-
-* **Structural diagnostics should surface exact governance conflicts without using prose similarity, timestamps, or hidden heuristics to choose winners.**
-
-* **A trustworthy memory system should explain not only what the agent received, but what governed context it did not receive and why.**
+* **Persistent memory and active context are separate problems:** Storing useful knowledge does not mean loading all of it into every task.
+* **Deterministic routing depends on declared inputs:** Task and path scope determine context rather than hidden semantic guesses.
+* **`COMPLETE` describes routing sufficiency:** It proves manifest rules were resolved, not that context is semantically omniscient or factually infallible.
+* **Every module has an inspectable disposition:** Omissions are categorized into explicit policy skips, missing dependencies, or budget limits.
+* **Strict routing prevents silent failures:** Unresolved scope halts code generation rather than allowing the agent to proceed on partial authority.
+* **Local overlays never override shared policy:** Private preferences cannot supersede repository invariants or tombstones.
 
 ---
 
@@ -697,39 +289,19 @@ It is a context boundary developers can understand.
 
 ### Does deterministic routing mean semantic search is never useful?
 
-No.
-
-Semantic search can be useful for discovery across large or weakly structured corpora.
-
-MemoryCustodian uses deterministic routing for governed project context because the activation boundary itself needs to be reproducible and inspectable.
-
-The two approaches solve different problems.
+No. Semantic search remains valuable for exploratory discovery across large, sprawling codebases where queries are fuzzy and boundaries are fluid. MemoryCustodian uses deterministic routing specifically for governed project context, where activation rules must be reproducible, auditable in Git, and testable in CI.
 
 ### What does `COMPLETE` actually mean?
 
-`COMPLETE` means the supplied routing inputs were sufficient to evaluate the routing policy defined by the current manifest.
-
-It does not mean every loaded entry is semantically relevant.
-
-It does not mean no useful information exists elsewhere in the repository.
-
-And it does not mean the contents of the loaded memory are factually correct.
+`COMPLETE` indicates that the provided inputs were sufficient to evaluate all manifest rules for the requested task. It is a structural diagnostic, not a semantic guarantee—it does not claim that loaded memories are factually infallible or that no other useful code exists.
 
 ### What happens when routing is `INCOMPLETE`?
 
-A normal inspection can still expose safely available context together with diagnostics describing the unresolved scope.
-
-Strict routing is different.
-
-For substantial work, it rejects a context pack whose routing boundary is not sufficiently resolved rather than silently treating partial context as complete authority.
+During exploratory inspection (`--explain`), the tool returns available baseline context along with diagnostics identifying unresolved paths or areas. Under `--strict-routing`, however, execution halts to prevent the agent from writing code with partial authority.
 
 ### Can local memory override repository memory?
 
-No.
-
-Local overlays can personalize private preferences and workflows, but they cannot override shared hard constraints, tombstones, decisions, rules, or routing authority.
-
-Local state is also not a secret store.
+No. Local overlays allow developers to configure personal preferences (such as terminal formatting or local tools), but they can never override shared constraints, architectural decisions, tombstones, or manifest routing rules.
 
 ---
 
