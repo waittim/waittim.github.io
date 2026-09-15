@@ -23,21 +23,11 @@ tags:
     - Local-First
 ---
 
-We have all done it: sitting at an angle in a classroom, academic talk, tech sharing session, or trade show, quickly taking photos of presentation slides before they disappear.
-
-The problem comes later. Those photos are often skewed, rotated, surrounded by background clutter, or difficult to organize into a clean document.
-
-[Slides Thief](https://github.com/waittim/Slides-Thief) is a browser-based tool that turns photographed presentation slides into clean, perspective-corrected PDF pages.
+Taking photos of presentation slides during conferences, lectures, or meetups is convenient, but the resulting images are almost always skewed, unevenly framed, and difficult to organize. [Slides Thief](https://github.com/waittim/Slides-Thief) is a browser-based, local-first utility designed to detect slide boundaries, correct perspective distortion, and compile clean, standardized PDF documents directly on your device without backend uploads.
 
 **Live Web App:** [slidesthief.com](https://slidesthief.com/)
 
-Its goal is simple:
-
-> **Capture slides. Straighten them. Keep them readable.**
-
-Slides Thief can automatically detect slide boundaries, correct perspective distortion, and compile the results into standardized PDF pages. Choose presentation ratios such as 16:9 or 4:3, or paper presets such as A4/A3 and US Letter in landscape or portrait. Paper presets fill margins with white automatically. When automatic detection is not perfect, you can manually adjust the four corners before exporting.
-
-Please use it only for slides you are allowed to photograph, keep, or reference.
+Slides Thief supports presentation aspect ratios (16:9, 4:3) and standard paper presets (A4, A3, US Letter) with automatic white margin padding. When automated boundary detection encounters challenging room lighting or occlusions, users can adjust corner handles interactively before exporting. Please use it only for slides you are authorized to photograph and archive.
 
 ---
 

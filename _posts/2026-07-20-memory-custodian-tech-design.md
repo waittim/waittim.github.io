@@ -37,79 +37,30 @@ This missing layer is project memory: the decisions behind the code, the constra
 
 The difficult question is not merely how to store that information. It is how to preserve it without turning every future task into an exercise in loading the project’s entire history.
 
-[MemoryCustodian](https://github.com/waittim/MemoryCustodian) is built around a deliberately restrained answer:
-
-> **Project memory should be plain text, stored inside the repository, routed explicitly, and interpreted semantically.**
-
-This design rests on four ideas. Markdown provides durable and inspectable storage. Git turns memory into a governed project artifact. A manifest separates stored memory from active context. Language models interpret meaning while deterministic tools enforce structure.
-
-The result is not an invisible intelligence layer. It is a memory system the project can own, inspect, review, and survive without.
+[MemoryCustodian](https://github.com/waittim/MemoryCustodian) is built around a deliberately restrained premise: project memory should be plain text, stored directly inside the repository, routed explicitly by task, and interpreted semantically by the model. This design rests on four pillars: Markdown provides durable and inspectable storage; Git turns memory into a governed project artifact; a manifest separates stored memory from active context; and language models interpret meaning while deterministic tools enforce structure. The result is not an invisible intelligence layer, but a transparent memory system the project can own, inspect, review, and operate without external services.
 
 ---
 
 ## Code Shows What. Memory Preserves Why.
 
-Coding agents can reconstruct a surprising amount from source code. They can inspect dependencies, trace execution paths, identify architectural patterns, and infer how components interact.
+Coding agents can reconstruct an impressive amount from source code alone: tracing execution paths, inspecting dependencies, identifying architectural patterns, and inferring component interactions. But inference is fundamentally distinct from project knowledge. From a local JSON storage implementation, an agent can infer that the data model is lightweight and no relational database is configured. What it cannot reliably infer is that users must be able to inspect and edit those files manually, that routine operations must function completely offline, that SQLite was already evaluated and rejected for this specific subsystem, or under what conditions that decision should be reconsidered.
 
-But inference is not the same as project knowledge.
-
-From a local JSON storage implementation, an agent may infer that the data model is simple and that no relational database is installed. It cannot reliably infer that users must be able to inspect those files manually, that routine operation must work offline, that SQLite was already rejected for this session store, or the condition under which that choice should be reconsidered.
-
-Without durable memory, each new conversation begins with partial evidence. An agent may propose an apparently reasonable change that violates an old requirement or repeats an already rejected experiment.
-
-Conversation history is not a reliable solution. It may be tied to one user, one model provider, one interface, or one agent platform. Another developer may never see it. Another coding agent may not have access to it. It may also contain far more information than the project should preserve.
-
-Private agent memory and durable project memory are therefore different things.
-
-Private memory belongs to a user, session, provider, or application. Project memory should belong to the project.
-
-That distinction matters because project knowledge may need to survive a new conversation, a different coding agent, a new developer machine, a teammate joining the repository, a branch or release cycle, or the departure of the person who originally made the decision.
-
-A project-specific decision should remain attached to the project it governs.
+Without durable memory, every new conversation starts with partial evidence. An agent proposes an apparently sensible change that quietly violates an unwritten invariant or repeats an already failed experiment. Conversation history cannot solve this: it is fragmented across individual users, model providers, and developer workstations. Project memory must belong to the repository itself so that architectural rationale survives new agent sessions, branch switches, and team turnover.
 
 ---
 
 ## Why Project Memory Should Live in the Repository
 
-Plain text is not exciting infrastructure.
+Plain text is unglamorous infrastructure, which is precisely its greatest asset. Durable project knowledge should remain understandable when the original tool, hosted service, or proprietary embedding model is unavailable. Developers should not depend on external APIs merely to inspect the architectural reasoning behind their own codebase.
 
-That is one of its strengths.
+Markdown achieves this through several structural strengths:
 
-Durable project knowledge should remain understandable even when the original tool is unavailable. Developers should not need a proprietary application, database client, embedding model, or hosted memory service merely to inspect the reasoning behind their own codebase.
+* **Direct human readability**: A developer can open `docs/memory/decisions.md` in any editor, terminal, or pull request without querying a retrieval interface.
+* **Native agent comprehension**: Headings, lists, fenced blocks, and short structured entries are native inputs for language models across different provider environments without proprietary serialization.
+* **Standard developer workflows**: Reviewers can edit, correct, or narrow a proposed constraint using standard pull request reviews before an entry becomes trusted project law.
+* **Graceful degradation**: Even if the MemoryCustodian CLI is removed, the Markdown files remain fully legible and useful.
 
-Markdown provides several useful properties at once.
-
-It is directly readable by humans. A developer can open `docs/memory/decisions.md` in an editor, terminal, pull request, or repository browser. The meaning of the stored information is visible without first querying a retrieval interface.
-
-It is also naturally readable by coding agents. Headings, lists, fenced examples, links, and short structured entries are already familiar inputs for language models. The same memory can be interpreted by different agent environments without first being converted into a vendor-specific representation.
-
-Markdown is editable through ordinary development workflows. A developer can correct an outdated constraint directly. An agent can propose a patch. A reviewer can narrow an overly broad decision, add missing reasoning, or reject a speculative entry before it becomes trusted memory.
-
-It is portable across operating systems, editors, repository hosts, and agent platforms. More importantly, it degrades gracefully. Even if the MemoryCustodian CLI disappears, the information remains readable.
-
-That provides a useful test for durable project knowledge:
-
-> **Does the memory survive the tool that created it?**
-
-With repo-native plain text, the answer can be yes.
-
-Storing memory inside the repository also gives it a governance model that engineering teams already understand: Git.
-
-A statement such as `Do not introduce SQLite for the current session store` may influence future implementation proposals as strongly as a configuration file. A constraint such as `Routine operation must work without network access` may eliminate an entire class of solutions.
-
-These are not casual notes. They shape engineering behavior.
-
-They should therefore be reviewable with similar discipline to code.
-
-A pull request can show that a new architectural decision was added. Reviewers can ask whether the decision is actually settled, whether its scope is too broad, whether it contradicts an existing constraint, or whether temporary information is being made permanent.
-
-Git also makes memory reversible. A decision can be reverted. A constraint can be narrowed when the product changes. A rejected approach can be deliberately reconsidered when the assumptions behind its rejection no longer hold.
-
-History makes changes attributable. It records when an entry was introduced and how it evolved. That does not make every memory entry correct, but it makes the memory accountable.
-
-Most importantly, repo-native memory gives teams and agents a shared authority. It avoids creating a separate private version of project history for every developer, model provider, or coding environment.
-
-The repository becomes the interoperability layer.
+Storing memory inside the repository also places it under the governance framework engineering teams already trust: Git. Decisions such as avoiding SQLite or requiring offline operation shape engineering behavior as forcefully as configuration files. Treating memory as first-class Git artifacts ensures that changes are proposed in pull requests, attributed in commit history, reviewed collaboratively, and easily reverted when assumptions evolve. The repository itself becomes the authoritative interoperability layer between humans and coding agents.
 
 ---
 
@@ -123,32 +74,9 @@ CLAUDE.md
 GEMINI.md
 ```
 
-These files are useful for bootstrap instructions and stable operating rules. They can tell an agent how to run tests, where important documentation lives, which commands are safe, and how project-specific workflows should begin.
+Many projects attempt to preserve context through files like `AGENTS.md`, `CLAUDE.md`, or `GEMINI.md`. While effective for bootstrap commands, repository structure, and basic operating guidelines, they quickly degrade when expected to store the project’s entire accumulated history. Over time, product direction, architectural choices, formatting preferences, dependency restrictions, rejected experiments, and temporary workarounds pile into a single monolithic document.
 
-They become less effective when they are also expected to contain the project’s entire accumulated memory.
-
-Over time, a single instruction file may collect product direction, architecture history, formatting preferences, deployment rules, dependency restrictions, rejected experiments, subsystem-specific decisions, temporary workarounds, and user-facing language preferences.
-
-The project now has persistent context, but every task loads all of it.
-
-A documentation edit may receive database migration history. A frontend copy change may receive infrastructure tombstones. A localized storage task may inherit unrelated authentication decisions. The information is not necessarily useless; its relevance simply depends on the task.
-
-A single large instruction file collapses two separate questions:
-
-1. What does the project remember?
-2. What does the current task need to know?
-
-Those questions should not have the same answer.
-
-MemoryCustodian separates stored memory from active context. The repository may preserve a growing body of durable knowledge while each task receives only a bounded, relevant subset.
-
-> **Memory can grow; context must stay small.**
-
-This distinction also prevents a common failure mode in agent systems: treating persistence as if it automatically implies relevance.
-
-The correct goal is not maximum recall in every interaction.
-
-It is predictable access to the smallest set of project knowledge needed for the current task.
+Because every task loads the entire file, a simple documentation edit receives database migration history, while a frontend copy change inherits backend infrastructure tombstones. This collapses two distinct concerns: *what does the project remember* versus *what does the current task need to know*. MemoryCustodian separates stored memory from active context: the repository preserves a growing body of durable knowledge, while each task receives only the bounded, relevant subset routed to it. Memory can grow without limit; prompt context must stay small and focused.
 
 ---
 
@@ -265,21 +193,9 @@ Storage-specific context:
 Session files must remain manually recoverable.
 ```
 
-The agent now has the reasons and boundaries relevant to storage work without loading the project’s entire accumulated history.
+The agent now receives the exact reasons and boundaries relevant to storage work without loading the project’s entire accumulated history. This ensures that context selection remains entirely inspectable: developers can review route definitions directly in Git, challenge task classifications, and audit why specific files were provided or omitted. 
 
-This creates a critical property:
-
-> **Context selection is inspectable.**
-
-The project can show exactly why a file was included. The route can be reviewed in Git. A developer can challenge the classification or change the policy. The system does not need to conceal context selection behind an opaque retrieval process.
-
-Explicit routing is useful only if failures are also explicit.
-
-If a task category is unsupported, the system should report it. If a route references a missing file, validation should fail. If the manifest is malformed, the project should not quietly infer policy from filenames.
-
-Silent fallback creates a dangerous failure mode: the agent appears to have loaded project memory, some expected constraints are absent, and the task continues with incomplete context.
-
-Incorrectly loaded memory can be more dangerous than obviously missing memory.
+Crucially, explicit routing demands explicit failures. If a task category is unrecognized, if a route targets a missing file, or if the manifest is malformed, the system must fail loudly rather than attempting silent fallbacks. In production agent environments, silently proceeding with incomplete memory is often far more dangerous than visibly halting on missing context.
 
 ---
 
@@ -287,11 +203,7 @@ Incorrectly loaded memory can be more dangerous than obviously missing memory.
 
 Semantic retrieval and vector databases are powerful tools when searching large, unstructured collections of documents. In systems navigating thousands of heterogeneous files, customer support transcripts, or sprawling research archives, embedding-based retrieval and Graph RAG shine. They excel at fuzzy discovery: answering queries where phrasing is unpredictable, entity relationships are loosely defined, and the goal is to discover *what information might be relevant*.
 
-Manifest routing answers a fundamentally different question:
-
-> **What context is strictly required for this supported task category?**
-
-That distinction matters because curated project memory has a completely different structural profile from a document corpus:
+Manifest routing answers a fundamentally different question: what context is strictly required for this supported task category? That distinction matters because curated project memory has a completely different structural profile from a document corpus:
 
 | Dimension | Vector / Semantic Retrieval | Manifest-Based Plain Text Routing |
 |---|---|---|
@@ -311,70 +223,27 @@ Using vector similarity to retrieve project invariants breaks down in three prac
 2. **Fixed top-$k$ cutoffs silently drop policy:** If your retrieval pipeline takes the top 5 chunks, an active constraint ranked 6th because of a lower similarity score simply disappears. The agent violates the project rule not because it reasoned poorly, but because the retrieval step treated a hard rule as a loose suggestion.
 3. **Failures are hard to debug:** When an agent proposes a forbidden design, you cannot easily explain to a teammate why an embedding score landed at 0.72 instead of 0.75 without inspecting vector drift. With manifest routing, file inclusion is deterministic, committed to Git, and visible in a pull request.
 
-This does not mean semantic search has no place in developer tooling. It means search and policy solve different problems.
+This does not mean semantic search has no place in developer tooling. Search discovers candidate text across an unfamiliar codebase, while deterministic routing declares strictly required context across known project boundaries. Inside a codebase where continuity and invariants matter, deterministic routing gives coding agents the predictability they actually need.
 
-> **Search finds candidate text across a large codebase. Routing declares required context across known project boundaries.**
-
-If you are searching across hundreds of unfamiliar repositories, vector retrieval is great. But inside a single project where continuity and constraints matter, deterministic routing gives coding agents the predictability they actually need.
-
-MemoryCustodian therefore treats project memory less like a document corpus and more like configuration with meaning.
-
-The configuration is visible, but its contents are semantic. That leads to another boundary: the system must distinguish deciding what information means from enforcing how it is stored and loaded.
+MemoryCustodian therefore treats project memory less like an unstructured document corpus and more like semantic configuration: the routing policy is explicit and auditable, while the underlying content conveys nuanced engineering intent. This leads to a critical division of labor between semantic judgment and structural enforcement.
 
 ---
 
 ## Meaning Belongs to the Agent. Structure Belongs to the CLI.
 
-Consider this candidate memory:
+## Meaning Belongs to the Agent. Structure Belongs to the CLI.
+
+Consider a candidate memory entry:
 
 ```text
 Consider encrypting exported notes with a user-provided passphrase.
 ```
 
-It could be a confirmed product decision, a future feature idea, a security requirement, a temporary observation, a user request awaiting validation, a subsystem-specific constraint, or something that should not become durable memory at all.
+Depending on context, this could be a confirmed product requirement, a speculative future feature, a temporary debugging observation, or something that should never enter durable memory. The keyword "encrypting" cannot resolve the ambiguity; determining its status requires understanding architectural context and project intent. Simple lexical heuristics—such as treating "must" as a constraint, "decided" as a decision, or "avoid" as a tombstone—inevitably fail on real engineering discussions, such as `We must consider whether SQLite is appropriate after the data model changes`.
 
-The word “encrypting” does not answer the question.
+This is why MemoryCustodian enforces a strict division of responsibility: **the agent evaluates semantic meaning, while the CLI enforces structural invariants**. Evaluating what kind of knowledge an entry represents, whether it conflicts with existing decisions, and whether it warrants admission requires the contextual judgment of a language model or human reviewer. Once that semantic choice is made, deterministic tooling takes over: validating file targets, resolving routes, enforcing entry schemas, preventing duplicate insertions, and generating diff previews. The agent is never permitted to mutate repository state unconstrained, and the CLI never attempts to invent meaning it cannot comprehend.
 
-The sentence requires context, judgment, and an understanding of project intent.
-
-It is tempting to classify memory using simple keyword rules:
-
-* Sentences containing “must” become constraints
-* Sentences containing “decided” become decisions
-* Sentences containing “avoid” become rejected approaches
-* Sentences containing “consider” remain ideas
-
-These rules fail quickly.
-
-`We must consider whether SQLite is still inappropriate after the data model changes` does not establish SQLite as a constraint.
-
-`We decided to investigate encryption, but no product decision has been made` does not make encryption an accepted architecture.
-
-`Avoid describing the old API as deprecated until migration dates are confirmed` may be a temporary communication rule rather than an architectural tombstone.
-
-Meaning depends on status, scope, context, and relationship to existing knowledge.
-
-The semantic layer must evaluate what kind of knowledge an entry represents, whether it is confirmed, which part of the project it affects, whether it conflicts with existing memory, whether it is already documented elsewhere, and whether it is important enough to influence future sessions.
-
-Those are appropriate tasks for a capable language model or a human reviewer.
-
-A deterministic script should not pretend to make them.
-
-Once the meaning and destination have been decided, however, deterministic tooling becomes valuable. The CLI can validate the destination file, resolve the manifest route, detect exact duplicates, preserve Markdown structure, preview a bounded change, apply the approved mutation, and report which files changed.
-
-This division of responsibility is intentionally conservative.
-
-The agent is not trusted to mutate durable files without structural controls. The CLI is not trusted to invent meaning it cannot understand.
-
-> **The agent decides what the memory means. The CLI ensures the repository changes predictably.**
-
-This boundary also makes failures easier to diagnose. When something goes wrong, it is clearer whether the problem came from semantic judgment or mechanical execution.
-
-The same principle applies when memory is loaded into context.
-
-A decision is not an arbitrary sequence of tokens. It may contain a heading, a selected direction, supporting reasoning, scope limitations, nested bullets, fenced examples, and references to related constraints.
-
-Consider:
+This distinction also governs context assembly. A decision is an atomic semantic unit—it consists of a heading, a chosen direction, explicit reasoning, and bounded scope limitations:
 
 ```markdown
 ## Use JSON for session storage
@@ -389,72 +258,22 @@ Scope:
 - This decision applies only to the current session store.
 ```
 
-A raw token cutoff might preserve the instruction to use JSON while omitting the line that limits the decision to the current session store.
-
-The shortened version is not merely incomplete. It changes the effective meaning by making a scoped decision appear global.
-
-MemoryCustodian therefore treats complete semantic entries as atomic units when building context. If a full entry does not fit within the context budget, it can be omitted and reported. It should not be silently truncated into a misleading fragment.
-
-Plain text does not mean unstructured. A Markdown-based system can still define file roles, task categories, entry boundaries, routing rules, validation requirements, context budgets, review workflows, and mutation previews.
-
-The difference is that the structure remains visible.
-
-Humans and agents can inspect both the stored knowledge and the rules used to activate it.
-
-The same semantic boundaries must also govern deletion and mutation, which the [next article](/2026/07/21/memory-custodian-safe/) explores in detail.
+Arbitrary token cutoffs introduce severe risks: truncating an entry mid-paragraph might preserve the directive to use JSON while discarding the scope limitation that restricts it to session storage, mistakenly elevating a local decision into a global mandate. MemoryCustodian therefore treats complete semantic entries as indivisible units when constructing context. If an entry exceeds the remaining budget, it is omitted entirely and logged in diagnostics rather than silently fractured into a misleading snippet.
 
 ---
 
 ## Visible Memory, Explicit Routing
 
-Repo-native memory should not become a justification for storing everything.
+Repo-native memory is not a mandate to record everything. Uncurated memory is actively harmful: storing temporary debugging notes, unvetted brainstorming, or rejected proposals can mislead future agent sessions long after original assumptions expire. A reliable heuristic is straightforward: *should this invariant continue to guide a capable agent weeks from now?* If uncertain, candidate entries belong in `inbox.md`; if transient, they should stay out of the repository entirely.
 
-Every trusted entry may influence future work. Poorly curated memory can preserve outdated assumptions, temporary opinions, or incorrect conclusions long after their original context has disappeared.
+Plain-text, repo-native memory does not aim to replace enterprise-scale knowledge graphs or cross-application user preferences. It focuses specifically on software repository governance: how a codebase preserves an auditable set of decisions, constraints, rejected paths, and task-relevant context. For this domain, Markdown, Git, and manifest routing provide the optimal engineering balance:
 
-Early brainstorming, unverified hypotheses, one-off debugging observations, short-lived task status, full conversation transcripts, and suggestions that were never accepted should usually remain outside trusted project memory.
+* Low infrastructure overhead and zero runtime dependency
+* High transparency through line-level Git diffs and branch review
+* Deterministic task-specific context activation
+* Graceful degradation that survives the CLI itself
 
-A useful test is:
-
-> **Should this information continue to influence a capable agent in a future session?**
-
-If the answer is uncertain, the candidate may belong in the inbox. If the answer is no, it should remain outside the durable memory system.
-
-The goal is not to maximize stored context. It is to preserve the smallest reliable set of knowledge that prevents future developers and agents from repeating avoidable mistakes.
-
-Plain-text, repo-native memory is also not the ideal architecture for every memory problem. A large enterprise knowledge base may require access controls, distributed indexing, document permissions, and semantic retrieval. A personal assistant may need preferences that span applications and do not belong in a single repository. A research system may need to search thousands of documents by meaning.
-
-MemoryCustodian focuses on a narrower problem:
-
-> **How should a software project preserve a curated set of decisions, constraints, rejected paths, and task-relevant context for coding agents?**
-
-For that problem, Markdown, Git, and manifest routing offer a strong set of tradeoffs:
-
-* Low infrastructure complexity
-* High transparency
-* Clear project ownership
-* Native review and history
-* Predictable context activation
-* Cross-agent portability
-* Graceful degradation
-* Visible semantic structure
-
-The most trustworthy project-memory system may not be the one with the most elaborate retrieval architecture.
-
-It may be the one developers can still understand after the original demo is over.
-
-A durable system should make it easy to answer where the memory is stored, which entries affected a task, why a decision was recorded, who changed it, whether it can be reviewed or reverted, and what happens when the original tooling is no longer available.
-
-Plain Markdown provides visible storage; Git provides review, attribution, and history; the manifest provides explicit context routing; and semantic boundaries separate language-model judgment from deterministic CLI execution.
-
-Together, these choices create a system that is intentionally ordinary at the storage layer and disciplined at the workflow layer.
-
-> **Project memory should not be a hidden intelligence layer. It should be a visible project artifact.**
-
-The project remembers more.
-
-The agent loads less.
-
-And the reasoning behind the code remains somewhere future developers and future agents can actually inspect.
+The most trustworthy memory system is rarely the one with the most intricate vector retrieval stack; it is the one developers and agents can inspect, understand, and debug directly in their standard development workflow. By pairing plain Markdown storage with explicit manifest routing and deterministic CLI boundaries, MemoryCustodian ensures that the project remembers why it was built, the agent loads only what is relevant, and the reasoning behind the code remains permanently reviewable.
 
 ## Key Takeaways
 
@@ -482,5 +301,3 @@ Storage is the full set of durable project knowledge. Context is the smaller sub
 * [Read Part 5: A Memory System Should Explain What It Did Not Load](/2026/09/15/memory-custodian-explainable-routing/)
 * [View the implementation on GitHub](https://github.com/waittim/MemoryCustodian)
 * [Return to the series overview](/2026/07/01/memory-custodian/)
-
-**Visible memory. Explicit routing. Project-owned context.**

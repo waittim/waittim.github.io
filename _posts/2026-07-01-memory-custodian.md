@@ -27,21 +27,9 @@ tags:
 
 MemoryCustodian is a repo-native memory protocol and CLI for coding agents. It stores durable project decisions and constraints in plain Markdown, keeps their history in Git, and loads only the files relevant to the current task.
 
-Coding agents are getting better at writing code, tracing bugs, and navigating unfamiliar repositories.
+Coding agents are increasingly capable at writing code, tracing bugs, and navigating unfamiliar codebases. Yet every fresh session faces the same baseline limitation: the agent can inspect the current code, but has no memory of why the project was built that way. It does not know that an architectural choice was deliberate, it may suggest an approach that was already tested and rejected, and it routinely overlooks offline requirements or compatibility boundaries that leave no trace in the current AST.
 
-But every new session still tends to begin with the same problem:
-
-> **The agent can read the code, but it does not remember why the project looks the way it does.**
-
-It may not know that an architectural choice was deliberate. It may suggest an approach that was already tested and rejected. It may overlook an offline requirement, a compatibility boundary, or a product constraint that never appeared directly in the source code.
-
-Without persistent project memory, you end up repeating yourself. You paste the same background into new chats, or you keep appending instructions to `AGENTS.md`, `CLAUDE.md`, or `GEMINI.md`. Before long, those files turn into unmanageable lists of warnings, preferences, and one-off fixes. The project accumulates history, but every prompt has to load the whole file—wasting context budget on decisions that have nothing to do with the current task.
-
-[MemoryCustodian](https://github.com/waittim/MemoryCustodian) separates storage from context injection:
-
-> **Memory can grow; context must stay small.**
-
-You record settled decisions once in plain Markdown inside the repository. When an agent starts a task, it loads only the files routed to that specific job.
+Without persistent project memory, developers are forced to repeat themselves—either pasting background into new chats or continuously appending instructions to `AGENTS.md`, `CLAUDE.md`, or `GEMINI.md`. Over time, those instructions turn into unmanageable lists of warnings and one-off fixes where every prompt must load the entire file, wasting token budget on irrelevant background. [MemoryCustodian](https://github.com/waittim/MemoryCustodian) separates durable storage from context injection: settled decisions live in plain Markdown inside the repository, while the agent loads only the files routed to its specific task. Memory can grow, but prompt context stays small.
 
 * [Watch the demo](#demo)
 * [View MemoryCustodian on GitHub](https://github.com/waittim/MemoryCustodian)
@@ -53,30 +41,9 @@ You record settled decisions once in plain Markdown inside the repository. When 
 
 ## The Problem Is Not Missing Code
 
-Source code is good at describing what a system does today.
+Source code describes what a system does today, but rarely explains the architectural reasoning behind it: why one pattern was chosen over another, which constraints must remain true, and which alternatives were already tested and rejected. That context typically lives in ephemeral chat threads, pull request comments, or the developer's head.
 
-It is much less reliable at explaining:
-
-* Why one design was chosen over another
-* Which constraints must remain true
-* Which alternatives were already rejected
-* Which decisions apply only to one subsystem
-* Which temporary ideas should not become permanent
-* Which corrections should carry into future sessions
-
-That knowledge often lives in old chats, pull-request discussions, personal notes, or the memory of the developer who made the decision.
-
-A new coding-agent session does not automatically inherit any of it.
-
-Consider a small application that needs persistent session storage.
-
-The agent inspects the repository and proposes SQLite. That sounds reasonable—but the project already rejected SQLite because stored files must remain human-readable and portable.
-
-You explain the decision.
-
-A week later, a different session proposes SQLite again.
-
-The problem is not that the agent cannot understand SQLite. The problem is that the project’s reasoning was never stored somewhere the next session could reliably recover.
+Because new agent sessions do not inherit that unwritten context, developers find themselves repeating past explanations. For example, when an agent suggests introducing SQLite into a repository where persistent files must remain plain text, the developer explains the constraint in chat. Days later, a fresh agent session proposes SQLite again. The failure is not the model's reasoning capability; it is that the architectural rationale was never committed somewhere subsequent sessions could discover it.
 
 <img class="theme-surface" src="{{ "/img/posts/2026-07-01-memory-custodian/gallery-problem-solution.png" | relative_url }}" alt="Side-by-side comparison: new agent sessions often start from zero versus MemoryCustodian restoring decisions, constraints, rejected approaches, and current project context into focused task context" title="Without project memory vs MemoryCustodian" width="1270" height="760" loading="lazy" decoding="async">
 
@@ -111,13 +78,7 @@ existing decisions, constraints, and rejected approaches influenced your plan.
 Do not modify any files.
 ```
 
-The prompt does not mention JSON, SQLite, offline operation, or dependency restrictions.
-
-The agent must recover those facts from the repository’s project memory.
-
-That is the central promise of MemoryCustodian:
-
-> **A new session can recover the project’s durable reasoning without loading an entire conversation history.**
+The prompt does not mention JSON, SQLite, offline operation, or dependency restrictions. The agent recovers those facts directly from the repository’s project memory—allowing a new session to recover the project’s durable reasoning without loading an entire conversation history.
 
 <img class="theme-surface" src="{{ "/img/posts/2026-07-01-memory-custodian/gallery-nightnotes-demo.png" | relative_url }}" alt="NightNotes demo workflow: a new agent session loads project memory, recovers the JSON persistence decision, avoids the rejected SQLite path, and produces a correct plan without prior chat history" title="NightNotes reproducible planning demo" width="1270" height="760" loading="lazy" decoding="async">
 
@@ -166,15 +127,9 @@ Each file has a clear purpose.
 * `inbox.md` holds candidates that still require review
 * `manifest.md` determines which memory files apply to each type of task
 
-The key is the manifest.
+The key is the manifest. A planning task may need the project brief, architectural decisions, constraints, and rejected approaches. A documentation task may need the project brief and writing preferences, but not infrastructure history. A subsystem-specific task may require one area file without loading the memory of the entire repository.
 
-A planning task may need the project brief, architectural decisions, constraints, and rejected approaches. A documentation task may need the project brief and writing preferences, but not infrastructure history. A subsystem-specific task may require one area file without loading the memory of the entire repository.
-
-MemoryCustodian turns memory loading into an explicit routing decision:
-
-> **What should the agent remember for this task?**
-
-The repository may accumulate more knowledge over time, while the active context remains small and task-specific. How routing, entry boundaries, and the agent/CLI split work in detail is covered in the [technical design article](/2026/07/20/memory-custodian-tech-design/).
+MemoryCustodian turns memory loading into an explicit routing decision based on what the agent actually needs for the current task. As the repository accumulates knowledge, the active context remains small and task-specific. How routing, entry boundaries, and the agent/CLI split work in detail is covered in the [technical design article](/2026/07/20/memory-custodian-tech-design/).
 
 ---
 
@@ -218,15 +173,7 @@ MemoryCustodian focuses on a smaller set of durable knowledge:
 * Rejected approaches that should not quietly return
 * Subsystem-specific knowledge
 * Repeated corrections and stable preferences
-* Candidate memories awaiting review
-
-The goal is not maximum memory.
-
-The goal is:
-
-> **Useful continuity with controlled context cost.**
-
-Agents (or humans) decide what a statement means—decision, constraint, idea, or rejected approach—while the CLI validates and applies the change safely. How that boundary works, and how deletion stays reviewable, are covered in the [technical design](/2026/07/20/memory-custodian-tech-design/) and [safe forgetting](/2026/07/21/memory-custodian-safe/) articles.
+Rather than attempting to maximize stored context, MemoryCustodian focuses on providing useful continuity with minimal context overhead. Agents or human developers evaluate what an assertion means—whether it is a decision, a constraint, a candidate idea, or a rejected approach—while the deterministic CLI validates schema integrity, resolves routes, and safely updates disk state. How that boundary works, and how deletions remain reviewable, are explored in the [technical design](/2026/07/20/memory-custodian-tech-design/) and [safe forgetting](/2026/07/21/memory-custodian-safe/) articles.
 
 ---
 
@@ -320,11 +267,7 @@ Its design is intentionally restrained:
 * Keep memory changes deliberate and reviewable
 * Keep routine operation local and portable
 
-MemoryCustodian is not a smarter black box.
-
-It is a disciplined way to help coding agents carry a project forward instead of repeatedly relearning it.
-
-> **Record the decision once. Let every future session inherit it.**
+MemoryCustodian is not a complex black box, but a disciplined workflow for helping coding agents carry a codebase forward: record settled decisions once, govern them through Git, and let every future session inherit the exact context it needs.
 
 ## Key Takeaways
 
@@ -352,5 +295,3 @@ No. Routine operation is local and repo-native. The design favors transparent fi
 * [Read the memory governance design](/2026/07/21/memory-custodian-safe/)
 * [Read Part 4: What Should a Coding Agent Be Allowed to Remember?](/2026/08/26/memory-custodian-remember/)
 * [Read Part 5: A Memory System Should Explain What It Did Not Load](/2026/09/15/memory-custodian-explainable-routing/)
-
-**Durable memory. Minimal context.**

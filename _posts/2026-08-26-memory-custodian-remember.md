@@ -25,33 +25,13 @@ tags:
 
 ## Persistence Should Not Automatically Grant Authority
 
-A coding agent notices that every persistence file in a repository is JSON.
+When a coding agent inspects a repository and notices that every data file uses JSON, that observation is factually correct. But should every subsequent session treat **“this project requires JSON-only persistence”** as permanent project policy? 
 
-That observation may be correct.
-
-But should every future coding agent now treat **“this project requires JSON-only persistence”** as project policy?
-
-That is a different question.
+This highlights the core boundary often missed in persistent agent systems: persistence is not merely a recall problem, but an authority problem. Without explicit governance, a mistaken inference outlives the conversation that spawned it, a temporary workaround quietly hardens into an immutable rule, and offhand remarks continue steering implementation weeks down the line.
 
 *For developers designing governed project memory for coding agents. Implementation details in this article reflect MemoryCustodian v0.10.0.*
 
-Persistent memory is often framed as a recall problem: how do we help an agent remember decisions across sessions? But once memory survives the session that created it, persistence becomes an authority problem too. A mistaken inference can outlive the conversation that produced it. A temporary workaround can quietly become a permanent constraint. An idea mentioned once can keep influencing implementation weeks later.
-
-So the harder question is not simply:
-
-> How should a coding agent remember?
-
-It is:
-
-> **What should a coding agent be allowed to remember as trusted project memory?**
-
-[MemoryCustodian](https://github.com/waittim/MemoryCustodian) v0.10.0 is built around that distinction.
-
-The central idea is simple:
-
-> **Persistence should not automatically grant authority.**
-
-A statement may be worth preserving without yet being trusted enough to guide future work. That leads to a different model of agent memory—one based not only on storage and retrieval, but on **admission, identity, ownership, activation, lifecycle, and erasure**.
+The central design premise of [MemoryCustodian](https://github.com/waittim/MemoryCustodian) v0.10.0 is that **persistence should not automatically grant authority**. Preserving an observation is cheap, but granting it the power to constrain future development requires admission evidence, stable identity, clear ownership boundaries, inspectable routing, and bounded erasure.
 
 ---
 
@@ -73,29 +53,15 @@ That jump from observation to project policy shouldn't happen by accident. An ag
 
 ### Candidate first, active later
 
-Protocol 0.6 makes this boundary explicit. A new formal active memory entry must have qualifying Evidence, which may come from:
+### Candidate first, active later
 
-- explicit user confirmation
-- a safe repository-relative source
-- a project document
-- a test
-- an issue or pull request reference
+Protocol 0.6 makes this boundary explicit. A new formal active memory entry must have qualifying Evidence—such as explicit user confirmation, repository-relative documentation, test fixtures, or issue references. Unverified signals, including `agent-observed` or conversation transcripts, are restricted to candidate status.
 
-By contrast, evidence such as `agent-observed` or `conversation-unconfirmed` can support a **candidate**, but not a new active entry.
-
-The important transition is not from “unknown” to “stored.”
-
-It is from **candidate** to **active**.
+The critical architectural transition is not from “unknown” to “stored”, but from candidate to active policy. As illustrated in Figure 1, candidate observations are staged in `docs/memory/inbox.md`. Because candidate files are excluded from default task context, downstream agent sessions do not inadvertently obey speculative constraints. It remains cheap to record an observation for review, but intentionally harder to elevate that observation into project authority.
 
 ![From Observation to Trusted Memory — observations remain candidates until qualifying evidence or confirmation admits them into active project memory.]({{ "/img/posts/2026-08-26-memory-custodian-remember/observation-to-trusted-memory.svg" | relative_url }})
 
 *Figure 1. Protocol 0.6 separates preserving an observation from admitting it into trusted project memory.*
-
-MemoryCustodian therefore tries to make one thing easy and another deliberately harder:
-
-> **It should be cheap to preserve an observation, but harder to turn that observation into authority.**
-
-That is what the inbox is for. An idea can survive without immediately becoming project policy, and because candidates do not enter normal task context, a future coding agent does not automatically obey them.
 
 ### A Concrete Walkthrough: Intercepting Speculative Memory
 
@@ -134,13 +100,7 @@ The difference is visible in `git status`: `docs/memory/constraints.md` remains 
 
 ### Evidence is not a truth machine
 
-Calling this “evidence-backed memory” needs an important qualification. Evidence does not prove that a statement is eternally true. A repository file can become outdated, a test can encode obsolete behavior, a user can reverse a decision, and a pull request can later be reverted.
-
-Evidence serves a narrower purpose:
-
-> **It answers “why was this admitted?”, not “is this forever true?”**
-
-That distinction matters. The system still needs semantic judgment and lifecycle management. But a new formal memory entry should at least be able to answer why it was allowed to become active project memory. That is a much stronger boundary than simply allowing any plausible statement to persist.
+Calling this “evidence-backed memory” requires an important qualification. Evidence does not prove that a statement remains eternally true; documentation rots, requirements evolve, tests get rewritten, and pull requests get reverted. Rather than asserting timeless ground truth, admission evidence answers an operational governance question: *why was this entry permitted to become active project memory?* Grounding active constraints in inspectable provenance provides a concrete audit trail when policies inevitably conflict or need retirement.
 
 ---
 
@@ -152,63 +112,33 @@ Imagine a project initially calls a dependency `Library X`, later documents it a
 
 Those three names may refer to one underlying thing—or they may not. A system based only on text therefore has two bad options: treat each spelling as a new entity and accumulate duplicate or conflicting memory, or use fuzzy similarity to guess that they refer to the same thing and risk merging unrelated concepts.
 
-MemoryCustodian v0.10.0 takes a more explicit approach.
+MemoryCustodian v0.10.0 takes a more explicit approach based on structured identity.
 
 ### Subject: what are we talking about?
 
-A **Subject ID** represents the project entity a memory concerns. A Subject can have a stable identifier, a canonical reference, and explicit aliases.
-
-The display name may change.
-
-The identity does not have to.
-
-This lets the system distinguish between **what something is called** and **what project entity it actually represents**.
-
-MemoryCustodian intentionally does not infer semantic identity from fuzzy names, timestamps, or entry bodies. If two Subjects should be unified, that is an explicit decision.
+A **Subject ID** represents the stable project entity governed by a memory record. While display names and informal abbreviations may shift across teams and refactors—from `Library X` to `library-x` or `libx`—the Subject identity remains constant. MemoryCustodian intentionally avoids guessing entity equivalence from heuristics or word embeddings; aliases and identity unifications must be declared explicitly so that renames never silently spawn conflicting rules.
 
 ### Entry: which claim are we talking about?
 
-A Subject identifies the thing; an **Entry ID** identifies a particular memory record about that thing. The distinction matters because project knowledge changes.
-
-Suppose a project has an active decision to support Python 3.10+. Months later, the support policy changes. The correct model is not necessarily to erase the old text and pretend it never existed. The new entry can explicitly supersede the previous one, so the system can distinguish an older historical assertion from the current active assertion.
-
-That gives memory a lifecycle. Without stable Entry IDs, old project knowledge tends to linger as ambiguous prose. With them, a later entry can explicitly say that **this replaces that**.
+While a Subject identifies the entity, an **Entry ID** identifies a specific, versioned claim about that entity. When a project updates its baseline from Python 3.10 to Python 3.12, the original decision should not quietly vanish without history. A new entry explicitly supersedes the older Entry ID, allowing the system to distinguish historical context from the currently active rule without losing the rationale behind the transition.
 
 ### Facet: which dimension does the claim govern?
 
-One Subject can legitimately have many active memories. A dependency might have separate policies for adoption, versioning, architecture, compatibility, security, performance, and lifecycle.
-
-Those are different dimensions, which Protocol 0.6 represents using controlled **Facets**, such as `adoption-policy`, `version-policy`, `architecture`, `behavior`, `compatibility`, `security`, `performance`, `data-model`, `interface`, `workflow`, and `lifecycle`.
+A single Subject often accumulates multiple active policies across distinct engineering concerns—such as adoption, versioning, architecture, compatibility, security, and performance. Protocol 0.6 models these dimensions as controlled **Facets**.
 
 ![Stable Identity and Active Ownership — Subject IDs identify the entity, Entry IDs identify claims, while Scope and Facet define the active ownership boundary.]({{ "/img/posts/2026-08-26-memory-custodian-remember/stable-identity-active-ownership.svg" | relative_url }})
 
 *Figure 2. Subject identity stays stable across names, while `Scope + Subject ID + Facet` defines the active ownership boundary.*
 
-That gives the system a deterministic conflict boundary. Two project-level entries should not independently own the same `version-policy` for the same Subject. If the policy changes, the replacement should explicitly supersede the earlier owner. At the same time, a `security` entry and a `version-policy` entry can coexist because they govern different dimensions.
-
-This is where the model becomes more than “structured Markdown.” It gives persistent project memory a notion of **ownership**.
+This structure establishes a deterministic conflict boundary: two project-level entries cannot independently claim ownership over the same `version-policy` facet for the same Subject without an explicit supersede relation. Conversely, a `security` constraint and a `version-policy` entry can safely coexist on the same Subject because they govern orthogonal concerns. This gives persistent memory explicit ownership rather than loose Markdown notes.
 
 ---
 
 ## 3. Authority Should Be Traceable
 
-Once a memory entry has been admitted and assigned identity, there is still another question:
+Once memory has been admitted and assigned an identity, the system must decide when it should actually enter prompt context. A repository may eventually accumulate hundreds of durable memories; injecting all of them into every prompt exhausts context budgets and dilutes model focus. MemoryCustodian balances this through a core architectural constraint: **memory can grow arbitrarily large, but active context must remain compact**.
 
-> When should it actually influence an agent?
-
-A repository may eventually contain hundreds of durable memories, and loading all of them into every task would defeat the purpose. MemoryCustodian has always worked from a simple principle:
-
-> **Memory can grow; context must stay small.**
-
-The distinction becomes clearer when memory is treated as governed authority. There are now three separate questions. Admission asks whether something can become trusted memory. Identity asks what that memory governs. Activation asks when it should enter active context.
-
-For activation, `manifest.md` remains the runtime routing authority. A supported canonical task determines which memory modules should be loaded, with explicit profile or area inputs able to add scoped context.
-
-The key point is not that routing is “smart.”
-
-It is that routing is **inspectable**.
-
-A loaded module can have a recordable reason such as:
+Under this model, `manifest.md` acts as the runtime routing authority. Supported canonical tasks, explicit profiles, and scoped domain areas determine which memory modules load into a session. Crucially, routing is inspectable rather than probabilistic: every loaded module carries a recordable provenance flag:
 
 ```text
 always-load
@@ -217,76 +147,29 @@ explicit-profile
 explicit-area
 ```
 
-Likewise, an omitted module can have an explicit reason. That lets a developer ask:
-
-> Why did this memory affect the agent?
-
-and receive an answer grounded in project configuration rather than an opaque similarity score.
-
-I covered the broader distinction between routing and retrieval in [Part 2](/2026/07/20/memory-custodian-tech-design/). The v0.10.0 change is that this provenance becomes more structured. The broader design principle remains:
-
-> **Search can discover what might matter. Routing should declare what must matter.**
-
-That distinction becomes especially important once persistent memory is allowed to govern future behavior.
+Likewise, omitted modules can be diagnosed with equal clarity. When a developer asks why a particular memory affected an agent—or why an architectural rule was excluded—the answer is grounded in project configuration rather than an opaque similarity threshold. As explored in [Part 2](/2026/07/20/memory-custodian-tech-design/), search discovers what might matter, but deterministic routing declares what must matter.
 
 ---
 
 ## 4. Durable Authority Needs Safe Mutation
 
-If project memory can influence future agents, modifying it is no longer a trivial file edit. It is shared project state: two agents may attempt to update it at the same time, a user may apply a previously reviewed mutation after the underlying files have changed, or a migration may install project identity while another writer still believes it is operating on the earlier state.
+Because project memory governs subsequent agent runs, modifying it is an update to shared repository state rather than an ordinary file edit. Two concurrent agents, or an agent applying an outdated diff after files have shifted, can easily corrupt project invariants. Plain text makes memory human-readable and diffable in Git, but it does not eliminate concurrency hazards.
 
-Plain text makes memory visible and diffable.
+### Preview-first state transitions
 
-It does not make concurrency disappear.
+MemoryCustodian enforces a preview-first mutation model. The CLI computes an exact candidate diff against current disk state, issues a plan ID, and pauses for review. When `--apply` is invoked, the system acquires a mutation guard, verifies that the target files have not drifted since the plan was generated, and aborts if stale state is detected. This guarantees that confirmation authorizes a specific state transition rather than a generic command.
 
-### Preview should describe the state that will actually change
-
-v0.10.0 strengthens mutation safety around a preview-first model. The system builds a preview from the current memory state, assigns a plan ID, and waits for review. Only after acquiring a mutation guard does it re-read the current state, rebuild the plan, and apply the change if the confirmation is still valid.
-
-If a target changed after the preview, the old confirmation no longer applies and the operation refuses. That is important because confirmation should authorize a **specific state transition**, not merely a command name.
-
-The project ID introduced by Protocol 0.6 helps coordinate mutation locks and distinguish initialized projects. But that identity is not permission. A remembered project entry cannot use persistence to grant itself new authority.
-
-Memory cannot authorize:
-
-- destructive operations
-- secret access
-- external uploads
-- commits
-- pushes
-- merges
-- releases
-- privilege escalation
-
-Project memory can constrain project work. It cannot elevate itself above current instructions, safety rules, or permission boundaries.
-
-> **Memory is context, not a capability token.**
+Crucially, memory entries carry context, not capability tokens. An admitted memory entry can document constraints on project architecture, but it can never grant an agent authorization to bypass security boundaries, access secrets, upload code externally, push commits, or execute privileged operations.
 
 ---
 
 ## 5. Erasure Should Describe the State the System Actually Controls
 
-Persistent memory also creates a deletion problem. If information can keep influencing future work, users need a way to stop that influence.
+Persistent memory also introduces retirement challenges. When information becomes obsolete, users need a dependable mechanism to withdraw its influence. MemoryCustodian supports soft forget, hard forget, and purge modes, but v0.10.0 strictly bounds what those operations promise.
 
-MemoryCustodian already distinguishes soft forget, hard forget, and purge. I covered that design in more depth in [Part 3](/2026/07/21/memory-custodian-safe/). v0.10.0 sharpens the boundary around what those operations actually control.
+In distributed software development, promising universal deletion is impossible: code resides across Git clones, CI runners, remote forks, and offline backups. MemoryCustodian therefore contracts only what it directly manages: matching information is reliably removed from managed repository files (`docs/memory/`) and local archives. It explicitly does not claim to rewrite Git history or revoke external copies. Grounding deletion guarantees in bounded, inspectable scope builds far more operational trust than impossible claims of universal erasure.
 
-The useful question is not whether the system can promise that the information no longer exists anywhere—it usually cannot. The more useful question is:
-
-> Which managed state can this operation reliably remove?
-
-Managed active memory is in scope. Managed archive content is also in scope when purge is used. Git history, existing clones, forks, backups, caches, and previously distributed copies are not.
-
-That distinction is more important than it may appear. “Purge” should not imply universal deletion if the tool does not control every copy of the repository.
-
-A more trustworthy contract is:
-
-> The matching information has been removed from the managed MemoryCustodian scope covered by the operation.
-
-That means future agents using that managed state will no longer receive it. It does **not** mean Git history was rewritten or external copies were revoked.
-
-> **An honest erasure boundary is more trustworthy than an impossible promise of universal deletion.**
-
-The same identity model that helps admission also helps erasure. If a dependency has been called `Library X`, `library-x`, and `libx`, stable Subject identity provides a stronger maintenance anchor than wording alone. Identity therefore affects not only how memory is created, but also how reliably it can be retired.
+The same identity model that assists admission also powers erasure: because Subject IDs remain stable across renames and aliases, retiring a topic removes all associated entries systematically rather than relying on brittle keyword sweeps.
 
 ---
 
@@ -314,23 +197,13 @@ Now imagine a fresh coding-agent session receives only this prompt:
 > Before proposing changes, use the repository's project memory.  
 > Do not modify any files.
 
-The prompt mentions none of them—JSON, SQLite, offline operation, or the standard library.
-
-Those constraints already belong to the project.
-
-A useful memory system must recover important project knowledge. But it must also prevent uncertain information from quietly acquiring authority merely because an agent noticed it once.
-
-That is the core change in v0.10.0.
+The prompt mentions none of them—JSON, SQLite, offline operation, or standard library restrictions. Those constraints already belong to the project. A useful memory system must recover important project knowledge, but it must also prevent uncertain information from quietly acquiring authority merely because an agent noticed it in a previous turn. That distinction is the core change in v0.10.0.
 
 ---
 
 ## The Hard Part of Memory Is Not Remembering
 
-Agent memory is often evaluated by recall: Can the system recover an earlier decision, carry context across sessions, and stop the agent from repeating work?
-
-Those are important capabilities.
-
-But once memory becomes durable, other questions become equally important:
+Agent memory is often evaluated strictly by recall: whether the system can recover an earlier decision, carry context across sessions, and stop the agent from repeating work. While those are necessary capabilities, once memory becomes durable, operational governance questions become equally critical:
 
 - Why was this information admitted?
 - Is it confirmed or merely observed?
@@ -342,27 +215,13 @@ But once memory becomes durable, other questions become equally important:
 - What exactly happens when the memory is retired?
 - What remains outside the system's erasure boundary?
 
-Those are governance questions, and they become more important as the agent becomes more capable.
-
-A stateless agent can forget a bad inference when the session ends.
-
-A persistent agent can institutionalize it.
-
-That makes restraint a feature.
+These are fundamental governance questions that grow more critical as agent capabilities expand. While a stateless agent forgets an erroneous inference as soon as its session ends, an unconstrained persistent agent risks institutionalizing that bad inference into permanent project law. Restraint and explicit verification gates prevent durable context from degenerating into durable technical debt.
 
 ---
 
 ## From Persistent Memory to Governed Memory
 
-The first question in an agent-memory system is usually:
-
-> How do we make the agent remember?
-
-The next one should be:
-
-> What information has earned the right to influence future work?
-
-That second question transforms every layer of the memory architecture:
+Designing effective agent memory requires shifting perspective from simple recall (*how do we help the agent remember?*) to active governance (*what information has earned the authority to influence future work?*). This shift transforms every layer of the architectural stack:
 
 | System Component | Role in Conventional Persistent Recall | Role in Governed Project Memory |
 |---|---|---|
@@ -374,19 +233,7 @@ That second question transforms every layer of the memory architecture:
 | **Mutation Previews** | Dry-run text diff | Transactional state-transition guard preventing concurrent drift |
 | **Bounded Erasure** | Unbounded string deletion | Explicit, auditable retirement boundary over managed files |
 
-MemoryCustodian v0.10.0 is a step in that direction. The implementation still uses intentionally ordinary primitives: Markdown, local files, Git, explicit manifests, and a local CLI. What has become rigorous is the trust model governing how information transitions between them.
-
-What has become more structured is the trust model around them.
-
-Because project memory is not useful merely when it survives.
-
-It is useful when future developers and agents can understand:
-
-> **why it survived, what it governs, why it applies, and when it should stop applying.**
-
-Persistent memory should not automatically grant authority.
-
-Memory should earn persistence.
+MemoryCustodian v0.10.0 implements this trust model on top of ordinary, durable primitives: Markdown files, Git repositories, explicit manifests, and a local CLI. The objective is not to build a complex memory engine, but to ensure that stored knowledge remains inspectable: future developers and agents should always understand why an entry was admitted, what scope it governs, why it entered context, and when it should safely be retired.
 
 ---
 
@@ -423,11 +270,7 @@ It removes matching information from the managed MemoryCustodian state covered b
 
 ---
 
-MemoryCustodian v0.10.0 moves the project from persistent memory toward **governed project memory**.
-
-The goal is not to remember everything.
-
-It is to preserve the project knowledge that deserves to influence future work—and to make that influence inspectable.
+MemoryCustodian v0.10.0 marks a transition from open-ended persistence to governed project memory: rather than attempting to remember everything, it preserves the specific architectural constraints that deserve to influence future work, making that authority inspectable and reviewable.
 
 * [Start with the series overview](/2026/07/01/memory-custodian/)
 * [Read Part 2: Why Project Memory Should Be Plain Text and Repo-Native](/2026/07/20/memory-custodian-tech-design/)
@@ -435,4 +278,3 @@ It is to preserve the project knowledge that deserves to influence future work�
 * [Read Part 5: A Memory System Should Explain What It Did Not Load](/2026/09/15/memory-custodian-explainable-routing/)
 * [View the implementation on GitHub](https://github.com/waittim/MemoryCustodian)
 
-**Memory should earn persistence.**
