@@ -51,7 +51,6 @@ If the agent writes that observation straight into `constraints.md`, a temporary
 
 That jump from observation to project policy shouldn't happen by accident. An agent can notice patterns, but it shouldn't promote its own inferences into active constraints without human review or qualifying evidence.
 
-### Candidate first, active later
 
 ### Candidate first, active later
 
