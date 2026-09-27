@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 768" width="1024" height="768" role="img" aria-labelledby="title desc">
+  <title id="title">Figure 2. Staged migration to Protocol 0.8</title>
+  <desc id="desc">Staged migration isolates capture, semantic canonicalization, and atomic finalization into separate confirmed steps. Bound local overlays participate in the same schema transition.</desc>
+
+  <defs>
+    <marker id="arrow-dark" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,1 L8,5 L0,9 z" fill="#0F172A"/>
+    </marker>
+    <marker id="arrow-purple" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,1 L8,5 L0,9 z" fill="#8B5CF6"/>
+    </marker>
+    <filter id="card-shadow" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#0F172A" flood-opacity="0.05"/>
+    </filter>
+    <style>
+      .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+      .fig-title { font-size: 28px; font-weight: 800; fill: #0B192C; }
+      .step-title { font-size: 22px; font-weight: 700; fill: #0F172A; }
+      .badge-text { font-size: 18px; font-weight: 700; fill: #FFFFFF; }
+      .label-bold { font-size: 15px; font-weight: 700; fill: #0F172A; }
+      .step-desc { font-size: 13.5px; fill: #1E293B; line-height: 1.45; }
+      .overlay-text { font-size: 15px; font-weight: 600; fill: #0F172A; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1024" height="768" fill="#FFFFFF"/>
+
+  <!-- Figure Title -->
+  <text x="512" y="68" text-anchor="middle" class="sans fig-title">Figure 2. Staged migration to Protocol 0.8</text>
+
+  <!-- ==================== LEFT INPUT BOX ==================== -->
+  <g filter="url(#card-shadow)">
+    <rect x="20" y="155" width="105" height="275" rx="12" fill="#F1F5F9" stroke="#94A3B8" stroke-width="2"/>
+  </g>
+  <!-- Stacked docs icon -->
+  <g transform="translate(42, 215)" stroke="#0F172A" stroke-width="2" fill="none">
+    <rect x="16" y="0" width="38" height="48" rx="3" fill="#FFFFFF"/>
+    <line x1="22" y1="12" x2="42" y2="12"/>
+    <line x1="22" y1="20" x2="38" y2="20"/>
+
+    <rect x="8" y="7" width="38" height="48" rx="3" fill="#FFFFFF"/>
+    <line x1="14" y1="19" x2="34" y2="19"/>
+    <line x1="14" y1="27" x2="30" y2="27"/>
+
+    <rect x="0" y="14" width="38" height="48" rx="3" fill="#FFFFFF"/>
+    <line x1="6" y1="26" x2="26" y2="26"/>
+    <line x1="6" y1="34" x2="26" y2="34"/>
+    <line x1="6" y1="42" x2="20" y2="42"/>
+  </g>
+  <text x="72" y="322" text-anchor="middle" class="sans label-bold">Protocol</text>
+  <text x="72" y="344" text-anchor="middle" class="sans label-bold">0.5 / 0.6 /</text>
+  <text x="72" y="366" text-anchor="middle" class="sans label-bold">0.7 inputs</text>
+
+  <!-- Arrow Input -> Step 1 -->
+  <line x1="125" y1="292" x2="151" y2="292" stroke="#0F172A" stroke-width="2.5" marker-end="url(#arrow-dark)"/>
+
+  <!-- ==================== STEP 1: PREPARE ==================== -->
+  <g filter="url(#card-shadow)">
+    <rect x="155" y="155" width="222" height="275" rx="12" fill="#EFF6FF" stroke="#3B82F6" stroke-width="2"/>
+  </g>
+  <circle cx="198" cy="202" r="20" fill="#2563EB"/>
+  <text x="198" y="209" text-anchor="middle" class="sans badge-text">1</text>
+  <text x="230" y="210" class="sans step-title">Prepare</text>
+
+  <text x="175" y="254" class="sans step-desc">Capture source protocol,</text>
+  <text x="175" y="276" class="sans step-desc">binding, digests, and</text>
+  <text x="175" y="298" class="sans step-desc">local-overlay state in</text>
+  <text x="175" y="320" class="sans step-desc">protected repo-external</text>
+  <text x="175" y="342" class="sans step-desc">migration state; shared</text>
+  <text x="175" y="364" class="sans step-desc">protocol metadata</text>
+  <text x="175" y="386" class="sans step-desc">remains unchanged.</text>
+
+  <!-- Arrow Step 1 -> Step 2 -->
+  <line x1="377" y1="292" x2="403" y2="292" stroke="#0F172A" stroke-width="2.5" marker-end="url(#arrow-dark)"/>
+
+  <!-- ==================== STEP 2: CANONICALIZE ==================== -->
+  <g filter="url(#card-shadow)">
+    <rect x="407" y="155" width="222" height="275" rx="12" fill="#FFF7ED" stroke="#F97316" stroke-width="2"/>
+  </g>
+  <circle cx="450" cy="202" r="20" fill="#EA580C"/>
+  <text x="450" y="209" text-anchor="middle" class="sans badge-text">2</text>
+  <text x="482" y="210" class="sans step-title">Canonicalize</text>
+
+  <text x="427" y="254" class="sans step-desc">Repeatable, preview-first</text>
+  <text x="427" y="276" class="sans step-desc">deterministic transforms;</text>
+  <text x="427" y="298" class="sans step-desc">ambiguous units remain</text>
+  <text x="427" y="320" class="sans step-desc">blockers and require</text>
+  <text x="427" y="342" class="sans step-desc">explicit input.</text>
+
+  <!-- Arrow Step 2 -> Step 3 -->
+  <line x1="629" y1="292" x2="655" y2="292" stroke="#0F172A" stroke-width="2.5" marker-end="url(#arrow-dark)"/>
+
+  <!-- ==================== STEP 3: FINALIZE ==================== -->
+  <g filter="url(#card-shadow)">
+    <rect x="659" y="155" width="222" height="275" rx="12" fill="#F0FDF4" stroke="#22C55E" stroke-width="2"/>
+  </g>
+  <circle cx="702" cy="202" r="20" fill="#16A34A"/>
+  <text x="702" y="209" text-anchor="middle" class="sans badge-text">3</text>
+  <text x="734" y="210" class="sans step-title">Finalize</text>
+
+  <text x="679" y="254" class="sans step-desc">Revalidate current source</text>
+  <text x="679" y="276" class="sans step-desc">state, apply rewrites in one</text>
+  <text x="679" y="298" class="sans step-desc">transaction, then commit</text>
+  <text x="679" y="320" class="sans step-desc">protocol_version: 0.8 and</text>
+  <text x="679" y="342" class="sans step-desc">entry_schema_version: 3</text>
+  <text x="679" y="364" class="sans step-desc">in manifest.md last.</text>
+
+  <!-- Arrow Step 3 -> Output -->
+  <line x1="881" y1="292" x2="907" y2="292" stroke="#0F172A" stroke-width="2.5" marker-end="url(#arrow-dark)"/>
+
+  <!-- ==================== RIGHT OUTPUT BOX ==================== -->
+  <g filter="url(#card-shadow)">
+    <rect x="911" y="155" width="105" height="275" rx="12" fill="#F0FDF4" stroke="#22C55E" stroke-width="2"/>
+  </g>
+  <!-- Verified doc icon -->
+  <g transform="translate(938, 225)" stroke="#0F172A" stroke-width="2" fill="none">
+    <rect x="0" y="0" width="38" height="50" rx="3" fill="#FFFFFF"/>
+    <line x1="8" y1="14" x2="26" y2="14"/>
+    <line x1="8" y1="22" x2="26" y2="22"/>
+    <line x1="8" y1="30" x2="20" y2="30"/>
+    <circle cx="34" cy="42" r="14" fill="#FFFFFF" stroke="#0F172A" stroke-width="2"/>
+    <path d="M 29 42 L 33 46 L 39 37" stroke="#0F172A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="963" y="322" text-anchor="middle" class="sans label-bold">Protocol</text>
+  <text x="963" y="344" text-anchor="middle" class="sans label-bold">0.8 / Entry</text>
+  <text x="963" y="366" text-anchor="middle" class="sans label-bold">schema 3</text>
+
+  <!-- ==================== LOCAL OVERLAYS CALLOUT ==================== -->
+  <line x1="518" y1="430" x2="518" y2="514" stroke="#8B5CF6" stroke-width="2.5" stroke-dasharray="6 6" marker-end="url(#arrow-purple)"/>
+
+  <g filter="url(#card-shadow)">
+    <rect x="364" y="520" width="308" height="120" rx="16" fill="#FAF5FF" stroke="#8B5CF6" stroke-width="2" stroke-dasharray="6 6"/>
+  </g>
+
+  <!-- Layers icon -->
+  <g transform="translate(388, 552)" stroke="#6D28D9" stroke-width="2.2" fill="#FAF5FF">
+    <polygon points="28,0 56,14 28,28 0,14" fill="#DDD6FE"/>
+    <polygon points="28,15 56,29 28,43 0,29" fill="#EDE9FE"/>
+    <polygon points="28,30 56,44 28,58 0,44" fill="#FFFFFF"/>
+  </g>
+
+  <text x="468" y="565" class="sans overlay-text">Bound local overlays</text>
+  <text x="468" y="589" class="sans overlay-text">participate in the same</text>
+  <text x="468" y="613" class="sans overlay-text">schema transition.</text>
+
+</svg>
