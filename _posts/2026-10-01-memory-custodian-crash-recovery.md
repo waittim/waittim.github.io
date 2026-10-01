@@ -178,7 +178,7 @@ v0.12.0 splits that process into three separately confirmed stages.
 
 `canonicalize` is repeatable and preview-first. It can convert mechanically unambiguous legacy units, but semantic fields still require explicit input where the old representation does not contain enough information. The migrator does not synthesize Evidence, infer Subject equivalence from prose, guess Facets, or manufacture reconciliation records. Ambiguous units remain unchanged and continue to block finalization.
 
-`finalize` rebuilds and validates the migration against the current source files. It requires canonical active entries, valid Subject and Facet relationships, and the absence of audit errors, blockers, or unresolved canonicalization work. The target Protocol 0.8 entry representation, any bound local-overlay rewrites, and the protocol update are then applied through one transaction. The protocol authority declaration in `manifest.md` (`protocol_version: 0.8`) is committed last.
+`finalize` rebuilds and validates the migration against the current source files. It requires canonical active entries, valid Subject and Facet relationships, and the absence of migration-plan blockers or unresolved canonicalization work. The target Protocol 0.8 entry representation, any bound local-overlay rewrites, and the protocol update are then applied through one transaction. The protocol authority declaration in `manifest.md` (`protocol_version: 0.8`) is committed last.
 
 Committing the authority metadata last avoids a particularly bad migration failure mode: a repository claiming Protocol 0.8 while some of its entries are still encoded according to an older schema. If finalization is interrupted, the same transaction audit and recovery machinery handles the resulting state instead of asking the next run to infer how far the migration progressed.
 
@@ -188,7 +188,7 @@ Committing the authority metadata last avoids a particularly bad migration failu
 
 Codex, Claude Code, Gemini, and the generic adapter all sit above the same CLI contract in v0.12.0. Their integration files differ, but manifest-first routing, explicit task and scope inputs, conflict gates, recovery behavior, JSON output, and erasure language are defined below the adapter layer.
 
-When an agent runtime such as Claude Code, Codex, or Gemini is interrupted mid-turn—whether through token cutoffs, network timeouts, or process cancellation—the adapter does not need to synthesize custom recovery heuristics. Because transaction logging and audit blockers live below the adapter layer, any subsequent invocation under any agent runtime immediately encounters the same deterministic blocker finding (`MC-TRANSACTION-001`). The engine fails closed, ensuring that no agent continues mutating project memory on top of a half-applied transaction.
+If an agent runtime such as Claude Code, Codex, or Gemini is interrupted while a multi-file mutation is in flight, the adapter does not need custom recovery heuristics. Because transaction journaling and audit blockers live below the adapter layer, subsequent mutation commands fail closed and `memory-custodian audit --transactions` reports `MC-TRANSACTION-001`. Read operations can still inspect intact memory, but no agent runtime can continue mutating project memory until the interrupted transaction is explicitly resolved.
 
 The repository includes offline fixtures that run the same canonical commands under each adapter label and compare expected fields and payload stability. These checks are useful for detecting adapter drift, but they are not equivalent to launching four external agent runtimes and benchmarking their behavior end to end. v0.12.0 records a separate live-agent startup verification for Codex rather than treating the static contract fixture as runtime evidence.
 
@@ -214,7 +214,7 @@ Persistent agent memory makes interrupted writes more consequential because thei
 * **Match state, do not infer intent:** Recovery compares recorded content digests and target existence instead of guessing developer intent from diffs, prose, or commit history.
 * **Conditional rollback protects external work:** Automatic recovery halts with a blocker if any target has drifted outside the transaction’s recorded base or prepared states.
 * **Recovery state stays out of prompt context:** Transaction journals and pre-state recovery artifacts reside in repo-external private storage with restricted permissions, preventing them from leaking into agent prompts.
-* **Staged migration prevents schema split-brain:** Migration isolates source capture, semantic canonicalization, and atomic finalization, committing protocol authority in `manifest.md` strictly last.
+* **Staged migration prevents schema split-brain:** Migration isolates source capture, semantic canonicalization, and journaled finalization, committing protocol authority in `manifest.md` strictly last.
 * **Audit-first blockers:** Unfinished transactions produce `BLOCKER` audit findings and `status: FAIL`, preventing new mutations until explicitly resolved.
 
 ---
@@ -227,15 +227,15 @@ If transaction journals were stored inside the repository, unfinished recovery s
 
 ### What happens if a developer edits a file while an interrupted transaction is pending?
 
-Recovery performs conditional checks before touching disk. If a target file matches neither the transaction's recorded base state nor its prepared output state, automated recovery refuses to proceed. It reports an audit blocker (`MC-TRANSACTION-001`) and leaves the conflict for human review, ensuring recovery never overwrites external work.
+Recovery performs conditional checks before touching disk. If a target file matches neither the transaction's recorded base state nor its prepared output state, automated recovery halts and exits with `MC-RUNTIME-001` (`exit_class: fatal`). The transaction remains journaled and continues to be reported by `audit --transactions` as `MC-TRANSACTION-001` (`exit_class: blocker`), leaving the conflict for human review and ensuring recovery refuses to overwrite detected external drift.
 
 ### Does Protocol 0.8 provide full ACID database transactions?
 
-No. Protocol 0.8 does not provide cross-process locking or general database ACID semantics. It guarantees that MemoryCustodian's own multi-file mutations are journaled, auditable, and recoverable between known states, refusing to overwrite external drift.
+No. MemoryCustodian uses project-level write locking to coordinate concurrent CLI invocations, but it does not provide general database ACID semantics or lock out external editors and Git processes. Its guarantee is narrower: MemoryCustodian journals its own multi-file transitions, verifies recorded preconditions before completing or rolling back, and refuses to overwrite detected external drift.
 
 ### Why does migration commit protocol authority in `manifest.md` as the very last step?
 
-Committing authority last prevents readers from evaluating partially migrated entries against a newer schema. If finalization fails midway through, the project is still recognized under its source protocol, allowing transaction recovery to resolve the interruption safely.
+Committing authority last ensures that readers do not evaluate entries against Protocol 0.8 rules while older schema files are still being rewritten. If an interruption occurs before `manifest.md` is replaced, readers safely continue interpreting the project under the source protocol; if it occurs after `manifest.md` is updated but before cleanup finishes, the transaction engine records an unfinished transaction that must be recovered before further mutations are permitted.
 
 ---
 

@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 768" width="1024" height="768" role="img" aria-labelledby="title desc">
   <title id="title">Staged migration to Protocol 0.8</title>
-  <desc id="desc">Staged migration isolates capture, semantic canonicalization, and atomic finalization into separate confirmed steps. Bound local overlays participate in the same schema transition.</desc>
+  <desc id="desc">Staged migration isolates capture, semantic canonicalization, and journaled finalization into separate confirmed steps. Bound local overlays participate in the same schema transition.</desc>
 
   <defs>
     <marker id="arrow-dark" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
