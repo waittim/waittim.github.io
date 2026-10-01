@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "A Memory System Should Survive an Interrupted Write"
-subtitle: "Crash recovery in MemoryCustodian v0.12.0"
+subtitle: "Transactional crash recovery, conditional rollback, and staged migration in MemoryCustodian v0.12.0"
 date: 2026-10-01
 updated: 2026-10-01
 author: Zekun Wang
@@ -23,7 +23,7 @@ tags:
 - AI
 ---
 
-## A Memory System Must Survive Interrupted Writes
+## Multi-File Mutations Require Transactional Durability
 
 When a coding agent changes persistent project memory, the operation often spans several files. A governance update may rewrite structured entries, update Subject or reconciliation state, change manifest metadata, and touch a bound local overlay. If the process exits halfway through, each file that was already replaced may still be perfectly valid on its own while the project as a whole is left between two intended states.
 
@@ -35,7 +35,7 @@ Protocol 0.8, introduced in MemoryCustodian v0.12.0, adds a transaction layer fo
 
 ---
 
-## Atomic Files Do Not Make an Atomic Operation
+## 1. Atomic Files Do Not Make an Atomic Operation
 
 Suppose one mutation needs to update four pieces of state:
 
@@ -58,7 +58,7 @@ A transaction moves through `planned`, `prepared`, and `committing` on the norma
 
 ---
 
-## The Journal Records State, Not Meaning
+## 2. The Journal Records State, Not Meaning
 
 Recovery does not try to infer what a previous command probably intended from Git diffs, modification times, or nearby prose. Protocol 0.8 persists the operation before protected outputs are prepared, then records enough information to recognize both sides of each target transition.
 
@@ -72,7 +72,7 @@ With the journal available, recovery can compare each target with two recorded s
 
 ---
 
-## Conditional Rollback Prevents Recovery from Deleting New Work
+## 3. Conditional Rollback Prevents Recovery from Deleting New Work
 
 Rollback becomes dangerous when the repository changes after the original process stops.
 
@@ -94,7 +94,7 @@ This is more conservative than restoring a backup directory wholesale. MemoryCus
 
 ---
 
-## Recovery Data Stays Out of Agent Context
+## 4. Recovery Data Stays Out of Agent Context
 
 The separation between transaction state and managed memory becomes especially important for destructive operations.
 
@@ -108,7 +108,7 @@ The same limits apply to erasure more generally. MemoryCustodian can control wha
 
 ---
 
-## Transaction State Is Part of Audit
+## 5. Transaction State Is Part of Audit
 
 Private recovery state would be difficult to operate safely if it were invisible to normal inspection, so v0.12.0 includes transaction health in the audit model.
 
@@ -164,7 +164,7 @@ Execution plans, recovery journals, and public results serve different purposes.
 
 ---
 
-## Migration Uses the Same Recovery Model
+## 6. Migration Uses the Same Recovery Model
 
 Protocol migration is one of the clearest cases where a single implicit rewrite is insufficient. Moving a project from Protocol 0.5, 0.6, or 0.7 to Protocol 0.8 can require schema conversion across managed entries, validation of Subject and Facet ownership, local-overlay migration, and finally a change to the protocol metadata that controls how future reads interpret those files.
 
@@ -184,9 +184,11 @@ Committing the authority metadata last avoids a particularly bad migration failu
 
 ---
 
-## One CLI Contract Across Agent Adapters
+## 7. One CLI Contract Across Agent Adapters
 
 Codex, Claude Code, Gemini, and the generic adapter all sit above the same CLI contract in v0.12.0. Their integration files differ, but manifest-first routing, explicit task and scope inputs, conflict gates, recovery behavior, JSON output, and erasure language are defined below the adapter layer.
+
+When an agent runtime such as Claude Code, Codex, or Gemini is interrupted mid-turn—whether through token cutoffs, network timeouts, or process cancellation—the adapter does not need to synthesize custom recovery heuristics. Because transaction logging and audit blockers live below the adapter layer, any subsequent invocation under any agent runtime immediately encounters the same deterministic blocker finding (`MC-TRANSACTION-001`). The engine fails closed, ensuring that no agent continues mutating project memory on top of a half-applied transaction.
 
 The repository includes offline fixtures that run the same canonical commands under each adapter label and compare expected fields and payload stability. These checks are useful for detecting adapter drift, but they are not equivalent to launching four external agent runtimes and benchmarking their behavior end to end. v0.12.0 records a separate current-protocol Codex startup smoke rather than treating the static contract fixture as live-agent evidence.
 
@@ -194,7 +196,7 @@ Keeping that boundary explicit has become increasingly useful as MemoryCustodian
 
 ---
 
-## Scope of the Transaction Model
+## 8. Scope of the Transaction Model
 
 Protocol 0.8 does not provide general database ACID semantics. MemoryCustodian cannot prevent an unrelated editor, Git command, or foreign process from modifying files while an interrupted transaction exists, nor does it attempt semantic merge resolution when that happens.
 
@@ -203,3 +205,48 @@ Its recovery guarantee is narrower: MemoryCustodian records its own multi-file t
 That changes the failure mode substantially. Before Protocol 0.8, an interrupted multi-file operation could leave the next process with a set of individually valid files and no durable record of how they got there. In v0.12.0, the unfinished operation remains identifiable, auditable, and recoverable as long as the filesystem still satisfies the recorded recovery conditions.
 
 Persistent agent memory makes interrupted writes more consequential because their results survive the agent session that produced them. The recovery layer in Protocol 0.8 is built around that constraint: after a mutation stops halfway through, the next run can determine what MemoryCustodian was doing without reconstructing intent, and recovery does not erase newer work merely to make the old transaction disappear.
+
+---
+
+## Key Takeaways
+
+* **Atomic files do not make an atomic operation:** Safely replacing individual files still leaves multi-file agent mutations vulnerable to partial completion.
+* **Match state, do not infer intent:** Recovery compares recorded content digests and target existence instead of guessing developer intent from diffs, prose, or commit history.
+* **Conditional rollback protects external work:** Automatic recovery halts with a blocker if any target has drifted outside the transaction’s recorded base or prepared states.
+* **Recovery state stays out of prompt context:** Transaction journals and pre-state recovery artifacts reside in repo-external private storage (`0700`/`0600`), preventing them from leaking into agent prompts.
+* **Staged migration prevents schema split-brain:** Migration isolates source capture, semantic canonicalization, and atomic finalization, committing protocol authority in `manifest.md` strictly last.
+* **Audit-first blockers:** Unfinished transactions produce `BLOCKER` audit findings and `status: FAIL`, preventing new mutations until explicitly resolved.
+
+---
+
+## Frequently Asked Questions
+
+### Why not store the transaction journal inside `docs/memory/` or Git?
+
+If transaction journals were stored inside the repository, unfinished recovery state or sensitive pre-state bytes could be inadvertently ingested into agent prompt context or committed into Git history. Keeping journals in repo-external private state (`0700` directories, `0600` files) isolates operational recovery from project memory.
+
+### What happens if a developer edits a file while an interrupted transaction is pending?
+
+Recovery performs conditional checks before touching disk. If a target file matches neither the transaction's recorded base state nor its prepared output state, automated recovery refuses to proceed. It reports an audit blocker (`MC-TRANSACTION-001`) and leaves the conflict for human review, ensuring recovery never overwrites external work.
+
+### Does Protocol 0.8 provide full ACID database transactions?
+
+No. Protocol 0.8 does not provide cross-process locking or general database ACID semantics. It guarantees that MemoryCustodian's own multi-file mutations are journaled, auditable, and recoverable between known states, refusing to overwrite external drift.
+
+### Why does migration commit protocol authority in `manifest.md` as the very last step?
+
+Committing authority last prevents readers from evaluating partially migrated entries against a newer schema. If finalization fails midway through, the project is still recognized under its source protocol, allowing transaction recovery to resolve the interruption safely.
+
+---
+
+## Continue the Series
+
+* [Start with the series overview](/2026/07/01/memory-custodian/)
+* [Read Part 2: Why Project Memory Should Be Plain Text and Repo-Native](/2026/07/20/memory-custodian-tech-design/)
+* [Read Part 3: Designing Memory That Can Safely Forget](/2026/07/21/memory-custodian-safe/)
+* [Read Part 4: What Should a Coding Agent Be Allowed to Remember?](/2026/08/26/memory-custodian-remember/)
+* [Read Part 5: A Memory System Should Explain What It Did Not Load](/2026/09/15/memory-custodian-explainable-routing/)
+* [View MemoryCustodian on GitHub](https://github.com/waittim/MemoryCustodian)
+* [View MemoryCustodian v0.12.0](https://github.com/waittim/MemoryCustodian/tree/v0.12.0)
+* [Read the v0.12.0 release notes](https://github.com/waittim/MemoryCustodian/blob/v0.12.0/RELEASE-NOTES.md)
+

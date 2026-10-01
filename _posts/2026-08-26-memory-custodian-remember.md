@@ -275,5 +275,6 @@ MemoryCustodian v0.10.0 marks a transition from open-ended persistence to govern
 * [Read Part 2: Why Project Memory Should Be Plain Text and Repo-Native](/2026/07/20/memory-custodian-tech-design/)
 * [Read Part 3: Designing Memory That Can Safely Forget](/2026/07/21/memory-custodian-safe/)
 * [Read Part 5: A Memory System Should Explain What It Did Not Load](/2026/09/15/memory-custodian-explainable-routing/)
+* [Read Part 6: A Memory System Should Survive an Interrupted Write](/2026/10/01/memory-custodian-crash-recovery/)
 * [View the implementation on GitHub](https://github.com/waittim/MemoryCustodian)
 

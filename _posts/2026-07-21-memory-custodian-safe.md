@@ -372,6 +372,7 @@ A preview lets a person or agent verify the intended mode, semantic entry bounda
 
 * [Read Part 4: What Should a Coding Agent Be Allowed to Remember?](/2026/08/26/memory-custodian-remember/)
 * [Read Part 5: A Memory System Should Explain What It Did Not Load](/2026/09/15/memory-custodian-explainable-routing/)
+* [Read Part 6: A Memory System Should Survive an Interrupted Write](/2026/10/01/memory-custodian-crash-recovery/)
 * [Start with the series overview](/2026/07/01/memory-custodian/)
 * [Read Part 2: Why Project Memory Should Be Plain Text and Repo-Native](/2026/07/20/memory-custodian-tech-design/)
 * [View the implementation on GitHub](https://github.com/waittim/MemoryCustodian)

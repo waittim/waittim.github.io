@@ -250,6 +250,7 @@ No. Local overlays allow developers to configure personal preferences (such as t
 * [Read Part 2: Why Project Memory Should Be Plain Text and Repo-Native](/2026/07/20/memory-custodian-tech-design/)
 * [Read Part 3: Designing Memory That Can Safely Forget](/2026/07/21/memory-custodian-safe/)
 * [Read Part 4: What Should a Coding Agent Be Allowed to Remember?](/2026/08/26/memory-custodian-remember/)
+* [Read Part 6: A Memory System Should Survive an Interrupted Write](/2026/10/01/memory-custodian-crash-recovery/)
 * [View MemoryCustodian on GitHub](https://github.com/waittim/MemoryCustodian)
 * [View MemoryCustodian v0.11.0](https://github.com/waittim/MemoryCustodian/tree/v0.11.0)
 * [Read the v0.11.0 release notes](https://github.com/waittim/MemoryCustodian/blob/v0.11.0/RELEASE-NOTES.md)

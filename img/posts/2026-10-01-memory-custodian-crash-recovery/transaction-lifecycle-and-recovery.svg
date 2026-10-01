@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 768" width="1024" height="768" role="img" aria-labelledby="title desc">
-  <title id="title">Figure 1. Transaction lifecycle and recovery in Protocol 0.8</title>
+  <title id="title">Transaction lifecycle and recovery in Protocol 0.8</title>
   <desc id="desc">Multi-file mutations move through planned, prepared, committing, and committed states. Failures lead to a failed state and recovering phase, which safely completes or rolls back only when recorded conditions hold.</desc>
 
   <defs>
@@ -28,7 +28,7 @@
   <rect width="1024" height="768" fill="#FFFFFF"/>
 
   <!-- Figure Title -->
-  <text x="36" y="44" class="sans fig-title">Figure 1. Transaction lifecycle and recovery in Protocol 0.8</text>
+  <text x="36" y="44" class="sans fig-title">Transaction Lifecycle and Recovery in Protocol 0.8</text>
 
   <!-- ==================== TOP ROW STATES ==================== -->
 

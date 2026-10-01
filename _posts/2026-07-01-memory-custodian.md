@@ -295,3 +295,4 @@ No. Routine operation is local and repo-native. The design favors transparent fi
 * [Read the memory governance design](/2026/07/21/memory-custodian-safe/)
 * [Read Part 4: What Should a Coding Agent Be Allowed to Remember?](/2026/08/26/memory-custodian-remember/)
 * [Read Part 5: A Memory System Should Explain What It Did Not Load](/2026/09/15/memory-custodian-explainable-routing/)
+* [Read Part 6: A Memory System Should Survive an Interrupted Write](/2026/10/01/memory-custodian-crash-recovery/)
