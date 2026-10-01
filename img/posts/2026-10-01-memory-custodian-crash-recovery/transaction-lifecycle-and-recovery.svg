@@ -1,0 +1,193 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 768" width="1024" height="768" role="img" aria-labelledby="title desc">
+  <title id="title">Figure 1. Transaction lifecycle and recovery in Protocol 0.8</title>
+  <desc id="desc">Multi-file mutations move through planned, prepared, committing, and committed states. Failures lead to a failed state and recovering phase, which safely completes or rolls back only when recorded conditions hold.</desc>
+
+  <defs>
+    <marker id="arrow-dark" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,1 L8,5 L0,9 z" fill="#0F172A"/>
+    </marker>
+    <filter id="card-shadow" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#0F172A" flood-opacity="0.05"/>
+    </filter>
+    <style>
+      .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+      .mono { font-family: "SFMono-Regular", Consolas, Menlo, Monaco, monospace; }
+      .fig-title { font-size: 26px; font-weight: 800; fill: #0B192C; }
+      .box-title { font-size: 19px; font-weight: 700; }
+      .box-desc { font-size: 13.5px; fill: #334155; line-height: 1.4; }
+      .note-text { font-size: 13px; fill: #334155; line-height: 1.4; }
+      .journal-title { font-size: 15.5px; font-weight: 700; fill: #0F172A; }
+      .journal-desc { font-size: 13px; fill: #334155; }
+      .journal-key { font-size: 12.5px; fill: #0F172A; }
+      .journal-val { font-size: 12.5px; fill: #475569; }
+      .failure-label { font-size: 12.5px; font-weight: 600; fill: #0F172A; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1024" height="768" fill="#FFFFFF"/>
+
+  <!-- Figure Title -->
+  <text x="36" y="44" class="sans fig-title">Figure 1. Transaction lifecycle and recovery in Protocol 0.8</text>
+
+  <!-- ==================== TOP ROW STATES ==================== -->
+
+  <!-- 1. planned -->
+  <g filter="url(#card-shadow)">
+    <rect x="36" y="74" width="186" height="120" rx="12" fill="#EFF6FF" stroke="#3B82F6" stroke-width="2"/>
+  </g>
+  <text x="129" y="108" text-anchor="middle" class="sans box-title" fill="#0F172A">planned</text>
+  <text x="129" y="137" text-anchor="middle" class="sans box-desc">Validate request,</text>
+  <text x="129" y="157" text-anchor="middle" class="sans box-desc">create plan, check</text>
+  <text x="129" y="177" text-anchor="middle" class="sans box-desc">prerequisites.</text>
+
+  <!-- Arrow planned -> prepared -->
+  <line x1="222" y1="134" x2="262" y2="134" stroke="#0F172A" stroke-width="2.5" marker-end="url(#arrow-dark)"/>
+
+  <!-- 2. prepared -->
+  <g filter="url(#card-shadow)">
+    <rect x="268" y="74" width="224" height="120" rx="12" fill="#F0FDF4" stroke="#22C55E" stroke-width="2"/>
+  </g>
+  <text x="380" y="108" text-anchor="middle" class="sans box-title" fill="#0F172A">prepared</text>
+  <text x="380" y="137" text-anchor="middle" class="sans box-desc">Record intent and required</text>
+  <text x="380" y="157" text-anchor="middle" class="sans box-desc">state in journal. Stage outputs</text>
+  <text x="380" y="177" text-anchor="middle" class="sans box-desc">(not yet visible externally).</text>
+
+  <!-- Arrow prepared -> committing -->
+  <line x1="492" y1="134" x2="532" y2="134" stroke="#0F172A" stroke-width="2.5" marker-end="url(#arrow-dark)"/>
+
+  <!-- 3. committing -->
+  <g filter="url(#card-shadow)">
+    <rect x="538" y="74" width="202" height="120" rx="12" fill="#FFF7ED" stroke="#F97316" stroke-width="2"/>
+  </g>
+  <text x="639" y="108" text-anchor="middle" class="sans box-title" fill="#0F172A">committing</text>
+  <text x="639" y="143" text-anchor="middle" class="sans box-desc">Apply staged changes</text>
+  <text x="639" y="165" text-anchor="middle" class="sans box-desc">and finalize.</text>
+
+  <!-- Arrow committing -> committed -->
+  <line x1="740" y1="134" x2="780" y2="134" stroke="#0F172A" stroke-width="2.5" marker-end="url(#arrow-dark)"/>
+
+  <!-- 4. committed (normal) -->
+  <g filter="url(#card-shadow)">
+    <rect x="786" y="74" width="202" height="120" rx="12" fill="#F0FDF4" stroke="#22C55E" stroke-width="2"/>
+  </g>
+  <text x="887" y="108" text-anchor="middle" class="sans box-title" fill="#0F172A">committed</text>
+  <text x="887" y="143" text-anchor="middle" class="sans box-desc">Changes are durable</text>
+  <text x="887" y="165" text-anchor="middle" class="sans box-desc">and visible externally.</text>
+
+  <!-- ==================== JOURNAL CALLOUT ==================== -->
+
+  <!-- Dashed connector to Journal -->
+  <line x1="380" y1="194" x2="380" y2="238" stroke="#94A3B8" stroke-width="1.8" stroke-dasharray="4 4"/>
+
+  <!-- Journal Card -->
+  <g filter="url(#card-shadow)">
+    <rect x="36" y="238" width="374" height="236" rx="12" fill="#F8FAFC" stroke="#64748B" stroke-width="1.5"/>
+  </g>
+  <text x="54" y="268" class="sans journal-title">Journal (repo-external private state)</text>
+  <text x="54" y="293" class="sans journal-desc">Records an opaque transaction ID and</text>
+  <text x="54" y="311" class="sans journal-desc">necessary metadata for recovery:</text>
+
+  <g class="mono">
+    <!-- Key 1 -->
+    <text x="54" y="342" class="journal-key">transaction_id</text>
+    <text x="228" y="342" class="sans journal-val">(opaque)</text>
+
+    <!-- Key 2 -->
+    <text x="54" y="365" class="journal-key">command</text>
+    <text x="228" y="365" class="sans journal-val">(e.g., apply, move, delete)</text>
+
+    <!-- Key 3 -->
+    <text x="54" y="388" class="journal-key">plan_id</text>
+    <text x="228" y="388" class="sans journal-val">(Plan ID)</text>
+
+    <!-- Key 4 -->
+    <text x="54" y="411" class="journal-key">target_metadata</text>
+    <text x="228" y="411" class="sans journal-val">(e.g., paths, refs)</text>
+
+    <!-- Key 5 -->
+    <text x="54" y="434" class="journal-key">base_digests</text>
+    <text x="228" y="434" class="sans journal-val">(e.g., content hashes)</text>
+
+    <!-- Key 6 -->
+    <text x="54" y="457" class="journal-key">prepared_output_digests</text>
+    <text x="240" y="457" class="sans journal-val">(e.g., staged hashes)</text>
+  </g>
+
+  <!-- ==================== FAILURE & FAILED STATE ==================== -->
+
+  <!-- Failure curves down to failed -->
+  <path d="M 430 194 C 430 252, 510 252, 510 310" fill="none" stroke="#0F172A" stroke-width="2.5" marker-end="url(#arrow-dark)"/>
+  <path d="M 630 194 C 630 252, 550 252, 550 310" fill="none" stroke="#0F172A" stroke-width="2.5" marker-end="url(#arrow-dark)"/>
+
+  <text x="530" y="246" text-anchor="middle" class="sans failure-label">Failure (e.g., crash, interruption,</text>
+  <text x="530" y="264" text-anchor="middle" class="sans failure-label">validation error)</text>
+
+  <!-- Box: failed -->
+  <g filter="url(#card-shadow)">
+    <rect x="445" y="318" width="170" height="102" rx="12" fill="#FEF2F2" stroke="#EF4444" stroke-width="2"/>
+  </g>
+  <text x="530" y="352" text-anchor="middle" class="sans box-title" fill="#0F172A">failed</text>
+  <text x="530" y="380" text-anchor="middle" class="sans box-desc">Transaction did not</text>
+  <text x="530" y="400" text-anchor="middle" class="sans box-desc">complete.</text>
+
+  <!-- Dashed connector to audit note -->
+  <line x1="615" y1="369" x2="706" y2="369" stroke="#64748B" stroke-width="1.8" stroke-dasharray="4 4"/>
+
+  <!-- Note: Unfinished transaction state -->
+  <g filter="url(#card-shadow)">
+    <rect x="710" y="331" width="278" height="76" rx="10" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="1.5"/>
+  </g>
+  <text x="726" y="356" class="sans note-text">Unfinished transaction state</text>
+  <text x="726" y="375" class="sans note-text">blocks new mutations and</text>
+  <text x="726" y="394" class="sans note-text">appears in transaction audit.</text>
+
+  <!-- ==================== RECOVERING STATE ==================== -->
+
+  <!-- Arrow failed -> recovering -->
+  <line x1="530" y1="420" x2="530" y2="458" stroke="#0F172A" stroke-width="2.5" marker-end="url(#arrow-dark)"/>
+
+  <!-- Box: recovering -->
+  <g filter="url(#card-shadow)">
+    <rect x="435" y="464" width="190" height="118" rx="12" fill="#FAF5FF" stroke="#8B5CF6" stroke-width="2"/>
+  </g>
+  <text x="530" y="498" text-anchor="middle" class="sans box-title" fill="#0F172A">recovering</text>
+  <text x="530" y="528" text-anchor="middle" class="sans box-desc">Use journal to determine</text>
+  <text x="530" y="548" text-anchor="middle" class="sans box-desc">whether to complete or</text>
+  <text x="530" y="568" text-anchor="middle" class="sans box-desc">roll back.</text>
+
+  <!-- Dashed connector to recovery note -->
+  <line x1="625" y1="523" x2="706" y2="523" stroke="#64748B" stroke-width="1.8" stroke-dasharray="4 4"/>
+
+  <!-- Note: Recovery never overwrites -->
+  <g filter="url(#card-shadow)">
+    <rect x="710" y="475" width="278" height="96" rx="10" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="1.5"/>
+  </g>
+  <text x="726" y="501" class="sans note-text">Recovery never overwrites</text>
+  <text x="726" y="521" class="sans note-text">external edits; complete or</text>
+  <text x="726" y="541" class="sans note-text">rollback only when recorded</text>
+  <text x="726" y="561" class="sans note-text">conditions still hold.</text>
+
+  <!-- ==================== OUTCOME STATES ==================== -->
+
+  <!-- Curves from recovering to outcomes -->
+  <path d="M 495 582 C 495 614, 400 614, 400 634" fill="none" stroke="#0F172A" stroke-width="2.5" marker-end="url(#arrow-dark)"/>
+  <path d="M 565 582 C 565 614, 660 614, 660 634" fill="none" stroke="#0F172A" stroke-width="2.5" marker-end="url(#arrow-dark)"/>
+
+  <!-- Outcome 1: committed -->
+  <g filter="url(#card-shadow)">
+    <rect x="290" y="638" width="220" height="102" rx="12" fill="#F0FDF4" stroke="#22C55E" stroke-width="2"/>
+  </g>
+  <text x="400" y="672" text-anchor="middle" class="sans box-title" fill="#0F172A">committed</text>
+  <text x="400" y="700" text-anchor="middle" class="sans box-desc">Finish applying changes</text>
+  <text x="400" y="720" text-anchor="middle" class="sans box-desc">if recorded conditions still hold.</text>
+
+  <!-- Outcome 2: rolled-back -->
+  <g filter="url(#card-shadow)">
+    <rect x="550" y="638" width="220" height="102" rx="12" fill="#EFF6FF" stroke="#3B82F6" stroke-width="2"/>
+  </g>
+  <text x="660" y="672" text-anchor="middle" class="sans box-title" fill="#0F172A">rolled-back</text>
+  <text x="660" y="700" text-anchor="middle" class="sans box-desc">Discard staged changes</text>
+  <text x="660" y="720" text-anchor="middle" class="sans box-desc">if recorded conditions still hold.</text>
+
+</svg>
