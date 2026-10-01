@@ -159,12 +159,12 @@
   <!-- Dashed connector to recovery note -->
   <line x1="625" y1="523" x2="706" y2="523" stroke="#64748B" stroke-width="1.8" stroke-dasharray="4 4"/>
 
-  <!-- Note: Recovery never overwrites -->
+  <!-- Note: Recovery refuses detected external drift -->
   <g filter="url(#card-shadow)">
     <rect x="710" y="475" width="278" height="96" rx="10" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="1.5"/>
   </g>
-  <text x="726" y="501" class="sans note-text">Recovery never overwrites</text>
-  <text x="726" y="521" class="sans note-text">external edits; complete or</text>
+  <text x="726" y="501" class="sans note-text">Recovery refuses detected</text>
+  <text x="726" y="521" class="sans note-text">external drift; complete or</text>
   <text x="726" y="541" class="sans note-text">rollback only when recorded</text>
   <text x="726" y="561" class="sans note-text">conditions still hold.</text>
 

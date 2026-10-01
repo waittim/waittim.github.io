@@ -227,7 +227,7 @@ If transaction journals were stored inside the repository, unfinished recovery s
 
 ### What happens if a developer edits a file while an interrupted transaction is pending?
 
-Recovery performs conditional checks before touching disk. If a target file matches neither the transaction's recorded base state nor its prepared output state, automated recovery halts and exits with `MC-RUNTIME-001` (`exit_class: fatal`). The transaction remains journaled and continues to be reported by `audit --transactions` as `MC-TRANSACTION-001` (`exit_class: blocker`), leaving the conflict for human review and ensuring recovery refuses to overwrite detected external drift.
+Recovery performs conditional checks before touching disk. If a target file matches neither the transaction's recorded base state nor its prepared output state, an inspection run of `memory-custodian recover` reports that recovery is unsafe while still returning `status: PASS`. If a caller attempts to apply `--complete` or `--rollback` under `--format json`, execution halts with `MC-RUNTIME-001` (`exit_class: fatal`). The unfinished transaction remains journaled and continues to be reported by `audit --transactions` as `MC-TRANSACTION-001` (`exit_class: blocker`), leaving the conflict for human review and ensuring recovery refuses to overwrite detected external drift.
 
 ### Does Protocol 0.8 provide full ACID database transactions?
 
@@ -235,7 +235,7 @@ No. MemoryCustodian uses project-level write locking to coordinate concurrent CL
 
 ### Why does migration commit protocol authority in `manifest.md` as the very last step?
 
-Committing authority last ensures that readers do not evaluate entries against Protocol 0.8 rules while older schema files are still being rewritten. If an interruption occurs before `manifest.md` is replaced, readers safely continue interpreting the project under the source protocol; if it occurs after `manifest.md` is updated but before cleanup finishes, the transaction engine records an unfinished transaction that must be recovered before further mutations are permitted.
+Committing authority last ensures that readers do not evaluate entries against Protocol 0.8 rules while older schema files are still being rewritten. If an interruption occurs before `manifest.md` is updated, the manifest retains the source protocol authority, but the repository may be left in a mixed state with partially rewritten files; it must be recovered before it can be treated as consistent. If the interruption occurs after `manifest.md` is updated but before cleanup finishes, the transaction engine records an unfinished transaction that must be recovered before further mutations are permitted.
 
 ---
 
