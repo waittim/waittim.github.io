@@ -62,11 +62,11 @@ A transaction moves through `planned`, `prepared`, and `committing` on the norma
 
 Recovery does not try to infer what a previous command probably intended from Git diffs, modification times, or nearby prose. Protocol 0.8 persists the operation before protected outputs are prepared, then records enough information to recognize both sides of each target transition.
 
-The journal uses transaction schema 1. At a high level, it records an opaque transaction ID, the command and Plan ID, the current phase, the project binding, target metadata, base and output digests, target existence, file modes where applicable, and locators for protected backup or prepared artifacts.
+The journal uses a structured, versioned record. At a high level, it records an opaque transaction ID, the invoking command, the current phase, target metadata, base and output digests, target existence, file permissions where applicable, and references to protected backup or prepared artifacts.
 
-Transaction IDs are opaque 32-character hexadecimal values. Target IDs are mechanical identifiers rather than semantic names. Journal metadata is not allowed to contain user topics, removed entry bodies, secret previews, or reversible encodings of them. If rollback requires the original bytes, those bytes are stored as separate protected recovery artifacts rather than embedded in the journal metadata.
+Transaction IDs are opaque, collision-resistant identifiers rather than semantic names. Target IDs are mechanical identifiers rather than semantic names. Journal metadata is not allowed to contain user topics, removed entry bodies, secret previews, or reversible encodings of them. If rollback requires the original bytes, those bytes are stored as separate protected recovery artifacts rather than embedded in the journal metadata.
 
-The journal lives under MemoryCustodian's repo-external private state root rather than under `docs/memory/`. On POSIX systems, private-state directories are maintained with mode `0700` and private regular files with mode `0600`. Normal context loading does not treat this state as project memory.
+The journal lives in private storage outside the repository rather than under `docs/memory/`, protected by restricted OS-level file permissions. Normal context loading does not treat this state as project memory.
 
 With the journal available, recovery can compare each target with two recorded states: its base and its prepared output. There is no need to decide which version of a decision looks newer or which text seems more plausible. If the current filesystem still matches the transaction's recorded conditions, the operation can proceed toward a known terminal state; if not, automated recovery stops.
 
@@ -86,7 +86,7 @@ Protocol 0.8 checks the current target against the transaction record before eit
 | Already updated | No | Yes | Completion or rollback may proceed |
 | Externally modified | No | No | Stop with a blocker |
 
-Content digests are only part of the check. Recovery also validates target existence, expected mode semantics where supported, safe path resolution, symlink state, and the integrity of protected transaction artifacts. A missing target that was expected to exist, an unexpected digest, or a symlink substituted for a regular file is enough to stop automatic recovery.
+Content digests are only part of the check. Recovery also validates target existence, file permissions where supported, safe path resolution, symlink state, and the integrity of protected transaction artifacts. A missing target that was expected to exist, an unexpected digest, or a symlink substituted for a regular file is enough to stop automatic recovery.
 
 Once recovery chooses a direction, that choice is durable. A committed journal can only finish completion and cleanup; a rolled-back journal can only finish rollback cleanup. Retrying recovery cannot silently switch from one outcome to the other.
 
@@ -100,11 +100,11 @@ The separation between transaction state and managed memory becomes especially i
 
 A hard forget or purge may remove information from active memory while recovery still temporarily needs the pre-operation bytes in case the mutation must be rolled back. Storing those bytes inside the repository, exposing them through `audit --format json`, or allowing normal routing to discover them would create another persistence path for content the operation was trying to remove.
 
-Protocol 0.8 keeps protected rollback bytes outside the reader and public-output surfaces. Transaction metadata contains only the identifiers, locators, modes, and digests needed to reason about the mutation; protected artifacts containing pre-state bytes remain private recovery material. After completion or rollback reaches a verified terminal state, the transaction engine removes those artifacts.
+Protocol 0.8 keeps protected rollback bytes outside the reader and public-output surfaces. Transaction metadata contains only the identifiers, permissions, and digests needed to reason about the mutation; protected artifacts containing pre-state bytes remain private recovery material. After completion or rollback reaches a verified terminal state, the transaction engine removes those artifacts.
 
-Cleanup is checked rather than treated as a blind recursive delete. Before removing protected state, a committed transaction verifies that committed targets still match their recorded outputs, while a rolled-back transaction verifies that restored targets still match their bases. Local-reset recovery also tracks directory identity and refuses to remove directories that have gained unexpected children.
+Cleanup is checked rather than treated as a blind recursive delete. Before removing protected state, a committed transaction verifies that committed targets still match their recorded outputs, while a rolled-back transaction verifies that restored targets still match their bases. Reset recovery operations also track directory identity and refuse to remove directories that have gained unexpected children.
 
-The same limits apply to erasure more generally. MemoryCustodian can control what remains available through its managed memory surfaces, but it does not rewrite Git history or revoke clones, forks, backups, caches, or exports. Protocol 0.8 exposes those limits through the same versioned `ErasureScope` used by forget and recovery operations. A bounded `no-reachable-copy-detected` history result describes the inspected repository state; it is not evidence that no other copy exists.
+The same limits apply to erasure more generally. MemoryCustodian can control what remains available through its managed memory surfaces, but it does not rewrite Git history or revoke clones, forks, backups, caches, or exports. Protocol 0.8 formalizes those boundaries through explicit erasure scopes. A bounded history audit result describes only the inspected repository state; it is not evidence that no other copy exists.
 
 ---
 
@@ -129,7 +129,7 @@ memory-custodian recover --transaction-id <OPAQUE_ID> --complete
 memory-custodian recover --transaction-id <OPAQUE_ID> --rollback
 ```
 
-The public machine interface is separate from the private journal. Commands using `--format json` return output schema 1, with stable top-level fields for the command result and structured findings. An unfinished transaction can appear in a result shaped like this:
+The public machine interface is separate from the private journal. Commands using `--format json` return a stable, versioned envelope for command results and structured findings. An unfinished transaction produces a blocker result shaped like this:
 
 ```json
 {
@@ -174,11 +174,11 @@ v0.12.0 splits that process into three separately confirmed stages.
 
 *Figure 2. Migration keeps source capture, semantic canonicalization, and the final protocol authority change as separate confirmed stages. Bound local overlays participate in the same schema transition.*
 
-`prepare` captures the source protocol and entry schema, project binding, normalized root, source digests, and bound local-overlay state in protected repo-external migration state. Shared protocol metadata remains unchanged, so preparing a migration does not cause existing readers to interpret the project under the target schema.
+`prepare` captures the source protocol, project configuration, baseline digests, and bound local-overlay state in protected repo-external migration state. Shared protocol metadata remains unchanged, so preparing a migration does not cause existing readers to interpret the project under the target schema.
 
 `canonicalize` is repeatable and preview-first. It can convert mechanically unambiguous legacy units, but semantic fields still require explicit input where the old representation does not contain enough information. The migrator does not synthesize Evidence, infer Subject equivalence from prose, guess Facets, or manufacture reconciliation records. Ambiguous units remain unchanged and continue to block finalization.
 
-`finalize` rebuilds and validates the migration against the current source files. It requires canonical active entries, valid Subject and Facet relationships, and the absence of audit errors, blockers, or unresolved canonicalization work. The target Entry schema 3 representation, any bound local-overlay rewrites, and the protocol update are then applied through one transaction. The `protocol_version: 0.8` and `entry_schema_version: 3` authority in `manifest.md` is committed last.
+`finalize` rebuilds and validates the migration against the current source files. It requires canonical active entries, valid Subject and Facet relationships, and the absence of audit errors, blockers, or unresolved canonicalization work. The target Protocol 0.8 entry representation, any bound local-overlay rewrites, and the protocol update are then applied through one transaction. The protocol authority declaration in `manifest.md` (`protocol_version: 0.8`) is committed last.
 
 Committing the authority metadata last avoids a particularly bad migration failure mode: a repository claiming Protocol 0.8 while some of its entries are still encoded according to an older schema. If finalization is interrupted, the same transaction audit and recovery machinery handles the resulting state instead of asking the next run to infer how far the migration progressed.
 
@@ -190,7 +190,7 @@ Codex, Claude Code, Gemini, and the generic adapter all sit above the same CLI c
 
 When an agent runtime such as Claude Code, Codex, or Gemini is interrupted mid-turn—whether through token cutoffs, network timeouts, or process cancellation—the adapter does not need to synthesize custom recovery heuristics. Because transaction logging and audit blockers live below the adapter layer, any subsequent invocation under any agent runtime immediately encounters the same deterministic blocker finding (`MC-TRANSACTION-001`). The engine fails closed, ensuring that no agent continues mutating project memory on top of a half-applied transaction.
 
-The repository includes offline fixtures that run the same canonical commands under each adapter label and compare expected fields and payload stability. These checks are useful for detecting adapter drift, but they are not equivalent to launching four external agent runtimes and benchmarking their behavior end to end. v0.12.0 records a separate current-protocol Codex startup smoke rather than treating the static contract fixture as live-agent evidence.
+The repository includes offline fixtures that run the same canonical commands under each adapter label and compare expected fields and payload stability. These checks are useful for detecting adapter drift, but they are not equivalent to launching four external agent runtimes and benchmarking their behavior end to end. v0.12.0 records a separate live-agent startup verification for Codex rather than treating the static contract fixture as runtime evidence.
 
 Keeping that boundary explicit has become increasingly useful as MemoryCustodian grows. The shared CLI contract is deterministic and testable in CI; behavior above that contract remains a separate runtime question.
 
@@ -213,7 +213,7 @@ Persistent agent memory makes interrupted writes more consequential because thei
 * **Atomic files do not make an atomic operation:** Safely replacing individual files still leaves multi-file agent mutations vulnerable to partial completion.
 * **Match state, do not infer intent:** Recovery compares recorded content digests and target existence instead of guessing developer intent from diffs, prose, or commit history.
 * **Conditional rollback protects external work:** Automatic recovery halts with a blocker if any target has drifted outside the transaction’s recorded base or prepared states.
-* **Recovery state stays out of prompt context:** Transaction journals and pre-state recovery artifacts reside in repo-external private storage (`0700`/`0600`), preventing them from leaking into agent prompts.
+* **Recovery state stays out of prompt context:** Transaction journals and pre-state recovery artifacts reside in repo-external private storage with restricted permissions, preventing them from leaking into agent prompts.
 * **Staged migration prevents schema split-brain:** Migration isolates source capture, semantic canonicalization, and atomic finalization, committing protocol authority in `manifest.md` strictly last.
 * **Audit-first blockers:** Unfinished transactions produce `BLOCKER` audit findings and `status: FAIL`, preventing new mutations until explicitly resolved.
 
@@ -223,7 +223,7 @@ Persistent agent memory makes interrupted writes more consequential because thei
 
 ### Why not store the transaction journal inside `docs/memory/` or Git?
 
-If transaction journals were stored inside the repository, unfinished recovery state or sensitive pre-state bytes could be inadvertently ingested into agent prompt context or committed into Git history. Keeping journals in repo-external private state (`0700` directories, `0600` files) isolates operational recovery from project memory.
+If transaction journals were stored inside the repository, unfinished recovery state or sensitive pre-state bytes could be inadvertently ingested into agent prompt context or committed into Git history. Keeping journals in repo-external private state with restricted permissions isolates operational recovery from project memory.
 
 ### What happens if a developer edits a file while an interrupted transaction is pending?
 
