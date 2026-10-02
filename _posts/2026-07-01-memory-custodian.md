@@ -143,17 +143,17 @@ MemoryCustodian turns memory loading into an explicit routing decision based on 
 | Context payload | Every task loads all stored memory | Manifest selectively loads task-relevant modules |
 | Multi-agent parity | Fragmented across provider chats | Unified around repo-native Markdown authority |
 
-### Context Benchmark (NightNotes Fixture)
+### Context Scoping in Practice (NightNotes Fixture)
 
-Here is how this plays out in practice on the NightNotes planning scenario:
+Here is how selective loading isolates concerns in the NightNotes planning scenario:
 
-| Setup | Stored Assets | Injected Files | Prompt Tokens | Context Reduction |
-|---|---|---|---|---|
-| Monolithic bootstrap (`AGENTS.md`) | All decisions & constraints | 1 monolithic file | ~14,250 tokens | Baseline |
-| Naive directory dump (`docs/memory/*`) | 6 markdown modules | All 6 files | ~4,820 tokens | -66.2% |
-| **MemoryCustodian (`--task planning`)** | 6 markdown modules | `brief.md`, `decisions.md`, `constraints.md`, `do-not-use.md` | **1,480 tokens** | **-89.6%** |
+| Loading Strategy | Scope of Stored Context | Files Injected into Prompt | Active Governance Boundary |
+|---|---|---|---|
+| Monolithic bootstrap (`AGENTS.md`) | All project instructions, decisions, & setup steps | 1 monolithic instruction file | No task filtering; historical and current directives conflated |
+| Naive directory dump (`docs/memory/*`) | Entire memory directory | All markdown files indiscriminately | Leaks unreviewed candidates (`inbox.md`) and unrelated subsystems |
+| **MemoryCustodian (`--task planning`)** | Curated architectural memory | `brief.md`, `decisions.md`, `constraints.md`, `do-not-use.md` | Injects only planning invariants; excludes inbox and unrelated area context |
 
-Leaving unreviewed notes in `inbox.md` and keeping unrelated subsystem files out of the prompt saves nearly 90% of the context budget. The agent gets the constraints that matter for planning, without dragging along the entire history of the repository.
+Leaving unreviewed notes in `inbox.md` and keeping unrelated subsystem files out of the prompt avoids diluting the model's attention. The agent receives the specific architectural boundaries that matter for planning, without dragging along unverified candidates or the full historical record of the repository.
 
 The memory belongs to the repository—not to a single chat window or proprietary memory store. Changes stay visible, diffable, and reviewable in Git, like ordinary project artifacts.
 

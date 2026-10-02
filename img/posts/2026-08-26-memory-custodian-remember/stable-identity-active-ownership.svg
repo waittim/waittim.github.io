@@ -87,7 +87,7 @@
 <rect class="pill" x="931" y="611" width="195" height="40"/>
 <text class="pilltext" x="1028.5" y="637" text-anchor="middle">Facet: security</text>
 <rect class="pill" x="931" y="661" width="195" height="40"/>
-<text class="pilltext" x="1028.5" y="687" text-anchor="middle">Scope: backend</text>
+<text class="pilltext" x="1028.5" y="687" text-anchor="middle">Scope: area:backend</text>
 <rect class="pillblue" x="968" y="721" width="121" height="38"/>
 <text class="pilltextwhite" x="1028.5" y="747" text-anchor="middle">active</text>
 

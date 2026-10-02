@@ -93,9 +93,9 @@ MemoryCustodian v0.11.0 accounts for every enabled module in the manifest by ass
 * `skipped`: Evaluated by policy and intentionally omitted (e.g., path mismatch, unrequested profile).
 * `missing-required`: Required by policy or task baseline, but not found on disk.
 * `missing-optional`: Optional module matched by policy, but not found on disk.
-* `invalid`: The module file or metadata failed protocol validation.
+* `invalid`: The module file itself or its manifest declaration failed protocol validation.
 
-"Not loaded" is not a single state. An unrequested profile, an unmatched path pattern, an unresolved task scope, and a missing file on disk represent entirely different failure modes.
+Crucially, module routing dispositions track only whether files and modules were selected, skipped, missing, or structurally invalid at the manifest boundary. They do not evaluate internal entry-level semantic integrity or conflict status (such as schema defects, supersession relations, or Subject/Facet collisions within loaded files)—those are governed by independent audit and conflict diagnostics. "Not loaded" is not a single state: an unrequested profile, an unmatched path pattern, an unresolved task scope, and a missing file on disk represent entirely different failure modes.
 
 Instead of relying on unstable log strings, Protocol 0.7 attaches stable machine-readable reason codes to every disposition. This enables CI checks, test suites, and downstream agent integrations to verify routing behavior deterministically without scraping prose:
 
@@ -106,7 +106,7 @@ Instead of relying on unstable log strings, Protocol 0.7 attaches stable machine
 
 There is another critical absence that traditional retrieval obscures: budget exhaustion.
 
-A module may be correctly selected under the active policy, but one of its entries may exceed the prompt's configured token budget. MemoryCustodian preserves atomic entries—it refuses to truncate markdown sections into broken, misleading snippets. When context budget runs out, full entries are omitted, and v0.11.0 reports them in a dedicated `budget_omissions` diagnostic.
+A module may be correctly selected under the active policy, but one of its entries may exceed the prompt's configured token budget. MemoryCustodian preserves atomic entries—it refuses to truncate markdown sections into broken, misleading snippets. With one essential exception—the very first entry of a module is retained in full even if it exceeds the target budget on its own (issuing a diagnostic warning) to prevent total context starvation—subsequent entries that exceed the remaining budget are omitted entirely, and v0.11.0 reports them in a dedicated `budget_omissions` diagnostic.
 
 This keeps two fundamentally different explanations distinct: *The router did not select this module* versus *The router selected this module, but a complete entry exceeded the context budget*. Preserving that distinction is essential for debugging why an agent missed a specific constraint.
 
@@ -118,9 +118,9 @@ Inspection and execution demand different safety thresholds. Suppose an implemen
 
 To prevent silent failures, MemoryCustodian separates exploratory reads from strict execution gates:
 * **Non-strict reads (`memory-custodian read --explain`):** Expose available context alongside structured diagnostics detailing which path or area inputs remain unresolved. This helps developers diagnose routing requirements.
-* **Strict routing (`--strict-routing`):** Refuses to produce an active context pack if routing state is `INCOMPLETE`. If a task lacks the scope required to evaluate manifest rules, execution halts.
+* **Strict routing (`--strict-routing`):** Refuses authorization if routing state is `INCOMPLETE`. When a task lacks the scope required to evaluate manifest rules, the CLI halts with a non-zero exit code. While baseline context may still be emitted in the diagnostic payload for inspection, the orchestrating runtime must respect this non-zero exit code and abort code generation.
 
-Partial context is useful for diagnosis, but it must never silently become sufficient authority for code generation. Coding agents are notoriously compliant: if a tool provides three valid constraint files, the agent will cheerfully proceed without questioning whether a fourth was omitted. A strict routing gate stops this failure mode before code is written, ensuring that *“no additional memory was required”* is never confused with *“the system lacked the scope to know if additional memory was required.”*
+Partial context is useful for diagnosis, but it must never silently become sufficient authority for execution. Coding agents are notoriously compliant: if a tool returns baseline files, an unconstrained agent runtime might proceed without questioning whether critical area constraints were omitted. The calling harness must honor strict routing exit codes before code generation begins, ensuring that *“no additional memory was required”* is never confused with *“the system lacked the scope to know if additional memory was required.”*
 
 ---
 
@@ -128,7 +128,7 @@ Partial context is useful for diagnosis, but it must never silently become suffi
 
 Not all useful context belongs in Git. Individual developers have personal preferences—concise terminal outputs, local tool paths, or specific testing workflows—that should persist across sessions without polluting the shared repository. Conversely, keeping personal preferences completely untracked creates shadow policies that invisibly alter agent behavior across machines.
 
-MemoryCustodian v0.11.0 addresses this with local overlays. Stored outside the repository and tied to a normalized project path, local memory personalizes the agent’s operating environment without entering version control. To ensure CI reproducibility, passing `--no-local` strips all private overlays, yielding an identical context pack across any environment.
+MemoryCustodian v0.11.0 addresses this with local overlays. Stored outside the repository and tied to a normalized project path, local memory personalizes the agent’s operating environment without entering version control. To ensure CI reproducibility, passing `--no-local` strips all private overlays; combined with a pinned CLI version and an identical managed-memory repository snapshot, this yields deterministic, bit-for-bit identical context packs across environments.
 
 Critically, privacy never grants authority. The precedence model is strictly asymmetric:
 

@@ -68,34 +68,41 @@ To see this governance boundary in action, consider what happens when an agent d
 
 ```bash
 # An agent attempts to promote an unverified observation directly into active constraints
-memory-custodian record \
-  --scope project \
-  --subject storage-engine \
-  --facet architecture \
-  --status active \
-  --body "All persistent storage must use JSON; relational databases are prohibited." \
+memory-custodian add "All persistent storage must use JSON; relational databases are prohibited." \
+  --type constraint \
+  --subject MC-SUBJ-storage-engine \
   --evidence agent-observed
 ```
 
-Instead of silently modifying `docs/memory/constraints.md`, the CLI halts execution and outputs an admission rejection:
+Instead of silently modifying `docs/memory/constraints.md`, the CLI halts execution with a non-zero exit code and outputs an admission rejection:
 
 ```text
 [ADMISSION REJECTED] Mutation blocked by Protocol 0.6 admission gate.
 Target: docs/memory/constraints.md
-Subject: storage-engine (Facet: architecture)
+Subject: MC-SUBJ-storage-engine
 
 Reason:
   Evidence 'agent-observed' does not meet qualifying authority criteria
   for active project constraints.
 
 Resolution:
-  Preserving candidate statement in docs/memory/inbox.md.
-  To promote to active memory, provide qualifying evidence:
+  To record unverified observations without promotion, use '--candidate'
+  to stage the entry in docs/memory/inbox.md.
+  To promote directly to active memory, provide qualifying evidence:
     - Explicit user confirmation (--evidence user-confirmed)
-    - Valid repo document or issue link (--evidence docs/architecture/storage.md)
+    - Valid documentation link (--evidence doc:docs/architecture/storage.md)
 ```
 
-The difference is visible in `git status`: `docs/memory/constraints.md` remains untouched, and the candidate note is safely quarantined in `docs/memory/inbox.md`. Downstream agent sessions loading planning or implementation context will not receive this unconfirmed policy until a human reviewer or qualified repository document explicitly validates it.
+Admission rejection halts execution without altering repository state—`docs/memory/constraints.md` remains untouched. Crucially, rejection does not automatically divert speculative assertions into `inbox.md`; preserving an unverified observation requires the agent or operator to explicitly stage it as a candidate:
+
+```bash
+# Safely staging the observation as an unverified candidate for review
+memory-custodian add "All persistent storage must use JSON; relational databases are prohibited." \
+  --candidate \
+  --subject MC-SUBJ-storage-engine
+```
+
+With `--candidate`, the entry is safely appended to `docs/memory/inbox.md`, quarantined outside default task context (`planning`, `implementation`). Downstream agent sessions will not receive this unconfirmed rule until a human reviewer or qualifying repository documentation (`--evidence doc:...` or `--evidence repo:...`) explicitly validates and promotes it.
 
 ### Evidence is not a truth machine
 
@@ -154,9 +161,9 @@ Likewise, omitted modules can be diagnosed with equal clarity. When a developer 
 
 Because project memory governs subsequent agent runs, modifying it is an update to shared repository state rather than an ordinary file edit. Two concurrent agents, or an agent applying an outdated diff after files have shifted, can easily corrupt project invariants. Plain text makes memory human-readable and diffable in Git, but it does not eliminate concurrency hazards.
 
-### Preview-first state transitions
+### Safe state transitions and preview workflows
 
-MemoryCustodian enforces a preview-first mutation model. The CLI computes an exact candidate diff against current disk state, issues a plan ID, and pauses for review. When `--apply` is invoked, the system acquires a mutation guard, verifies that the target files have not drifted since the plan was generated, and aborts if stale state is detected. This guarantees that confirmation authorizes a specific state transition rather than a generic command.
+While routine `add` commands directly append validated entries once admission checks pass, structural and destructive operations—such as `compact` and `forget`—enforce a preview-first mutation model. The CLI computes an execution plan against current disk state, issues a plan ID, and pauses for review. When `--apply` is invoked, the system verifies that the target files have not drifted since the plan was generated and aborts if stale state is detected. This guarantees that confirmation authorizes a specific state transition rather than an unchecked modification.
 
 Crucially, memory entries carry context, not capability tokens. An admitted memory entry can document constraints on project architecture, but it can never grant an agent authorization to bypass security boundaries, access secrets, upload code externally, push commits, or execute privileged operations.
 
@@ -168,7 +175,7 @@ Persistent memory also introduces retirement challenges. When information become
 
 In distributed software development, promising universal deletion is impossible: code resides across Git clones, CI runners, remote forks, and offline backups. MemoryCustodian therefore contracts only what it directly manages: matching information is reliably removed from managed repository files (`docs/memory/`) and local archives. It explicitly does not claim to rewrite Git history or revoke external copies. Grounding deletion guarantees in bounded, inspectable scope builds far more operational trust than impossible claims of universal erasure.
 
-The same identity model that assists admission also powers erasure: because Subject IDs remain stable across renames and aliases, retiring a topic removes all associated entries systematically rather than relying on brittle keyword sweeps.
+The same identity model that assists admission also anchors erasure: formal Subject IDs provide an explicit semantic handle when retiring or tombstoning active memory, replacing brittle keyword sweeps with bounded target matching. Erasure operates strictly on specified subjects and matching entries rather than assuming magical cross-file alias purging.
 
 ---
 

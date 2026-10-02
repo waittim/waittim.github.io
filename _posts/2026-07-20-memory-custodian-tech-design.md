@@ -146,10 +146,10 @@ Suppose an agent receives this task:
 Change how NightNotes stores user sessions.
 ```
 
-The task is classified as `storage-implementation`. The manifest defines the route:
+The task is classified under the canonical `implementation` category (with `storage` as the target area). The manifest defines the route:
 
 ```markdown
-## storage-implementation
+## implementation
 
 Load:
 - brief.md
@@ -239,7 +239,7 @@ Consider encrypting exported notes with a user-provided passphrase.
 
 Depending on context, this could be a confirmed product requirement, a speculative future feature, a temporary debugging observation, or something that should never enter durable memory. The keyword "encrypting" cannot resolve the ambiguity; determining its status requires understanding architectural context and project intent. Simple lexical heuristics—such as treating "must" as a constraint, "decided" as a decision, or "avoid" as a tombstone—inevitably fail on real engineering discussions, such as `We must consider whether SQLite is appropriate after the data model changes`.
 
-This is why MemoryCustodian enforces a strict division of responsibility: **the agent evaluates semantic meaning, while the CLI enforces structural invariants**. Evaluating what kind of knowledge an entry represents, whether it conflicts with existing decisions, and whether it warrants admission requires the contextual judgment of a language model or human reviewer. Once that semantic choice is made, deterministic tooling takes over: validating file targets, resolving routes, enforcing entry schemas, preventing duplicate insertions, and generating diff previews. The agent is never permitted to mutate repository state unconstrained, and the CLI never attempts to invent meaning it cannot comprehend.
+This is why MemoryCustodian enforces a strict division of responsibility: **the agent evaluates semantic meaning, while the CLI enforces structural invariants**. Evaluating what kind of knowledge an entry represents, whether it conflicts with existing decisions, and whether it warrants admission requires the contextual judgment of a language model or human reviewer. Once that semantic choice is made, deterministic tooling takes over: validating file targets, resolving routes, and enforcing entry schemas, while leaving duplicate consolidation and supersession to subsequent compaction. The agent is never permitted to mutate repository state unconstrained, and the CLI never attempts to invent meaning it cannot comprehend.
 
 This distinction also governs context assembly. A decision is an atomic semantic unit—it consists of a heading, a chosen direction, explicit reasoning, and bounded scope limitations:
 
@@ -256,7 +256,7 @@ Scope:
 - This decision applies only to the current session store.
 ```
 
-Arbitrary token cutoffs introduce severe risks: truncating an entry mid-paragraph might preserve the directive to use JSON while discarding the scope limitation that restricts it to session storage, mistakenly elevating a local decision into a global mandate. MemoryCustodian therefore treats complete semantic entries as indivisible units when constructing context. If an entry exceeds the remaining budget, it is omitted entirely and logged in diagnostics rather than silently fractured into a misleading snippet.
+Arbitrary token cutoffs introduce severe risks: truncating an entry mid-paragraph might preserve the directive to use JSON while discarding the scope limitation that restricts it to session storage, mistakenly elevating a local decision into a global mandate. MemoryCustodian therefore treats complete semantic entries as indivisible units when constructing context. With one vital exception—the very first entry is retained in full even if it exceeds the target budget (with a diagnostic warning) to prevent total context starvation—any subsequent entry that exceeds the remaining budget is omitted entirely and logged in diagnostics rather than silently fractured into a misleading snippet.
 
 ---
 

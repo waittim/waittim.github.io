@@ -28,7 +28,7 @@ tags:
 
 Deleting memory safely is harder than it sounds. In a repository, editing or deleting text by hand can easily break adjacent rules, leave stale references in other files, or leave behind a descriptive tombstone that re-introduces the very topic you wanted to retire.
 
-MemoryCustodian treats forgetting as an explicit dry-run state change: it previews the exact diff across every affected file before touching disk, operates on complete semantic entries rather than text fragments, and clearly defines the boundaries of what it can and cannot erase.
+MemoryCustodian treats forgetting as an explicit dry-run state change: it previews an execution plan summary across every affected file before touching disk, operates on complete semantic entries rather than text fragments, and clearly defines the boundaries of what it can and cannot erase.
 
 *For developers building reviewable deletion and mutation workflows over durable agent memory. The CLI examples and three forgetting modes reflect MemoryCustodian v0.9.x. The stronger transaction, recovery, and structured erasure-reporting behaviors described as requirements below represent the design direction for upcoming releases.*
 
@@ -47,7 +47,7 @@ Once memory becomes durable, forgetting is no longer a simple text-editing opera
 
 Together, these choices treat forgetting as a governed state transition rather than an invisible side effect.
 
-<img class="theme-surface" src="{{ "/img/posts/2026-07-21-memory-custodian-safe/gallery-safe-forgetting.png" | relative_url }}" alt="Safe forgetting workflow: Preview generates a dry-run plan, Review checks semantic units and blockers, Apply re-runs with --apply; supports soft, hard, and purge modes over plain Markdown" title="Memory you can review—and safely forget" width="1270" height="760" loading="lazy" decoding="async">
+<img class="theme-surface" src="{{ "/img/posts/2026-07-21-memory-custodian-safe/gallery-safe-forgetting.png" | relative_url }}" alt="Safe forgetting workflow: Preview generates a dry-run plan, Review checks semantic units and blockers (flagging broad matches that require --allow-broad-match), Apply re-runs with --apply; supports soft, hard, and purge modes over plain Markdown" title="Memory you can review—and safely forget" width="1270" height="760" loading="lazy" decoding="async">
 
 ---
 
@@ -208,7 +208,7 @@ memory-custodian forget "Local session persistence" \
 
 The primary goal of a dry-run preview is to make the proposed state transition inspectable so that developers can reject unintended changes before the first disk write occurs. 
 
-Preview also introduces deliberate friction when a requested topic is overly broad. For instance, running `memory-custodian forget "Go" --mode soft` could inadvertently match a programming language, product name, common verb, or package header. In such cases, the system flags ambiguous matches and halts execution, requiring explicit scoping before modifying repository files.
+Preview also introduces deliberate friction when a requested topic is overly broad. For instance, running `memory-custodian forget "Go" --mode soft` could inadvertently match a programming language, product name, common verb, or package header. In such cases, the system flags ambiguous matches and halts execution. Rather than silently executing a potentially widespread sweep, the system requires the operator to review the proposed plan and either narrow the scope or explicitly confirm the deletion using `--allow-broad-match` alongside `--apply`.
 
 ---
 
