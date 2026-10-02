@@ -146,18 +146,28 @@ Suppose an agent receives this task:
 Change how NightNotes stores user sessions.
 ```
 
-The task is classified under the canonical `implementation` category (with `storage` as the target area). The manifest defines the route:
+The task uses the canonical `implementation` category. The following manifest excerpt defines its baseline context; the caller requests the `storage` area explicitly with `--area storage`:
 
 ```markdown
-## implementation
-
-Load:
+## Always load
 - brief.md
+
+## Load by task
+
+### Implementation / execution / debugging
+Load:
 - decisions.md
 - constraints.md
 - do-not-use.md
-- areas/storage.md
 ```
+
+The full manifest retains its other canonical task sections. With `areas/storage.md` enabled and curated, the caller loads the implementation baseline and the storage area together:
+
+```bash
+memory-custodian read --task implementation --area storage
+```
+
+The task category and the area request are separate inputs: the baseline route governs implementation work, while the explicit area supplies the storage-specific context.
 
 The resulting flow is straightforward:
 
@@ -239,7 +249,7 @@ Consider encrypting exported notes with a user-provided passphrase.
 
 Depending on context, this could be a confirmed product requirement, a speculative future feature, a temporary debugging observation, or something that should never enter durable memory. The keyword "encrypting" cannot resolve the ambiguity; determining its status requires understanding architectural context and project intent. Simple lexical heuristics—such as treating "must" as a constraint, "decided" as a decision, or "avoid" as a tombstone—inevitably fail on real engineering discussions, such as `We must consider whether SQLite is appropriate after the data model changes`.
 
-This is why MemoryCustodian enforces a strict division of responsibility: **the agent evaluates semantic meaning, while the CLI enforces structural invariants**. Evaluating what kind of knowledge an entry represents, whether it conflicts with existing decisions, and whether it warrants admission requires the contextual judgment of a language model or human reviewer. Once that semantic choice is made, deterministic tooling takes over: validating file targets, resolving routes, and enforcing entry schemas, while leaving duplicate consolidation and supersession to subsequent compaction. The agent is never permitted to mutate repository state unconstrained, and the CLI never attempts to invent meaning it cannot comprehend.
+This is why MemoryCustodian separates semantic judgment from deterministic checks. An agent or human reviewer decides what an entry means, whether it conflicts with existing guidance, and whether it deserves to persist. The CLI validates managed file targets, resolves manifest routes, and applies supported format and budget checks. Ordinary `add` calls can still insert duplicate content. Compaction can remove supported exact duplicates, but deciding which entries to merge, rewrite, or retire remains an agent or human review task.
 
 This distinction also governs context assembly. A decision is an atomic semantic unit—it consists of a heading, a chosen direction, explicit reasoning, and bounded scope limitations:
 
@@ -256,7 +266,7 @@ Scope:
 - This decision applies only to the current session store.
 ```
 
-Arbitrary token cutoffs introduce severe risks: truncating an entry mid-paragraph might preserve the directive to use JSON while discarding the scope limitation that restricts it to session storage, mistakenly elevating a local decision into a global mandate. MemoryCustodian therefore treats complete semantic entries as indivisible units when constructing context. With one vital exception—the very first entry is retained in full even if it exceeds the target budget (with a diagnostic warning) to prevent total context starvation—any subsequent entry that exceeds the remaining budget is omitted entirely and logged in diagnostics rather than silently fractured into a misleading snippet.
+Arbitrary token cutoffs introduce severe risks: truncating an entry mid-paragraph might preserve the directive to use JSON while discarding the scope limitation that restricts it to session storage, mistakenly elevating a local decision into a global mandate. MemoryCustodian packs complete semantic units in source order rather than truncating an entry. If the first semantic unit cannot fit within the module budget, it retains that unit whole and reports an oversized-entry warning. When a later unit cannot fit, packing stops and omits that unit and the remaining tail. The budget is therefore a packing target with an explicit oversized-first-unit exception, rather than a hard token ceiling.
 
 ---
 

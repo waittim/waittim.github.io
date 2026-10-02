@@ -64,45 +64,39 @@ The critical architectural transition is not from “unknown” to “stored”,
 
 ### A Concrete Walkthrough: Intercepting Speculative Memory
 
-To see this governance boundary in action, consider what happens when an agent discovers that all current data files use JSON and attempts to promote that observation into a permanent project constraint:
+Suppose an agent observes that the current data files use JSON and attempts to turn that observation into a permanent project constraint.
+
+For the following command, `SUBJECT_ID` must contain an existing active Subject ID from `subjects.md`. MemoryCustodian generates Subject IDs in the form `MC-SUBJ-YYYYMMDD-XXXXXXXX`; a display name such as `storage-engine` is not a valid replacement for the registered ID.
 
 ```bash
-# An agent attempts to promote an unverified observation directly into active constraints
-memory-custodian add "All persistent storage must use JSON; relational databases are prohibited." \
+# SUBJECT_ID contains an existing active Subject ID from subjects.md.
+memory-custodian add \
+  "All persistent storage must use JSON; relational databases are prohibited." \
   --type constraint \
-  --subject MC-SUBJ-storage-engine \
+  --subject "$SUBJECT_ID" \
+  --facet architecture \
   --evidence agent-observed
 ```
 
-Instead of silently modifying `docs/memory/constraints.md`, the CLI halts execution with a non-zero exit code and outputs an admission rejection:
+In v0.10.0, this attempt exits with code `2` and reports the following error on stderr:
 
 ```text
-[ADMISSION REJECTED] Mutation blocked by Protocol 0.6 admission gate.
-Target: docs/memory/constraints.md
-Subject: MC-SUBJ-storage-engine
-
-Reason:
-  Evidence 'agent-observed' does not meet qualifying authority criteria
-  for active project constraints.
-
-Resolution:
-  To record unverified observations without promotion, use '--candidate'
-  to stage the entry in docs/memory/inbox.md.
-  To promote directly to active memory, provide qualifying evidence:
-    - Explicit user confirmation (--evidence user-confirmed)
-    - Valid documentation link (--evidence doc:docs/architecture/storage.md)
+Error: agent-observed evidence cannot create active memory. Use --candidate or provide user-confirmed/source-backed evidence.
 ```
 
-Admission rejection halts execution without altering repository state—`docs/memory/constraints.md` remains untouched. Crucially, rejection does not automatically divert speculative assertions into `inbox.md`; preserving an unverified observation requires the agent or operator to explicitly stage it as a candidate:
+The rejection leaves the managed memory unchanged. It does not automatically save the observation in `inbox.md`. Preserving the observation requires a separate, explicit candidate write:
 
 ```bash
-# Safely staging the observation as an unverified candidate for review
-memory-custodian add "All persistent storage must use JSON; relational databases are prohibited." \
+memory-custodian add \
+  "All persistent storage must use JSON; relational databases are prohibited." \
+  --type constraint \
   --candidate \
-  --subject MC-SUBJ-storage-engine
+  --evidence agent-observed
 ```
 
-With `--candidate`, the entry is safely appended to `docs/memory/inbox.md`, quarantined outside default task context (`planning`, `implementation`). Downstream agent sessions will not receive this unconfirmed rule until a human reviewer or qualifying repository documentation (`--evidence doc:...` or `--evidence repo:...`) explicitly validates and promotes it.
+This command records the observation as a candidate in `docs/memory/inbox.md`, with its unverified Evidence preserved. It does not create an active constraint, and normal planning or implementation context does not load that candidate.
+
+Creating a formal active constraint later requires semantic review, qualifying Evidence, a registered Subject, and a controlled Facet. Qualifying Evidence may be explicit user confirmation (`user-confirmed`) or an existing project source such as `doc:docs/architecture/storage.md`. The evidence reference records why admission is allowed; it does not itself prove the claim's meaning or continued correctness.
 
 ### Evidence is not a truth machine
 
@@ -175,7 +169,7 @@ Persistent memory also introduces retirement challenges. When information become
 
 In distributed software development, promising universal deletion is impossible: code resides across Git clones, CI runners, remote forks, and offline backups. MemoryCustodian therefore contracts only what it directly manages: matching information is reliably removed from managed repository files (`docs/memory/`) and local archives. It explicitly does not claim to rewrite Git history or revoke external copies. Grounding deletion guarantees in bounded, inspectable scope builds far more operational trust than impossible claims of universal erasure.
 
-The same identity model that assists admission also anchors erasure: formal Subject IDs provide an explicit semantic handle when retiring or tombstoning active memory, replacing brittle keyword sweeps with bounded target matching. Erasure operates strictly on specified subjects and matching entries rather than assuming magical cross-file alias purging.
+Stable Subject IDs make ownership and references inspectable, but they do not turn forgetting into an alias-aware cascade. In v0.10.0, `forget TOPIC` uses literal, case-insensitive matching against supported Markdown units. If removing a Subject would leave retained entries referring to it, the mutation plan is blocked. Retiring all guidance associated with a Subject therefore requires explicit review of the relevant entries; aliases do not automatically expand a forgetting request into deletion of every reference.
 
 ---
 

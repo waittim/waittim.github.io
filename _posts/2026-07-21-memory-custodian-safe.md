@@ -49,6 +49,8 @@ Together, these choices treat forgetting as a governed state transition rather t
 
 <img class="theme-surface" src="{{ "/img/posts/2026-07-21-memory-custodian-safe/gallery-safe-forgetting.png" | relative_url }}" alt="Safe forgetting workflow: Preview generates a dry-run plan, Review checks semantic units and blockers (flagging broad matches that require --allow-broad-match), Apply re-runs with --apply; supports soft, hard, and purge modes over plain Markdown" title="Memory you can review—and safely forget" width="1270" height="760" loading="lazy" decoding="async">
 
+*For a broad-match plan, apply requires both `--apply` and `--allow-broad-match`. The latter acknowledges broad-match risk; it does not override unsupported matches or other blockers.*
+
 ---
 
 ## Forgetting Is a Governance Problem
@@ -208,7 +210,7 @@ memory-custodian forget "Local session persistence" \
 
 The primary goal of a dry-run preview is to make the proposed state transition inspectable so that developers can reject unintended changes before the first disk write occurs. 
 
-Preview also introduces deliberate friction when a requested topic is overly broad. For instance, running `memory-custodian forget "Go" --mode soft` could inadvertently match a programming language, product name, common verb, or package header. In such cases, the system flags ambiguous matches and halts execution. Rather than silently executing a potentially widespread sweep, the system requires the operator to review the proposed plan and either narrow the scope or explicitly confirm the deletion using `--allow-broad-match` alongside `--apply`.
+Preview also introduces deliberate friction when a requested topic is overly broad. For instance, running `memory-custodian forget "Go" --mode soft` could inadvertently match a programming language, product name, common verb, or package header. In such cases, the system flags ambiguous matches and halts execution. Rather than silently executing a potentially widespread sweep, the system requires the operator to review the proposed plan and either narrow the scope or explicitly acknowledge the broad-match risk using `--allow-broad-match` alongside `--apply` (which does not override unsupported matches or other blockers).
 
 ---
 
