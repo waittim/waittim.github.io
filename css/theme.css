@@ -10,7 +10,9 @@
   --color-page: #ffffff;
   --color-surface: #ffffff;
   --color-surface-subtle: #f9f9f9;
-  --color-surface-raised: rgba(255, 255, 255, 0.92);
+  --color-surface-raised: rgba(255, 255, 255, 0.78);
+  --color-nav-border: rgba(0, 0, 0, 0.08);
+  --shadow-nav: 0 1px 3px rgba(0, 0, 0, 0.04);
   --color-text: #404040;
   --color-text-secondary: #6b6b6b;
   --color-text-tertiary: #767676;
@@ -39,6 +41,15 @@ html,
 body {
   background-color: var(--color-page);
   color: var(--color-text);
+}
+/* Eliminate tap delays on mobile input paths */
+a,
+button,
+.btn,
+.navbar-toggle,
+.tag,
+.pager a {
+  touch-action: manipulation;
 }
 .skip-link:focus {
   position: fixed;
@@ -254,12 +265,14 @@ hr {
 img.shadow {
   box-shadow: var(--shadow-image);
 }
-/* Fixed navigation is a page surface; the hero navigation stays unchanged. */
+/* Fixed navigation is a translucent frosted glass surface; the hero navigation stays unchanged. */
 @media only screen and (min-width: 1170px) {
   .navbar-custom.is-fixed {
     background-color: var(--color-surface-raised);
-    border-bottom-color: var(--color-border);
-    box-shadow: var(--shadow-raised);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid var(--color-nav-border);
+    box-shadow: var(--shadow-nav);
   }
   .navbar-custom.is-fixed .navbar-brand,
   .navbar-custom.is-fixed .nav li a {
@@ -272,11 +285,13 @@ img.shadow {
     color: var(--color-link-hover);
   }
 }
-/* On mobile only the opened menu becomes a themed surface. */
+/* On mobile only the opened menu becomes a themed translucent surface. */
 @media only screen and (max-width: 767px) {
   .navbar-default .navbar-collapse {
-    background: var(--color-surface);
-    border-color: var(--color-border);
+    background: var(--color-surface-raised);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid var(--color-nav-border);
     box-shadow: var(--shadow-raised);
   }
   .navbar-custom .navbar-collapse .nav li a {
@@ -545,27 +560,48 @@ pre,
   background: transparent;
   box-shadow: none;
 }
-/* Light tactile feedback; gated for reduced motion. */
+/* Apple-style tactile press feedback and fluid motion; gated for reduced motion. */
 @media (prefers-reduced-motion: no-preference) {
   .pager li > a,
   .btn-default,
+  .navbar-toggle,
   .series-nav .tags a,
   .series-nav .tags .tag,
   .sidebar-container .tags a,
   #tag_cloud a,
-  #tag_cloud .tag {
-    transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  #tag_cloud .tag,
+  .post-preview > a {
+    transition: transform 0.12s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.12s ease, background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
   }
+  /* Immediate press feedback (pointer-down sensation) */
   .pager li > a:active,
   .btn-default:active {
-    transform: translateY(1px) scale(0.98);
+    transform: scale(0.97);
+  }
+  .navbar-toggle:active {
+    transform: scale(0.92);
+  }
+  .series-nav .tags a:active,
+  .series-nav .tags .tag:active,
+  .sidebar-container .tags a:active,
+  #tag_cloud a:active,
+  #tag_cloud .tag:active {
+    transform: scale(0.95);
+  }
+  .post-preview > a:active {
+    opacity: 0.75;
   }
   .post-preview > a > .post-title {
     transition: color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .navbar-custom .nav li a,
   .navbar-custom .navbar-brand {
-    transition: color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: color 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.12s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.12s ease;
+  }
+  .navbar-custom .nav li a:active,
+  .navbar-custom .navbar-brand:active {
+    transform: scale(0.96);
+    opacity: 0.75;
   }
 }
 @media (prefers-color-scheme: dark) {
@@ -573,7 +609,9 @@ pre,
     --color-page: #121416;
     --color-surface: #171a1d;
     --color-surface-subtle: #1c2024;
-    --color-surface-raised: rgba(18, 20, 22, 0.92);
+    --color-surface-raised: rgba(18, 20, 22, 0.78);
+    --color-nav-border: rgba(255, 255, 255, 0.08);
+    --shadow-nav: 0 1px 4px rgba(0, 0, 0, 0.3);
     --color-text: #e6e8eb;
     --color-text-secondary: #aeb4bc;
     --color-text-tertiary: #969da7;
@@ -724,6 +762,50 @@ pre,
     background: var(--color-border-strong);
     border: 2px solid var(--color-code-bg);
     border-radius: 999px;
+  }
+}
+/* Accessibility: Reduced transparency fallback (Apple Design standard) */
+@media (prefers-reduced-transparency: reduce) {
+  .navbar-custom.is-fixed,
+  .navbar-default .navbar-collapse {
+    background-color: var(--color-surface) !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+}
+/* Accessibility: High contrast support */
+@media (prefers-contrast: more) {
+  .navbar-custom.is-fixed,
+  .navbar-default .navbar-collapse {
+    background-color: var(--color-surface) !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    border-color: var(--color-border-strong) !important;
+    box-shadow: none !important;
+  }
+  .navbar-custom.is-fixed .navbar-brand,
+  .navbar-custom.is-fixed .nav li a {
+    color: var(--color-text) !important;
+    font-weight: 700;
+  }
+  .pager li > a,
+  .btn-default,
+  .series-nav .tags a,
+  .sidebar-container .tags a,
+  #tag_cloud a {
+    border-color: var(--color-border-strong) !important;
+  }
+}
+/* Accessibility: Reduced motion cross-fades without vestibular transform displacement */
+@media (prefers-reduced-motion: reduce) {
+  .navbar-custom.is-fixed {
+    transition: opacity 0.2s ease !important;
+    transform: none !important;
+  }
+  #huxblog_navbar,
+  #huxblog_navbar .navbar-collapse {
+    transform: none !important;
+    transition: opacity 0.15s ease !important;
   }
 }
 @media print {

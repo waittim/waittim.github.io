@@ -42,39 +42,45 @@
     var $toggle = document.querySelector('.navbar-toggle');
     var $navbar = document.querySelector('#huxblog_navbar');
     var $collapse = document.querySelector('.navbar-collapse');
+    var closeTimer = null;
 
     var __HuxNav__ = {
         close: function(){
-            $navbar.className = " ";
+            if (closeTimer) {
+                clearTimeout(closeTimer);
+            }
+            $navbar.classList.remove('in');
             $toggle.setAttribute("aria-expanded", "false");
-            // wait until animation end.
-            setTimeout(function(){
-                // prevent frequently toggle
-                if($navbar.className.indexOf('in') < 0) {
-                    $collapse.style.height = "0px"
+            closeTimer = setTimeout(function(){
+                if (!$navbar.classList.contains('in')) {
+                    $collapse.style.height = "0px";
                 }
-            },400)
+            }, 250);
         },
         open: function(){
-            $collapse.style.height = "auto"
-            $navbar.className += " in";
+            if (closeTimer) {
+                clearTimeout(closeTimer);
+                closeTimer = null;
+            }
+            $collapse.style.height = "auto";
+            $navbar.classList.add('in');
             $toggle.setAttribute("aria-expanded", "true");
         }
-    }
+    };
 
     // Bind Event
     $toggle.addEventListener('click', function(e){
-        if ($navbar.className.indexOf('in') > 0) {
-            __HuxNav__.close()
-        }else{
-            __HuxNav__.open()
+        if ($navbar.classList.contains('in')) {
+            __HuxNav__.close();
+        } else {
+            __HuxNav__.open();
         }
-    })
+    });
 
-    // Close mobile nav when clicking outside the toggle control.
+    // Close mobile nav when clicking outside the toggle control or dropdown
     document.addEventListener('click', function(e){
-        if(e.target == $toggle) return;
-        if(e.target.className == 'icon-bar') return;
+        if ($toggle.contains(e.target)) return;
+        if ($navbar.contains(e.target)) return;
         __HuxNav__.close();
-    })
+    });
 </script>

@@ -335,16 +335,14 @@ pre code {
 	 * HuxBlog-Navbar using genuine Material Design Animation
 	 */
   #huxblog_navbar {
-    /**
-		 * Sharable code and 'out' function
-		 */
     opacity: 0;
-    transform: scaleX(0);
+    transform: scale(0.92);
     transform-origin: top right;
-    transition: all 200ms cubic-bezier(0.47, 0, 0.4, 0.99) 0ms;
-    -webkit-transform: scaleX(0);
+    pointer-events: none;
+    transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1), opacity 150ms ease-out;
+    -webkit-transform: scale(0.92);
     -webkit-transform-origin: top right;
-    -webkit-transition: all 200ms cubic-bezier(0.47, 0, 0.4, 0.99) 0ms;
+    -webkit-transition: -webkit-transform 200ms cubic-bezier(0.16, 1, 0.3, 1), opacity 150ms ease-out;
     /**
 		 *'In' Animation
 		 */
@@ -355,35 +353,24 @@ pre code {
   }
   #huxblog_navbar .navbar-collapse {
     height: 0px;
-    transform: scaleY(0);
-    transform-origin: top right;
-    transition: transform 400ms cubic-bezier(0.32, 1, 0.23, 1) 0ms;
-    -webkit-transform: scaleY(0);
-    -webkit-transform-origin: top right;
-    -webkit-transition: -webkit-transform 400ms cubic-bezier(0.32, 1, 0.23, 1) 0ms;
   }
   #huxblog_navbar li {
     opacity: 0;
-    transition: opacity 100ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
-    -webkit-transition: opacity 100ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+    transition: opacity 120ms ease-out;
+    -webkit-transition: opacity 120ms ease-out;
   }
   #huxblog_navbar.in {
-    transform: scaleX(1);
-    -webkit-transform: scaleX(1);
+    transform: scale(1);
+    -webkit-transform: scale(1);
     opacity: 1;
-    transition: all 250ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
-    -webkit-transition: all 250ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
-  }
-  #huxblog_navbar.in .navbar-collapse {
-    transform: scaleY(1);
-    -webkit-transform: scaleY(1);
-    transition: transform 500ms cubic-bezier(0.23, 1, 0.32, 1);
-    -webkit-transition: -webkit-transform 500ms cubic-bezier(0.23, 1, 0.32, 1);
+    pointer-events: auto;
+    transition: transform 260ms cubic-bezier(0.16, 1, 0.3, 1), opacity 200ms ease-out;
+    -webkit-transition: -webkit-transform 260ms cubic-bezier(0.16, 1, 0.3, 1), opacity 200ms ease-out;
   }
   #huxblog_navbar.in li {
     opacity: 1;
-    transition: opacity 450ms cubic-bezier(0.23, 1, 0.32, 1) 205ms;
-    -webkit-transition: opacity 450ms cubic-bezier(0.23, 1, 0.32, 1) 205ms;
+    transition: opacity 200ms ease-out;
+    -webkit-transition: opacity 200ms ease-out;
   }
 }
 .navbar-custom {
@@ -468,9 +455,9 @@ pre code {
     top: -61px;
     background-color: rgba(255, 255, 255, 0.9);
     border-bottom: 1px solid #f2f2f2;
-    -webkit-transition: -webkit-transform 0.3s;
-    -moz-transition: -moz-transform 0.3s;
-    transition: transform 0.3s;
+    -webkit-transition: -webkit-transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    -moz-transition: -moz-transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .navbar-custom.is-fixed .navbar-brand {
     color: #404040;
