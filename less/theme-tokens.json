@@ -1,0 +1,23 @@
+{
+  "_comment": "Chart colors for scripts/regenerate_external_post_images.py. Page colors stay in less/theme.less :root. accent matches --color-accent and less/variables.less @brand-primary. ink matches --color-text. link is the chart second series (Bootstrap blue), not --color-link. palette order: accent teal, link blue, sea green, slate, warm rust, muted sage, deep navy. quantile_cmap runs deep navy to light teal. The script fails if this file or any field below is missing.",
+  "ink": "#404040",
+  "muted": "#6b6b6b",
+  "grid": "#e8e8e8",
+  "spine": "#cccccc",
+  "accent": "#00809b",
+  "link": "#337ab7",
+  "page": "none",
+  "capture": "#00809b",
+  "miss": "#c45c26",
+  "marker_face": "#ffffff",
+  "palette": [
+    "#00809b",
+    "#337ab7",
+    "#2a9d8f",
+    "#4a5568",
+    "#c45c26",
+    "#5b8a72",
+    "#1d3557"
+  ],
+  "quantile_cmap": ["#1d3557", "#7eb8c4"]
+}

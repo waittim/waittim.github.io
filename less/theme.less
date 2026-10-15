@@ -6,6 +6,8 @@
  * the token values without rewriting component styles.
  */
 
+@import "variables.less";
+
 :root {
   color-scheme: light dark;
 
@@ -24,7 +26,8 @@
   --color-border-strong: #cccccc;
   --color-border-control: #767676;
 
-  /* One accent family for links and interactive chrome. */
+  /* One accent family for links and interactive chrome.
+     Keep this accent, and --color-text above, aligned with less/theme-tokens.json. */
   --color-accent: #00809b;
   --color-link: #00809b;
   --color-link-hover: #006478;
@@ -44,6 +47,9 @@
   /* Teal-tinted shadows (not pure black). */
   --shadow-raised: 0 1px 6px rgba(0, 64, 80, 0.14);
   --shadow-image: 0 2px 5px rgba(0, 64, 80, 0.2);
+
+  /* Desktop navbar scroll breakpoint, read by js/hux-blog.js. */
+  --nav-scroll-min: @nav-scroll-min;
 }
 
 html,
@@ -316,7 +322,7 @@ img.shadow {
 }
 
 /* Fixed navigation is a translucent frosted glass surface; the hero navigation stays unchanged. */
-@media only screen and (min-width: 1170px) {
+@media only screen and (min-width: @nav-scroll-min) {
   .navbar-custom.is-fixed {
     background-color: var(--color-surface-raised);
     -webkit-backdrop-filter: blur(20px) saturate(180%);

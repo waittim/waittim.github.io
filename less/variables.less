@@ -1,6 +1,10 @@
 // Variables
 
+// Desktop navbar scroll breakpoint. theme.less :root publishes this as --nav-scroll-min.
+@nav-scroll-min: 1170px;
+
 // Keep in sync with theme.less --color-accent (light).
+// Chart script reads the same accent from less/theme-tokens.json ("accent").
 @brand-primary: #00809b;
 @gray-dark: lighten(black, 25%);
 @gray: lighten(black, 50%);

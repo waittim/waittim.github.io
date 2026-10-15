@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
-"""Regenerate migrated post charts with a unified site-aligned visual style."""
+"""Regenerate migrated post charts with a unified site-aligned visual style.
+
+Chart colors are read from less/theme-tokens.json. A missing file or field aborts
+the script instead of substituting another palette.
+"""
 
 from __future__ import annotations
 
+import json
 import os
 import re
 from itertools import product
@@ -10,6 +15,101 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 os.environ.setdefault("MPLCONFIGDIR", str(ROOT / ".venv-img" / "mplconfig"))
+THEME_TOKENS_PATH = ROOT / "less" / "theme-tokens.json"
+_HEX_COLOR = re.compile(r"^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$")
+_TOKEN_COLOR_KEYS = (
+    "ink",
+    "muted",
+    "grid",
+    "spine",
+    "accent",
+    "link",
+    "capture",
+    "miss",
+    "marker_face",
+)
+_TOKEN_KEYS = _TOKEN_COLOR_KEYS + ("page", "palette", "quantile_cmap")
+
+
+def _fail_theme_tokens(message: str) -> None:
+    raise SystemExit(message)
+
+
+def _take_hex(value: object, label: str, problems: list[str]) -> str | None:
+    if not isinstance(value, str) or _HEX_COLOR.fullmatch(value.strip()) is None:
+        problems.append(f"{label} (expected a #rgb, #rrggbb, or #rrggbbaa color)")
+        return None
+    return value.strip()
+
+
+def load_theme_tokens(path: Path = THEME_TOKENS_PATH) -> dict[str, object]:
+    """Load chart colors. Missing file or fields abort; there is no fallback palette."""
+    if not path.is_file():
+        _fail_theme_tokens(f"Theme token file not found: {path}")
+    try:
+        text = path.read_text(encoding="utf-8")
+    except OSError as exc:
+        _fail_theme_tokens(f"Could not read theme tokens {path}: {exc}")
+    try:
+        data = json.loads(text)
+    except json.JSONDecodeError as exc:
+        _fail_theme_tokens(f"Could not parse theme tokens {path}: {exc}")
+    if not isinstance(data, dict):
+        _fail_theme_tokens(f"Theme tokens must be a JSON object: {path}")
+
+    missing = [key for key in _TOKEN_KEYS if key not in data or data[key] is None]
+    if missing:
+        _fail_theme_tokens(
+            "Theme tokens missing field(s): "
+            + ", ".join(missing)
+            + f" ({path}). Refusing to fall back to another palette."
+        )
+
+    problems: list[str] = []
+    colors: dict[str, object] = {}
+    for key in _TOKEN_COLOR_KEYS:
+        parsed = _take_hex(data[key], key, problems)
+        if parsed is not None:
+            colors[key] = parsed
+
+    page = data["page"]
+    if isinstance(page, str) and (page.strip() == "none" or _HEX_COLOR.fullmatch(page.strip())):
+        colors["page"] = page.strip()
+    else:
+        problems.append('page (expected "none" or a #rgb, #rrggbb, or #rrggbbaa color)')
+
+    palette = data["palette"]
+    if not isinstance(palette, list) or not palette:
+        problems.append("palette (expected a non-empty list of hex colors)")
+    else:
+        cleaned_palette: list[str] = []
+        for index, item in enumerate(palette):
+            parsed = _take_hex(item, f"palette[{index}]", problems)
+            if parsed is not None:
+                cleaned_palette.append(parsed)
+        colors["palette"] = cleaned_palette
+
+    cmap = data["quantile_cmap"]
+    if not isinstance(cmap, list) or len(cmap) < 2:
+        problems.append("quantile_cmap (expected a list of at least two hex colors)")
+    else:
+        cleaned_cmap: list[str] = []
+        for index, item in enumerate(cmap):
+            parsed = _take_hex(item, f"quantile_cmap[{index}]", problems)
+            if parsed is not None:
+                cleaned_cmap.append(parsed)
+        colors["quantile_cmap"] = cleaned_cmap
+
+    if problems:
+        _fail_theme_tokens(
+            "Theme tokens invalid field(s): "
+            + "; ".join(problems)
+            + f" ({path}). Refusing to fall back to another palette."
+        )
+    return colors
+
+
+_TOKENS = load_theme_tokens()
 
 import matplotlib
 
@@ -23,33 +123,22 @@ from scipy.optimize import brentq
 
 RNG = np.random.default_rng(20260721)
 
-# Site tokens from css/theme.css
-INK = "#404040"
-MUTED = "#6b6b6b"
-GRID = "#e8e8e8"
-SPINE = "#cccccc"
-ACCENT = "#00809b"
-LINK = "#337ab7"
+# Chart colors from less/theme-tokens.json. Page theme stays in less/theme.less.
+INK = _TOKENS["ink"]
+MUTED = _TOKENS["muted"]
+GRID = _TOKENS["grid"]
+SPINE = _TOKENS["spine"]
+ACCENT = _TOKENS["accent"]
+LINK = _TOKENS["link"]
 # Transparent canvas: page color shows through; pairs with `.chart-invert` in dark mode.
-PAGE = "none"
-
-# Sequential / categorical palette around accent (no purple/rainbow defaults)
-PALETTE = [
-    "#00809b",  # accent teal
-    "#337ab7",  # link blue
-    "#2a9d8f",  # sea green
-    "#4a5568",  # slate
-    "#c45c26",  # warm rust (accent contrast)
-    "#5b8a72",  # muted sage
-    "#1d3557",  # deep navy
-]
-CAPTURE = "#00809b"
-MISS = "#c45c26"
-MARKER_FACE = "#ffffff"
-# Continuous map for quantile coloring on density scatters (site teal/blue family)
+PAGE = _TOKENS["page"]
+PALETTE = _TOKENS["palette"]
+CAPTURE = _TOKENS["capture"]
+MISS = _TOKENS["miss"]
+MARKER_FACE = _TOKENS["marker_face"]
 QUANTILE_CMAP = matplotlib.colors.LinearSegmentedColormap.from_list(
     "site_quantile",
-    ["#1d3557", "#7eb8c4"],
+    _TOKENS["quantile_cmap"],
 )
 
 FIGSIZE = (8.0, 4.8)

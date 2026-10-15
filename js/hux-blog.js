@@ -51,8 +51,18 @@
     });
   }
 
+  function readNavScrollMin() {
+    // Same breakpoint as @nav-scroll-min / --nav-scroll-min. 1170 is only a fallback.
+    var raw = window.getComputedStyle(document.documentElement).getPropertyValue("--nav-scroll-min");
+    var parsed = parseFloat(raw);
+    if (!Number.isFinite(parsed)) {
+      return 1170;
+    }
+    return parsed;
+  }
+
   function initNavbarScroll() {
-    var MQL = 1170;
+    var MQL = readNavScrollMin();
     if (window.innerWidth <= MQL) {
       return;
     }
