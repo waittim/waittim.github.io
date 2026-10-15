@@ -1,0 +1,77 @@
+{% comment %}
+  Intro header shared by page, tags, search, 404, and posts.
+
+  Page-like callers use site-heading and an inline background-image.
+  The post layout passes date (and tags) to switch to post-heading.
+  header_mask is optional and only the post layout should pass it.
+  tag_heading "true" keeps id="tag-heading" for the tags page and 404.
+  Pass tag_heading as the string "true"; Jekyll 3 treats bare true as a variable.
+
+  Header image paths stay without a leading slash. This include prepends "/".
+  page.image and site.default_image keep their leading slash for absolute_url.
+{% endcomment %}
+{% assign intro_title = include.title %}
+{% if intro_title == nil or intro_title == empty %}
+    {% assign intro_title = site.title %}
+{% endif %}
+{% assign intro_image = page.header-img | default: site.header-img | prepend: "/" | relative_url %}
+{% if include.date %}
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('{{ intro_image }}')
+    }
+
+    {% if include.header_mask %}
+    header.intro-header .header-mask{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background: rgba(0,0,0, {{ include.header_mask }});
+    }
+    {% endif %}
+</style>
+<header class="intro-header" >
+    {% if include.header_mask %}
+    <div class="header-mask"></div>
+    {% endif %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        {% for tag in include.tags %}
+                        {% assign tag_id = tag | slugify %}
+                        <a class="tag" href="{{ "/tags/" | relative_url }}#{{ tag_id }}" title="{{ tag }}">{{ tag }}</a>
+                        {% endfor %}
+                    </div>
+                    <h1>{{ intro_title }}</h1>
+                    {% comment %}
+                        always create a h2 for keeping the margin , Hux
+                    {% endcomment %}
+                    {% comment %} if page.subtitle {% endcomment %}
+                    <h2 class="subheading">{{ include.subtitle }}</h2>
+                    {% comment %} endif {% endcomment %}
+                    {% assign word_count = content | strip_html | number_of_words %}
+                    {% assign reading_time = word_count | plus: 199 | divided_by: 200 %}
+                    {% if reading_time < 1 %}{% assign reading_time = 1 %}{% endif %}
+                    <span class="meta">Posted by {% if page.author %}{{ page.author }}{% else %}{{ site.author_name }}{% endif %} on {{ include.date | date: "%B %-d, %Y" }} · {{ reading_time }} min read</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+{% else %}
+<header class="intro-header" style="background-image: url('{{ intro_image }}')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="site-heading"{% if include.tag_heading == "true" %} id="tag-heading"{% endif %}>
+                    <h1>{{ intro_title }}</h1>
+                    <span class="subheading">{{ include.subtitle }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+{% endif %}
