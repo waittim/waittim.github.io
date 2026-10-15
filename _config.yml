@@ -58,6 +58,10 @@ exclude:
   - package.json
   - package-lock.json
   - README.md
+  # Local intermediates from npm run build:assets. Pages serves the minified CSS.
+  - css/bootstrap.css
+  - css/hux-blog.css
+  - css/theme.css
   # Keep a returned Codecov config off the published site; it can hold an upload token.
   - codecov.yml
   - data
@@ -120,8 +124,8 @@ current_topics:
 
 
 
-# Cache-busting for local CSS/JS (bump when shipping asset changes)
-asset_version: "20261015-02"
+# Cache-busting for local CSS/JS. Rewritten by npm run build:assets.
+asset_version: "20261015-03"
 
 
 # Project and other long links. Do not repeat profiles.

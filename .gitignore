@@ -17,6 +17,12 @@ vendor/bundle/
 # Large third-party GeoIP database (download from MaxMind; not shipped with the site)
 data/geoip/*.mmdb
 
+# Uncompressed CSS. npm run build:assets may write these locally.
+# Commit the .min.css files; GitHub Pages serves those.
+css/bootstrap.css
+css/hux-blog.css
+css/theme.css
+
 # Node local state
 node_modules/
 npm-debug.log*
