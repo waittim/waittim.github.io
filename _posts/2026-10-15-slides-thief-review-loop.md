@@ -6,11 +6,11 @@ date:       2026-10-15
 updated:    2026-10-15
 author:     Zekun Wang
 description: "How Slides Thief 3.0 turns uncertain detections into an actionable review queue with explicit reasons, export boundaries, recoverable state, and batch geometry reuse."
-image: /img/posts/2026-07-13-slides-thief/ui.png
+image: /img/headers/2026-10-15-slides-thief-review-loop.jpg
 series: Slides Thief Series
 series_nav_title: Review Loop
 series_order: 3
-header-img: img/headers/2026-08-01-slides-thief-2-detection.jpg
+header-img: img/headers/2026-10-15-slides-thief-review-loop.jpg
 header-mask: 0.5
 catalog: true
 redirect_from:
