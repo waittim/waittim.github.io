@@ -302,3 +302,5 @@ Try Slides Thief in the browser:
 View the source code:
 
 [Slides Thief on GitHub](https://github.com/waittim/Slides-Thief)
+
+For the 3.0 review queue architecture, uncertainty handling, and geometry reuse, see [Designing the Review Loop in Slides Thief](/2026/10/15/slides-thief-review-loop/).
