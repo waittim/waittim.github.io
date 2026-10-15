@@ -1,23 +1,54 @@
 {% comment %}
-  Related posts by shared tags (up to 3).
-  Prefer higher tag overlap, then newer posts.
-  Skip posts that already appear in the current series nav.
-  Markup matches Tags page one-tag-list / post-preview rhythm.
+  Up to 3 related posts.
+  Score is how many tags the candidate shares with this page. Higher scores win.
+  Equal scores keep site.posts order, which is newest first.
+  Skip this page, and skip posts in the same series.
+  The best possible score is page.tags.size, so sharing every tag still counts.
+  URL dedupe uses "|url|" markers so one path cannot match a longer path that contains it.
+  Card markup lives in post-preview.html.
 {% endcomment %}
 {% if page.tags and page.tags.size > 0 %}
-{% assign max_related = 3 %}
-{% assign related_count = 0 %}
-{% assign related_urls = "|" %}
-{% assign score_steps = "8,7,6,5,4,3,2,1" | split: "," %}
+  {% assign max_related = 3 %}
+  {% assign related_count = 0 %}
+  {% assign related_urls = "|" %}
+  {% assign max_shared = page.tags.size %}
 
-{% capture related_items %}{% for step in score_steps %}{% assign want = step | plus: 0 %}{% for post in site.posts %}{% if related_count < max_related %}{% unless post.url == page.url %}{% if page.series == nil or post.series != page.series %}{% assign url_marker = "|" | append: post.url | append: "|" %}{% unless related_urls contains url_marker %}{% assign shared = 0 %}{% for tag in page.tags %}{% if post.tags contains tag %}{% assign shared = shared | plus: 1 %}{% endif %}{% endfor %}{% if shared == want %}{% assign related_count = related_count | plus: 1 %}{% assign related_urls = related_urls | append: post.url | append: "|" %}<div class="post-preview"><a href="{{ post.url | relative_url }}"><h2 class="post-title">{{ post.title }}</h2>{% if post.subtitle %}<h3 class="post-subtitle">{{ post.subtitle }}</h3>{% endif %}</a><p class="post-meta">{{ post.date | date: "%B %-d, %Y" }}</p></div><hr>{% endif %}{% endunless %}{% endif %}{% endunless %}{% endif %}{% endfor %}{% endfor %}{% endcapture %}
+  {% capture related_items %}
+    {%- for step in (1..max_shared) -%}
+      {%- assign want = max_shared | minus: forloop.index | plus: 1 -%}
+      {%- if related_count < max_related -%}
+        {%- for candidate in site.posts -%}
+          {%- if related_count < max_related -%}
+            {%- unless candidate.url == page.url -%}
+              {%- if page.series == nil or candidate.series != page.series -%}
+                {%- assign url_marker = "|" | append: candidate.url | append: "|" -%}
+                {%- unless related_urls contains url_marker -%}
+                  {%- assign shared = 0 -%}
+                  {%- for tag in page.tags -%}
+                    {%- if candidate.tags contains tag -%}
+                      {%- assign shared = shared | plus: 1 -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+                  {%- if shared == want -%}
+                    {%- assign related_count = related_count | plus: 1 -%}
+                    {%- assign related_urls = related_urls | append: candidate.url | append: "|" -%}
+                    {%- include post-preview.html post=candidate show_excerpt="false" show_author="false" show_date="true" -%}
+                  {%- endif -%}
+                {%- endunless -%}
+              {%- endif -%}
+            {%- endunless -%}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {% endcapture %}
 
-{% assign related_items_stripped = related_items | strip %}
-{% if related_items_stripped != "" %}
-<section class="related-posts one-tag-list" aria-label="Related">
-  <hr>
-  <h5>Related</h5>
-  {{ related_items }}
-</section>
-{% endif %}
+  {% assign related_items_stripped = related_items | strip %}
+  {% if related_items_stripped != "" %}
+    <section class="related-posts one-tag-list" aria-label="Related">
+      <hr>
+      <h5>Related</h5>
+      {{ related_items }}
+    </section>
+  {% endif %}
 {% endif %}

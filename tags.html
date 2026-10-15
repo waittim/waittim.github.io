@@ -71,20 +71,7 @@ header-img: "img/ui/tags-bg.webp"
 				  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
 				  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="{{ post.url | relative_url }}">
-				        <h2 class="post-title">
-                            {{ post.title }}
-				        </h2>
-				        {% if post.subtitle %}
-				        <h3 class="post-subtitle">
-				            {{ post.subtitle }}
-				        </h3>
-				        {% endif %}
-				    </a>
-				    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-				</div>
-				<hr>
+				{% include post-preview.html post=post show_excerpt="false" show_author="false" show_date="false" %}
 				{% endfor %}
 			</div>
 			{% endfor %}

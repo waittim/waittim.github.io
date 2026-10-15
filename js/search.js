@@ -1,3 +1,11 @@
+/*
+ * Search result cards mirror _includes/post-preview.html:
+ *   .post-preview > a > .post-title + optional .post-subtitle + optional .post-content-preview
+ *   then .post-meta, then hr.
+ * This file stays client-side. Do not add a build step to share the markup.
+ * Map the include flags as: show_excerpt = description (not the post body),
+ * show_date = on, show_author = off. Escape every interpolated value.
+ */
 (function () {
   "use strict";
 
