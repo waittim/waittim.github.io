@@ -47,7 +47,7 @@
     {% if page.layout == 'post' %}
     <meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}">
     <meta property="article:modified_time" content="{{ page.updated | default: page.date | date_to_xmlschema }}">
-    <meta property="article:author" content="{{ page.author | default: 'Zekun Wang' | escape }}">
+    <meta property="article:author" content="{{ page.author | default: site.author_name | escape }}">
     {% endif %}
 
     <!-- Machine-readable site and author identity -->
@@ -67,12 +67,16 @@
         {
           "@type": "Person",
           "@id": "{{ '/' | absolute_url }}#zekun-wang",
-          "name": "Zekun Wang",
+          "name": {{ site.author_name | jsonify }},
           "url": "{{ '/about/' | absolute_url }}",
           "image": "{{ site.sidebar-avatar | absolute_url }}",
-          "sameAs": [
-            "https://github.com/waittim",
-            "https://www.linkedin.com/in/zekun-wang/"
+          "sameAs": [{%- assign same_as_sep = "" -%}
+            {%- for profile in site.profiles -%}
+              {%- if profile.href contains "://" -%}
+                {{ same_as_sep }}{{ profile.href | jsonify }}
+                {%- assign same_as_sep = "," -%}
+              {%- endif -%}
+            {%- endfor -%}
           ],
           "knowsAbout": ["AI agents", "LLM evaluation", "Agent memory", "Developer tools", "Browser-based AI", "Local-first software"]
         }{% if page.url == '/about/' %},
@@ -94,8 +98,8 @@
           "inLanguage": "en"{% if page.tags %},
           "keywords": {{ page.tags | jsonify }}{% endif %},
           "author": {% if page.authors %}[
-            {% for author in page.authors %}{% if author.name == 'Zekun Wang' %}{ "@id": "{{ '/' | absolute_url }}#zekun-wang" }{% else %}{ "@type": "Person", "name": {{ author.name | jsonify }}{% if author.url %}, "url": {{ author.url | absolute_url | jsonify }}{% endif %} }{% endif %}{% unless forloop.last %},{% endunless %}{% endfor %}
-          ]{% elsif page.author == 'Zekun Wang' %}{ "@id": "{{ '/' | absolute_url }}#zekun-wang" }{% else %}{ "@type": "Person", "name": {{ page.author | default: 'Zekun Wang' | jsonify }} }{% endif %},
+            {% for author in page.authors %}{% if author.name == site.author_name %}{ "@id": "{{ '/' | absolute_url }}#zekun-wang" }{% else %}{ "@type": "Person", "name": {{ author.name | jsonify }}{% if author.url %}, "url": {{ author.url | absolute_url | jsonify }}{% endif %} }{% endif %}{% unless forloop.last %},{% endunless %}{% endfor %}
+          ]{% elsif page.author == site.author_name %}{ "@id": "{{ '/' | absolute_url }}#zekun-wang" }{% else %}{ "@type": "Person", "name": {{ page.author | default: site.author_name | jsonify }} }{% endif %},
           "publisher": { "@id": "{{ '/' | absolute_url }}#zekun-wang" },
           "isPartOf": { "@id": "{{ '/' | absolute_url }}#website" }
         },

@@ -1,3 +1,5 @@
+链接以 `_config.yml` 为准。
+
 # Zekun Wang
 
 Zekun Wang builds AI agents, evaluation systems, browser-based AI, and local-first developer tools.

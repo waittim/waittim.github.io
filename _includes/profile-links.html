@@ -1,0 +1,18 @@
+{% comment %}
+  Text links for the About page: absolute profiles, then the email.
+  The RSS feed is site-relative and stays in the icon row (sns-links.html).
+{% endcomment %}
+{%- capture contact_links -%}
+{%- assign contact_sep = "" -%}
+{%- for profile in site.profiles -%}
+{%- if profile.href contains "://" -%}
+{{- contact_sep -}}<a target="_blank" rel="noopener noreferrer" href="{{ profile.href | escape }}">{{ profile.title | escape }}</a>
+{%- assign contact_sep = ", " -%}
+{%- endif -%}
+{%- endfor -%}
+{%- if site.email -%}
+{%- if contact_sep != "" -%}, {% endif -%}
+<a href="mailto:{{ site.email | escape }}">{{ site.email | escape }}</a>
+{%- endif -%}
+{%- endcapture -%}
+<p>Find me via {{ contact_links }}.</p>

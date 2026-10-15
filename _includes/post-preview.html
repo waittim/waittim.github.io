@@ -6,7 +6,7 @@
   Parameters (Jekyll 3 treats bare true/false as variable names, so pass strings):
     post          Post object. Required.
     show_excerpt  "true" shows the first 200 characters of content, HTML stripped.
-    show_author   "true" shows "Posted by …". A missing author falls back to site.title.
+    show_author   "true" shows "Posted by …". A missing author falls back to site.author_name.
     show_date     "true" shows the date. Together with show_author, the date stays
                   in that sentence. Default is off. The tags page also passes "false".
 {% endcomment %}
@@ -41,7 +41,7 @@
     </a>
     {%- if card_author %}
     <p class="post-meta">
-        Posted by {% if card.author %}{{ card.author }}{% else %}{{ site.title }}{% endif %}{% if card_date %} on {{ card.date | date: "%B %-d, %Y" }}{% endif %}
+        Posted by {% if card.author %}{{ card.author }}{% else %}{{ site.author_name }}{% endif %}{% if card_date %} on {{ card.date | date: "%B %-d, %Y" }}{% endif %}
     </p>
     {%- elsif card_date %}
     <p class="post-meta">{{ card.date | date: "%B %-d, %Y" }}</p>

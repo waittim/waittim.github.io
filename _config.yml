@@ -1,5 +1,6 @@
 # Site settings
 title: Zekun Blog
+author_name: Zekun Wang
 SEOTitle: Zekun Blog - AI Agent Systems & LLM Evaluation
 header-img: img/ui/bg-ice.webp
 default_image: /img/ui/home-bg-o.jpg
@@ -17,15 +18,29 @@ sidebar-avatar: /img/ui/Zekun_Wang_icon.webp      # use absolute URL, seeing it'
 
 
 
-# SNS settings
-RSS: true
-# weibo_username:
-zhihu_username:
-github_username: waittim
-linkedin_username: zekun-wang
-facebook_username:
-jianshu_username:
-#twitter_username:
+# Icon row for the footer and sidebar. RSS stays site-relative.
+# Absolute URLs open in a new tab; do not repeat these in elsewhere.
+profiles:
+  - title: RSS
+    icon: rss
+    href: /feed.xml
+  - title: GitHub
+    icon: github
+    href: https://github.com/waittim
+  - title: LinkedIn
+    icon: linkedin
+    href: https://www.linkedin.com/in/zekun-wang/
+
+# Primary navigation, in display order. Pages are not collected from site.pages.
+nav:
+  - title: Home
+    url: /
+  - title: About
+    url: /about/
+  - title: Tags
+    url: /tags/
+  - title: Search
+    url: /search/
 
 
 
@@ -110,12 +125,8 @@ current_topics:
 asset_version: "20261003-01"
 
 
-# Elsewhere
+# Project and other long links. Do not repeat profiles.
 elsewhere:
-  - title: GitHub
-    href: https://github.com/waittim
-  - title: LinkedIn
-    href: https://www.linkedin.com/in/zekun-wang/
   - title: MemoryCustodian
     href: https://github.com/waittim/MemoryCustodian
   - title: Slides Thief

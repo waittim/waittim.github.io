@@ -42,7 +42,7 @@ layout: default
                     {% assign word_count = content | strip_html | number_of_words %}
                     {% assign reading_time = word_count | plus: 199 | divided_by: 200 %}
                     {% if reading_time < 1 %}{% assign reading_time = 1 %}{% endif %}
-                    <span class="meta">Posted by {% if page.author %}{{ page.author }}{% else %}{{ site.title }}{% endif %} on {{ page.date | date: "%B %-d, %Y" }} · {{ reading_time }} min read</span>
+                    <span class="meta">Posted by {% if page.author %}{{ page.author }}{% else %}{{ site.author_name }}{% endif %} on {{ page.date | date: "%B %-d, %Y" }} · {{ reading_time }} min read</span>
                 </div>
             </div>
         </div>
