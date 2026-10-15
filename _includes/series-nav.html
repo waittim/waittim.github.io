@@ -52,25 +52,25 @@
     {% if series_prev %}
     <li class="previous">
       <a href="{{ series_prev.url | relative_url }}" title="{{ series_prev.series_nav_title | default: series_prev.title | escape }}">
-        Previous<br>
+        Previous in series<br>
         <span>{{ series_prev.series_nav_title | default: series_prev.title }}</span>
       </a>
     </li>
     {% else %}
     <li class="previous disabled">
-      <span>Previous<br><span>&nbsp;</span></span>
+      <span>Previous in series<br><span>&nbsp;</span></span>
     </li>
     {% endif %}
     {% if series_next %}
     <li class="next">
       <a href="{{ series_next.url | relative_url }}" title="{{ series_next.series_nav_title | default: series_next.title | escape }}">
-        Next<br>
+        Next in series<br>
         <span>{{ series_next.series_nav_title | default: series_next.title }}</span>
       </a>
     </li>
     {% else %}
     <li class="next disabled">
-      <span>Next<br><span>&nbsp;</span></span>
+      <span>Next in series<br><span>&nbsp;</span></span>
     </li>
     {% endif %}
   </ul>
