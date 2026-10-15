@@ -98,7 +98,7 @@ comments:
   utterances:
     repo: waittim/waittim.github.io
     issue_term: pathname
-    theme: preferred-color-scheme
+    theme: github-light
 
 
 # 统计
@@ -125,7 +125,7 @@ current_topics:
 
 
 # Cache-busting for local CSS/JS. Rewritten by npm run build:assets.
-asset_version: "20261015-03"
+asset_version: "20261015-04"
 
 
 # Project and other long links. Do not repeat profiles.

@@ -17,27 +17,6 @@
 <!-- Theme JavaScript (vanilla; no jQuery/Bootstrap JS) -->
 <script src="{{ "/js/hux-blog.min.js" | relative_url }}?v={{ site.asset_version }}"></script>
 
-<!-- Retire legacy Service Worker registrations from the old PWA era -->
-<script type="text/javascript">
-    (function () {
-        if (!navigator.serviceWorker) {
-            return;
-        }
-        navigator.serviceWorker.getRegistrations().then(function (registrations) {
-            registrations.forEach(function (registration) {
-                registration.unregister();
-            });
-        });
-        if (window.caches) {
-            caches.keys().then(function (names) {
-                names.forEach(function (name) {
-                    caches.delete(name);
-                });
-            });
-        }
-    })();
-</script>
-
 <!-- Baidu Tongji -->
 {% if site.ba_track_id %}
 <script>
