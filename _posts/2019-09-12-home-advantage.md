@@ -247,7 +247,7 @@ Then, plot a graph to show the relationship between *P<sub>B</sub>* and the diff
 plot(x= pb_list, y=diff_list)
 ```
 
-<img class="chart-invert" src="{{ "/img/posts/2019-09-12-home-advantage/diff-vs-pb.png" | relative_url }}" alt="Difference in World Series win probability with versus without home-field advantage across P_B" width="1258" height="748" loading="lazy" decoding="async">
+<img src="{{ "/img/posts/2019-09-12-home-advantage/diff-vs-pb.png" | relative_url }}" alt="Difference in World Series win probability with versus without home-field advantage across P_B" width="1258" height="748" loading="lazy" decoding="async">
 
 The relationship between *P<sub>B</sub>* and the difference appears to resemble a compound function involving trigonometric functions.
 
@@ -307,4 +307,4 @@ Let's look at the graph. When the home-field advantage factor increases, the dif
 ```r
 plot(x= ha_list, y=diff_list2)
 ```
-<img class="chart-invert" src="{{ "/img/posts/2019-09-12-home-advantage/diff-vs-advantage.png" | relative_url }}" alt="Difference in win probability as the home-field advantage factor increases" width="1258" height="748" loading="lazy" decoding="async">
+<img src="{{ "/img/posts/2019-09-12-home-advantage/diff-vs-advantage.png" | relative_url }}" alt="Difference in win probability as the home-field advantage factor increases" width="1258" height="748" loading="lazy" decoding="async">

@@ -105,7 +105,7 @@ plot(x = PBseries,
      ylab = "P(Braves win World Series)",
      main = "Probability of winning the World Series")
 ```
-<img class="chart-invert" src="{{ "/img/posts/2019-09-09-world-series/win-probability.png" | relative_url }}" alt="Probability that the Braves win the World Series as a function of per-game win probability" width="1258" height="749" loading="lazy" decoding="async">
+<img src="{{ "/img/posts/2019-09-09-world-series/win-probability.png" | relative_url }}" alt="Probability that the Braves win the World Series as a function of per-game win probability" width="1258" height="749" loading="lazy" decoding="async">
 
 As we can see from this graph, when P<sub>B</sub> increases, the probability that the Braves win the World Series also increases. In fact, when we change the x-axis scale to 0.0-1.0, the line looks like a logistic curve.
 
@@ -185,7 +185,7 @@ plot(x = PBseries,
      ylab = "Series length",
      main = "Shortest series so that P(Win WS given p)>=0.8")
 ```
-<img class="chart-invert" src="{{ "/img/posts/2019-09-09-world-series/shortest-series.png" | relative_url }}" alt="Shortest series length needed for an 80 percent World Series win probability" width="1258" height="749" loading="lazy" decoding="async">
+<img src="{{ "/img/posts/2019-09-09-world-series/shortest-series.png" | relative_url }}" alt="Shortest series length needed for an 80 percent World Series win probability" width="1258" height="749" loading="lazy" decoding="async">
 
 In this graph, as P<sub>B</sub> increases, the shortest series length required for the Braves to win the World Series with probability greater than 0.8 approaches 1. When P<sub>B</sub> is greater than 0.8, the shortest series length is 1.
 

@@ -42,7 +42,7 @@ The question is, how to do it?
 
 At the entrances of luxury stores and large supermarkets, we can often see staff specifically reminding people to wear masks or setting up mask detection machines. However, it is difficult to find them in small businesses or public facilities. The reason is obvious: hiring someone to remind customers is expensive. In 2019, the average monthly income in the U.S. was approximately $4,365. Setting up professional mask detection equipment can cost $1,000-$4,000. After the pandemic is over, these devices may be useless. Therefore, this is an unaffordable cost for small businesses that are struggling to survive.
 
-<img class="chart-invert" src="{{ "/img/posts/2020-12-01-mask-detection-report/mask-machine-price.jpg" | relative_url }}" alt="Commercial mask detection machine price examples" width="1613" height="303" loading="lazy" decoding="async">
+<img src="{{ "/img/posts/2020-12-01-mask-detection-report/mask-machine-price.jpg" | relative_url }}" alt="Commercial mask detection machine price examples" width="1613" height="303" loading="lazy" decoding="async">
 
 Considering that the United States has 30.2 million small businesses<sup>[2]</sup> and a large number of public facilities, it is necessary to find an affordable alternative. This is also the main purpose of this project: to develop a low-cost face mask detection program.
 

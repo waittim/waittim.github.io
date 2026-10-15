@@ -537,16 +537,6 @@ pre,
   padding: 0.5rem;
   background-color: var(--color-surface);
 }
-/*
- * Opt-in canvas for plots exported with transparent pixels but authored for a
- * light background. This preserves axes, labels, legends, and data colors.
- */
-.post-container img.chart-light {
-  box-sizing: border-box;
-  background-color: #ffffff;
-  border: 1px solid #d0d7de;
-  border-radius: 3px;
-}
 /* Transparent plots whose labels and axes can safely follow page luminance. */
 .post-container img.chart-invert {
   background: transparent;
@@ -636,12 +626,9 @@ pre,
     --shadow-raised: 0 1px 8px rgba(8, 24, 32, 0.55);
     --shadow-image: 0 2px 8px rgba(8, 24, 32, 0.58);
   }
-  .post-container img:not(.theme-surface):not(.chart-light):not(.chart-invert):not(.theme-chrome) {
+  .post-container:not(.chart-images-invert) img:not(.theme-surface):not(.chart-invert):not(.theme-chrome),
+  .post-container.chart-images-invert img.no-dark-invert:not(.theme-surface):not(.chart-invert):not(.theme-chrome) {
     box-shadow: 0 0 0 1px var(--color-border), var(--shadow-image);
-  }
-  .post-container img.chart-light {
-    border-color: var(--color-border-strong);
-    box-shadow: var(--shadow-image);
   }
   .post-container img.chart-invert {
     filter: invert(1) hue-rotate(180deg);

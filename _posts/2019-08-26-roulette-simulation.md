@@ -188,7 +188,7 @@ lines(budget_list, col="blue")
 budget_list <- one_series(B = 200, W = 300, L = 1000, M = 100) %>% get_series
 lines(budget_list, col="purple")
 ```
-<img class="chart-invert" src="{{ "/img/posts/2019-08-26-roulette-simulation/budget-series.png" | relative_url }}" alt="Budget trajectories across seven roulette series" width="1258" height="748" loading="lazy" decoding="async">
+<img src="{{ "/img/posts/2019-08-26-roulette-simulation/budget-series.png" | relative_url }}" alt="Budget trajectories across seven roulette series" width="1258" height="748" loading="lazy" decoding="async">
 
 Parameter | Type | Explanation
 ---|---|---
@@ -211,7 +211,7 @@ earning_series[B] <- mean(walk_out_money - B)/B
 }
 plot(earning_series,xlab="Budget",ylab="mean earnings rate", main="How does budget influence earnings?")
 ```
-<img class="chart-invert" src="{{ "/img/posts/2019-08-26-roulette-simulation/budget-influence.png" | relative_url }}" alt="Mean earnings rate as budget changes" width="1258" height="748" loading="lazy" decoding="async">
+<img src="{{ "/img/posts/2019-08-26-roulette-simulation/budget-influence.png" | relative_url }}" alt="Mean earnings rate as budget changes" width="1258" height="748" loading="lazy" decoding="async">
 
 ## Change the budget threshold for stopping successfully
 
@@ -227,7 +227,7 @@ earning_series[W] <- mean(walk_out_money - 200)
 }
 plot(earning_series,xlab="successfully stopping threshold",ylab="mean earnings", main="How does the stopping threshold influence earnings?")
 ```
-<img class="chart-invert" src="{{ "/img/posts/2019-08-26-roulette-simulation/threshold-influence.png" | relative_url }}" alt="Mean earnings as the successful stopping threshold changes" width="1258" height="748" loading="lazy" decoding="async">
+<img src="{{ "/img/posts/2019-08-26-roulette-simulation/threshold-influence.png" | relative_url }}" alt="Mean earnings as the successful stopping threshold changes" width="1258" height="748" loading="lazy" decoding="async">
 
 ## Change the maximum number of plays
 
@@ -243,7 +243,7 @@ earning_series[L] <- mean(walk_out_money - 200)
 }
 plot(earning_series,xlab="maximum number of plays",ylab="mean earnings", main="How does the maximum number of plays influence earnings?")
 ```
-<img class="chart-invert" src="{{ "/img/posts/2019-08-26-roulette-simulation/plays-influence.png" | relative_url }}" alt="Mean earnings as the maximum number of plays changes" width="1258" height="748" loading="lazy" decoding="async">
+<img src="{{ "/img/posts/2019-08-26-roulette-simulation/plays-influence.png" | relative_url }}" alt="Mean earnings as the maximum number of plays changes" width="1258" height="748" loading="lazy" decoding="async">
 
 ## Change the casino wager limit
 
@@ -259,7 +259,7 @@ earning_series[M] <- mean(walk_out_money - 200)
 }
 plot(earning_series,xlab="casino wager limit",ylab="mean earnings", main="How does the casino wager limit influence earnings?")
 ```
-<img class="chart-invert" src="{{ "/img/posts/2019-08-26-roulette-simulation/wager-limit-influence.png" | relative_url }}" alt="Mean earnings as the casino wager limit changes" width="1258" height="748" loading="lazy" decoding="async">
+<img src="{{ "/img/posts/2019-08-26-roulette-simulation/wager-limit-influence.png" | relative_url }}" alt="Mean earnings as the casino wager limit changes" width="1258" height="748" loading="lazy" decoding="async">
 
 ## Play times
 
@@ -273,7 +273,7 @@ for(j in seq_along(walk_out_times)){
 
 hist(walk_out_times, breaks = 100)
 ```
-<img class="chart-invert" src="{{ "/img/posts/2019-08-26-roulette-simulation/play-times-hist.png" | relative_url }}" alt="Histogram of the number of plays before walking out" width="1258" height="748" loading="lazy" decoding="async">
+<img src="{{ "/img/posts/2019-08-26-roulette-simulation/play-times-hist.png" | relative_url }}" alt="Histogram of the number of plays before walking out" width="1258" height="748" loading="lazy" decoding="async">
 
 ```r
 mean(walk_out_times)

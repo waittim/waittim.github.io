@@ -108,7 +108,7 @@ ggplot(length_df,aes(x=quantile_position,y=mid95_length))+
   )+
   scale_y_continuous(name = "Length")
 ```
-<img class="chart-invert" src="{{ "/img/posts/2019-09-18-quantile-precision/prob5-s1.png" | relative_url }}" alt="Middle 95 percent length by quantile for the normal distribution" width="1258" height="748" loading="lazy" decoding="async">
+<img src="{{ "/img/posts/2019-09-18-quantile-precision/prob5-s1.png" | relative_url }}" alt="Middle 95 percent length by quantile for the normal distribution" width="1258" height="748" loading="lazy" decoding="async">
 
 As we can see, when the quantile approaches 50%, the length decreases. This means the simulation error is lower near the 50% quantile. In other words, the 50% quantile has the best precision.
 
@@ -124,7 +124,7 @@ ggplot(length_d_df, aes(x=density,y=mid95_length))+
   geom_point()+geom_line()+
   labs(title = "Length of middle 95% of normal distribution by density", x= "Density",y="Length")
 ```
-<img class="chart-invert" src="{{ "/img/posts/2019-09-18-quantile-precision/prob5-s2.png" | relative_url }}" alt="Middle 95 percent length versus normal density" width="1254" height="748" loading="lazy" decoding="async">
+<img src="{{ "/img/posts/2019-09-18-quantile-precision/prob5-s2.png" | relative_url }}" alt="Middle 95 percent length versus normal density" width="1254" height="748" loading="lazy" decoding="async">
 
 In this graph, we can see that when density is higher, the simulation error is lower.
 
@@ -163,7 +163,7 @@ ggplot(length_df,aes(x=quantile_position,y=mid95_length))+
   scale_y_continuous(name = "Length")
 
 ```
-<img class="chart-invert" src="{{ "/img/posts/2019-09-18-quantile-precision/prob5-e1.png" | relative_url }}" alt="Middle 95 percent length by quantile for the exponential distribution" width="1258" height="748" loading="lazy" decoding="async">
+<img src="{{ "/img/posts/2019-09-18-quantile-precision/prob5-e1.png" | relative_url }}" alt="Middle 95 percent length by quantile for the exponential distribution" width="1258" height="748" loading="lazy" decoding="async">
 
 For this exponential distribution, as the quantile increases, the simulation error also increases.
 
@@ -180,7 +180,7 @@ ggplot(length_d_df, aes(x=density,y=mid95_length))+
   geom_point()+geom_line()+
   labs(title = "Length of middle 95% of exponential distribution by density", x= "Density",y="Length")
 ```
-<img class="chart-invert" src="{{ "/img/posts/2019-09-18-quantile-precision/prob5-e2.png" | relative_url }}" alt="Middle 95 percent length versus exponential density" width="1254" height="748" loading="lazy" decoding="async">
+<img src="{{ "/img/posts/2019-09-18-quantile-precision/prob5-e2.png" | relative_url }}" alt="Middle 95 percent length versus exponential density" width="1254" height="748" loading="lazy" decoding="async">
 
 
 # Mixture Distribution 3
@@ -229,7 +229,7 @@ ggplot(length_df,aes(x=quantile_position,y=mid95_length))+
   )+
   scale_y_continuous(name = "Length")
 ```
-<img class="chart-invert" src="{{ "/img/posts/2019-09-18-quantile-precision/prob5-m31.png" | relative_url }}" alt="Middle 95 percent length by quantile for mixture distribution 3" width="1258" height="748" loading="lazy" decoding="async">
+<img src="{{ "/img/posts/2019-09-18-quantile-precision/prob5-m31.png" | relative_url }}" alt="Middle 95 percent length by quantile for mixture distribution 3" width="1258" height="748" loading="lazy" decoding="async">
 
 When the quantile is 40%, it has the tightest sampling distribution.
 
@@ -254,7 +254,7 @@ ggplot(length_d_df, aes(x=density,y=mid95_length))+
   geom_point()+geom_line()+
   labs(title = "Length of middle 95% of given mixture distribution 3 by density", x= "Density",y="Length")
 ```
-<img class="chart-invert" src="{{ "/img/posts/2019-09-18-quantile-precision/prob5-m32.png" | relative_url }}" alt="Middle 95 percent length versus density for mixture distribution 3" width="1254" height="748" loading="lazy" decoding="async">
+<img src="{{ "/img/posts/2019-09-18-quantile-precision/prob5-m32.png" | relative_url }}" alt="Middle 95 percent length versus density for mixture distribution 3" width="1254" height="748" loading="lazy" decoding="async">
 
 # Mixture Distribution 4
 
@@ -295,7 +295,7 @@ ggplot(length_df,aes(x=quantile_position,y=mid95_length))+
   )+
   scale_y_continuous(name = "Length")
 ```
-<img class="chart-invert" src="{{ "/img/posts/2019-09-18-quantile-precision/prob5-m41.png" | relative_url }}" alt="Middle 95 percent length by quantile for mixture distribution 4" width="1258" height="748" loading="lazy" decoding="async">
+<img src="{{ "/img/posts/2019-09-18-quantile-precision/prob5-m41.png" | relative_url }}" alt="Middle 95 percent length by quantile for mixture distribution 4" width="1258" height="748" loading="lazy" decoding="async">
 
 
 When the quantile is 5% or 95%, the sampling distribution is the tightest.
@@ -329,7 +329,7 @@ ggplot(length_d_df, aes(x=density,y=mid95_length))+
   geom_point()+geom_line()+
   labs(title = "Length of middle 95% of given mixture distribution 4 by density", x= "Density",y="Length")
 ```
-<img class="chart-invert" src="{{ "/img/posts/2019-09-18-quantile-precision/prob5-m42.png" | relative_url }}" alt="Middle 95 percent length versus density for mixture distribution 4" width="1254" height="748" loading="lazy" decoding="async">
+<img src="{{ "/img/posts/2019-09-18-quantile-precision/prob5-m42.png" | relative_url }}" alt="Middle 95 percent length versus density for mixture distribution 4" width="1254" height="748" loading="lazy" decoding="async">
 
 
 
@@ -378,7 +378,7 @@ length_df %>%
     breaks = seq(0.05, 0.95, 0.05)
   )
 ```
-<img class="chart-invert" src="{{ "/img/posts/2019-09-18-quantile-precision/prob5-o1.png" | relative_url }}" alt="Middle 95 percent length for normal quantiles across sample sizes" width="1258" height="748" loading="lazy" decoding="async">
+<img src="{{ "/img/posts/2019-09-18-quantile-precision/prob5-o1.png" | relative_url }}" alt="Middle 95 percent length for normal quantiles across sample sizes" width="1258" height="748" loading="lazy" decoding="async">
 
 ```r
 length_df %>%
@@ -393,7 +393,7 @@ length_df %>%
     breaks = seq(0.05, 0.95, 0.05)
   )
 ```
-<img class="chart-invert" src="{{ "/img/posts/2019-09-18-quantile-precision/prob5-o2.png" | relative_url }}" alt="Middle 95 percent length versus density across sample sizes" width="1258" height="748" loading="lazy" decoding="async">
+<img src="{{ "/img/posts/2019-09-18-quantile-precision/prob5-o2.png" | relative_url }}" alt="Middle 95 percent length versus density across sample sizes" width="1258" height="748" loading="lazy" decoding="async">
 
 When the sample size is larger, the simulation error becomes smaller.
 

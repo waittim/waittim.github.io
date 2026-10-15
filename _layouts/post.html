@@ -69,6 +69,10 @@ layout: default
         <div class="row">
 
     <!-- Post Container -->
+            {% comment %}
+              dark_chart_images: invert 会在暗色模式下反色该文几乎所有 img，只用于整页都是浅色统计图的旧文。
+              新文章不要用它，改为单张图的 class chart-invert。不要两套一起用。
+            {% endcomment %}
             <div class="
                 col-lg-8 col-lg-offset-2
                 col-md-10 col-md-offset-1
