@@ -43,6 +43,8 @@ exclude:
   - package.json
   - package-lock.json
   - README.md
+  # Keep a returned Codecov config off the published site; it can hold an upload token.
+  - codecov.yml
   - data
   - .venv-img
 anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
