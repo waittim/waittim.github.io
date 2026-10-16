@@ -239,9 +239,26 @@ button,
   margin-top: 12px !important;
 }
 
-/* Keyboard focus ring: accent token keeps contrast in light and dark. */
+/*
+ * Focus ring uses the accent token.
+ * Bootstrap 3's `a:focus` / `.btn:focus` set `outline: 5px auto -webkit-focus-ring-color`,
+ * which paints the yellow system ring on click. Override that :focus rule, not only
+ * :focus-visible, or the yellow ring wins for mouse focus.
+ */
+a:focus,
+button:focus,
+.btn:focus,
+.btn:active:focus,
+.pager a:focus,
+.tags a:focus,
+.series-nav .tags a:focus,
+#tag_cloud a:focus,
+.catalog-toggle:focus,
+.navbar-toggle:focus,
+footer .list-inline a:focus,
 a:focus-visible,
 button:focus-visible,
+.btn:focus-visible,
 .pager a:focus-visible,
 .tags a:focus-visible,
 .series-nav .tags a:focus-visible,

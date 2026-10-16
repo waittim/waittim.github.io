@@ -125,7 +125,7 @@ current_topics:
 
 
 # Cache-busting for local CSS/JS. Rewritten by npm run build:assets.
-asset_version: "20261015-04"
+asset_version: "20261015-05"
 
 
 # Project and other long links. Do not repeat profiles.
