@@ -9,7 +9,7 @@ body {
 	.sans-serif();
 	font-size: 16px;
 	// Hux mpdify to 16px (Mobile First), and increase to 20px while 768+ width
-	color: @gray-dark;
+	color: var(--color-text);
 	//-webkit-user-select:text; //对于 Blog 还是先不开启这句。
 	overflow-x : hidden;
 }
@@ -38,10 +38,10 @@ h4{
     font-size: 21px;
 }
 a {
-	color: @gray-dark;
+	color: var(--color-text);
 	&:hover,
 	&:focus {
-		color: @brand-primary;
+		color: var(--color-link-hover);
 	}
 }
 
@@ -56,7 +56,7 @@ article{
 	overflow-x : hidden;
 }
 blockquote {
-	color: @gray;
+	color: var(--color-text-secondary);
 	font-style: italic;
 	font-size: 0.95em;
 	margin: 20px 0 20px;
@@ -75,7 +75,7 @@ br + small.img-hint{
 	margin-top: -40px;
 }
 img.shadow{
-	box-shadow: rgba(0, 64, 80, 0.22) 0px 2px 5px 0px;
+	box-shadow: var(--shadow-image);
 }
 // Utils Style End
 
@@ -83,10 +83,10 @@ img.shadow{
 select{
 	-webkit-appearance:none;
 	margin-top:15px;
-	color: @brand-primary;
-	border-color: @brand-primary;
+	color: var(--color-link);
+	border-color: var(--color-accent);
 	padding: 0em 0.4em;
-	background: white;
+	background: var(--color-surface);
 	&.sel-lang{
 		min-height: 28px;
 		font-size:14px;
@@ -96,7 +96,7 @@ select{
 
 // override table style in bootstrap
 .table th, .table td{
-	border: 1px solid #eee !important;
+	border: 1px solid var(--color-border) !important;
 }
 
 hr.small {
@@ -125,10 +125,10 @@ pre code{
 // In the post.
 .post-container{
 	a{
-		color: @brand-primary;
+		color: var(--color-link);
 		&:hover,
 		&:focus {
-			color: @brand-primary;
+			color: var(--color-link-hover);
 		}
 	}
 	h1,
@@ -142,7 +142,7 @@ pre code{
 	h5{
 		font-size: 19px;
 		font-weight: 600;
-		color:gray;
+		color: var(--color-text-secondary);
 		& + p{
 			margin-top: 5px;
 		}
@@ -150,7 +150,7 @@ pre code{
 	h6{
 		font-size: 16px;
 		font-weight: 600;
-		color: gray;
+		color: var(--color-text-secondary);
 		& + p{
 			margin-top: 5px;
 		}
@@ -189,7 +189,7 @@ pre code{
 		> a {
 			width: 100%;
 			> span{
-				color: @gray;
+				color: var(--color-text-secondary);
 				font-weight: normal;
 				letter-spacing: 0.5px;
 			}
@@ -212,9 +212,8 @@ pre code{
 		position: absolute; 
      	right: 0;
 		border: none;
-		background: white;
-		box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.2);
-		box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.239216) 0px 1px 4px;
+		background: var(--color-surface-raised);
+		box-shadow: var(--shadow-raised);
 		border-radius: 2px;
 		width: 170px;
 	}
@@ -343,25 +342,25 @@ pre code{
 			/* when the user scrolls down, we hide the header right above the viewport */
 			position: fixed;
 			top: -61px;
-			background-color: fade(white, 90%);
-			border-bottom: 1px solid darken(white, 5%);
+			background-color: var(--color-surface-raised);
+			border-bottom: 1px solid var(--color-nav-border);
 			-webkit-transition: -webkit-transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 			-moz-transition: -moz-transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 			transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 			.navbar-brand {
-				color: @gray-dark;
+				color: var(--color-text);
 				&:hover,
 				&:focus {
-					color: @brand-primary;
+					color: var(--color-link-hover);
 				}
 			}
 			.nav {
 				li {
 					a {
-						color: @gray-dark;
+						color: var(--color-text);
 						&:hover,
 						&:focus {
-							color: @brand-primary;
+							color: var(--color-link-hover);
 						}
 					}
 				}
@@ -382,7 +381,7 @@ pre code{
 
 .intro-header {
 	background: no-repeat center center;
-	background-color: @gray;
+	background-color: var(--color-border-strong);
 	background-attachment: scroll;
 	.background-cover();
 	// NOTE: Background images are set within the HTML using inline CSS!
@@ -470,11 +469,11 @@ pre code{
 
 .post-preview {
 	> a {
-		color: @gray-dark;
+		color: var(--color-text);
 		&:hover,
 		&:focus {
 			text-decoration: none;
-			color: @brand-primary;
+			color: var(--color-link-hover);
 		}
 		> .post-title {
 			font-size: 21px;
@@ -492,16 +491,16 @@ pre code{
 	}
 	> .post-meta {
 		.serif();
-		color: @gray;
+		color: var(--color-text-secondary);
 		font-size: 16px;
 		font-style: italic;
 		margin-top: 0;
 		> a {
 			text-decoration: none;
-			color: @gray-dark;
+			color: var(--color-text);
 			&:hover,
 			&:focus {
-				color: @brand-primary;
+				color: var(--color-link-hover);
 				text-decoration: underline;
 			}
 		}
@@ -527,9 +526,9 @@ pre code{
 .post-content-preview{
     font-size: 13px;
     font-style: italic;
-    color:#a3a3a3;
+    color: var(--color-text-tertiary);
     &:hover{
-        color: @brand-primary;
+        color: var(--color-link-hover);
     }
     @media only screen and (min-width: 768px) {
         font-size:14px;
@@ -567,10 +566,10 @@ footer {
 		text-align: center;
 		margin-bottom: 0;
 		a{
-			color: @brand-primary;
+			color: var(--color-link);
 			&:hover,
 			&:focus {
-				color: @brand-primary;
+				color: var(--color-link-hover);
 			}
 		}
 	}
@@ -585,8 +584,8 @@ footer {
 	height: 2em;
 	font-size: 1.333em;
 	border-radius: 50%;
-	background-color: #333;
-	color: #fff;
+	background-color: var(--color-text);
+	color: var(--color-page);
 	vertical-align: middle;
 	svg {
 		width: 1em;
@@ -610,7 +609,7 @@ footer {
 	position: relative;
 	margin-bottom: 0;
 	padding-bottom: 0.5em;
-	border-bottom: 1px solid @gray-light;
+	border-bottom: 1px solid var(--color-border);
 	input,
 	textarea {
 		z-index: 1;
@@ -642,7 +641,7 @@ footer {
 	}
 	&::not(:first-child) {
 		padding-left: 14px;
-		border-left: 1px solid @gray-light;
+		border-left: 1px solid var(--color-border);
 	}
 }
 
@@ -655,12 +654,12 @@ footer {
 
 .floating-label-form-group-with-focus {
 	label {
-		color: @brand-primary;
+		color: var(--color-accent);
 	}
 }
 
 form .row:first-child .floating-label-form-group {
-	border-top: 1px solid @gray-light;
+	border-top: 1px solid var(--color-border);
 }
 
 // Button Styles
@@ -682,9 +681,9 @@ form .row:first-child .floating-label-form-group {
 .btn-default {
 	&:hover,
 	&:focus {
-		background-color: @brand-primary;
-		border: 1px solid @brand-primary;
-		color: white;
+		background-color: var(--color-accent);
+		border: 1px solid var(--color-accent);
+		color: var(--color-on-accent);
 	}
 }
 
@@ -702,7 +701,7 @@ form .row:first-child .floating-label-form-group {
 			font-weight: 700;
 			letter-spacing: 0.02em;
 			padding: 10px;
-			background-color: white;
+			background-color: var(--color-surface);
 			border-radius: 0;
 			@media only screen and (min-width: 768px) {
 				font-size: 14px;
@@ -711,17 +710,17 @@ form .row:first-child .floating-label-form-group {
 		}
 
 		> a {
-			color: @gray-dark;
+			color: var(--color-text);
 		}
 		> a:hover,
 		> a:focus {
-			color: white;
-			background-color: @brand-primary;
-			border: 1px solid @brand-primary;
+			color: var(--color-on-accent);
+			background-color: var(--color-accent);
+			border: 1px solid var(--color-accent);
 
 			// V1.6 display title
 			> span{
-				color: white;
+				color: var(--color-on-accent);
 			}
 		}
 	}
@@ -731,8 +730,9 @@ form .row:first-child .floating-label-form-group {
 		> a:hover,
 		> a:focus,
 		> span {
-			color: @gray;
-			background-color: @gray-dark;
+			color: var(--color-text-secondary);
+			background-color: var(--color-surface-subtle);
+			border-color: var(--color-border);
 			cursor: not-allowed;
 		}
 	}
@@ -741,15 +741,15 @@ form .row:first-child .floating-label-form-group {
 // -- Highlight Color Customization
 
 ::-moz-selection {
-	color: white;
+	color: var(--color-on-accent);
 	text-shadow: none;
-	background: @brand-primary;
+	background: var(--color-accent);
 }
 
 ::selection {
-	color: white;
+	color: var(--color-on-accent);
 	text-shadow: none;
-	background: @brand-primary;
+	background: var(--color-accent);
 }
 
 img::selection {
@@ -806,11 +806,11 @@ img::-moz-selection {
 		line-height: 28px;
 		margin: 0 2px;
 		margin-bottom: 8px;
-		background: lighten(@brand-primary, 52%);
-		color: @gray-dark;
+		background: var(--color-surface-subtle);
+		color: var(--color-text);
 		&:hover, &:active{
-			background-color: darken(@brand-primary, 8%) !important;
-			color: #ffffff !important;
+			background-color: var(--color-link-hover) !important;
+			color: var(--color-on-accent) !important;
 		}
 	}
 	@media only screen and (min-width: 768px) {
@@ -819,7 +819,7 @@ img::-moz-selection {
 }
 
 .listing-seperator{
-	color: @brand-primary;
+	color: var(--color-accent);
 	font-size: 21px !important;
 	display: inline-flex;
 	align-items: center;

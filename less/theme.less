@@ -37,6 +37,38 @@
   --color-code-border: #cccccc;
   --color-inline-code-bg: #f5f5f5;
   --color-inline-code-text: #c7254e;
+  --color-code-text: #333333;
+
+  --syntax-comment: #999988;
+  --syntax-comment-muted: #999999;
+  --syntax-error: #a61717;
+  --syntax-error-bg: #e3d2d2;
+  --syntax-keyword: inherit;
+  --syntax-type: #445588;
+  --syntax-string: #dd1144;
+  --syntax-string-regex: #009926;
+  --syntax-string-symbol: #990073;
+  --syntax-number: #009999;
+  --syntax-text: #333333;
+  --syntax-attribute: teal;
+  --syntax-builtin: #0086b3;
+  --syntax-entity: purple;
+  --syntax-title: #990000;
+  --syntax-namespace: #555555;
+  --syntax-tag: navy;
+  --syntax-deleted: #000000;
+  --syntax-deleted-bg: #ffdddd;
+  --syntax-deleted-strong-bg: #ffaaaa;
+  --syntax-inserted: #000000;
+  --syntax-inserted-bg: #ddffdd;
+  --syntax-inserted-strong-bg: #aaffaa;
+  --syntax-changed: #999999;
+  --syntax-changed-bg: #eaf2f5;
+  --syntax-traceback: #aa0000;
+  --syntax-output: #888888;
+  --syntax-prompt: #555555;
+  --syntax-subheading: #800080;
+  --syntax-space: #bbbbbb;
 
   /* Foldable cell/output dumps: cooler than code blocks so input vs output separates */
   --color-fold-bg: #f3f5f7;
@@ -540,7 +572,7 @@ samp {
 }
 
 pre {
-  color: var(--color-text);
+  color: var(--color-code-text);
   background-color: var(--color-code-bg);
 }
 
@@ -760,6 +792,38 @@ pre,
     --color-code-border: #4b535d;
     --color-inline-code-bg: #1c2024;
     --color-inline-code-text: #ff9db0;
+    --color-code-text: #e6edf3;
+
+    --syntax-comment: #8b949e;
+    --syntax-comment-muted: #8b949e;
+    --syntax-error: #ffa198;
+    --syntax-error-bg: #3d161b;
+    --syntax-keyword: #ff7b72;
+    --syntax-type: #d2a8ff;
+    --syntax-string: #a5d6ff;
+    --syntax-string-regex: #a5d6ff;
+    --syntax-string-symbol: #a5d6ff;
+    --syntax-number: #79c0ff;
+    --syntax-text: #e6edf3;
+    --syntax-attribute: #e6edf3;
+    --syntax-builtin: #e6edf3;
+    --syntax-entity: #e6edf3;
+    --syntax-title: #d2a8ff;
+    --syntax-namespace: #e6edf3;
+    --syntax-tag: #e6edf3;
+    --syntax-deleted: #ffdcd7;
+    --syntax-deleted-bg: #67060c;
+    --syntax-deleted-strong-bg: #8e1519;
+    --syntax-inserted: #aff5b4;
+    --syntax-inserted-bg: #033a16;
+    --syntax-inserted-strong-bg: #0f5323;
+    --syntax-changed: #c9d1d9;
+    --syntax-changed-bg: #21262d;
+    --syntax-traceback: #ffa198;
+    --syntax-output: #8b949e;
+    --syntax-prompt: #8b949e;
+    --syntax-subheading: #d2a8ff;
+    --syntax-space: #8b949e;
 
     --color-fold-bg: #1b2026;
     --color-fold-border: #4a5560;
@@ -784,82 +848,6 @@ pre,
     filter: invert(1) hue-rotate(180deg);
     box-shadow: none;
   }
-
-  .highlight pre,
-  pre,
-  .highlight .hll {
-    color: #e6edf3;
-    background-color: var(--color-code-bg);
-    border-color: var(--color-code-border);
-  }
-
-  .highlight .c,
-  .highlight .cm,
-  .highlight .c1,
-  .highlight .cs,
-  .highlight .cp,
-  .highlight .bp { color: #8b949e; }
-
-  .highlight .err { color: #ffa198; background-color: #3d161b; }
-  .highlight .gd { color: #ffdcd7; background-color: #67060c; }
-  .highlight .gd .x { color: #ffdcd7; background-color: #8e1519; }
-  .highlight .gi { color: #aff5b4; background-color: #033a16; }
-  .highlight .gi .x { color: #aff5b4; background-color: #0f5323; }
-  .highlight .gc { color: #c9d1d9; background-color: #21262d; }
-
-  .highlight .k,
-  .highlight .kc,
-  .highlight .kd,
-  .highlight .kn,
-  .highlight .kp,
-  .highlight .kr,
-  .highlight .kt { color: #ff7b72; }
-
-  .highlight .s,
-  .highlight .sb,
-  .highlight .sc,
-  .highlight .sd,
-  .highlight .s1,
-  .highlight .s2,
-  .highlight .se,
-  .highlight .sh,
-  .highlight .si,
-  .highlight .sr,
-  .highlight .sx,
-  .highlight .ss { color: #a5d6ff; }
-
-  .highlight .m,
-  .highlight .mf,
-  .highlight .mh,
-  .highlight .mi,
-  .highlight .mo,
-  .highlight .il { color: #79c0ff; }
-
-  .highlight .nf,
-  .highlight .nc,
-  .highlight .ne { color: #d2a8ff; }
-
-  .highlight .n,
-  .highlight .na,
-  .highlight .nb,
-  .highlight .no,
-  .highlight .ni,
-  .highlight .nn,
-  .highlight .nt,
-  .highlight .nv,
-  .highlight .vc,
-  .highlight .vg,
-  .highlight .vi { color: #e6edf3; }
-
-  .highlight .o,
-  .highlight .ow { color: #ff7b72; }
-  .highlight .gr,
-  .highlight .gt { color: #ffa198; }
-  .highlight .gh,
-  .highlight .go,
-  .highlight .gp,
-  .highlight .w { color: #8b949e; }
-  .highlight .gu { color: #d2a8ff; }
 
   pre::-webkit-scrollbar,
   .highlight pre::-webkit-scrollbar {
@@ -942,6 +930,37 @@ pre,
     --color-code-border: #cccccc;
     --color-inline-code-bg: #f6f8fa;
     --color-inline-code-text: #000000;
+    --color-code-text: #000000;
+    --syntax-comment: #444444;
+    --syntax-comment-muted: #444444;
+    --syntax-error: #000000;
+    --syntax-error-bg: #f6f8fa;
+    --syntax-keyword: #000000;
+    --syntax-type: #000000;
+    --syntax-string: #000000;
+    --syntax-string-regex: #000000;
+    --syntax-string-symbol: #000000;
+    --syntax-number: #000000;
+    --syntax-text: #000000;
+    --syntax-attribute: #000000;
+    --syntax-builtin: #000000;
+    --syntax-entity: #000000;
+    --syntax-title: #000000;
+    --syntax-namespace: #000000;
+    --syntax-tag: #000000;
+    --syntax-deleted: #000000;
+    --syntax-deleted-bg: #f6f8fa;
+    --syntax-deleted-strong-bg: #f6f8fa;
+    --syntax-inserted: #000000;
+    --syntax-inserted-bg: #f6f8fa;
+    --syntax-inserted-strong-bg: #f6f8fa;
+    --syntax-changed: #000000;
+    --syntax-changed-bg: #f6f8fa;
+    --syntax-traceback: #000000;
+    --syntax-output: #444444;
+    --syntax-prompt: #444444;
+    --syntax-subheading: #000000;
+    --syntax-space: #444444;
 
     --color-fold-bg: #f0f2f4;
     --color-fold-border: #bbbbbb;

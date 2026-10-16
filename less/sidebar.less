@@ -16,27 +16,27 @@
 
 // Container of Sidebar, also Friends
 .sidebar-container{
-    color: @gray-l;
+    color: var(--color-text-tertiary);
     font-size: 14px;
     h5{
-        color: @gray;
+        color: var(--color-text-secondary);
         padding-bottom: 1em;
         a{
-            color: @gray !important;
+            color: var(--color-text-secondary) !important;
             text-decoration: none;
         }
     }
     a{
-        color: @gray-l !important;
+        color: var(--color-text-tertiary) !important;
         &:hover, &:active{
-            color: @brand-primary !important;
+            color: var(--color-link-hover) !important;
         }
     }
     .tags{
         a{
-            border-color: @gray-l;
+            border-color: var(--color-border-strong);
             &:hover, &:active{
-                border-color: @brand-primary;
+                border-color: var(--color-accent);
             }
         }
     }
