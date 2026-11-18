@@ -1,0 +1,114 @@
+# Super-Fast In-Browser Face Mask Detection
+
+Open the web page, and you have it!
+
+> WearMask: a super-fast in-browser face mask detector that runs locally with NCNN and WebAssembly.
+
+- Canonical: https://www.zekun.blog/2020/11/27/mask-detection/
+- Published: 2020-11-27
+- Author: Zekun Wang
+- Tags: Deep Learning, Object Detection, Model Deployment, Project, NCNN, Python, C++, JavaScript, WebAssembly, Web Application, AI, Local-First, Computer Vision
+- Series: WearMask Series, part 1 of 5
+
+**[facemask-detection.com](https://facemask-detection.com/)** 👈👈
+
+This is **WearMask**, an open-source AI tool that **detects masks super fast**:
+- No installation or registration.
+- No need to buy expensive devices.
+- You don't even need a continuous internet connection.
+- Most importantly, it is completely **FREE**!
+
+Well, let's be serious. This is an AI model running in the browser that can recognize whether people are wearing masks and automatically remind them. The research paper was published in *Electronic Imaging* (2023): [WearMask: Fast in-browser face mask detection with serverless edge computing for COVID-19](https://doi.org/10.2352/EI.2023.35.11.HPCI-229). Source code: [browser deployment](https://github.com/waittim/facemask-detection) · [training pipeline](https://github.com/waittim/mask-detector).
+
+![mask-detection-machines.png](/img/posts/2020-11-27-mask-detection/mask-detection-machines.png)
+
+Think of those mask detection machines at the entrance of luxury stores; they can remind customers to wear masks. However, most small businesses and local shops cannot pay thousands of dollars to install them. Now, you only need a tablet or laptop, and you can have it! After loading, this model runs completely locally on your device, and no data will be uploaded to the server.
+
+<iframe width="700" height="393" src="https://www.youtube-nocookie.com/embed/Zx6cvJPsEoU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## How to use it?
+
+Now, you can use it on Android, iOS, Windows, macOS, and Linux systems. For the best experience and fastest speed, please use the Chrome browser on non-iOS systems.
+
+1. [Download](https://www.google.com/chrome/) and launch the latest version of the Chrome browser
+2. Enter *chrome://flags* in the address bar
+3. Enable all *WebAssembly* features
+4. Re-launch Chrome, open the [web page](https://facemask-detection.com/), and allow access to the camera.
+
+![webassemblysetting.png](/img/posts/2020-11-27-mask-detection/webassembly-setting.png)
+
+**Hint:** The FPS depends on your device's CPU.
+
+## Why is it so fast?
+
+This model is modified from [Yolo-Fastest](https://github.com/dog-qiuqiu/Yolo-Fastest) and is only 1.3M in size. It might be the fastest and lightest open-source improved version of a YOLO general object detection model. The YOLO series models we are familiar with, which are known for detection speed, are much larger than it, usually tens of megabytes in size. Even the smallest one, YOLOv5s, is 7.5M. Therefore, this model puts very little pressure on the device.
+
+
+| Model | Yolo-Fastest | [YOLOv3-tiny](https://github.com/ultralytics/yolov3/releases) | [YOLOv3-SPP](https://github.com/ultralytics/yolov3/releases) | [YOLOv5s](https://github.com/ultralytics/yolov5/releases) | [YOLOv5m](https://github.com/ultralytics/yolov5/releases) | [YOLOv5l](https://github.com/ultralytics/yolov5/releases) | [YOLOv5x](https://github.com/ultralytics/yolov5/releases) |
+| - | - | - | - | - | - | - | - |
+| **Size** | 1.3M | 8.9M | 63.0M | 7.5M | 21.8M | 47.8M | 89.0M |
+
+The deployment of this model is achieved through the [NCNN](https://github.com/Tencent/ncnn) framework and [WebAssembly](https://webassembly.org/). NCNN is a high-performance neural network inference computing framework optimized for mobile platforms. It has excellent performance on low-computing-power devices. WebAssembly compiles the C++ program into a binary format so that it can run at high speed in the browser.
+
+Because of this, even without a GPU, even if it runs in a browser, it can complete the detection with a high FPS, which exceeds most common mask detection tools.
+
+## What about privacy issues?
+
+Since this model runs entirely in the browser, it does not upload and does not need to upload any data, such as video content, to the server. All detection processes are completed locally. After loading, the user can even cut off the Internet connection.
+
+All video content will only be processed in real time and will not be stored in any form.
+
+Therefore, there is no need to worry about privacy leaks or other related issues. This also means that the user does not need to set up Wi-Fi for the place where the device is placed or worry about extra data charges caused by detection. At the same time, the tool will not occupy the storage space of the device.
+
+## What's more?
+
+The UI supports **10 languages**: English, Chinese, Spanish, French, German, Japanese, Portuguese, Korean, Italian, and Russian. On iOS, only Safari supports WebAssembly well enough for this use case, and acceleration features such as SIMD may still be limited, so the speed will often be slower than on other platforms.
+
+All in all, it is a free alternative to expensive mask detection machines. You can buy a tablet for $60 and a floor stand for $20 to get similar functions. After this pandemic, these devices can also be used for other purposes.
+
+![price-eg.jpg](/img/posts/2020-11-27-mask-detection/price-eg.jpg)
+
+In such difficult times, I hope this AI can help small businesses that are struggling to persist, so that they can obtain protection similar to luxury shops at a small cost. As long as this tool can protect one more person from COVID-19, it will be enough.
+
+WearMask is maintained as an open research and demonstration system. If you have any suggestions or are willing to contribute, please open an issue on [GitHub](https://github.com/waittim/facemask-detection) or contact me.
+
+Thank you very much!
+
+<br /><br /><br /><br /><br />
+
+-------
+
+## Release information
+**2026.07.23 - 4.0.0**: Telemetry dashboard, light/dark theme, performance mode, and expanded UI to 10 languages.
+
+**2025.11.20 - 3.0.0**: New UI design and restructured repo.
+
+**2021.01.06 - 2.0.4**: Added feedback function.
+
+**2020.12.13 - 2.0.0**: Deployed a new model. It can recognize faces that are not wearing a mask properly (not completely covering nose and mouth). Improved the recognition of faces covered by a mobile phone.
+
+**2020.12.01 - 1.1.0**: Added support for iOS system. Now it can automatically recognize whether the browser supports advanced computing functions and apply them.
+
+**2020.11.30 - 1.0.3**: Added Spanish and Chinese versions.
+
+**2020.11.28 - 1.0.2**: The domain name was changed to facemask-detection.com, making it easier for users to remember.
+
+**2020.11.26 - 1.0.1**: The website is officially established.
+
+
+## WearMask Series
+
+- Intro (this page)
+- [Project Details](https://www.zekun.blog/2020/12/01/mask-detection-report/index.md)
+- [Paper](https://www.zekun.blog/2023/01/01/paper-wearmask-fast-in-browser/index.md)
+- [Build NCNN](https://www.zekun.blog/2020/11/10/build-ncnn/index.md)
+- [Build NCNN WASM](https://www.zekun.blog/2020/11/15/build-ncnn-wasm/index.md)
+
+## Related
+
+- [Slides Thief 2.0: From Rectangle Heuristics to Evidence-Aware Review](https://www.zekun.blog/2026/08/01/slides-thief-2-detection/index.md): How Slides Thief 2.0 combines multiple detectors, candidate scoring, local refinement, and batch geometry for more reliable browser-local correction.
+- [Slides Thief - Turn Photographed Presentation Slides into Clean PDFs](https://www.zekun.blog/2026/07/13/slides-thief/index.md): Slides Thief is a browser-based tool that turns photographed presentation slides into perspective-corrected images and clean PDFs, with all processing performed locally.
+- [Characterizing browser-based medical imaging AI with serverless edge computing: towards addressing clinical data security constraints](https://www.zekun.blog/2023/04/10/paper-browser-based-medical-imaging-ai/index.md): Paper summary: characterizing browser-based medical imaging AI with serverless edge computing under clinical data constraints.
+
+Older: [Tutorial for Compiling NCNN with WASM](https://www.zekun.blog/2020/11/15/build-ncnn-wasm/index.md)
+Newer: [WearMask - Face Mask Detection Project Details](https://www.zekun.blog/2020/12/01/mask-detection-report/index.md)

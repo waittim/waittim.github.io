@@ -1,30 +1,78 @@
-链接以 `_config.yml` 为准。
+# Zekun Blog
 
-# Zekun Wang
+> Building and evaluating AI-powered products, agent systems, and local-first developer tools. Projects and opinions published here are independent of Zekun Wang’s work at Indeed.
 
-Zekun Wang builds AI agents, evaluation systems, browser-based AI, and local-first developer tools.
+Each link below is the Markdown version of a page. The human page is the same path without `index.md`. `/search.json` is a lookup index of titles, descriptions, tags, dates, and the first 400 words.
 
-This is Zekun Wang’s personal blog. Unless explicitly stated otherwise, the projects and opinions published here are independent of his work at Indeed.
+- Author: Zekun Wang
+- Language: en
+- Site: https://www.zekun.blog/
+- Search: https://www.zekun.blog/search/?q={query}
+- Current topics: Agent, AI, Local-First, Computer Vision, Web Application
 
-## Main topics
+## Pages
 
-- AI agents and coding agents
-- LLM evaluation
-- Agent memory
-- Browser-based AI
-- Local-first software
-- Developer tools
+- [Home](https://www.zekun.blog/index.md): Every post, newest first
+- [About](https://www.zekun.blog/about/index.md): Zekun Wang’s personal blog about independent AI projects, agent systems, evaluation, browser-based AI, and local-first software.
+- [Tags](https://www.zekun.blog/tags/index.md): Browse writing by topic, from AI agent systems and local-first tools to browser-based AI and computer vision.
+- [Search](https://www.zekun.blog/search/index.md): Search posts by title, tags, and content.
 
-## Selected work
+## Slides Thief Series
 
-- MemoryCustodian overview: https://www.zekun.blog/2026/07/01/memory-custodian/
-- Why project memory should be plain text and repo-native: https://www.zekun.blog/2026/07/20/memory-custodian-tech-design/
-- Designing memory that can safely forget: https://www.zekun.blog/2026/07/21/memory-custodian-safe/
-- Slides Thief: https://www.zekun.blog/2026/07/13/slides-thief/
-- Browser-based medical imaging AI: https://www.zekun.blog/2023/04/10/paper-browser-based-medical-imaging-ai/
+- [Slides Thief - Turn Photographed Presentation Slides into Clean PDFs](https://www.zekun.blog/2026/07/13/slides-thief/index.md): 2026-07-13, updated 2026-07-22. Slides Thief is a browser-based tool that turns photographed presentation slides into perspective-corrected images and clean PDFs, with all processing performed locally.
+- [Slides Thief 2.0: From Rectangle Heuristics to Evidence-Aware Review](https://www.zekun.blog/2026/08/01/slides-thief-2-detection/index.md): 2026-08-01. How Slides Thief 2.0 combines multiple detectors, candidate scoring, local refinement, and batch geometry for more reliable browser-local correction.
+- [Designing the Review Loop in Slides Thief](https://www.zekun.blog/2026/10/15/slides-thief-review-loop/index.md): 2026-10-15. How Slides Thief 3.0 turns uncertain detections into an actionable review queue with explicit reasons, export boundaries, recoverable state, and batch geometry reuse.
 
-## About
+## MemoryCustodian Design Series
 
-- https://www.zekun.blog/about/
-- GitHub: https://github.com/waittim
-- LinkedIn: https://www.linkedin.com/in/zekun-wang/
+- [MemoryCustodian: Durable Project Memory for Coding Agents](https://www.zekun.blog/2026/07/01/memory-custodian/index.md): 2026-07-01, updated 2026-07-23. MemoryCustodian gives coding agents durable, reviewable project memory using repo-native Markdown, Git history, and task-specific context routing.
+- [Why Project Memory Should Be Plain Text and Repo-Native](https://www.zekun.blog/2026/07/20/memory-custodian-tech-design/index.md): 2026-07-20, updated 2026-07-23. Why durable coding-agent memory should use repo-native Markdown, Git review, manifest routing, and semantic entry boundaries.
+- [Designing Memory That Can Safely Forget](https://www.zekun.blog/2026/07/21/memory-custodian-safe/index.md): 2026-07-21, updated 2026-07-29. A design for bounded agent-memory forgetting using explicit modes, dry-run previews, semantic entries, and validated multi-file plans.
+- [What Should a Coding Agent Be Allowed to Remember?](https://www.zekun.blog/2026/08/26/memory-custodian-remember/index.md): 2026-08-26. Why coding-agent memory should earn authority through admission, identity, routing, mutation safety, and bounded erasure—not mere persistence.
+- [A Memory System Should Explain What It Did Not Load](https://www.zekun.blog/2026/09/15/memory-custodian-explainable-routing/index.md): 2026-09-15. Why selective agent-memory routing needs inspectable module dispositions, completeness diagnostics, strict gates, and explicit omission—not hidden retrieval guesses.
+- [A Memory System Should Survive an Interrupted Write](https://www.zekun.blog/2026/10/01/memory-custodian-crash-recovery/index.md): 2026-10-01. Why multi-file agent-memory mutations require repo-external transaction journaling, conditional rollback, audit blockers, and staged protocol migration.
+
+## WearMask Series
+
+- [Super-Fast In-Browser Face Mask Detection](https://www.zekun.blog/2020/11/27/mask-detection/index.md): 2020-11-27. WearMask: a super-fast in-browser face mask detector that runs locally with NCNN and WebAssembly.
+- [WearMask - Face Mask Detection Project Details](https://www.zekun.blog/2020/12/01/mask-detection-report/index.md): 2020-12-01. Project details behind WearMask, a low-cost local face mask detection setup for small businesses and public spaces.
+- [WearMask: Fast in-browser face mask detection with serverless edge computing for COVID-19](https://www.zekun.blog/2023/01/01/paper-wearmask-fast-in-browser/index.md): 2023-01-01. Paper summary: WearMask brings fast in-browser face mask detection with serverless edge computing for COVID-19.
+- [Tutorial for Compiling the NCNN Library](https://www.zekun.blog/2020/11/10/build-ncnn/index.md): 2020-11-10. Step-by-step notes on compiling the NCNN library as the first stage of on-device model deployment.
+- [Tutorial for Compiling NCNN with WASM](https://www.zekun.blog/2020/11/15/build-ncnn-wasm/index.md): 2020-11-15. Compile NCNN to WebAssembly so deep learning inference can run directly in the browser.
+
+## Probability and Statistical Inference
+
+- [Roulette Simulation](https://www.zekun.blog/2019/08/26/roulette-simulation/index.md): 2019-08-26. Simulate American-roulette betting with a martingale staking rule in R, and explore how budget, win targets, and table limits shape outcomes.
+- [What’s the difference between Absolute Error and Relative Error?](https://www.zekun.blog/2019/09/06/absolute-relative-error/index.md): 2019-09-06. Compare absolute and relative error with simulations, and see when each metric better reflects estimation quality.
+- [How often does the better team win the World Series?](https://www.zekun.blog/2019/09/09/world-series/index.md): 2019-09-09. Use probability simulation to ask how often the stronger team actually wins a best-of-seven World Series.
+- [If home-field advantage exists, how much of an impact does it have on winning the World Series?](https://www.zekun.blog/2019/09/12/home-advantage/index.md): 2019-09-12. Estimate how much home-field advantage can shift World Series win probability under different team strengths and schedules.
+- [Which quantiles of a continuous distribution can one estimate with more precision?](https://www.zekun.blog/2019/09/18/quantile-precision/index.md): 2019-09-18. Investigate which quantiles of a continuous distribution can be estimated more precisely from finite samples.
+- [Coverage Probability of MLE](https://www.zekun.blog/2019/10/15/coverage-probability/index.md): 2019-10-15. Examine the coverage probability of maximum-likelihood confidence intervals through simulation.
+- [Simulation Method Comparison](https://www.zekun.blog/2019/10/27/simulation-compare/index.md): 2019-10-27. Compare simulation-based estimation approaches including method of moments, KDE, and bootstrap.
+- [Central Limit Theorem - Approximation](https://www.zekun.blog/2019/11/12/clt/index.md): 2019-11-12. Visualize how the Central Limit Theorem approximates sampling distributions as sample size grows.
+- [Power and Sample Size Calculations for Correlational Studies](https://www.zekun.blog/2019/11/22/power-correlation/index.md): 2019-11-22. Walk through power and sample-size calculations for correlational studies with simulation checks.
+
+## Writing
+
+- [Social inequality and cultural factors impact the awareness and reaction during the cryptic transmission period of the pandemic](https://www.zekun.blog/2025/02/01/paper-social-inequality-pandemic/index.md): 2025-02-01. Paper note on how social inequality and cultural factors shaped awareness and reaction during cryptic pandemic transmission.
+- [Characterizing browser-based medical imaging AI with serverless edge computing: towards addressing clinical data security constraints](https://www.zekun.blog/2023/04/10/paper-browser-based-medical-imaging-ai/index.md): 2023-04-10. Paper summary: characterizing browser-based medical imaging AI with serverless edge computing under clinical data constraints.
+- [K-Means-Based Anomalous Email Detection in PySpark](https://www.zekun.blog/2021/05/05/kmeans-anomaly-detection/index.md): 2021-05-05. Detect anomalous emails with MinHash and K-Means in PySpark, demonstrated in a Colab-friendly workflow.
+- [Darknet to Keras - Model Transformation](https://www.zekun.blog/2020/10/25/darknet2keras/index.md): 2020-10-25. Convert Darknet models to Keras/TensorFlow 2.0 for easier training and deployment workflows.
+- [How to Get Information from an IP Address?](https://www.zekun.blog/2020/07/20/get-ip-info/index.md): 2020-07-20. A short tutorial on looking up IP geolocation with MaxMind GeoLite2 and the Python geoip2 library.
+- [COVID-19 Data Exploration (WIP)](https://www.zekun.blog/2020/03/19/COVID-19-EDA/index.md): 2020-03-19. Early exploratory analysis and visualization of COVID-19 data while the pandemic was still unfolding.
+- [LAPOP Data Dashboard](https://www.zekun.blog/2020/02/19/LAPOP-dashboard/index.md): 2020-02-19. A Shiny dashboard prototype for exploring LAPOP survey data with interactive filters and charts.
+- [Cashbox Magazine Song Chart Analysis](https://www.zekun.blog/2020/02/15/song-analysis/index.md): 2020-02-15. An end-to-end data analysis pipeline using Cashbox Magazine song chart history, from cleaning to visualization.
+- [Think Strategically and Get Jobs - H1B Visa Analysis](https://www.zekun.blog/2019/12/12/h1b-analysis/index.md): 2019-12-12. Analyze H-1B petition data to help international data science students strategize their U.S. job search.
+- [As data scientists, what should we do?](https://www.zekun.blog/2019/12/11/ds-applications/index.md): 2019-12-11. A talk-oriented look at what data scientists do across a product launch, from framing to decision support.
+- [What makes a trending video?](https://www.zekun.blog/2019/10/29/trending-video/index.md): 2019-10-29. Explore patterns in trending YouTube videos and the features associated with rising popularity.
+- [Visualization Cheat Sheet](https://www.zekun.blog/2019/09/13/visualization-cheatsheet/index.md): 2019-09-13. A compact cheat sheet for choosing charts and visual encodings when exploring and presenting data.
+
+## Optional
+
+- [RSS](https://www.zekun.blog/feed.xml): Summaries of the 20 newest posts
+- [GitHub](https://github.com/waittim)
+- [LinkedIn](https://www.linkedin.com/in/zekun-wang/)
+- [MemoryCustodian](https://github.com/waittim/MemoryCustodian)
+- [Slides Thief](https://slidesthief.com/)
+- [Search index](https://www.zekun.blog/search.json): First 400 words of each post, plus canonical and Markdown URLs
+- [Sitemap](https://www.zekun.blog/sitemap.xml): HTML URLs for search engines

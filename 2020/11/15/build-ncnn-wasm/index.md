@@ -1,0 +1,240 @@
+# Tutorial for Compiling NCNN with WASM
+
+The second step to deploying a deep learning model in the browser
+
+> Compile NCNN to WebAssembly so deep learning inference can run directly in the browser.
+
+- Canonical: https://www.zekun.blog/2020/11/15/build-ncnn-wasm/
+- Published: 2020-11-15
+- Author: Zekun Wang
+- Tags: NCNN, Deep Learning, Model Deployment, Tutorial, C++, WebAssembly, AI
+- Series: WearMask Series, part 5 of 5
+
+> **Environment snapshot (Nov 2020).** This tutorial was written and tested against **Ubuntu 18.04**, with dependency versions from that time (notably **Node.js v14.15.1**). Commands and toolchain versions may not work unchanged on current Ubuntu, newer Node, emsdk, or NCNN releases. Prefer the official [ncnn](https://github.com/Tencent/ncnn) and [emsdk](https://github.com/emscripten-core/emsdk) docs when setting up a new environment; keep this post as a historical, project-specific walkthrough.
+
+The content of this tutorial is an extension of the [Tutorial for compiling NCNN library](/2020/11/10/build-ncnn/).
+
+After we successfully compile the NCNN library normally, we can use its tools to convert our models into NCNN-format models (`*.param` and `*.bin`). This model can be used for various mobile deployments.
+
+But when we need to deploy the model on a web page, we need to compile the model and the C++ program that calls it into WebAssembly format. Before compiling the program, we must first compile the NCNN library into WebAssembly form.
+
+This article covers the specific steps for compiling the NCNN library into WebAssembly. The following steps have been tested on **Ubuntu 18.04**.
+
+## Install Node.js
+
+Before starting, we need to install the latest version of Node.js as a dependency in the environment. You can find the installation tutorial on its official [GitHub](https://github.com/nodejs/help/wiki/Installation). I chose its recommended installation location.
+
+```bash
+VERSION=v14.15.1
+DISTRO=linux-x64
+sudo mkdir -p /usr/local/lib/nodejs
+sudo tar -xJvf node-$VERSION-$DISTRO.tar.xz -C /usr/local/lib/nodejs
+```
+
+This step extracts the Node.js package to the recommended location. Next, open `~/.profile` in the terminal, and paste the content below at the end of the file.
+
+```bash
+# Nodejs
+VERSION=v14.15.1
+DISTRO=linux-x64
+export PATH=/usr/local/lib/nodejs/node-$VERSION-$DISTRO/bin:$PATH
+```
+
+Run `. ~/.profile` in the terminal to refresh the profile.
+
+
+After the installation is complete, you can run `node -v` in the terminal to check whether the installation was successful.
+
+## Build NCNN with WASM
+
+First, let's clone the NCNN repository. This folder should be **different** from the one we used before (in the previous article), because they have different purposes.
+
+```bash
+git clone https://github.com/Tencent/ncnn.git
+cd ncnn
+```
+
+Then clone the key library **emsdk** for compiling WASM.
+
+```bash
+git clone https://github.com/emscripten-core/emsdk.git
+cd emsdk
+```
+
+Install and activate it.
+
+```bash
+./emsdk install latest
+./emsdk activate latest
+```
+
+Then, return to the parent folder (the root of ncnn) and source emsdk.
+
+```bash
+cd ..
+source emsdk/emsdk_env.sh
+```
+
+Look at the terminal output here. You will find that the currently used Node.js is a built-in library in emsdk, and its version is old. Therefore, we need to re-add the latest version of Node.js that we installed before to the path.
+
+```bash
+export PATH=/usr/local/lib/nodejs/node-v14.15.1-linux-x64/bin:$PATH
+```
+
+You can run `node -v` to check the version again.
+
+Next, prepare to compile the NCNN library.
+
+```bash
+mkdir build && cd build
+```
+
+If you are compiling for a browser that supports experimental WebAssembly features such as SIMD and SSE2, please use the following code.
+
+```bash
+cmake \
+  -DCMAKE_TOOLCHAIN_FILE=../emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake \
+  -DNCNN_SIMPLEOMP=ON \
+  -DNCNN_BUILD_TESTS=ON \
+  ..
+```
+
+If you are compiling for browsers such as Safari on iOS without SIMD or SSE2, replace it with the following code.
+
+```bash
+cmake \
+  -DCMAKE_TOOLCHAIN_FILE=../emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake \
+  -DNCNN_OPENMP=OFF \
+  -DNCNN_SIMPLEOMP=OFF \
+  -DNCNN_RUNTIME_CPU=OFF \
+  -DNCNN_SSE2=OFF \
+  -DNCNN_AVX2=OFF \
+  -DNCNN_BUILD_TESTS=ON \
+  ..
+```
+
+Then run make.
+
+```bash
+make
+```
+
+After make finishes, use the built-in NCNN test cases to check whether the compilation was successful.
+
+With SIMD SSE2:
+
+```bash
+TESTS_EXECUTABLE_LOADER=node \
+TESTS_EXECUTABLE_LOADER_ARGUMENTS="--experimental-wasm-simd;--experimental-wasm-threads;--experimental-wasm-bulk-memory" \
+ctest --output-on-failure -j 2
+```
+
+Without SIMD SSE2:
+
+```bash
+TESTS_EXECUTABLE_LOADER=node ctest --output-on-failure -j 2
+```
+
+If all the tests pass, generate the install files.
+
+```bash
+make install
+```
+
+So far, NCNN with WebAssembly has been compiled, and the next step is to introduce its usage.
+
+## Compile C++ code
+
+First, we need to write a C++ program that calls the NCNN model. The relevant files I wrote have been uploaded to the facemask-detection repository, and I will compile the program based on those files.
+
+Clone it to the specified folder.
+
+```bash
+cd ~/Documents 
+git clone https://github.com/waittim/facemask-detection.git
+cd facemask-detection
+```
+
+Note that if you are compiling a version without SIMD and SSE2, please delete the following content from [CMakeLists.txt](https://github.com/waittim/facemask-detection/blob/master/CMakeLists.txt).
+
+```bash
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fopenmp -s USE_PTHREADS=1 -s PTHREAD_POOL_SIZE=15") 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fopenmp -s USE_PTHREADS=1 -s PTHREAD_POOL_SIZE=15") 
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fopenmp -s USE_PTHREADS=1 -s PTHREAD_POOL_SIZE=15")
+```
+
+And change `target_link_libraries(yolo ncnn pthread)` to `target_link_libraries(yolo ncnn)`.
+
+
+Next, create an empty folder named ncnn in it, and copy the two files under `build/install/` in the ncnn root folder to this ncnn folder.
+
+```bash
+mkdir ncnn
+```
+
+Copy the emsdk folder under the ncnn root folder and paste it into the root folder of facemask-detection.
+
+At this time, I recommend using `node -v` to ensure that the Node.js version is correct.
+
+Finally, use emsdk to compile.
+
+```bash
+emcmake cmake
+emmake make
+```
+
+After compiling, you can get `yolo.js`, `yolo.wasm`,
+and `yolo.worker.js`. These are the files needed to call WASM-format functions in the JavaScript environment.
+
+------
+
+The complete CMakeLists.txt content is as follows:
+
+```bash
+project(facemask-detection)
+
+cmake_minimum_required(VERSION 3.10)
+
+set(CMAKE_BUILD_TYPE release)
+
+set(ncnn_DIR "${CMAKE_CURRENT_SOURCE_DIR}/ncnn/lib/cmake/ncnn")
+find_package(ncnn REQUIRED)
+
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -s FORCE_FILESYSTEM=1 -s INITIAL_MEMORY=256MB -s EXIT_RUNTIME=1")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s FORCE_FILESYSTEM=1 -s INITIAL_MEMORY=256MB -s EXIT_RUNTIME=1")
+set(CMAKE_EXECUTABLE_LINKER_FLAGS "${CMAKE_EXECUTABLE_LINKER_FLAGS} -s FORCE_FILESYSTEM=1 -s INITIAL_MEMORY=256MB -s EXIT_RUNTIME=1")
+
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fopenmp -s USE_PTHREADS=1 -s PTHREAD_POOL_SIZE=15")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fopenmp -s USE_PTHREADS=1 -s PTHREAD_POOL_SIZE=15")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fopenmp -s USE_PTHREADS=1 -s PTHREAD_POOL_SIZE=15")
+
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -sEXPORTED_FUNCTIONS=['_yolo_ncnn'] --preload-file ${CMAKE_CURRENT_SOURCE_DIR}/assets@.")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -sEXPORTED_FUNCTIONS=['_yolo_ncnn'] --preload-file ${CMAKE_CURRENT_SOURCE_DIR}/assets@.")
+set(CMAKE_EXECUTABLE_LINKER_FLAGS "${CMAKE_EXECUTABLE_LINKER_FLAGS} -sEXPORTED_FUNCTIONS=['_yolo_ncnn'] --preload-file ${CMAKE_CURRENT_SOURCE_DIR}/assets@.")
+
+
+add_executable(yolo yolo.cpp)
+target_link_libraries(yolo ncnn pthread)
+```
+
+
+--- 
+*Note: Thanks to NCNN creator nihui for her help in this process.*
+
+
+## WearMask Series
+
+- [Intro](https://www.zekun.blog/2020/11/27/mask-detection/index.md)
+- [Project Details](https://www.zekun.blog/2020/12/01/mask-detection-report/index.md)
+- [Paper](https://www.zekun.blog/2023/01/01/paper-wearmask-fast-in-browser/index.md)
+- [Build NCNN](https://www.zekun.blog/2020/11/10/build-ncnn/index.md)
+- Build NCNN WASM (this page)
+
+## Related
+
+- [Darknet to Keras - Model Transformation](https://www.zekun.blog/2020/10/25/darknet2keras/index.md): Convert Darknet models to Keras/TensorFlow 2.0 for easier training and deployment workflows.
+- [A Memory System Should Survive an Interrupted Write](https://www.zekun.blog/2026/10/01/memory-custodian-crash-recovery/index.md): Why multi-file agent-memory mutations require repo-external transaction journaling, conditional rollback, audit blockers, and staged protocol migration.
+- [A Memory System Should Explain What It Did Not Load](https://www.zekun.blog/2026/09/15/memory-custodian-explainable-routing/index.md): Why selective agent-memory routing needs inspectable module dispositions, completeness diagnostics, strict gates, and explicit omission—not hidden retrieval guesses.
+
+Older: [Tutorial for Compiling the NCNN Library](https://www.zekun.blog/2020/11/10/build-ncnn/index.md)
+Newer: [Super-Fast In-Browser Face Mask Detection](https://www.zekun.blog/2020/11/27/mask-detection/index.md)

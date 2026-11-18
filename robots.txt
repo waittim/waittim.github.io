@@ -1,14 +1,38 @@
+# Search indexes and on-demand fetches may read the site.
+# Model-training crawls may not. A named group does not inherit User-agent: *.
+# Longer tokens are listed before shorter prefixes so the specific rule wins.
+
 User-agent: *
 Allow: /
 
-User-agent: OAI-SearchBot
-Allow: /
-
-User-agent: ChatGPT-User
-Allow: /
-
-# ChatGPT Search is allowed; model-training crawl is not.
 User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: anthropic-ai
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: CCBot
+User-agent: Bytespider
+User-agent: Meta-ExternalAgent
+User-agent: cohere-ai
 Disallow: /
+
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: DuckAssistBot
+User-agent: Meta-ExternalFetcher
+User-agent: Amazonbot
+Allow: /
+
+# Web search should index the HTML pages. Markdown twins are for agents.
+User-agent: Googlebot
+User-agent: Bingbot
+User-agent: Applebot
+User-agent: DuckDuckBot
+Allow: /
+Disallow: /*.md
 
 Sitemap: https://www.zekun.blog/sitemap.xml

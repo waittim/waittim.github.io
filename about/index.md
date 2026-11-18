@@ -1,0 +1,40 @@
+# About
+
+> Zekun Wang’s personal blog about independent AI projects, agent systems, evaluation, browser-based AI, and local-first software.
+
+Canonical: https://www.zekun.blog/about/
+
+<div class="post-container about-page">
+    <p>I’m <strong>Zekun Wang (王泽坤)</strong>, a machine learning engineer and independent builder focused on AI agent systems, LLM evaluation, product engineering, and local-first software.</p>
+
+    <p>I work on AI and machine learning products at Indeed, with a recent focus on agent-powered experiences and evaluation systems. References to my professional work on this site are intentionally high-level and limited to public or non-confidential information.</p>
+
+    <p><strong>This is my personal website.</strong> The projects, experiments, and opinions published here are my own, created independently outside my role at Indeed. They do not represent the views of Indeed and should not be interpreted as Indeed products, research, or endorsements.</p>
+
+    <h2>Independent projects</h2>
+
+    <p>Outside of work, I build practical software that explores how AI systems can become more understandable, reviewable, and useful.</p>
+
+    <p><a href="https://github.com/waittim/MemoryCustodian"><strong>MemoryCustodian</strong></a> is a repo-native memory protocol and CLI for coding agents. It stores durable project decisions and constraints as reviewable Markdown, then loads only the context relevant to the current task.</p>
+
+    <p><a href="/2026/07/13/slides-thief/"><strong>Slides Thief</strong></a> is a browser-based tool that turns photographed presentation slides into perspective-corrected images and clean PDFs, with processing performed locally on the device.</p>
+
+    <p>My other independent projects include consumer apps, browser-based AI tools, and experiments in lightweight, privacy-conscious software. Earlier work such as <a href="/2020/11/27/mask-detection/"><strong>WearMask</strong></a>, an in-browser face mask detector that runs locally on the device, sits in the same local-first lineage as Slides Thief.</p>
+
+    <h2>Writing</h2>
+
+    <p>This blog documents the design decisions, tradeoffs, failures, and lessons behind my independent projects. Recent topics include coding-agent memory, LLM evaluation, local-first architecture, browser-based AI, and the design of AI systems that can be inspected and improved.</p>
+
+    <p>Older articles cover data science, machine learning, statistical analysis, computer vision, and research projects from earlier stages of my career. I keep them here as a record of how my technical interests have evolved.</p>
+
+    <h2>Research and engineering</h2>
+
+    <p>My background spans machine learning, data science, medical imaging AI, and browser-deployed computer vision. Selected work includes research on <a href="/2023/04/10/paper-browser-based-medical-imaging-ai/">browser-based imaging AI</a>, <a href="/2023/01/01/paper-wearmask-fast-in-browser/">fast in-browser mask detection</a>, and the <a href="/2026/07/01/memory-custodian/">MemoryCustodian design series</a>.</p>
+
+    <h2>Elsewhere</h2>
+
+    <p>Find me via <a target="_blank" rel="noopener noreferrer" href="https://github.com/waittim">GitHub</a>, <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/zekun-wang/">LinkedIn</a>, <a href="mailto:zekun.wang.us@gmail.com">zekun.wang.us@gmail.com</a>.</p>
+
+
+    <blockquote><p>Do something for the world.</p></blockquote>
+</div>
